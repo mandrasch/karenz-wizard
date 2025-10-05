@@ -14,6 +14,7 @@ jobs:
             # (GitHub Pages => deploys to subdirectory <user>.github.io/<repo>/)
 
             # TODO: re-add later (remove `npm ci` from ftp step)
+            # TODO: check https://svelte.dev/docs/kit/adapter-static#GitHub-Pages for latest info
             #   - name: Install and Build for Github Pages 🔧
             #     run: |
             #       npm ci
