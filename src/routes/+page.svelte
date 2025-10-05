@@ -2,7 +2,7 @@
 	const cards = [
 		{
 			title: 'Habe ich und meine/e Partner/in Anspruch?',
-			subtitle: 'Prüfen Sie Voraussetzungen.',
+			subtitle: 'Prüft eure Voraussetzungen.',
 			description: [
 				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 			],
@@ -11,7 +11,7 @@
 		},
 		{
 			title: 'ea KBG Karenz-Planer',
-			subtitle: 'Planen Sie Ihren Karenzverlauf Schritt für Schritt.',
+			subtitle: 'Plant euren Karenzverlauf Schritt für Schritt.',
 			description: [
 				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 			],
@@ -24,7 +24,7 @@
 			description: [
 				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 			],
-			href: '/eakbg-anspruch',
+			href: '/buecher-broschueren',
 			cta: 'Ressourcen entdecken'
 		}
 	];
@@ -48,7 +48,7 @@
 				<!-- shorter than before -->
 				<img
 					src="/hero.png"
-					alt="Illustration zum Thema Karenzplanung"
+					alt="g"
 					class="h-full max-h-full w-auto max-w-full rounded-2xl border border-white/40 object-contain"
 				/>
 			</div>
@@ -56,23 +56,23 @@
 
 		<!-- TEXT -->
 		<div class="mx-auto max-w-3xl space-y-5 text-white/90">
-			<h1 class="text-center text-3xl leading-snug font-bold text-white sm:text-4xl lg:text-5xl">
+			<h1 class="text-center text-3xl leading-snug font-bold text-white sm:text-4xl lg:text-3xl">
 				Euch brummt der Kopf von der Karenzplanung?
 			</h1>
 
 			<p class="text-sm leading-relaxed sm:text-base">
 				Die Karenzplanung ist eine riesige Herausforderung: Warum hat man ein Recht auf zwei Jahre
 				Karenz (Freistellung) auf Arbeit, aber es werden nur 14 Monate beim einkommensabhängigen
-				Betreuungsgeld (ea KBG) bezahlt?
+				Betreuungsgeld (ea KBG) bezahlt? Ebenso herausfordernd ist die Frage der Kinderbetreuung
+				nach der Karenz:
 			</p>
 
 			{#if expanded}
 				<div id={ctrlId} class="space-y-5">
 					<p class="text-sm leading-relaxed sm:text-base">
-						Ebenso herausfordernd ist die Frage der Kinderbetreuung nach der Karenz: Wann ist unser
-						Kind bereit in eine Kindergarten-Gruppe zu gehen, wie viele Stunde sind anfangs gut?
-						Wollen wir es schon mit 14 Monaten fremdbetreuen lassen? Oder doch erst zu einer
-						Tagesmutter, den Großeltern - oder beide Elternteile arbeiten 20h/Woche in
+						Wann ist unser Kind bereit in eine Kindergarten-Gruppe zu gehen, wie viele Stunde sind
+						anfangs gut? Wollen wir es schon mit 14 Monaten fremdbetreuen lassen? Oder doch erst zu
+						einer Tagesmutter, den Großeltern - oder beide Elternteile arbeiten 20h/Woche in
 						Eltern-Teilzeit und teilen den Tag auf? <br /><br />Oder bleibt einer von uns doch
 						länger in Karenz? Wie organisiert man eine längere, unbezahlte Karenz nach 14 Monaten ea
 						KBG überhaupt? Können wir uns das leisten? Und wie schaut es hier mit der
@@ -87,7 +87,9 @@
 
 					<p class="text-sm leading-relaxed sm:text-base">
 						Diese private Webseite soll eine kleine Hilfestellung geben. Als Neu-Eltern standen wir
-						vor kurzem selber erst vor diesem Berg an Fragen.
+						vor kurzem selber erst vor diesem Berg an Fragen. Die gute Nachricht: Hat man erstmal
+						einen groben Überblick über alle Begriffe und ob man die Ansprüche erfüllt, ist es
+						eigentlich eh halbwegs easy. Alles Gute für euer Abenteuer!
 					</p>
 				</div>
 			{/if}

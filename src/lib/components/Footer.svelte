@@ -7,7 +7,7 @@
 			<section class="space-y-3" aria-labelledby="footer-about">
 				<h2 id="footer-about" class="text-sm font-semibold text-slate-900">Credits</h2>
 				<p class="text-sm leading-relaxed text-slate-600">
-					Mit Piefke-❤️ für das Land der Berge entwickelt von <a
+					Mit ❤️ für das Land der Berge entwickelt von <a
 						class="underline"
 						href="https://mandrasch.dev">Matthias Andrasch</a
 					>.

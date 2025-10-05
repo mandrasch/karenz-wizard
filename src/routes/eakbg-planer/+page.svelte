@@ -155,15 +155,8 @@
 		)
 	);
 	const parentalPartTimeEnd = BASE_TOTAL_WEEKS;
-	const parentalPartTimeDurationWeeks = $derived(
-		Math.max(0, parentalPartTimeEnd - lastKarenzEnd)
-	);
+	const parentalPartTimeDurationWeeks = $derived(Math.max(0, parentalPartTimeEnd - lastKarenzEnd));
 	const hasParentalPartTime = $derived(parentalPartTimeDurationWeeks > 0.01);
-	const parentalPartTimeDisplay = $derived(
-		hasParentalPartTime
-			? `${formatWeeks(parentalPartTimeDurationWeeks)} Anspruch auf Eltern-Teilzeit`
-			: ''
-	);
 
 	const motherWorkStart = $derived(motherWeeks);
 	const motherWorkEnd = $derived(
@@ -478,12 +471,10 @@
 					label: 'Anspruch auf Eltern-Teilzeit',
 					start: lastKarenzEnd,
 					end: parentalPartTimeEnd,
-					displayDuration: parentalPartTimeDisplay,
-					hideDurationLabel: !parentalPartTimeDisplay,
 					rowGroup: 'parental-part-time',
-					lineClass: 'entitlement',
 					hideStartMarker: true,
-					hideEndMarker: true
+					hideEndMarker: true,
+					hideDurationLabel: true
 				});
 			}
 
@@ -568,19 +559,19 @@
 
 <div class="layout">
 	<div class="page-header mt-10">
-		<h2 class="text-2xl font-semibold text-slate-900">
-			Planer für einkommensabhängiges Kinderbetreuungsgeld (ea KBG)
-		</h2>
+		<h2 class="text-2xl font-semibold text-slate-900">ea KBG Planer</h2>
 		<p class="subline">
-			Eine kleine Planungshilfe fuer das einkommensabhängige Kinderbetreuungsgeld und die Aufteilung
+			Eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld und die Aufteilung
 			der Karenz.
 		</p>
 		<aside class="infobox">
-			Prüfen, ob du oder dein/e Partner/in Anspruch hat auf ea KBG? Wenn nur eine Person Anspruch
+			⚠️ Alle Angaben ohne Gewähr, bitte alle Planungen bei der
+			<a href="/ak-beratung" class="underline">Arbeiterkammer kostenfrei überprüfen lassen</a>! ⚠️
+		</aside>
+		<aside class="infobox">
+			Unsicher, ob du oder dein/e Partner/in Anspruch hat auf ea KBG? Wenn nur eine Person Anspruch
 			hat, kann das andere Elternteil Sonderleistung 1 beziehen. Achtung bei AMS-Zeiten vor
-			Geburt/Mutterschutz! <a href="/eakbg-anspruch" class="link underline">Hier Prüfen</a>. ⚠️ Alle
-			Angaben ohne Gewähr, bitte alle Planungen bei der
-			<a href="/ak-beratung" class="underline">Arbeiterkammer kostenfrei überprüfen lassen</a>!
+			Geburt/Mutterschutz! <a href="/eakbg-anspruch" class="link underline">Hier Prüfen</a>.
 		</aside>
 	</div>
 
@@ -676,16 +667,20 @@
 			<div class="flex flex-col gap-5 self-start">
 				<label class="control-checkbox">
 					<input type="checkbox" bind:checked={extendedMutterschutz} />
-					<span
-						>Mutterschutz 12 Wochen (statt 8 Wochen) <br />(Früh-/Mehrlings-Geburt, Kaiserschnitt)</span
-					>
+					<div class="control-checkbox__text">
+						<span
+							>Mutterschutz 12 Wochen (statt 8 Wochen) <br />(Früh-/Mehrlings-Geburt, Kaiserschnitt)</span
+						>
+					</div>
 				</label>
 				<label class="control-checkbox">
 					<input type="checkbox" bind:checked={jointMonth} />
-					<span>Gemeinsamer Monat beim ersten Wechsel</span>
-					{#if jointMonth}
-						<small>ea KBG wird um 1 Monat kürzer</small>
-					{/if}
+					<div class="control-checkbox__text">
+						<span>Gemeinsamer Monat beim ersten Wechsel</span>
+						{#if jointMonth}
+							<small>ea KBG wird um 1 Monat kürzer</small>
+						{/if}
+					</div>
 				</label>
 			</div>
 		</div>
@@ -699,6 +694,261 @@
 		{/if}
 
 		<div class="timeline-shell">
+			<div
+				class="timeline-window max-w-full"
+				role="region"
+				aria-labelledby="planner-title"
+				style={`max-height: ${viewportHeight}px; min-height: ${viewportHeight}px;`}
+			>
+				<div class="timeline-viewport">
+					<svg
+						width={svgWidth}
+						height={svgHeight}
+						viewBox={svgViewBox}
+						role="img"
+						aria-labelledby="planner-title"
+						style="min-width: 100%; max-width: none;"
+					>
+						<title>Zeitstrahl mit Basis von zwei Jahren und zusaetzlichen Phasen</title>
+
+						<g class="baseline" aria-hidden="true">
+							<circle class="marker marker-birth" cx={toX(0)} cy={rowY(BASELINE_ROW_INDEX)} r="6" />
+							<line
+								class="timeline-track"
+								x1={toX(0)}
+								y1={rowY(BASELINE_ROW_INDEX)}
+								x2={toX(timelineWeeks)}
+								y2={rowY(BASELINE_ROW_INDEX)}
+							/>
+							{#each baselineTicks as tickWeeks}
+								<line
+									class="baseline-month-tick"
+									x1={toX(tickWeeks)}
+									y1={rowY(BASELINE_ROW_INDEX) - 10}
+									x2={toX(tickWeeks)}
+									y2={rowY(BASELINE_ROW_INDEX) + 10}
+								/>
+							{/each}
+							<circle
+								class="marker marker-midyear"
+								cx={toX(MID_YEAR_WEEKS)}
+								cy={rowY(BASELINE_ROW_INDEX)}
+								r="5"
+							/>
+							<circle
+								class="marker marker-baseline-end"
+								cx={toX(timelineWeeks)}
+								cy={rowY(BASELINE_ROW_INDEX)}
+								r="6"
+							/>
+							<text
+								class="label label-dot-end"
+								x={toX(timelineWeeks)}
+								y={rowY(BASELINE_ROW_INDEX) - 22}
+								text-anchor="middle"
+							>
+								2. Lebensjahr
+							</text>
+							<text
+								class="label label-dot-mid"
+								x={toX(MID_YEAR_WEEKS)}
+								y={rowY(BASELINE_ROW_INDEX) - 22}
+								text-anchor="middle"
+							>
+								1. Lebensjahr
+							</text>
+							<text
+								class="label label-end"
+								x={(toX(0) + toX(timelineWeeks)) / 2}
+								y={rowY(BASELINE_ROW_INDEX) + 26}
+								text-anchor="middle"
+								style="font-size:10px"
+							>
+								Bis 2. Lebensjahr Recht auf Karenz (Freistellung), Arbeitgeber muss es erlauben.
+								Heißt aber nicht Recht auf staatliche Förderung!
+							</text>
+							<text
+								class="label label-start"
+								x={toX(0)}
+								y={rowY(BASELINE_ROW_INDEX) - 18}
+								text-anchor="middle"
+							>
+								Geburt
+							</text>
+						</g>
+
+						<line
+							class="ea-marker-line"
+							x1={toX(0)}
+							y1={rowY(BASELINE_ROW_INDEX)}
+							x2={toX(0)}
+							y2={eaMarkerEndY}
+						/>
+
+						<line
+							class="ea-marker-line"
+							x1={toX(eaKbgWeeks)}
+							y1={eaMarkerStartY}
+							x2={toX(eaKbgWeeks)}
+							y2={eaMarkerEndY}
+						/>
+
+						{#each intervals as interval, index (interval.label + '-' + interval.start + '-' + interval.end)}
+							{@const rowIndex = intervalRowIndices[index] ?? index}
+							{@const hasPausedSegment =
+								interval.pausedUntil !== undefined && interval.pausedUntil > interval.start}
+							{@const lineEnd = interval.lineEnd ?? interval.end}
+							{@const hasOverlay =
+								interval.overlayEnd !== undefined &&
+								interval.overlayStart !== undefined &&
+								interval.overlayEnd > interval.overlayStart}
+							{@const overlayVariant = interval.overlayVariant ?? 'paid'}
+							{@const overlayStartsAtLineStart =
+								hasOverlay && interval.overlayStart === interval.start}
+							{@const forcePaidStart = interval.forcePaidStartMarker === true}
+							{@const activeLineClass = interval.isInactive
+								? 'inactive'
+								: interval.isEaBase
+									? 'ea'
+									: interval.isUnpaid
+										? 'unpaid'
+										: 'active'}
+							{@const customLineClass = interval.lineClass ? ` ${interval.lineClass}` : ''}
+							{@const labelAnchor = interval.start < 0 ? 'start' : 'middle'}
+							{@const labelX =
+								interval.start < 0 ? toX(interval.start) : (toX(interval.start) + toX(lineEnd)) / 2}
+							{@const startMarkerClass = overlayStartsAtLineStart
+								? `marker-overlay-start overlay-${overlayVariant}`
+								: forcePaidStart
+									? 'marker-overlay-start overlay-paid'
+									: interval.isInactive
+										? 'marker-inactive'
+										: interval.isUnpaid
+											? 'marker-unpaid'
+											: interval.isEaBase
+												? 'marker-ea'
+												: 'marker-start'}
+							{@const endMarkerClass =
+								hasOverlay &&
+								interval.overlayVariant === 'unpaid' &&
+								interval.overlayEnd === lineEnd
+									? 'marker-unpaid'
+									: interval.isInactive
+										? 'marker-inactive'
+										: interval.isUnpaid
+											? 'marker-unpaid'
+											: interval.isEaBase
+												? 'marker-ea'
+												: 'marker-end'}
+							<g
+								class="interval"
+								aria-label={`${interval.label}: ${interval.displayDuration ?? formatWeeks(interval.end - interval.start)}`}
+							>
+								{#if hasPausedSegment}
+									{@const pausedUntil = interval.pausedUntil ?? interval.start}
+									<line
+										class="interval-line paused"
+										x1={toX(interval.start)}
+										y1={rowY(rowIndex)}
+										x2={toX(pausedUntil)}
+										y2={rowY(rowIndex)}
+									/>
+									<line
+										class={`interval-line ${activeLineClass}${customLineClass}`}
+										x1={toX(pausedUntil)}
+										y1={rowY(rowIndex)}
+										x2={toX(lineEnd)}
+										y2={rowY(rowIndex)}
+									/>
+								{:else}
+									<line
+										class={`interval-line ${activeLineClass}${customLineClass}`}
+										x1={toX(interval.start)}
+										y1={rowY(rowIndex)}
+										x2={toX(lineEnd)}
+										y2={rowY(rowIndex)}
+									/>
+								{/if}
+
+								{#if hasOverlay}
+									{@const overlayStart = interval.overlayStart ?? interval.start}
+									{@const overlayEnd = Math.min(interval.overlayEnd ?? lineEnd, lineEnd)}
+									{@const renderOverlayStart = overlayStart > interval.start}
+									{#if renderOverlayStart}
+										<circle
+											class={`marker marker-overlay-start overlay-${overlayVariant}`}
+											cx={toX(overlayStart)}
+											cy={rowY(rowIndex)}
+											r="4"
+										/>
+									{/if}
+									<line
+										class={`interval-line overlay overlay-${overlayVariant}`}
+										x1={toX(overlayStart)}
+										y1={rowY(rowIndex)}
+										x2={toX(overlayEnd)}
+										y2={rowY(rowIndex)}
+									/>
+									<circle
+										class={`marker marker-overlay-end overlay-${overlayVariant}`}
+										cx={toX(overlayEnd)}
+										cy={rowY(rowIndex)}
+										r="4"
+									/>
+								{/if}
+
+								{#if !interval.hideStartMarker}
+									<circle
+										class={`marker ${startMarkerClass}`}
+										cx={toX(interval.start)}
+										cy={rowY(rowIndex)}
+										r="5"
+									/>
+								{/if}
+
+								{#if hasPausedSegment}
+									{@const pausedUntil = interval.pausedUntil ?? interval.start}
+									<circle
+										class="marker marker-resume"
+										cx={toX(pausedUntil)}
+										cy={rowY(rowIndex)}
+										r="4"
+									/>
+								{/if}
+
+								{#if !interval.hideEndMarker}
+									<circle
+										class={`marker ${endMarkerClass}`}
+										cx={toX(lineEnd)}
+										cy={rowY(rowIndex)}
+										r="5"
+									/>
+								{/if}
+								<text
+									class="label interval-label"
+									x={labelX}
+									y={interval.labelPosition === 'below' ? rowY(rowIndex) + 18 : rowY(rowIndex) - 12}
+									text-anchor={labelAnchor}
+								>
+									{interval.label}
+								</text>
+								{#if !interval.hideDurationLabel}
+									<text
+										class="label interval-duration"
+										x={labelX}
+										y={interval.labelPosition === 'below'
+											? rowY(rowIndex) + 36
+											: rowY(rowIndex) + 18}
+										text-anchor={labelAnchor}
+									>
+										{interval.displayDuration ?? formatWeeks(interval.end - interval.start)}
+									</text>
+								{/if}
+							</g>
+						{/each}
+					</svg>
+				</div>
+			</div>
 			<div class="timeline-zoom-controls" role="group" aria-label="Zoom-Steuerung">
 				<button
 					type="button"
@@ -722,252 +972,6 @@
 					Reset
 				</button>
 				<span class="zoom-status" aria-live="polite">{zoomPercent}%</span>
-			</div>
-			<div
-				class="timeline-window max-w-full"
-				role="region"
-				aria-labelledby="planner-title"
-				style={`max-height: ${viewportHeight}px; min-height: ${viewportHeight}px;`}
-			>
-				<div class="timeline-viewport">
-					<svg
-						width={svgWidth}
-						height={svgHeight}
-						viewBox={svgViewBox}
-						role="img"
-						aria-labelledby="planner-title"
-					>
-					<title>Zeitstrahl mit Basis von zwei Jahren und zusaetzlichen Phasen</title>
-
-					<g class="baseline" aria-hidden="true">
-						<circle class="marker marker-birth" cx={toX(0)} cy={rowY(BASELINE_ROW_INDEX)} r="6" />
-						<line
-							class="timeline-track"
-							x1={toX(0)}
-							y1={rowY(BASELINE_ROW_INDEX)}
-							x2={toX(timelineWeeks)}
-							y2={rowY(BASELINE_ROW_INDEX)}
-						/>
-						{#each baselineTicks as tickWeeks}
-							<line
-								class="baseline-month-tick"
-								x1={toX(tickWeeks)}
-								y1={rowY(BASELINE_ROW_INDEX) - 10}
-								x2={toX(tickWeeks)}
-								y2={rowY(BASELINE_ROW_INDEX) + 10}
-							/>
-						{/each}
-						<circle
-							class="marker marker-midyear"
-							cx={toX(MID_YEAR_WEEKS)}
-							cy={rowY(BASELINE_ROW_INDEX)}
-							r="5"
-						/>
-						<circle
-							class="marker marker-baseline-end"
-							cx={toX(timelineWeeks)}
-							cy={rowY(BASELINE_ROW_INDEX)}
-							r="6"
-						/>
-						<text
-							class="label label-dot-end"
-							x={toX(timelineWeeks)}
-							y={rowY(BASELINE_ROW_INDEX) - 22}
-							text-anchor="middle"
-						>
-							2. Lebensjahr
-						</text>
-						<text
-							class="label label-dot-mid"
-							x={toX(MID_YEAR_WEEKS)}
-							y={rowY(BASELINE_ROW_INDEX) - 22}
-							text-anchor="middle"
-						>
-							1. Lebensjahr
-						</text>
-						<text
-							class="label label-end"
-							x={(toX(0) + toX(timelineWeeks)) / 2}
-							y={rowY(BASELINE_ROW_INDEX) + 26}
-							text-anchor="middle"
-							style="font-size:10px"
-						>
-							Bis 2. Lebensjahr Recht auf Karenz (Freistellung), Arbeitgeber muss es erlauben. Heißt
-							aber nicht Recht auf staatliche Förderung!
-						</text>
-						<text
-							class="label label-start"
-							x={toX(0)}
-							y={rowY(BASELINE_ROW_INDEX) - 18}
-							text-anchor="middle"
-						>
-							Geburt
-						</text>
-					</g>
-
-					<line
-						class="ea-marker-line"
-						x1={toX(0)}
-						y1={rowY(BASELINE_ROW_INDEX)}
-						x2={toX(0)}
-						y2={eaMarkerEndY}
-					/>
-
-					<line
-						class="ea-marker-line"
-						x1={toX(eaKbgWeeks)}
-						y1={eaMarkerStartY}
-						x2={toX(eaKbgWeeks)}
-						y2={eaMarkerEndY}
-					/>
-
-					{#each intervals as interval, index (interval.label + '-' + interval.start + '-' + interval.end)}
-						{@const rowIndex = intervalRowIndices[index] ?? index}
-						{@const hasPausedSegment =
-							interval.pausedUntil !== undefined && interval.pausedUntil > interval.start}
-						{@const lineEnd = interval.lineEnd ?? interval.end}
-						{@const hasOverlay =
-							interval.overlayEnd !== undefined &&
-							interval.overlayStart !== undefined &&
-							interval.overlayEnd > interval.overlayStart}
-						{@const overlayVariant = interval.overlayVariant ?? 'paid'}
-						{@const overlayStartsAtLineStart =
-							hasOverlay && interval.overlayStart === interval.start}
-						{@const forcePaidStart = interval.forcePaidStartMarker === true}
-						{@const activeLineClass = interval.isInactive
-							? 'inactive'
-							: interval.isEaBase
-								? 'ea'
-								: interval.isUnpaid
-									? 'unpaid'
-									: 'active'}
-						{@const customLineClass = interval.lineClass ? ` ${interval.lineClass}` : ''}
-						{@const startMarkerClass = overlayStartsAtLineStart
-							? `marker-overlay-start overlay-${overlayVariant}`
-							: forcePaidStart
-								? 'marker-overlay-start overlay-paid'
-								: interval.isInactive
-									? 'marker-inactive'
-									: interval.isUnpaid
-										? 'marker-unpaid'
-										: interval.isEaBase
-											? 'marker-ea'
-											: 'marker-start'}
-						{@const endMarkerClass =
-							hasOverlay && interval.overlayVariant === 'unpaid' && interval.overlayEnd === lineEnd
-								? 'marker-unpaid'
-								: interval.isInactive
-									? 'marker-inactive'
-									: interval.isUnpaid
-										? 'marker-unpaid'
-										: interval.isEaBase
-											? 'marker-ea'
-											: 'marker-end'}
-						<g
-							class="interval"
-							aria-label={`${interval.label}: ${interval.displayDuration ?? formatWeeks(interval.end - interval.start)}`}
-						>
-							{#if hasPausedSegment}
-								{@const pausedUntil = interval.pausedUntil ?? interval.start}
-								<line
-									class="interval-line paused"
-									x1={toX(interval.start)}
-									y1={rowY(rowIndex)}
-									x2={toX(pausedUntil)}
-									y2={rowY(rowIndex)}
-								/>
-								<line
-									class={`interval-line ${activeLineClass}${customLineClass}`}
-									x1={toX(pausedUntil)}
-									y1={rowY(rowIndex)}
-									x2={toX(lineEnd)}
-									y2={rowY(rowIndex)}
-								/>
-							{:else}
-								<line
-									class={`interval-line ${activeLineClass}${customLineClass}`}
-									x1={toX(interval.start)}
-									y1={rowY(rowIndex)}
-									x2={toX(lineEnd)}
-									y2={rowY(rowIndex)}
-								/>
-							{/if}
-
-							{#if hasOverlay}
-								{@const overlayStart = interval.overlayStart ?? interval.start}
-								{@const overlayEnd = Math.min(interval.overlayEnd ?? lineEnd, lineEnd)}
-								{@const renderOverlayStart = overlayStart > interval.start}
-								{#if renderOverlayStart}
-									<circle
-										class={`marker marker-overlay-start overlay-${overlayVariant}`}
-										cx={toX(overlayStart)}
-										cy={rowY(rowIndex)}
-										r="4"
-									/>
-								{/if}
-								<line
-									class={`interval-line overlay overlay-${overlayVariant}`}
-									x1={toX(overlayStart)}
-									y1={rowY(rowIndex)}
-									x2={toX(overlayEnd)}
-									y2={rowY(rowIndex)}
-								/>
-								<circle
-									class={`marker marker-overlay-end overlay-${overlayVariant}`}
-									cx={toX(overlayEnd)}
-									cy={rowY(rowIndex)}
-									r="4"
-								/>
-							{/if}
-
-							{#if !interval.hideStartMarker}
-								<circle
-									class={`marker ${startMarkerClass}`}
-									cx={toX(interval.start)}
-									cy={rowY(rowIndex)}
-									r="5"
-								/>
-							{/if}
-
-							{#if hasPausedSegment}
-								{@const pausedUntil = interval.pausedUntil ?? interval.start}
-								<circle
-									class="marker marker-resume"
-									cx={toX(pausedUntil)}
-									cy={rowY(rowIndex)}
-									r="4"
-								/>
-							{/if}
-
-							{#if !interval.hideEndMarker}
-								<circle
-									class={`marker ${endMarkerClass}`}
-									cx={toX(lineEnd)}
-									cy={rowY(rowIndex)}
-									r="5"
-								/>
-							{/if}
-							<text
-								class="label interval-label"
-								x={(toX(interval.start) + toX(lineEnd)) / 2}
-								y={interval.labelPosition === 'below' ? rowY(rowIndex) + 18 : rowY(rowIndex) - 12}
-								text-anchor="middle"
-							>
-								{interval.label}
-							</text>
-							{#if !interval.hideDurationLabel}
-								<text
-									class="label interval-duration"
-									x={(toX(interval.start) + toX(lineEnd)) / 2}
-									y={interval.labelPosition === 'below' ? rowY(rowIndex) + 36 : rowY(rowIndex) + 18}
-									text-anchor="middle"
-								>
-									{interval.displayDuration ?? formatWeeks(interval.end - interval.start)}
-								</text>
-							{/if}
-						</g>
-					{/each}
-				</svg>
 			</div>
 		</div>
 
@@ -1209,11 +1213,23 @@
 	}
 
 	.control-checkbox {
-		@apply grid grid-cols-[auto,1fr] items-center gap-x-3 gap-y-2 text-sm font-semibold text-slate-900;
+		@apply flex items-start gap-3 text-sm font-semibold text-slate-900;
 	}
 
-	.control-checkbox small {
-		@apply col-start-2 text-xs font-medium text-amber-600;
+	.control-checkbox input {
+		@apply mt-1 shrink-0;
+	}
+
+	.control-checkbox__text {
+		@apply flex flex-col gap-1;
+	}
+
+	.control-checkbox__text span {
+		@apply leading-tight;
+	}
+
+	.control-checkbox__text small {
+		@apply text-xs font-medium text-amber-600;
 	}
 
 	.note-box {
@@ -1237,7 +1253,7 @@
 	}
 
 	.timeline-zoom-controls {
-		@apply mb-2 flex items-center gap-2 text-xs font-semibold text-slate-600;
+		@apply mt-3 flex items-center gap-2 text-xs font-semibold text-slate-600;
 	}
 
 	.zoom-button {
@@ -1258,7 +1274,7 @@
 	}
 
 	.timeline-viewport {
-		@apply h-full w-full overflow-auto;
+		@apply h-full w-full overflow-x-auto overflow-y-hidden;
 		-webkit-overflow-scrolling: touch;
 		min-height: inherit;
 	}
@@ -1391,11 +1407,6 @@
 
 	.interval-line.overlay.overlay-papamonat {
 		@apply stroke-amber-500;
-	}
-
-	.interval-line.entitlement {
-		@apply stroke-indigo-500;
-		stroke-dasharray: 6 6;
 	}
 
 	.label {
