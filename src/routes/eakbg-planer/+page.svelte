@@ -25,6 +25,7 @@
 	const BASELINE_WIDTH = 640;
 	const margins = { top: 32, right: 48, bottom: 32, left: 96 };
 	const rowHeight = 60;
+	const TIMELINE_EXTRA_HEIGHT = 100;
 	const BASELINE_ROW_INDEX = 1;
 	const MID_YEAR_WEEKS = BASE_TOTAL_WEEKS / 2;
 
@@ -145,6 +146,24 @@
 	const thirdWeeks = $derived(monthsToWeeks(thirdMonths));
 	const thirdStart = $derived(fatherEnd);
 	const thirdEnd = $derived(thirdStart + thirdWeeks);
+
+	const lastKarenzEnd = $derived(
+		Math.max(
+			motherWeeks,
+			fatherMonths > 0 ? fatherEnd : motherWeeks,
+			thirdMonths > 0 ? thirdEnd : motherWeeks
+		)
+	);
+	const parentalPartTimeEnd = BASE_TOTAL_WEEKS;
+	const parentalPartTimeDurationWeeks = $derived(
+		Math.max(0, parentalPartTimeEnd - lastKarenzEnd)
+	);
+	const hasParentalPartTime = $derived(parentalPartTimeDurationWeeks > 0.01);
+	const parentalPartTimeDisplay = $derived(
+		hasParentalPartTime
+			? `${formatWeeks(parentalPartTimeDurationWeeks)} Anspruch auf Eltern-Teilzeit`
+			: ''
+	);
 
 	const motherWorkStart = $derived(motherWeeks);
 	const motherWorkEnd = $derived(
@@ -434,28 +453,41 @@
 
 	const intervals = $derived<Interval[]>(
 		(() => {
+			const result: Interval[] = [...baseIntervals];
+
 			if (thirdMonths > 0) {
-				return [
-					...baseIntervals,
-					{
-						label: thirdLabel,
-						start: thirdStart,
-						end: thirdEnd,
-						displayDuration: thirdDisplay,
-						isUnpaid: thirdUnpaidMonths > 0,
-						overlayVariant: thirdPaidMonths > 0 ? 'paid' : 'unpaid',
-						overlayStart: thirdUnpaidMonths > 0 && thirdPaidMonths > 0 ? thirdStart : undefined,
-						overlayEnd:
-							thirdUnpaidMonths > 0 && thirdPaidMonths > 0
-								? Math.min(thirdPaidEnd, thirdEnd)
-								: undefined,
-						isEaBase: thirdUnpaidMonths === 0 && thirdPaidMonths > 0,
-						rowGroup: 'mother'
-					} satisfies Interval
-				];
+				result.push({
+					label: thirdLabel,
+					start: thirdStart,
+					end: thirdEnd,
+					displayDuration: thirdDisplay,
+					isUnpaid: thirdUnpaidMonths > 0,
+					overlayVariant: thirdPaidMonths > 0 ? 'paid' : 'unpaid',
+					overlayStart: thirdUnpaidMonths > 0 && thirdPaidMonths > 0 ? thirdStart : undefined,
+					overlayEnd:
+						thirdUnpaidMonths > 0 && thirdPaidMonths > 0
+							? Math.min(thirdPaidEnd, thirdEnd)
+							: undefined,
+					isEaBase: thirdUnpaidMonths === 0 && thirdPaidMonths > 0,
+					rowGroup: 'mother'
+				} satisfies Interval);
 			}
 
-			return baseIntervals;
+			if (hasParentalPartTime) {
+				result.push({
+					label: 'Anspruch auf Eltern-Teilzeit',
+					start: lastKarenzEnd,
+					end: parentalPartTimeEnd,
+					displayDuration: parentalPartTimeDisplay,
+					hideDurationLabel: !parentalPartTimeDisplay,
+					rowGroup: 'parental-part-time',
+					lineClass: 'entitlement',
+					hideStartMarker: true,
+					hideEndMarker: true
+				});
+			}
+
+			return result;
 		})()
 	);
 
@@ -498,7 +530,9 @@
 	const ZOOM_STEP = 0.25;
 	let zoomLevel = $state(1);
 	const baseSvgWidth = BASELINE_WIDTH + margins.left + margins.right;
-	const baseSvgHeight = $derived(margins.top + margins.bottom + rowHeight * (maxRowIndex + 1));
+	const baseSvgHeight = $derived(
+		margins.top + margins.bottom + rowHeight * (maxRowIndex + 1) + TIMELINE_EXTRA_HEIGHT
+	);
 	const viewportHeight = $derived(Math.ceil(baseSvgHeight));
 	const svgWidth = $derived(baseSvgWidth * zoomLevel);
 	const svgHeight = $derived(baseSvgHeight * zoomLevel);
@@ -695,13 +729,14 @@
 				aria-labelledby="planner-title"
 				style={`max-height: ${viewportHeight}px; min-height: ${viewportHeight}px;`}
 			>
-				<svg
-					width={svgWidth}
-					height={svgHeight}
-					viewBox={svgViewBox}
-					role="img"
-					aria-labelledby="planner-title"
-				>
+				<div class="timeline-viewport">
+					<svg
+						width={svgWidth}
+						height={svgHeight}
+						viewBox={svgViewBox}
+						role="img"
+						aria-labelledby="planner-title"
+					>
 					<title>Zeitstrahl mit Basis von zwei Jahren und zusaetzlichen Phasen</title>
 
 					<g class="baseline" aria-hidden="true">
@@ -1219,8 +1254,13 @@
 
 	.timeline-window {
 		width: min(100%, 100vw);
-		@apply overflow-auto rounded-xl border border-slate-200 bg-white pb-4;
+		@apply overflow-hidden rounded-xl border border-slate-200 bg-white pb-4;
+	}
+
+	.timeline-viewport {
+		@apply h-full w-full overflow-auto;
 		-webkit-overflow-scrolling: touch;
+		min-height: inherit;
 	}
 
 	.timeline-window:focus-visible {
@@ -1232,7 +1272,7 @@
 	}
 
 	svg {
-		@apply block min-w-full rounded-xl;
+		@apply block rounded-xl;
 		background: linear-gradient(90deg, rgba(15, 23, 42, 0.04) 0 16px, transparent 16px);
 	}
 
@@ -1351,6 +1391,11 @@
 
 	.interval-line.overlay.overlay-papamonat {
 		@apply stroke-amber-500;
+	}
+
+	.interval-line.entitlement {
+		@apply stroke-indigo-500;
+		stroke-dasharray: 6 6;
 	}
 
 	.label {
