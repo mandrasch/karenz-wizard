@@ -533,24 +533,18 @@
 <div class="layout">
 	<div class="page-header mt-10">
 		<h2 class="text-2xl font-semibold text-slate-900">
-			Planer für einkommensabhängiges Kinderbetreuungsgeld
+			Planer für einkommensabhängiges Kinderbetreuungsgeld (ea KBG)
 		</h2>
 		<p class="subline">
-			Eine Planungshilfe fuer das einkommensabhaengige Kinderbetreuungsgeld und die Aufteilung der
-			Karenz. Es gibt auch das pauschale Kinderbetreuungsgeld-Konto als Alternativmodell (mit
-			laengerem Anspruch), dieses ist hier aktuell noch nicht auswaehlbar. Das einkommensabhaengige
-			KBG rechnet sich in der Regel fuer erwerbstaetige Eltern bzw. wenn ein Elternteil
-			erwerbstaetig ist und Voraussetzung von 6 Monaten durchgehender Arbeit vorher erfuellt
-			<a class="footnote-link" href="#fn-4">[4]</a>.
+			Eine kleine Planungshilfe fuer das einkommensabhängige Kinderbetreuungsgeld und die Aufteilung
+			der Karenz.
 		</p>
 		<aside class="infobox">
-			⚠️ Prüfen, ob du oder dein/e Partner/in Anspruch hat auf ea KBG? Wenn nur eine Person Anspruch
-			hat, kann die andere Sonderleistung 1 beziehen. Achtung bei AMS-Zeiten vor
-			Geburt/Mutterschutz. <a href="/eakbg-anspruch" class="link underline">Hier Prüfen</a>
-		</aside>
-		<aside class="infobox">
-			⚠️ Alle Angaben ohne Gewähr, bitte alle Planungen bei der Karenzberatung der Arbeiterkammer
-			überprüfen lassen!
+			Prüfen, ob du oder dein/e Partner/in Anspruch hat auf ea KBG? Wenn nur eine Person Anspruch
+			hat, kann das andere Elternteil Sonderleistung 1 beziehen. Achtung bei AMS-Zeiten vor
+			Geburt/Mutterschutz! <a href="/eakbg-anspruch" class="link underline">Hier Prüfen</a>. ⚠️ Alle
+			Angaben ohne Gewähr, bitte alle Planungen bei der
+			<a href="/ak-beratung" class="underline">Arbeiterkammer kostenfrei überprüfen lassen</a>!
 		</aside>
 	</div>
 
@@ -940,10 +934,11 @@
 
 		<aside class="note-box">
 			<div class="prose">
-				<p>Auch der Vater kann den ersten Karenzteil uebernehmen.</p>
+				<h3>🚧 Warum? / Erklärungen - in Arbeit 🚧</h3>
+				<p>Hinweis: Auch der Vater kann den ersten Karenzteil uebernehmen.</p>
 				<p class="footnote" id="fn-1">
 					[1] Papamonat: ab Entlassung aus dem Krankenhaus bis zum Ende des Mutterschutzes nutzbar,
-					Arbeitgeber muss es erlauben.
+					der Arbeitgeber muss es erlauben.
 				</p>
 				<p class="footnote" id="fn-2">
 					[2] Fuer die Tage im Krankenhaus wird in der Regel Urlaub oder Sonderurlaub benoetigt.
@@ -964,7 +959,6 @@
 					<a href="#">Dummy-Link</a>
 				</p>
 
-				<h2>Warum? / Begriffserklärung</h2>
 				<h3 id="eakbg">ea KBG</h3>
 				<p>
 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
@@ -1085,6 +1079,8 @@
 </div>
 
 <style lang="postcss">
+	/* TODO: convert to tailwind inline styles */
+
 	@reference "../../app.css";
 	:global(main) {
 		@apply max-w-none;
