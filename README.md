@@ -2,6 +2,8 @@
 
 Beware: Quick proof of concept with a lot of help of ChatGPT Codex (VSCode). It's messy!
 
+🚧 Work in progress 🚧
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
