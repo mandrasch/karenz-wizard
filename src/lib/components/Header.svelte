@@ -58,7 +58,7 @@
 		<!-- Preview / feedback banner (amber) -->
 		<div class="prose-body relative border-b border-amber-200 bg-red-100 text-red-700">
 			<p
-				class=" mx-auto max-w-prose px-12 py-10 text-center text-xs font-medium sm:text-sm"
+				class=" mx-auto max-w-prose px-12 py-6 text-center text-xs font-medium sm:text-sm"
 				aria-live="polite"
 				id="preview-banner"
 			>

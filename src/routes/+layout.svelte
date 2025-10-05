@@ -18,12 +18,12 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="flex min-h-screen flex-col bg-white text-slate-900">
+<div class="mb-10 flex min-h-screen flex-col bg-white text-slate-900">
 	<Header />
 
 	{#key isHome}
 		{#if isHome}
-			<main class="mx-auto w-full">
+			<main class="mx-auto mb-12 w-full">
 				{@render children?.()}
 			</main>
 		{:else}

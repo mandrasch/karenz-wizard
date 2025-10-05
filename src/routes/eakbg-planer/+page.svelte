@@ -307,11 +307,11 @@
 			: ''
 	);
 
-	const eaLabel = 'Anspruch einkommensabh. Kinderbetreuungsgeld';
+	const eaLabel = 'Anspruch ea KBG';
 	const eaDisplay = $derived(
 		jointMonth
-			? `max. t13 Monate ab Geburt (11 + min. 2 Vater) wg. gemeinsamer Monat - ab Ende Mutterschutz`
-			: `max. 14 Monate ab Geburt (12 +  min. 2 Vater) - ab Ende Mutterschutz`
+			? `max. t13 Monate ab Geburt (11 + min. 2 Vater) wg. gemeinsamer Monat`
+			: `max. 14 Monate ab Geburt (12 +  min. 2 Vater)`
 	);
 
 	const baseIntervals = $derived<Interval[]>(
@@ -325,7 +325,9 @@
 					isInactive: true
 				},
 				{
-					label: extendedMutterschutz ? 'Mutterschutz n. G.' : 'Mutterschutz n. G.',
+					label: extendedMutterschutz
+						? 'Mutterschutz nach der Geburt'
+						: 'Mutterschutz nach der Geburt',
 					start: 0,
 					end: mutterschutzWeeks,
 					displayDuration: `${formatWeeks(mutterschutzWeeks)}, Wochengeld ÖGK 💰`,
@@ -371,7 +373,7 @@
 				label: 'Papamonat',
 				start: papamonatStart,
 				end: papamonatEnd,
-				displayDuration: 'ggf. Famililienzeitbonus 💰',
+				displayDuration: 'Ab Entlassung KH, FZB 💰',
 				isInactive: true,
 				overlayStart: papamonatStart,
 				overlayVariant: 'papamonat',
@@ -753,8 +755,10 @@
 							x={(toX(0) + toX(timelineWeeks)) / 2}
 							y={rowY(BASELINE_ROW_INDEX) + 26}
 							text-anchor="middle"
+							style="font-size:10px"
 						>
-							Bis zum 2. Lebensjahr Recht auf Karenz (Freistellung), Arbeitgeber muss es erlauben.
+							Bis 2. Lebensjahr Recht auf Karenz (Freistellung), Arbeitgeber muss es erlauben. Heißt
+							aber nicht Recht auf staatliche Förderung!
 						</text>
 						<text
 							class="label label-start"
@@ -1128,7 +1132,7 @@
 	}
 
 	.control-group label {
-		@apply text-sm font-semibold text-slate-900;
+		@apply text-xs font-semibold text-slate-900;
 	}
 
 	.control-note {
@@ -1229,7 +1233,7 @@
 	}
 
 	.baseline-month-tick {
-		@apply stroke-slate-300 stroke-[1.5px];
+		@apply stroke-slate-500 stroke-[1px];
 		stroke-linecap: round;
 	}
 

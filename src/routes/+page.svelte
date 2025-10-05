@@ -28,6 +28,9 @@
 			cta: 'Ressourcen entdecken'
 		}
 	];
+
+	let expanded = $state(false);
+	const ctrlId = 'teaser-more';
 </script>
 
 <!-- ======================= -->
@@ -36,57 +39,83 @@
 <section
 	class="relative w-full bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-600 text-white shadow-xl"
 >
-	<div
-		class="mx-auto flex max-w-6xl flex-col justify-between gap-12 px-6 py-20 sm:px-10 lg:flex-row lg:items-center"
-	>
+	<div class="mx-auto max-w-6xl px-6 py-16 sm:px-10">
+		<!-- reduced vertical padding -->
+		<!-- IMAGE ON TOP (shorter fixed heights, single border on IMG) -->
+		<div class="mx-auto mb-8 w-full">
+			<!-- tighter spacing -->
+			<div class="flex h-56 items-center justify-center sm:h-64 lg:h-72 xl:h-80">
+				<!-- shorter than before -->
+				<img
+					src="/hero.png"
+					alt="Illustration zum Thema Karenzplanung"
+					class="h-full max-h-full w-auto max-w-full rounded-2xl border border-white/40 object-contain"
+				/>
+			</div>
+		</div>
+
 		<!-- TEXT -->
-		<div class="max-w-lg space-y-5 text-white/90 lg:w-[45%]">
-			<h1 class="text-3xl leading-snug font-bold text-white sm:text-4xl lg:text-5xl">
+		<div class="mx-auto max-w-3xl space-y-5 text-white/90">
+			<h1 class="text-center text-3xl leading-snug font-bold text-white sm:text-4xl lg:text-5xl">
 				Euch brummt der Kopf von der Karenzplanung?
 			</h1>
 
 			<p class="text-sm leading-relaxed sm:text-base">
 				Die Karenzplanung ist eine riesige Herausforderung: Warum hat man ein Recht auf zwei Jahre
 				Karenz (Freistellung) auf Arbeit, aber es werden nur 14 Monate beim einkommensabhängigen
-				Betreuungsgeld (ea KBG) bezahlt? <!-- Welches der zwei Modelle soll ich wählen? -->
+				Betreuungsgeld (ea KBG) bezahlt?
 			</p>
 
-			<p class="text-sm leading-relaxed sm:text-base">
-				Ebenso herausfordernd ist die Frage der Kinderbetreuung nach der Karenz: Wann ist unser Kind
-				bereit in eine Kindergarten-Gruppe zu gehen, wie viele Stunde sind anfangs gut? Wollen wir
-				es schon mit 14 Monaten fremdbetreuen lassen? Oder doch erst zu einer Tagesmutter, den
-				Großeltern - oder beide Elternteile arbeiten 20h/Woche in Eltern-Teilzeit und teilen den Tag
-				auf? <br /><br />Oder bleibt einer von uns doch länger in Karenz? Wie organisiert man eine
-				längere, unbezahlte Karenz nach 14 Monaten ea KBG überhaupt? Können wir uns das leisten? Und
-				wie schaut es hier mit der Krankenversicherung aus?
-			</p>
+			{#if expanded}
+				<div id={ctrlId} class="space-y-5">
+					<p class="text-sm leading-relaxed sm:text-base">
+						Ebenso herausfordernd ist die Frage der Kinderbetreuung nach der Karenz: Wann ist unser
+						Kind bereit in eine Kindergarten-Gruppe zu gehen, wie viele Stunde sind anfangs gut?
+						Wollen wir es schon mit 14 Monaten fremdbetreuen lassen? Oder doch erst zu einer
+						Tagesmutter, den Großeltern - oder beide Elternteile arbeiten 20h/Woche in
+						Eltern-Teilzeit und teilen den Tag auf? <br /><br />Oder bleibt einer von uns doch
+						länger in Karenz? Wie organisiert man eine längere, unbezahlte Karenz nach 14 Monaten ea
+						KBG überhaupt? Können wir uns das leisten? Und wie schaut es hier mit der
+						Krankenversicherung aus?
+					</p>
 
-			<p class="text-sm leading-relaxed sm:text-base">
-				Und wie regeln wir die Gleichberechtigung: Wie kommen wir aus der bisherigen Falle heraus,
-				dass der Vater nur die minimalen 2 Monate Karenz nimmt - wie so viele Männer in Österreich
-				aktuell. <!-- Ganze Männer machen ja eigentlich halbe halbe. -->
-			</p>
+					<p class="text-sm leading-relaxed sm:text-base">
+						Und wie regeln wir die Gleichberechtigung: Wie kommen wir aus der bisherigen Falle
+						heraus, dass der Vater nur die minimalen 2 Monate Karenz nimmt - wie so viele Männer in
+						Österreich aktuell.
+					</p>
 
-			<p class="text-sm leading-relaxed sm:text-base">
-				Diese private Webseite soll eine kleine Hilfestellung geben. Als Neu-Eltern standen wir vor
-				kurzem selber erst vor diesem Berg an Fragen.
-			</p>
-		</div>
-
-		<!-- IMAGE -->
-		<div class="flex flex-1 items-center justify-center lg:w-[55%]">
-			<div
-				class="w-full rounded-2xl border border-white/30 bg-white/10 p-4 backdrop-blur-sm sm:p-6 lg:p-8"
-			>
-				<div
-					class="flex aspect-[4/3] items-center justify-center rounded-xl border border-dashed border-white/50 bg-white/5 sm:aspect-[3/2] lg:aspect-[16/10]"
-				>
-					<img
-						src="/hero.png"
-						alt="Illustration zum Thema Karenzplanung"
-						class="max-h-full max-w-full object-contain"
-					/>
+					<p class="text-sm leading-relaxed sm:text-base">
+						Diese private Webseite soll eine kleine Hilfestellung geben. Als Neu-Eltern standen wir
+						vor kurzem selber erst vor diesem Berg an Fragen.
+					</p>
 				</div>
+			{/if}
+
+			<!-- Toggle -->
+			<div class="text-center">
+				<button
+					type="button"
+					class="mt-2 inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
+					aria-expanded={expanded}
+					aria-controls={ctrlId}
+					on:click={() => (expanded = !expanded)}
+				>
+					{expanded ? 'Weniger anzeigen' : 'Mehr lesen'}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="currentColor"
+						aria-hidden="true"
+					>
+						{#if expanded}
+							<path d="M6 15l6-6 6 6" />
+						{:else}
+							<path d="M6 9l6 6 6-6" />
+						{/if}
+					</svg>
+				</button>
 			</div>
 		</div>
 	</div>

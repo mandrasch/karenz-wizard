@@ -5,14 +5,33 @@
 	<div class="content prose">
 		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
 		<p>
-			Als Mann und werdender Vater wollte ich nicht zu den Männern gehören, die in Medien-Artikeln
-			zu recht kritisiert werden - weil sie gar keine oder nur sehr wenig Karenz (2 Monate) in
-			Anspruch nehmen. "Ganze Männer machen halbe halbe" - mit diesem Anspruch an mich selbst
-			startete ich ihn mein Karenz-Abenteuer.
+			Als werdender Vater wollte ich nicht zu den Männern gehören, die in den Medien kritisiert
+			werden weil sie gar keine oder nur sehr wenig Karenz (2 Monate) in Anspruch nehmen:
 		</p>
+		<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+			<p>
+				In Österreich wird immer noch das sogenannte „Male-Breadwinner-Modell“ praktiziert: Der Mann
+				ist der Ernährer der Familie in einem Vollzeit-Arbeitsverhältnis, die Frau liefert zu und
+				schupft den Haushalt.
+			</p>
+
+			<p>
+				Kindererziehung ist bei uns Frauensache. <strong
+					>Nur 16 Prozent der Väter gehen in Babykarenz. Von diesen ohnehin sehr wenigen
+					Karenzvätern bleibt mehr als die Hälfte nur die Minimalzahl von zwei Karenzmonaten beim
+					Kind.
+				</strong>
+			</p>
+			<cite
+				>Vielleicht sollten sich Österreichs Frauen an den Isländerinnen ein Vorbild nehmen – <a
+					href="https://www.instagram.com/p/DNAq95nst_a">Nina Horaczek (falter / Instagram)</a
+				></cite
+			>
+		</blockquote>
+		<p>"Ganze Männer machen halbe halbe" - mit diesem Anspruch startete ich meine Planung.</p>
 		<p>
-			Schnell bemerkte ich jedoch, dass die Kritik mit "Väter nehmen nur 2 Monate" zwar berechtigt
-			ist - aber die Artikel oft nicht die gesamten Regeln dahinter erklären. Beim
+			Schnell bemerkte ich jedoch, dass die Kritik mit "Väter nehmen nur 2 Monate" zwar im Kern
+			berechtigt ist - aber die Artikel oft nicht das gesamte Regelwerk dahinter erklären. Beim
 			einkommensabhängingen Kinderbetreuugsgeld bekommen Eltern maximal 14 Monate Betreuunsgeld nach
 			Geburt, 2 Monate muss der Vater minimal nehmen (sogenanntes "12+2"). Danach kann man dieses
 			Modell gar nicht fortsetzen - sondern müsste in "unbezahlte Karenz" gehen. Wozu sich aber
