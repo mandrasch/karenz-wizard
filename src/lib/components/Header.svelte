@@ -50,7 +50,6 @@
 <!-- TODO: re-add "sticky top-0 " after launch and without disclaimer-->
 <header
 	class="z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80"
-	style="border:1px solid blue"
 	onkeydown={onKeydown}
 	role="banner"
 >
@@ -79,10 +78,7 @@
 		</div>
 	{/if}
 
-	<div
-		class="mx-auto flex w-full max-w-[1200px] flex-wrap items-center gap-4 px-4 py-4 sm:px-6"
-		style="border:1px solid green"
-	>
+	<div class="mx-auto flex w-full max-w-[1200px] flex-wrap items-center gap-4 px-4 py-4 sm:px-6">
 		<a class="text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard 🪄</a>
 
 		<!-- Mobile menu button -->
