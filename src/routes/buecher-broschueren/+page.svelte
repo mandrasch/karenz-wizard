@@ -2,8 +2,21 @@
 	<div class="page-header mt-10">
 		<h2 class="text-2xl font-semibold text-slate-900">Bücher & Broschüren</h2>
 	</div>
-	<div class="content prose">
+	<div class="content prose mt-8">
 		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
+		<p>
+			Leider gibt es (noch) keinen Ratgeber, der alles mit rotem Faden und Visualisierungen erklärt
+			für werdende Eltern. Falls doch, gerne bei mir melden und ich verlinke ihn hier!
+		</p>
+		<h3>Broschüren</h3>
+		<ul>
+			<li>
+				<a
+					href="https://wien.arbeiterkammer.at/service/broschueren/berufundfamilie/index.html"
+					target="_blank">Arbeiterkammer Broschüren Beruf & Familie</a
+				>
+			</li>
+		</ul>
 		<h3>Allgemeines zu Gleichberechtigung</h3>
 
 		<ul>

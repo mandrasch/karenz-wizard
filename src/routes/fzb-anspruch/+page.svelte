@@ -38,19 +38,49 @@
 	<div class="page-header mt-10">
 		<h2 class="text-2xl font-semibold text-slate-900">Anspruch auf Familienzeitbonus prüfen</h2>
 	</div>
-	<p class="my-6">
-		Wichtig: Anspruch auf Papamonat hast du <u><b>immer</b></u>!
-		<i>= Recht auf Freistellung von der Arbeit ab Entlassung aus dem Krankenhaus nach der Geburt</i>
-		<br />
-		Hier geht es nur um den Anspruch auf finanzielle Förderung in dem Monat. Solltest du nicht gefördert
-		werden, musst du deine Krankenversicherung abklären. Hier gibt es aber die Option Mitversicherung
-		bei der Partnerin - ansonsten gilt aber normalerweise auch die 6-wöchige Schutzfrist der ÖGK sobald
-		dich dein Arbeitgeber für den Papamonat abmeldet. Siehe FAQ - TODO: Link.
-	</p>
-	<p>
-		Achtung bei Jobwechsel & Co: 6 Monatsfrist beachten, in dieser darf kein Arbeitslosengeld o.ä.
-		bezogen worden sein.
-	</p>
+	<div class="content prose mt-8">
+		<p class="my-6">
+			Wichtig: Anspruch auf Papamonat hast du <u><b>immer</b></u>!
+			<i
+				>Das bedeutet: Du hast Recht auf Freistellung von der Arbeit ab Entlassung aus dem
+				Krankenhaus nach der Geburt.</i
+			>
+			<br /><br />
+			Hier geht es nur um den Anspruch auf finanzielle Förderung in dem Monat. Solltest du nicht gefördert
+			werden, musst du deine Krankenversicherung abklären. Hier gibt es aber die Option Mitversicherung
+			bei der Partnerin - ansonsten gilt aber normalerweise auch die 6-wöchige Schutzfrist der ÖGK sobald
+			dich dein Arbeitgeber für den Papamonat abmeldet. Siehe FAQ - TODO: Link.
+		</p>
+		<p>
+			Achtung bei Jobwechsel & Co: 182-Tagesfrist beachten, in dieser darf kein Arbeitslosengeld
+			o.ä. bezogen worden sein bevor man den Papamonat in Anspruch nimmt!
+		</p>
+		<blockquote>
+			182 Tage Erwerbstätigkeit muss vorliegen: Der Vater muss durchgehend 182 Tage (ca. 6 Monate)
+			vor Bezugsbeginn des Familienzeitbonus kranken- und pensionsversicherungspflichtig
+			erwerbstätig sein. Unterbrechungen von 14 Tagen im Beobachtungszeitraum (182 Tage) schaden
+			allerdings nicht. Er darf im genannten Beobachtungszeitraum keine Leistungen aus der
+			Arbeitslosenversicherung (z.B. Arbeitslosengeld) bezogen haben.
+			<cite>https://www.arbeiterkammer.at/papamonat</cite>
+		</blockquote>
+		<ul>
+			<li>
+				<a
+					href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/Seite.080623"
+					>Familienzeitbonus für Väter - oesterreich.gv.at</a
+				>
+			</li>
+			<li>
+				<a href="https://www.arbeiterkammer.at/papamonat"
+					>Papamonat & Familienzeitbonus - arbeiterkammer.at</a
+				>
+			</li>
+		</ul>
+		<p>
+			Für den Tag der Geburt bis Entlassung ist Sonderurlaub nehmen nötig, je nach Kollektivvertrag
+			hat man ggf. auch garantierten Anspruch darauf.
+		</p>
+	</div>
 
 	{#if toolAvailable}
 		<div
@@ -100,6 +130,6 @@
 			</div>
 		</section>
 	{:else}
-		<p class="mx-auto font-semibold">🚧 Tool ist noch in Entwicklung 🚧</p>
+		<p class="mx-auto mt-8 font-semibold">🚧 Tool ist noch in Entwicklung 🚧</p>
 	{/if}
 </div>

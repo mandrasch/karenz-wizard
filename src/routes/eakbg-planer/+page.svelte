@@ -648,7 +648,7 @@
 					<input type="checkbox" bind:checked={jointMonth} />
 					<span>Gemeinsamer Monat beim ersten Wechsel</span>
 					{#if jointMonth}
-						<small>ea KBG wird um 1 Monat kuerzer</small>
+						<small>ea KBG wird um 1 Monat kürzer</small>
 					{/if}
 				</label>
 			</div>
