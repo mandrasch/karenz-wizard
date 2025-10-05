@@ -546,7 +546,7 @@
 		<aside class="infobox">
 			⚠️ Prüfen, ob du oder dein/e Partner/in Anspruch hat auf ea KBG? Wenn nur eine Person Anspruch
 			hat, kann die andere Sonderleistung 1 beziehen. Achtung bei AMS-Zeiten vor
-			Geburt/Mutterschutz. <a href="/anspruch" class="link underline">Hier Prüfen</a>
+			Geburt/Mutterschutz. <a href="/eakbg-anspruch" class="link underline">Hier Prüfen</a>
 		</aside>
 		<aside class="infobox">
 			⚠️ Alle Angaben ohne Gewähr, bitte alle Planungen bei der Karenzberatung der Arbeiterkammer
@@ -938,7 +938,85 @@
 			</div>
 		</div>
 
-		<div class="debug-panel" style="display: none;">
+		<aside class="note-box">
+			<div class="prose">
+				<p>Auch der Vater kann den ersten Karenzteil uebernehmen.</p>
+				<p class="footnote" id="fn-1">
+					[1] Papamonat: ab Entlassung aus dem Krankenhaus bis zum Ende des Mutterschutzes nutzbar,
+					Arbeitgeber muss es erlauben.
+				</p>
+				<p class="footnote" id="fn-2">
+					[2] Fuer die Tage im Krankenhaus wird in der Regel Urlaub oder Sonderurlaub benoetigt.
+					Pruefe ggf. den Familienzeitbonus: <a href="#">Dummy Link</a>.
+				</p>
+				<p class="footnote" id="fn-3">
+					[3] Unbezahlte Karenz: Mitversicherung? Wie organisiert man unbezahlte Karenz? <a href="#"
+						>Dummy Link</a
+					>
+				</p>
+				<p class="footnote" id="fn-4">
+					[4] Wer hat Anspruch auf das einkommensabhaengige Kinderbetreuungsgeld? <a href="#"
+						>Dummy Link</a
+					>
+				</p>
+				<p class="footnote">
+					* Meldefristen beachten! Siehe fuer Papamonat: <a href="#">Dummy Link</a> und fuer Karenz:
+					<a href="#">Dummy-Link</a>
+				</p>
+
+				<h2>Warum? / Begriffserklärung</h2>
+				<h3 id="eakbg">ea KBG</h3>
+				<p>
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+					sanctus est Lorem ipsum dolor sit amet.
+				</p>
+				<h3 id="sonderleistung-1">Sonderleistung 1</h3>
+				<p>
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+					sanctus est Lorem ipsum dolor sit amet.
+				</p>
+				<h3 id="mutterschutz">Mutterschutz</h3>
+				<p>
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+					sanctus est Lorem ipsum dolor sit amet.
+				</p>
+				<h3 id="papamonat-fzb">Papamonat (und Familienzeitbonus)</h3>
+				<p>
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+					sanctus est Lorem ipsum dolor sit amet.
+				</p>
+				<h3 id="unbezahlte-karenz">Unbezahlte Karenz</h3>
+				<p>
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+					sanctus est Lorem ipsum dolor sit amet.
+				</p>
+				<h3 id="elternteilzeit">Elternteilzeit</h3>
+				<p>
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+					sanctus est Lorem ipsum dolor sit amet.
+				</p>
+			</div>
+		</aside>
+	</section>
+
+	<section id="auswertung" class="prose">
+		<p class="font-semibold">
+			TODO: Wie viel Tage pro Karenzteil x Wochengeld: ____ = wie viel Geld? (grobe Rechnung)
+		</p>
+
+		<div class="debug-panel">
 			<h3>Debug · EA-KBG Berechnung</h3>
 			<div class="debug-grid">
 				<div>
@@ -1003,77 +1081,6 @@
 				</div>
 			</div>
 		</div>
-		<aside class="note-box">
-			<p>Auch der Vater kann den ersten Karenzteil uebernehmen.</p>
-			<p class="footnote" id="fn-1">
-				[1] Papamonat: ab Entlassung aus dem Krankenhaus bis zum Ende des Mutterschutzes nutzbar,
-				Arbeitgeber muss es erlauben.
-			</p>
-			<p class="footnote" id="fn-2">
-				[2] Fuer die Tage im Krankenhaus wird in der Regel Urlaub oder Sonderurlaub benoetigt.
-				Pruefe ggf. den Familienzeitbonus: <a href="#">Dummy Link</a>.
-			</p>
-			<p class="footnote" id="fn-3">
-				[3] Unbezahlte Karenz: Mitversicherung? Wie organisiert man unbezahlte Karenz? <a href="#"
-					>Dummy Link</a
-				>
-			</p>
-			<p class="footnote" id="fn-4">
-				[4] Wer hat Anspruch auf das einkommensabhaengige Kinderbetreuungsgeld? <a href="#"
-					>Dummy Link</a
-				>
-			</p>
-			<p class="footnote">
-				* Meldefristen beachten! Siehe fuer Papamonat: <a href="#">Dummy Link</a> und fuer Karenz:
-				<a href="#">Dummy-Link</a>
-			</p>
-		</aside>
-	</section>
-
-	<section id="begriffserklaerung" class="prose">
-		<h2>Warum? / Begriffserklärung</h2>
-		<h3 id="eakbg">ea KBG</h3>
-		<p>
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-			invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-			justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-			ipsum dolor sit amet.
-		</p>
-		<h3 id="sonderleistung-1">Sonderleistung 1</h3>
-		<p>
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-			invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-			justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-			ipsum dolor sit amet.
-		</p>
-		<h3 id="mutterschutz">Mutterschutz</h3>
-		<p>
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-			invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-			justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-			ipsum dolor sit amet.
-		</p>
-		<h3 id="papamonat-fzb">Papamonat (und Familienzeitbonus)</h3>
-		<p>
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-			invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-			justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-			ipsum dolor sit amet.
-		</p>
-		<h3 id="unbezahlte-karenz">Unbezahlte Karenz</h3>
-		<p>
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-			invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-			justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-			ipsum dolor sit amet.
-		</p>
-		<h3 id="elternteilzeit">Elternteilzeit</h3>
-		<p>
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-			invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-			justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-			ipsum dolor sit amet.
-		</p>
 	</section>
 </div>
 

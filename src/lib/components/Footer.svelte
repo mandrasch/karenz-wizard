@@ -10,9 +10,7 @@
 					Mit Piefke-❤️ für das Land der Berge entwickelt von <a
 						class="underline"
 						href="https://mandrasch.dev">Matthias Andrasch</a
-					>.<br /><br />
-					Hobbyprojekt – keine Rechtsberatung, alle Angaben ohne Gewähr! Bitte unbedingt bei
-					<a href="/ak-beratung" class="underline">der AK kostenfrei beraten lassen</a>!
+					>.
 				</p>
 				<h2 id="footer-open-source" class="mt-6 text-sm font-semibold text-slate-900">
 					Open Source
@@ -39,7 +37,7 @@
 				<h2 id="footer-links" class="text-sm font-semibold text-slate-900">Inhalte</h2>
 				<ul class="space-y-2 text-sm text-slate-600">
 					<li><a class="hover:text-slate-900" href="/eakbg-planer">eaKBG-Planer</a></li>
-					<li><a class="hover:text-slate-900" href="/anspruch">ea KBG Anspruch?</a></li>
+					<li><a class="hover:text-slate-900" href="/eakbg-anspruch">ea KBG Anspruch?</a></li>
 					<li><a class="hover:text-slate-900" href="/fzb-anspruch">FZB Anspruch?</a></li>
 					<li><a class="hover:text-slate-900" href="/pauschales-kbg">Pauschales KBG</a></li>
 
@@ -62,6 +60,12 @@
 					</li>
 					<li></li>
 				</ul>
+				<h2 class="text-sm font-semibold text-slate-900">Diversity 🌈</h2>
+				<p class="text-xs text-slate-600">
+					Das Tool ist leider noch nicht bzgl. Regenbogenfamilien optimiert. Ich bitte dies zu
+					entschuldigen! (Falls jemand hierzu unterstützen kann, ob rechtlich alles gleichgestellt
+					ist - gerne melden!)
+				</p>
 			</section>
 
 			<section class="space-y-3" aria-labelledby="footer-contact">
@@ -82,6 +86,12 @@
 						>
 					</li>
 				</ul>
+				<h2 id="footer-contact" class="text-sm font-semibold text-slate-900">Disclaimer</h2>
+				<p class="text-xs text-slate-600">
+					Privates, nichtkommerzielles Hobbyprojekt – keine Rechtsberatung, alle Angaben ohne
+					Gewähr! Bitte unbedingt bei
+					<a href="/ak-beratung" class="underline">der AK kostenfrei beraten lassen</a>!
+				</p>
 			</section>
 		</div>
 

@@ -4,20 +4,16 @@
 			title: 'Habe ich und meine/e Partner/in Anspruch?',
 			subtitle: 'Prüfen Sie Voraussetzungen.',
 			description: [
-				'Verschaffen Sie sich einen Überblick darüber, welche Leistungen für Sie und Ihre Familie in Frage kommen.',
-				'Erfahren Sie, welche Nachweise benötigt werden und wie Sie Ihre Unterlagen fristgerecht einreichen.',
-				'Nutzen Sie praxisnahe Tipps, um häufige Stolperfallen in der Antragstellung zu vermeiden.'
+				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 			],
-			href: '/anspruch',
+			href: '/eakbg-anspruch',
 			cta: 'Anspruch prüfen'
 		},
 		{
-			title: 'EAKBG Karenz-Planer',
+			title: 'ea KBG Karenz-Planer',
 			subtitle: 'Planen Sie Ihren Karenzverlauf Schritt für Schritt.',
 			description: [
-				'Ermitteln Sie, wie lange Sie Karenzgeld beziehen können und welche Optionen sich daraus ergeben.',
-				'Passen Sie Zeiträume flexibel an, um Betreuung, Berufseinstieg und finanzielle Planung abzustimmen.',
-				'Speichern Sie Ihre wichtigsten Eckpunkte, damit Sie Gespräche mit Arbeitgeber:innen gut vorbereitet führen.'
+				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 			],
 			href: '/eakbg-planer',
 			cta: 'Zum Karenz-Planer'
@@ -27,11 +23,9 @@
 			title: 'Beratung & Ressourcen',
 			subtitle: 'Unterstützung für Ihren individuellen Weg.',
 			description: [
-				'Finden Sie Beratungsstellen und Online-Angebote, die Sie bei speziellen Fragen begleiten.',
-				'Nutzen Sie Checklisten und Vorlagen, um Termine, Deadlines und Aufgaben im Blick zu behalten.',
-				'Entdecken Sie weiterführende Links für rechtliche Informationen und finanzielle Planungshilfen.'
+				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
 			],
-			href: '/anspruch#beratung',
+			href: '/eakbg-anspruch',
 			cta: 'Ressourcen entdecken'
 		}
 	];
@@ -86,7 +80,7 @@
 				>
 				<a
 					class="inline-flex items-center justify-center rounded-full border border-white/70 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
-					href="/anspruch">Anspruch prüfen</a
+					href="/eakbg-anspruch">Anspruch prüfen</a
 				>
 			</div> -->
 		</div>
@@ -97,7 +91,8 @@
 				<div
 					class="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-white/50 text-center text-sm font-medium text-white/80"
 				>
-					Geplante Visualisierung<br />wird hier ergänzt
+					<!-- TODO: alt text-->
+					<img src="/hero.png" alt="" />
 				</div>
 			</div>
 		</div>

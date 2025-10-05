@@ -14,8 +14,8 @@
 	let showPreviewBanner = $state(true);
 
 	const navItems: NavItem[] = [
-		{ label: 'eaKBG-Planer', href: '/eakbg-planer', matchPath: '/eakbg-planer' },
-		{ label: 'ea KBG Anspruch?', href: '/anspruch', matchPath: '/anspruch' },
+		{ label: 'ea KBG Anspruch?', href: '/eakbg-anspruch', matchPath: '/eakbg-anspruch' },
+		{ label: 'ea KBG Planer 🪄', href: '/eakbg-planer', matchPath: '/eakbg-planer' },
 		{ label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch', matchPath: '/fzb-anspruch' },
 		{ label: 'Pauschales KBG', href: '/pauschales-kbg', matchPath: '/pauschales-kbg' },
 		{ label: 'Videos', href: '/videos' },
@@ -61,10 +61,10 @@
 				aria-live="polite"
 				id="preview-banner"
 			>
-				Frühe Vorschau-Version: Diese Webseite ist ein privates Hobby-Projekt und wird noch
-				entwickelt, alle Angaben ohne Gewähr! ⚠️ Bitte unbedingt
+				Frühe Vorschau-Version: Das ist ein privates Hobby-Projekt und wird noch entwickelt, alle
+				Angaben ohne Gewähr! ⚠️ Bitte unbedingt
 				<a class="underline" href="/ak-beratung/">kostenfrei bei der Arbeiterkammer</a>
-				beraten lassen!
+				beraten lassen bevor man etwas beantragt!
 			</p>
 			<!-- <button
 				type="button"
