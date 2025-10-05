@@ -754,7 +754,7 @@
 							y={rowY(BASELINE_ROW_INDEX) + 26}
 							text-anchor="middle"
 						>
-							Bis zum 2. Lebensjahr Recht auf Karenz (Freistellung), Arbeitgeber muss es erlauben
+							Bis zum 2. Lebensjahr Recht auf Karenz (Freistellung), Arbeitgeber muss es erlauben.
 						</text>
 						<text
 							class="label label-start"
