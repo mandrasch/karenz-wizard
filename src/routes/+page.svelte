@@ -89,7 +89,7 @@
 						Diese private Webseite soll eine kleine Hilfestellung geben. Als Neu-Eltern standen wir
 						vor kurzem selber erst vor diesem Berg an Fragen. Die gute Nachricht: Hat man erstmal
 						einen groben Überblick über alle Begriffe und ob man die Ansprüche erfüllt, ist es
-						eigentlich eh halbwegs easy. Alles Gute für euer Abenteuer!
+						eigentlich eh halbwegs easy. Alles Gute für dein/euer Abenteuer!
 					</p>
 				</div>
 			{/if}
