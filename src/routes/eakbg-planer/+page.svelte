@@ -939,17 +939,19 @@
 		<aside class="note-box">
 			<div class="prose">
 				<h3>🚧 Warum? / Erklärungen - in Arbeit 🚧</h3>
+				<p class="text-sm">Die Challenge: Viele Begriffe, die man erstmal alle verstehen muss.</p>
 				<p class="text-sm" style="color:red">
 					Alle hier erwähnten Begriffe haben oft "Anspruchsvoraussetzungen", die man vorher im
 					Detail prüfen sollte. So darf 182 Tage vor dem Papamonat bspw. kein AMS bezogen worden
-					sein, sonst hat man keinen Anspruch auf Familienzeitbonus-Förderung. Siehe
-					"Familienzeitbonus Anspruch prüfen" und "ea KBG Anspruch prüfen". <br />Des Weiteren muss
-					man die Meldefristen bei ÖGK sowie beim Arbeitgeber beachten, hier hilft der
+					sein, sonst hat man keinen Anspruch auf Familienzeitbonus-Förderung (Das Recht auf die
+					Freistellung im Papamonat hat man aber trotzdem) Siehe "Familienzeitbonus Anspruch prüfen"
+					und "ea KBG Anspruch prüfen". <br />Des Weiteren muss man die Meldefristen bei ÖGK sowie
+					beim Arbeitgeber beachten, hier hilft der
 					<a href="https://elternkalender.arbeiterkammer.at/index.html" class="underline"
 						>Elternkalender der Arbeiterkammer.</a
 					>
 				</p>
-				<p>Hinweis: Auch der Vater kann den ersten Karenzteil übernehmen.</p>
+				<p class="text-sm">Hinweis: Auch der Vater kann den ersten Karenzteil übernehmen.</p>
 				<!-- <p class="footnote" id="fn-1">
 					[1] Papamonat: ab Entlassung aus dem Krankenhaus bis zum Ende des Mutterschutzes nutzbar,
 					der Arbeitgeber muss es erlauben.
@@ -990,6 +992,13 @@
 					sanctus est Lorem ipsum dolor sit amet.
 				</p>
 				<h3 id="sonderleistung-1">Sonderleistung 1</h3>
+				<p>
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+					sanctus est Lorem ipsum dolor sit amet.
+				</p>
+				<h3 id="sonderleistung-1">Gemeinsamer Monat</h3>
 				<p>
 					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
