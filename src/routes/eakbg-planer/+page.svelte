@@ -557,8 +557,8 @@
 	const toX = (weeks: number) => margins.left + weeks * scale;
 </script>
 
-<div class="layout">
-	<div class="page-header mt-10">
+<div class="layout min-w-0">
+	<div class="page-header mt-10 min-w-0">
 		<h2 class="text-2xl font-semibold text-slate-900">ea KBG Planer</h2>
 		<p class="subline">
 			Eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld und die Aufteilung
@@ -575,9 +575,9 @@
 		</aside>
 	</div>
 
-	<section aria-labelledby="planner-title" class="timeline-section">
-		<div class="planner-controls flex flex-row flex-wrap">
-			<div class="example-presets">
+	<section aria-labelledby="planner-title" class="timeline-section min-w-0">
+		<div class="planner-controls flex min-w-0 flex-row flex-wrap">
+			<div class="example-presets min-w-0">
 				<span>Beispiele:</span>
 				<button type="button" on:click={() => applyExample(10, 2)} class="example-link"
 					>10 + 2</button
@@ -588,10 +588,10 @@
 				<button type="button" on:click={() => applyExample(6, 6)} class="example-link">6 + 6</button
 				>
 			</div>
-			<div class="flex flex-row self-start">
-				<div class="control-group">
+			<div class="flex min-w-0 flex-row self-start">
+				<div class="control-group min-w-0">
 					<label for="mother-months">Karenz-Teil 1: Mutter</label>
-					<div class="stepper">
+					<div class="stepper min-w-0">
 						<button
 							type="button"
 							on:click={() => adjustMotherMonths(-1)}
@@ -615,9 +615,9 @@
 						</button>
 					</div>
 				</div>
-				<div class="control-group">
+				<div class="control-group min-w-0">
 					<label for="father-months">Karenz-Teil 2: Vater</label>
-					<div class="stepper">
+					<div class="stepper min-w-0">
 						<button
 							type="button"
 							on:click={() => adjustFatherMonths(-1)}
@@ -641,9 +641,9 @@
 						</button>
 					</div>
 				</div>
-				<div class="control-group">
+				<div class="control-group min-w-0">
 					<label for="third-months">(Karenz-Teil 3: Mutter)</label>
-					<div class="stepper">
+					<div class="stepper min-w-0">
 						<button
 							type="button"
 							on:click={() => adjustThirdMonths(-1)}
@@ -664,7 +664,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="flex flex-col gap-5 self-start">
+			<div class="flex min-w-0 flex-col gap-5 self-start">
 				<label class="control-checkbox">
 					<input type="checkbox" bind:checked={extendedMutterschutz} />
 					<div class="control-checkbox__text">
@@ -693,14 +693,14 @@
 			</div>
 		{/if}
 
-		<div class="timeline-shell">
+		<div class="timeline-shell min-w-0">
 			<div
-				class="timeline-window max-w-full"
+				class="timeline-window max-w-full min-w-0"
 				role="region"
 				aria-labelledby="planner-title"
 				style={`max-height: ${viewportHeight}px; min-height: ${viewportHeight}px;`}
 			>
-				<div class="timeline-viewport">
+				<div class="timeline-viewport min-w-0">
 					<svg
 						width={svgWidth}
 						height={svgHeight}
@@ -991,81 +991,23 @@
 					>
 				</p>
 				<p class="text-sm">Hinweis: Auch der Vater kann den ersten Karenzteil übernehmen.</p>
-				<!-- <p class="footnote" id="fn-1">
-					[1] Papamonat: ab Entlassung aus dem Krankenhaus bis zum Ende des Mutterschutzes nutzbar,
-					der Arbeitgeber muss es erlauben.
-				</p>
-				<p class="footnote" id="fn-2">
-					[2] Fuer die Tage im Krankenhaus wird in der Regel Urlaub oder Sonderurlaub benoetigt.
-					Pruefe ggf. den Familienzeitbonus: <a href="#">Dummy Link</a>.
-				</p>
-				<p class="footnote" id="fn-3">
-					[3] Unbezahlte Karenz: Mitversicherung? Wie organisiert man unbezahlte Karenz? <a href="#"
-						>Dummy Link</a
-					>
-				</p>
-				<p class="footnote" id="fn-4">
-					[4] Wer hat Anspruch auf das einkommensabhaengige Kinderbetreuungsgeld? <a href="#"
-						>Dummy Link</a
-					>
-				</p>
-				<p class="footnote">
-					* Meldefristen beachten! Siehe fuer Papamonat: <a href="#">Dummy Link</a> und fuer Karenz:
-					<a href="#">Dummy-Link</a>
-				</p>
 
-			-->
 				<h3 id="mutterschutz">Mutterschutz</h3>
-				<p>
-					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-					sanctus est Lorem ipsum dolor sit amet.
-				</p>
+				<p>…</p>
 
 				<h3 id="eakbg">ea KBG</h3>
-				<p>
-					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-					sanctus est Lorem ipsum dolor sit amet.
-				</p>
+				<p>…</p>
 				<h3 id="sonderleistung-1">Sonderleistung 1</h3>
-				<p>
-					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-					sanctus est Lorem ipsum dolor sit amet.
-				</p>
+				<p>…</p>
 				<h3 id="sonderleistung-1">Gemeinsamer Monat</h3>
-				<p>
-					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-					sanctus est Lorem ipsum dolor sit amet.
-				</p>
+				<p>…</p>
 
 				<h3 id="papamonat-fzb">Papamonat (und Familienzeitbonus)</h3>
-				<p>
-					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-					sanctus est Lorem ipsum dolor sit amet.
-				</p>
+				<p>…</p>
 				<h3 id="unbezahlte-karenz">Unbezahlte Karenz</h3>
-				<p>
-					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-					sanctus est Lorem ipsum dolor sit amet.
-				</p>
+				<p>…</p>
 				<h3 id="elternteilzeit">Eltern-Teilzeit</h3>
-				<p>
-					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-					invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-					accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-					sanctus est Lorem ipsum dolor sit amet.
-				</p>
+				<p>…</p>
 			</div>
 		</aside>
 	</section>
@@ -1078,66 +1020,33 @@
 		<div class="debug-panel">
 			<h3>Debug · EA-KBG Berechnung</h3>
 			<div class="debug-grid">
-				<div>
-					<strong>EA KBG Monate:</strong>
-					{eaKbgMonths.toFixed(2)}
-				</div>
-				<div>
-					<strong>EA KBG Wochen:</strong>
-					{eaKbgWeeks.toFixed(1)}
-				</div>
-				<div>
-					<strong>Mutter bezahlt:</strong>
-					{motherPaidMonths.toFixed(2)}
-				</div>
-				<div>
-					<strong>Vater bezahlt:</strong>
-					{fatherPaidMonths.toFixed(2)}
-				</div>
+				<div><strong>EA KBG Monate:</strong> {eaKbgMonths.toFixed(2)}</div>
+				<div><strong>EA KBG Wochen:</strong> {eaKbgWeeks.toFixed(1)}</div>
+				<div><strong>Mutter bezahlt:</strong> {motherPaidMonths.toFixed(2)}</div>
+				<div><strong>Vater bezahlt:</strong> {fatherPaidMonths.toFixed(2)}</div>
 				<div>
 					<strong>Vater Start (Monate nach Geburt):</strong>
 					{(fatherStart / WEEKS_PER_MONTH).toFixed(2)}
 				</div>
-				<div>
-					<strong>Vater Fenster Monate:</strong>
-					{fatherCoverageWindowMonths.toFixed(2)}
-				</div>
+				<div><strong>Vater Fenster Monate:</strong> {fatherCoverageWindowMonths.toFixed(2)}</div>
 				<div>
 					<strong>Vater min. Fenster ok?:</strong>
 					{fatherWindowAllowsMinimum ? 'ja' : 'nein'}
 				</div>
-				<div>
-					<strong>Vater EA-eligible?</strong>
-					{fatherEaEligible ? 'ja' : 'nein'}
-				</div>
-				<div>
-					<strong>Vater elig. Monate:</strong>
-					{fatherEligibleMonthsValue.toFixed(2)}
-				</div>
-				<div>
-					<strong>Dritter Teil bezahlt:</strong>
-					{thirdPaidMonths.toFixed(2)}
-				</div>
+				<div><strong>Vater EA-eligible?</strong> {fatherEaEligible ? 'ja' : 'nein'}</div>
+				<div><strong>Vater elig. Monate:</strong> {fatherEligibleMonthsValue.toFixed(2)}</div>
+				<div><strong>Dritter Teil bezahlt:</strong> {thirdPaidMonths.toFixed(2)}</div>
 				<div>
 					<strong>Dritter Start (Monate nach Geburt):</strong>
 					{(thirdStart / WEEKS_PER_MONTH).toFixed(2)}
 				</div>
-				<div>
-					<strong>Dritter Fenster Monate:</strong>
-					{thirdCoverageWindowMonths.toFixed(2)}
-				</div>
+				<div><strong>Dritter Fenster Monate:</strong> {thirdCoverageWindowMonths.toFixed(2)}</div>
 				<div>
 					<strong>Dritter min. Fenster ok?:</strong>
 					{thirdWindowAllowsMinimum ? 'ja' : 'nein'}
 				</div>
-				<div>
-					<strong>Dritter EA-eligible?</strong>
-					{thirdEaEligible ? 'ja' : 'nein'}
-				</div>
-				<div>
-					<strong>Dritter elig. Monate:</strong>
-					{thirdEligibleMonthsValue.toFixed(2)}
-				</div>
+				<div><strong>Dritter EA-eligible?</strong> {thirdEaEligible ? 'ja' : 'nein'}</div>
+				<div><strong>Dritter elig. Monate:</strong> {thirdEligibleMonthsValue.toFixed(2)}</div>
 			</div>
 		</div>
 	</section>
@@ -1151,7 +1060,23 @@
 		@apply max-w-none;
 	}
 
-	/* TODO: move to general layout file or use tailwind classes */
+	/* Avoid any stray horizontal scrolling */
+	:global(html, body) {
+		overflow-x: hidden;
+	}
+
+	/* Let flex/grid children shrink on small screens */
+	.layout,
+	.timeline-section,
+	.planner-controls,
+	.timeline-window,
+	.timeline-viewport,
+	.control-group,
+	.stepper {
+		min-width: 0;
+	}
+
+	/* Container */
 	.layout {
 		@apply mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-6 pb-12;
 	}
@@ -1268,8 +1193,9 @@
 		@apply text-xs font-semibold text-slate-700;
 	}
 
+	/* Key fix: keep timeline to container width (no 100vw) */
 	.timeline-window {
-		width: min(100%, 100vw);
+		width: 100%;
 		@apply overflow-hidden rounded-xl border border-slate-200 bg-white pb-4;
 	}
 
