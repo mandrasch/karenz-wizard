@@ -1052,7 +1052,9 @@
 				<div class="timeline-summary" aria-live="polite">
 					<h3 class="timeline-summary__title">
 						Überblick zu den Abschnitten
-						<span class="timeline-summary__badge">Noch in Arbeit, kann Fehler enthalten!</span>
+						<span class="timeline-summary__badge" style="color:red"
+							>Noch in Arbeit, kann Fehler enthalten!</span
+						>
 					</h3>
 					<div class="timeline-summary__birthdate">
 						<label>
@@ -1146,11 +1148,8 @@
 		</aside>
 	</section>
 
+	<!-- TODO: remove, not necessary anymore-->
 	<section id="auswertung" class="prose">
-		<p class="font-semibold">
-			TODO: Wie viel Tage pro Karenzteil x Wochengeld: ____ = wie viel Geld? (grobe Rechnung)
-		</p>
-
 		<div class="debug-panel" style="display:none">
 			<h3>Debug · EA-KBG Berechnung</h3>
 			<div class="debug-grid">
