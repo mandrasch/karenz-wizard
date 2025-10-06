@@ -48,13 +48,14 @@
 				Erfahrung nach.)</i
 			>
 		</p>
+		<h4>Bildungskarenz jetzt verboten nach Elternkarenz</h4>
 		<p>
 			Auch die Bildungskarenz wurde oft benutzt, um im zweiten Lebensjahr nach der Geburt noch
 			Betreuung gewährleisten zu können wenn die 14 Monate vorbei waren - und die Eltern ihr Kind
 			mit knapp einem Lebensjahr nicht direkt in eine Kindergarten-Gruppe bringen wollten. Was auch
-			bspw. in Wien möglich ist, aber in Niederösterreich noch gar nicht gehen würde. <br />Diese
-			Möglichkeit der Bildungskarenz "als Brücke zurück ins Erwerbsleben nach einem Kind" wird nun
-			politisch verunmöglicht (siehe
+			bspw. in Wien möglich ist, aber in Niederösterreich noch gar nicht gehen würde in diesem
+			jungen Alter. <br />Diese Möglichkeit der Bildungskarenz "als Brücke zurück ins Erwerbsleben
+			nach einem Kind" wird nun politisch verunmöglicht (siehe
 			<a class="underline" href="https://www.moment.at/story/bildungskarenz-neu-weiterbildungszeit/"
 				>moment.at</a
 			>). Werdende Eltern müssen sich also neue Modelle überlegen.
@@ -100,13 +101,24 @@
 			nicht die finanzielle Förderung durch den Sozialstaat. Was hier fehlt: Einfache
 			Beschreibungen, welche verschiedenen Wege Eltern gehen könnten.
 		</p>
+		<p>
+			<i>
+				Siehe auch <a
+					href="https://workwhileclimate.at/crashkurs-elternkarenz-fuer-dummies-inkl-faire-halbe-halbe-aufteilung-oesterreich/#ab-wann-wird-fremdbetreuung-im-kindergarten-offiziell-fruehestens-empfohlen"
+					>Ab wann wird Fremdbetreuung im Kindergarten offiziell frühestens empfohlen?</a
+				> in meinem Blogbeitrag.</i
+			>
+		</p>
 		<p></p>
 		<!-- STAAT SOLLTE MODELLE ERMÖGLICHEN / ELTERN ENTSCHEIDEN? AKTUELL KRAUT UND RÜBEN?-->
 
 		<h3>Ganze Männer müssen ... vor allem erstmal sehr viel recherchieren!</h3>
+		<p>Long story short: Ganze Männer machen halbe halbe - nicht so einfach aktuell!</p>
 		<p>
-			Long story short: Ganze Männer machen halbe halbe - nicht so einfach aktuell! Es finden sich
-			online einfach sau wenig Informationen dazu, wie man vom klassischen 12+2 abweicht.
+			Es finden sich online einfach sau wenig Informationen dazu, wie man vom klassischen 12+2
+			abweicht. Ich habe einen Bachelor- und Master-Abschluss in Geisteswissenschaften, komplexe
+			Thematiken und lange Texte sind mir nicht fremd - aber ich fand es extrem anstrengend, mir
+			hier Klarheit und verlässliche Informationen zu beschaffen.
 		</p>
 		<p>
 			Was aus meiner Sicht fehlt: A) Ein Ratgeber mit rotem Faden - statt Einzelbroschüren zu allen
@@ -119,16 +131,16 @@
 
 		<p>
 			Mit diesem Projekt möchte ich zumindest Punkt D) angehen und einen kleinen "Proof of concept"
-			liefern. Mit der Hoffnung, dass der nächsten Mutter und dem nächsten werdenden Vater nicht so
-			der Kopf brummt - und ein klein wenig mehr Gleichberechtigung möglich ist.
+			liefern. Mit der Hoffnung, dass der nächsten Mutter und dem nächsten frischgebackenen Vater
+			nicht so der Kopf brummt - und ein klein wenig mehr Gleichberechtigung möglich ist.
 		</p>
 		<p>
 			Und natürlich ist es großartig, dass Österreich ein Sozialstaat ist und es überhaupt
-			Mutterschutz, Papamonat und staatliche Karenz-Förderungen gibt. Aber Luft nach oben ist immer!
+			Mutterschutz, Papamonat, staatliche Karenz-Förderungen & Co gibt. Aber: Luft nach oben ist
+			immer!
 		</p>
-		<p>Kritisches Feedback ist sehr willkommen!</p>
 		<p>
-			Siehe auch mein Blogbeitrag: <a
+			Kritisches Feedback ist sehr willkommen! Siehe auch mein Blogbeitrag: <a
 				class="underline"
 				href="https://workwhileclimate.at/crashkurs-elternkarenz-fuer-dummies-inkl-faire-halbe-halbe-aufteilung-oesterreich/#wie-organisiert-man-eine-unbezahlte-karenz"
 				>Crashkurs: Elternkarenz für Dummies inkl. Halbe Halbe (Österreich)</a

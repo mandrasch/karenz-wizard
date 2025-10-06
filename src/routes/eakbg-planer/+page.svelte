@@ -482,6 +482,80 @@
 		})()
 	);
 
+	type SegmentSummary = {
+		id: string;
+		title: string;
+		days: number;
+		startWeeks: number;
+		endWeeks: number;
+		labelPosition: 'above' | 'below';
+	};
+
+	const weeksToDays = (weeks: number) => Math.max(0, Math.round(weeks * 7));
+
+	let birthDateInput = $state('2026-01-01');
+
+	const addDays = (date: Date, days: number) => {
+		const result = new Date(date);
+		result.setDate(result.getDate() + days);
+		return result;
+	};
+
+	const formatDate = (date: Date) =>
+		date.toLocaleDateString('de-AT', {
+			day: '2-digit',
+			month: '2-digit',
+			year: 'numeric'
+		});
+
+	const parseBirthDate = (value: string): Date | null => {
+		if (!value) {
+			return null;
+		}
+		const parsed = new Date(value);
+		return Number.isNaN(parsed.getTime()) ? null : parsed;
+	};
+
+	const formatSegmentRange = (segment: SegmentSummary) => {
+		const baseDate = parseBirthDate(birthDateInput);
+		if (!baseDate) {
+			return '–';
+		}
+		const startOffset = Math.round(segment.startWeeks * 7);
+		const endOffsetExclusive = Math.round(segment.endWeeks * 7);
+		const endOffset = Math.max(startOffset, endOffsetExclusive - 1);
+		const startDate = addDays(baseDate, startOffset);
+		const endDate = addDays(baseDate, endOffset);
+		return `${formatDate(startDate)} – ${formatDate(endDate)}`;
+	};
+
+	const segmentSummaries = $derived<SegmentSummary[]>(
+		(() => {
+			return intervals
+				.map((interval, index) => {
+					const label = interval.label?.trim();
+					if (!label) {
+						return null;
+					}
+					const startWeeks = interval.start;
+					const endWeeks = interval.lineEnd ?? interval.end;
+					const durationWeeks = Math.max(0, endWeeks - startWeeks);
+					if (durationWeeks <= 0.01) {
+						return null;
+					}
+					return {
+						id: `${index}-${label}`,
+						title: label,
+						days: weeksToDays(durationWeeks),
+						startWeeks,
+						endWeeks,
+						labelPosition: interval.labelPosition ?? 'above'
+					} satisfies SegmentSummary;
+				})
+				.filter((entry): entry is SegmentSummary => entry !== null);
+		})()
+	);
+
 	const intervalRowIndices = $derived<number[]>(
 		(() => {
 			const assignments = new Map<string, number>();
@@ -973,6 +1047,66 @@
 				</button>
 				<span class="zoom-status" aria-live="polite">{zoomPercent}%</span>
 			</div>
+
+			{#if segmentSummaries.length > 0}
+				<div class="timeline-summary" aria-live="polite">
+					<h3 class="timeline-summary__title">
+						Überblick zu den Abschnitten
+						<span class="timeline-summary__badge">Noch in Arbeit, kann Fehler enthalten!</span>
+					</h3>
+					<div class="timeline-summary__birthdate">
+						<label>
+							<span>(Errechneter) Geburtstermin</span>
+							<input
+								type="date"
+								class="timeline-summary__input"
+								bind:value={birthDateInput}
+								aria-label="(Errechneter) Geburtstermin"
+							/>
+						</label>
+					</div>
+					<div class="timeline-summary__table-wrapper">
+						<table class="timeline-summary__table">
+							<thead>
+								<tr>
+									<th scope="col">Abschnitt</th>
+									<th scope="col">Tage</th>
+									<th scope="col">Zeitraum</th>
+									<th scope="col">Förderung</th>
+									<th scope="col">Gesamt</th>
+								</tr>
+							</thead>
+							<tbody>
+								{#each segmentSummaries as segment (segment.id)}
+									<tr>
+										<th scope="row">{segment.title}</th>
+										<td>{segment.days}</td>
+										<td>{formatSegmentRange(segment)}</td>
+										<td>
+											<input
+												type="text"
+												class="timeline-summary__input"
+												aria-label={`Förderung für ${segment.title}`}
+												disabled
+											/>
+										</td>
+										<td>
+											<input
+												type="text"
+												class="timeline-summary__input"
+												aria-label={`Gesamt für ${segment.title}`}
+												disabled
+											/>
+										</td>
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			{:else}
+				<p class="timeline-summary__empty">Keine Abschnitte für die Übersicht verfügbar.</p>
+			{/if}
 		</div>
 
 		<aside class="note-box">
@@ -1017,7 +1151,7 @@
 			TODO: Wie viel Tage pro Karenzteil x Wochengeld: ____ = wie viel Geld? (grobe Rechnung)
 		</p>
 
-		<div class="debug-panel">
+		<div class="debug-panel" style="display:none">
 			<h3>Debug · EA-KBG Berechnung</h3>
 			<div class="debug-grid">
 				<div><strong>EA KBG Monate:</strong> {eaKbgMonths.toFixed(2)}</div>
@@ -1358,5 +1492,57 @@
 
 	.interval-duration {
 		@apply fill-slate-600 text-xs;
+	}
+
+	.timeline-summary {
+		@apply mt-6 grid gap-3 rounded-xl border border-slate-200 bg-white p-4;
+	}
+
+	.timeline-summary__title {
+		@apply flex items-center gap-2 text-sm font-semibold tracking-wide text-slate-700 uppercase;
+	}
+
+	.timeline-summary__badge {
+		@apply inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-amber-700 uppercase;
+	}
+
+	.timeline-summary__birthdate {
+		@apply grid gap-1 text-sm;
+	}
+
+	.timeline-summary__birthdate label {
+		@apply flex flex-col gap-1;
+	}
+
+	.timeline-summary__birthdate span {
+		@apply text-xs font-semibold tracking-wide text-slate-600 uppercase;
+	}
+
+	.timeline-summary__table-wrapper {
+		@apply overflow-x-auto;
+	}
+
+	.timeline-summary__table {
+		@apply min-w-full border-collapse;
+	}
+
+	.timeline-summary__table th {
+		@apply border-b border-slate-200 bg-slate-50 px-3 py-2 text-left text-xs font-semibold tracking-wide text-slate-700 uppercase;
+	}
+
+	.timeline-summary__table td {
+		@apply px-3 py-2 align-middle text-sm text-slate-800;
+	}
+
+	.timeline-summary__table th[scope='row'] {
+		@apply text-sm font-semibold text-slate-900;
+	}
+
+	.timeline-summary__input {
+		@apply w-full rounded-md border border-slate-300 bg-white px-2 py-1 text-sm text-slate-800 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500;
+	}
+
+	.timeline-summary__empty {
+		@apply mt-4 text-sm font-medium text-slate-600;
 	}
 </style>
