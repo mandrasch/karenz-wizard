@@ -22,6 +22,8 @@
 		content="Euch brummt der Kopf von der Karenzplanung? Die Karenzplanung ist eine riesige Herausforderung: Warum hat man ein Recht auf zwei Jahre Karenz (Freistellung) auf Arbeit, aber es werden nur 14 Monate beim einkommensabhängigen Betreuungsgeld (ea KBG) bezahlt? Ebenso herausfordernd ist die Frage der Kinderbetreuung nach der Karenz:"
 	/>
 	<link rel="icon" href={favicon} />
+	<!-- TODO: add fitting dimensions and more tags -->
+	<meta property="og:image" content="/hero_karenz_wizard.jpg" />
 </svelte:head>
 
 <div class="mb-10 flex min-h-screen flex-col bg-white text-slate-900">
