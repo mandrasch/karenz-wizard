@@ -62,10 +62,11 @@
 				aria-live="polite"
 				id="preview-banner"
 			>
-				Frühe Vorschau-Version: Das ist ein privates Hobby-Projekt und wird noch entwickelt, alle
-				Angaben ohne Gewähr! ⚠️ Bitte unbedingt
+				Frühe Vorschau-Version: Das ist ein Hobby-Projekt und wird noch entwickelt, alle Angaben
+				ohne Gewähr! Inhalte wurden nicht von Expert:innen geprüft. Die Seite ist noch nicht
+				mobil-optimiert.<br /><br /> ⚠️ Bitte unbedingt
 				<a class="underline" href="/ak-beratung/">kostenfrei bei der Arbeiterkammer</a>
-				beraten lassen bevor man etwas beantragt! ⚠️
+				beraten lassen! ⚠️
 			</p>
 			<!-- <button
 				type="button"

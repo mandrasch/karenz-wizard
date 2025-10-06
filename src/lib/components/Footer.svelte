@@ -10,7 +10,7 @@
 					Mit ❤️ für das Land der Berge entwickelt von <a
 						class="underline"
 						href="https://mandrasch.dev">Matthias Andrasch</a
-					>.
+					>, zugezogener Piefke.
 				</p>
 				<h2 id="footer-open-source" class="mt-6 text-sm font-semibold text-slate-900">
 					Open Source
@@ -65,6 +65,12 @@
 					Das Tool ist leider noch nicht bzgl. Regenbogenfamilien optimiert. Ich bitte dies zu
 					entschuldigen! (Falls jemand hierzu unterstützen kann, ob rechtlich alles gleichgestellt
 					ist - gerne melden!)
+				</p>
+				<h2 class="text-sm font-semibold text-slate-900">Barrierefreiheit</h2>
+				<p class="text-xs text-slate-600">
+					Das Tool ist leider noch nicht bzgl. Barrierefreiheit optimiert, es handelt sich um einen
+					schnellen Prototyp in meiner Freizeit. Die Barrierefreiheit gemäß WCAG 2.2 AA wird in
+					Zukunft gewährleistet.
 				</p>
 			</section>
 

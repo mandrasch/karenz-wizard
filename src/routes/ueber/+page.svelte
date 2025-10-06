@@ -32,10 +32,10 @@
 		<p>
 			Schnell bemerkte ich jedoch, dass die Kritik mit "Väter nehmen nur 2 Monate" zwar im Kern
 			berechtigt ist - aber die Artikel oft nicht das gesamte Regelwerk dahinter erklären. Beim
-			einkommensabhängingen Kinderbetreuugsgeld bekommen Eltern maximal 14 Monate Betreuunsgeld nach
-			Geburt, 2 Monate muss der Vater minimal nehmen (sogenanntes "12+2"). Danach kann man dieses
-			Modell gar nicht fortsetzen - sondern müsste in "unbezahlte Karenz" gehen. Wozu sich aber
-			wenig bis keine Informationen online finden. Einige Eltern gehen hier bspw. auch beide in
+			einkommensabhängingen Kinderbetreuugsgeld bekommen Eltern maximal 14 Monate Betreuugnsgeld
+			nach Geburt, 2 Monate muss der Vater minimal nehmen (sogenanntes "12+2"). Danach kann man
+			dieses Modell gar nicht fortsetzen - sondern müsste in "unbezahlte Karenz" gehen. Wozu sich
+			aber wenig bis keine Informationen online finden. Einige Eltern gehen hier bspw. auch beide in
 			Eltern-Teilzeit für 20h/Woche und teilen sich die Betreuung vormittags und nachmittags auf -
 			hierzu finden sich aber oft keine Statistiken oder Erwähnungen in den Artikeln.
 		</p>
