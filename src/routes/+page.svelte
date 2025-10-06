@@ -85,8 +85,13 @@
 					<p class="text-sm leading-relaxed sm:text-base">
 						Diese private Webseite soll eine kleine Hilfestellung geben. Als Neu-Eltern standen wir
 						vor kurzem selber erst vor diesem Berg an Fragen. Die gute Nachricht: Hat man erstmal
-						einen groben Überblick über alle Begriffe und ob man die Ansprüche erfüllt, ist es
-						eigentlich eh halbwegs easy. Alles Gute für dein/euer Abenteuer!
+						einen groben Überblick über alle Begriffe und ob man die Ansprüche erfüllt, wie die
+						Fristen sind, was möglich ist - dann kann man sich bewusster entscheiden. Alles Gute für
+						dein/euer Abenteuer!
+					</p>
+
+					<p class="text-sm leading-relaxed sm:text-base">
+						Lasst uns - vor allem als Väter - gemeinsam Verantwortung übernehmen!
 					</p>
 				</div>
 			{/if}
