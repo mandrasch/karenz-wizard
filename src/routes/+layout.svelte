@@ -14,7 +14,13 @@
 	const isHome = $derived(page.url.pathname === '/');
 </script>
 
+<!-- TODO: include page title here on individual pages -->
 <svelte:head>
+	<title>Karenz Wizard 🪄 - der Karenzplaner für Österreich</title>
+	<meta
+		name="description"
+		content="Euch brummt der Kopf von der Karenzplanung? Die Karenzplanung ist eine riesige Herausforderung: Warum hat man ein Recht auf zwei Jahre Karenz (Freistellung) auf Arbeit, aber es werden nur 14 Monate beim einkommensabhängigen Betreuungsgeld (ea KBG) bezahlt? Ebenso herausfordernd ist die Frage der Kinderbetreuung nach der Karenz:"
+	/>
 	<link rel="icon" href={favicon} />
 </svelte:head>
 

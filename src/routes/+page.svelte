@@ -33,9 +33,6 @@
 	const ctrlId = 'teaser-more';
 </script>
 
-<!-- ======================= -->
-<!-- HERO SECTION -->
-<!-- ======================= -->
 <section
 	class="relative w-full bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-600 text-white shadow-xl"
 >
