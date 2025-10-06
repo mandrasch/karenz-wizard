@@ -48,7 +48,7 @@
 	const rowY = (rowIndex: number) => margins.top + rowIndex * rowHeight;
 
 	let motherMonths = $state(10);
-	let fatherMonths = $state(8);
+	let fatherMonths = $state(10);
 	let thirdMonths = $state(0);
 	let jointMonth = $state(false);
 	let extendedMutterschutz = $state(false);
@@ -653,11 +653,12 @@
 		<div class="planner-controls flex min-w-0 flex-row flex-wrap">
 			<div class="example-presets min-w-0">
 				<span>Beispiele:</span>
-				<button type="button" on:click={() => applyExample(10, 2)} class="example-link"
-					>10 + 2</button
-				>
+
 				<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
 					>10 + 10 (Halbe Halbe)</button
+				>
+				<button type="button" on:click={() => applyExample(10, 2)} class="example-link"
+					>10 + 2</button
 				>
 				<button type="button" on:click={() => applyExample(6, 6)} class="example-link">6 + 6</button
 				>
