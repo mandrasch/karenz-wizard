@@ -91,7 +91,7 @@
 					</p>
 
 					<p class="text-sm leading-relaxed sm:text-base">
-						Lasst uns - vor allem als Väter - gemeinsam Verantwortung übernehmen!
+						Lasst uns - vor allem als Väter - (endlich) gemeinsam Verantwortung übernehmen!
 					</p>
 				</div>
 			{/if}
