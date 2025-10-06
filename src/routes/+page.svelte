@@ -44,7 +44,7 @@
 			<div class="flex h-56 items-center justify-center sm:h-64 lg:h-72 xl:h-80">
 				<!-- shorter than before -->
 				<img
-					src="/hero.png"
+					src="/hero_karenz_wizard.jpg"
 					alt="g"
 					class="h-full max-h-full w-auto max-w-full rounded-2xl border border-white/40 object-contain"
 				/>
