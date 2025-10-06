@@ -1,14 +1,15 @@
 <div class="layout mx-auto w-full">
 	<div class="page-header mt-10">
-		<h2 class="text-2xl font-semibold text-slate-900">Über</h2>
+		<h2 class="text-3xl font-semibold text-slate-900">Die Motivation für dieses Projekt</h2>
 	</div>
 	<div class="content prose">
-		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
+		<p class="mt-8 font-bold">🚧 Inhalt in Arbeit 🚧</p>
+		<h3>Ganze Männer machen halbe-halbe?</h3>
 		<p>
 			Als werdender Vater wollte ich nicht zu den Männern gehören, die in den Medien kritisiert
 			werden weil sie gar keine oder nur sehr wenig Karenz (2 Monate) in Anspruch nehmen:
 		</p>
-		<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+		<blockquote>
 			<p>
 				In Österreich wird immer noch das sogenannte „Male-Breadwinner-Modell“ praktiziert: Der Mann
 				ist der Ernährer der Familie in einem Vollzeit-Arbeitsverhältnis, die Frau liefert zu und
@@ -28,36 +29,43 @@
 				></cite
 			>
 		</blockquote>
-		<p>"Ganze Männer machen halbe halbe" - mit diesem Anspruch startete ich meine Planung.</p>
+		<p>"Ganze Männer machen halbe-halbe" - mit diesem Anspruch startete ich meine Planung.</p>
+		<h3>Ganz so einfach ist es nicht!?</h3>
 		<p>
 			Schnell bemerkte ich jedoch, dass die Kritik mit "Väter nehmen nur 2 Monate" zwar im Kern
-			berechtigt ist - aber die Artikel oft nicht das gesamte Regelwerk dahinter erklären. Beim
-			einkommensabhängingen Kinderbetreuugsgeld bekommen Eltern maximal 14 Monate Betreuugnsgeld
-			nach Geburt, 2 Monate muss der Vater minimal nehmen (sogenanntes "12+2"). Danach kann man
-			dieses Modell gar nicht fortsetzen - sondern müsste in "unbezahlte Karenz" gehen. Wozu sich
-			aber wenig bis keine Informationen online finden. Einige Eltern gehen hier bspw. auch beide in
-			Eltern-Teilzeit für 20h/Woche und teilen sich die Betreuung vormittags und nachmittags auf -
-			hierzu finden sich aber oft keine Statistiken oder Erwähnungen in den Artikeln.
+			berechtigt ist - aber die Artikel oft nicht das gesamte Regelwerk dahinter erklären:
 		</p>
 		<p>
-			Auch die Bildungskarenz wurde oft benutzt, um das zweite Jahr nach der Geburt noch Betreuung
-			gewährleisten zu können wenn die 14 Monate vorbei waren. Diese Möglichkeit wird nun politisch
-			verunmöglicht. (siehe <a
-				class="underline"
-				href="https://www.moment.at/story/bildungskarenz-neu-weiterbildungszeit/">moment.at</a
-			>). Jetzt werdende Eltern müssen sich also neue Modelle überlegen.
+			Beim einkommensabhängingen Kinderbetreuugsgeld bekommen Eltern maximal 14 Monate
+			Betreuungsgeld nach Geburt, 2 Monate muss der Vater minimal nehmen (sogenanntes "12+2").
+			Danach kann man dieses Modell gar nicht fortsetzen - der Vater müsste noch einen weiteren Teil
+			"unbezahlte Karenz" nehmen. Wozu sich aber wenig bis keine Informationen online finden.
+			<br /><br />
+			<i
+				>(Einige Eltern gehen hier bspw. auch beide in Eltern-Teilzeit für 20h/Woche und teilen sich
+				die Betreuung vormittags und nachmittags auf oder sie teilen sich danach die Betreuung auf
+				anderen Wegen. Auch dies findet so gut wie keine Erwähnung in kritischen Artikeln meiner
+				Erfahrung nach.)</i
+			>
 		</p>
 		<p>
-			Kalt erwischt hat mich daher auch das Thema "Ab wann ist das Kind bereit für
-			Kindergarten-Gruppen? / Ab wann ist es entwicklungspsychologisch sinnvoll?". Dieses Thema wird
-			sowohl hochemotional diskutiert, es wird vieles pauschal gefordert (Bezüge zu Skandinavien),
-			einiges widerspricht sich - und am Ende ist es natürlich eine zutiefst individuelle
-			Entscheidung. Es gibt eine große Bandbreite an Modellen, wie Eltern die ersten Jahre mit Baby
-			und Erwerbsarbeit organisieren. Mir war nicht bewusst, dass diese Entscheidung mit 14 Monaten
-			nach Ablauf des ea KBG ansteht - wenn man doch zuvor immmer von 2 Jahren Recht auf Karenz
-			liest. Dies bezieht sich aber nur auf das Recht der Freistellung beim Arbeitgeber, nicht die
-			finanzielle Förderung durch den Sozialstaat.
+			Auch die Bildungskarenz wurde oft benutzt, um im zweiten Lebensjahr nach der Geburt noch
+			Betreuung gewährleisten zu können wenn die 14 Monate vorbei waren - und die Eltern ihr Kind
+			mit knapp einem Lebensjahr nicht direkt in eine Kindergarten-Gruppe bringen wollten. Was auch
+			bspw. in Wien möglich ist, aber in Niederösterreich noch gar nicht gehen würde. <br />Diese
+			Möglichkeit der Bildungskarenz "als Brücke zurück ins Erwerbsleben nach einem Kind" wird nun
+			politisch verunmöglicht (siehe
+			<a class="underline" href="https://www.moment.at/story/bildungskarenz-neu-weiterbildungszeit/"
+				>moment.at</a
+			>). Werdende Eltern müssen sich also neue Modelle überlegen.
 		</p>
+		<p>
+			Es fehlten vor allem: Gute und verlässliche Infos, wie man als Vater die Karenz über die 14
+			Monate Maximalzeit unbezahlt verlängert und alles organisiert.
+		</p>
+
+		<h4>Unbezahlte Karenz: Mitversichern bei unverheirateten Paaren - Fallstrick?! 🤯</h4>
+
 		<p>
 			Und so verbrachte ich den Papamonat damit, zu verstehen welche Modelle eigentlich möglich sind
 			und wie man unbezahlte Karenz organisiert. Denn ich wollte nach 12 Monaten, die meine
@@ -72,6 +80,31 @@
 			bezahlen von ~500€/Monat 🤯 (Ich habe bereits bei der AK gefeedbackt, dass es beruhigender
 			wäre wenn die Mitversicherung bei unverheirateten Paaren eindeutig garantiert werden könnte).
 		</p>
+		<p>
+			<i
+				>(Ich habe hierzu auch eine offizielle Anfrage an die Pressestelle der ÖGK gesendet, bisher
+				unbeantwortet - sowie die Problematik bei meinem AK Berater angesprochen, der es ins
+				Feedbacksystem mitnehmen möchte.)</i
+			>
+		</p>
+		<h3>Ab wann ist ein Kind bereit für den Kindergarten?</h3>
+		<p>
+			Kalt erwischt hat mich daher auch das Thema "Ab wann ist das Kind bereit für
+			Kindergarten-Gruppen? / Ab wann ist es entwicklungspsychologisch sinnvoll?". Dieses Thema wird
+			sowohl hochemotional diskutiert, es wird vieles pauschal gefordert (Bezüge zu Skandinavien),
+			einiges widerspricht sich - und am Ende ist es natürlich eine zutiefst individuelle
+			Entscheidung der Eltern - die auch oft mit der Frage des Einkommens zusammenhängt. Jedes Kind
+			ist anders. <br /><br />Es gibt eine große Bandbreite an Modellen, wie Eltern die ersten Jahre
+			mit Baby und Erwerbsarbeit organisieren. Mir war nicht bewusst, dass diese Entscheidung mit 14
+			Monaten nach Ablauf des ea KBG ansteht - wenn man doch zuvor immmer von 2 Jahren Recht auf
+			Karenz liest. Dies bezieht sich aber nur auf das Recht der Freistellung beim Arbeitgeber,
+			nicht die finanzielle Förderung durch den Sozialstaat. Was hier fehlt: Einfache
+			Beschreibungen, welche verschiedenen Wege Eltern gehen könnten.
+		</p>
+		<p></p>
+		<!-- STAAT SOLLTE MODELLE ERMÖGLICHEN / ELTERN ENTSCHEIDEN? AKTUELL KRAUT UND RÜBEN?-->
+
+		<h3>Ganze Männer müssen - vor allem erstmal sehr viel recherchieren!</h3>
 		<p>
 			Long story short: Ganze Männer machen halbe halbe - nicht so einfach aktuell! Es finden sich
 			online einfach sau wenig Informationen dazu, wie man vom klassischen 12+2 abweicht.
@@ -90,6 +123,11 @@
 			liefern. Mit der Hoffnung, dass der nächsten Mutter und dem nächsten werdenen Vater nicht der
 			Kopf brummt - und ein klein wenig mehr Gleichberechtigung möglich ist.
 		</p>
+		<p>
+			Und natürlich ist es großartig, dass Österreich ein Sozialstaat ist und es überhaupt Papamonat
+			und Karenz-Förderungen gibt. Aber Luft nach oben ist immer!
+		</p>
+		<p>Kritisches Feedback ist sehr willkommen!</p>
 		<p>
 			Siehe auch mein Blogbeitrag: <a
 				class="underline"
