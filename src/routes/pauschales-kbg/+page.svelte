@@ -1,32 +1,48 @@
 <div class="layout w-full">
 	<div class="page-header mt-10">
-		<h2 class="text-2xl font-semibold text-slate-900">Pauschales KBG</h2>
+		<h2 class="text-2xl font-semibold text-slate-900">
+			Pauschales Kinderbetreuungsgeld (KBG-Konto)
+		</h2>
 	</div>
 	<div class="content prose">
 		<p>🚧 Inhalt in Arbeit 🚧</p>
 		<p>
-			Das pauschale Kinderbetreuungsgeld-Konto steht nicht nur Arbeitenden zur Verfügung, es hat
-			zudem eine längere Maximalzeit, in welcher man es beanspruchen kann und somit in dieser Zeit
-			krankenversichert ist. Man kann damit die ganzen 2 Jahre Rechtsanspruch auf Karenz
-			Kinderbetreuungsgeld beziehen.
+			Das pauschale Kinderbetreuungsgeld-Konto steht allen Eltern offen – unabhängig davon, ob sie
+			vor der Geburt gearbeitet haben oder nicht. Es kann über einen längeren Zeitraum bezogen
+			werden und sichert währenddessen die Krankenversicherung. Insgesamt kann das
+			Kinderbetreuungsgeld bis zu zwei Jahre (bzw. bei Aufteilung zwischen den Eltern bis zu 28
+			Monate) lang bezogen werden.
 		</p>
 		<p>
-			In der Regel lohnt sich - falls einer oder beide Elternteile arbeiten - das andere Modell, das
-			einkommensabhängige Kinderbetreuungsgeld, aber mehr. Einfach deshalb, man in 14 Monaten mehr
-			Geld rausbekommt. Nachteil ist, dass man sich schon nach 14 Monaten nach der Geburt
-			entscheiden muss, ob man das Kind fremdbetreuen lässt, beide Elternteile in Elternteilzeit
-			gehen oder einer der Elternteile die Karenz noch durch eine "unbezahlte Karenz" verlängert
-			(falls man sich das leisten kann mit einem Gehalt). Beim Vergleich sollte man sich von der
-			Arbeiterkammer kostenfrei beraten lassen, siehe auch <a
+			Für Eltern, die vor der Geburt beschäftigt waren, lohnt sich in vielen Fällen aber das
+			einkommensabhängige Kinderbetreuungsgeld, da hier innerhalb von 12 + 2 Monaten meist ein
+			höherer Gesamtbetrag ausgezahlt wird. Allerdings endet der Anspruch früher, und man muss sich
+			daher spätestens nach 14 Monaten entscheiden, ob das Kind fremdbetreut wird, eine
+			Eltern-Teilzeit vereinbart wird oder – falls finanziell möglich – eine unbezahlte Karenzzeit
+			angeschlossen wird.
+			<br />
+			<span class="text-slate-600 italic">
+				(Auch die Bildungskarenz wurde häufig genutzt, um im zweiten Lebensjahr nach der Geburt die
+				Betreuung weiterhin sicherzustellen – insbesondere, wenn Eltern ihr Kind mit rund einem Jahr
+				noch nicht in eine Kindergartengruppe geben wollten. Das ist etwa in Wien teilweise möglich,
+				in Niederösterreich jedoch vielerorts nicht. Diese Option der Bildungskarenz als „Brücke
+				zurück ins Erwerbsleben“ wird nun jedoch politisch verunmöglicht – siehe
+				<a
+					class="underline"
+					href="https://www.moment.at/story/bildungskarenz-neu-weiterbildungszeit/"
+					target="_blank"
+				>
+					moment.at
+				</a>. Werdende Eltern müssen sich daher neue Modelle überlegen.)
+			</span>
+		</p>
+		<p>
+			Ein Vergleich der beiden Modelle sowie eine kostenfreie Beratung bietet die
+			<a
 				class="underline"
-				href="/eakbg-anspruch">Anspruch prüfen.</a
-			>.
-		</p>
-		<p>
-			Siehe <a
 				href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html#heading_Die_zwei_Kinderbetreuungsgeld_Modelle"
-				>arbeiterkammer.at - die zwei Modelle</a
-			>
+				target="_blank">Arbeiterkammer</a
+			>. Siehe auch <a href="/tools" class="underline">Tools</a>.
 		</p>
 	</div>
 </div>

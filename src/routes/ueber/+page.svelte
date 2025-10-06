@@ -36,7 +36,7 @@
 			berechtigt ist - aber die Artikel oft nicht das gesamte Regelwerk dahinter erklären:
 		</p>
 		<p>
-			Beim einkommensabhängingen Kinderbetreuugsgeld bekommen Eltern maximal 14 Monate
+			Beim einkommensabhängingen Kinderbetreuungsgeld bekommen Eltern maximal 14 Monate
 			Betreuungsgeld nach Geburt, 2 Monate muss der Vater minimal nehmen (sogenanntes "12+2").
 			Danach kann man dieses Modell gar nicht fortsetzen - der Vater müsste noch einen weiteren Teil
 			"unbezahlte Karenz" nehmen. Wozu sich aber wenig bis keine Informationen online finden.
@@ -77,17 +77,16 @@
 			Mitversicherung bei unverheirateten Paaren gibt (Klausel „unbezahlte Haushaltsführung seit
 			mindestens 10 Monaten“). Also nicht mal die ÖGK Mitversicherung war easy-peasy möglich in der
 			unbezahlten Karenz - und im blödesten Fall muss man ja den vollen ÖGK Selbstversicherung
-			bezahlen von ~500€/Monat 🤯 (Ich habe bereits bei der AK gefeedbackt, dass es beruhigender
-			wäre wenn die Mitversicherung bei unverheirateten Paaren eindeutig garantiert werden könnte).
+			bezahlen von ~500€/Monat 🤯
 		</p>
 		<p>
 			<i
-				>(Ich habe hierzu auch eine offizielle Anfrage an die Pressestelle der ÖGK gesendet, bisher
-				unbeantwortet - sowie die Problematik bei meinem AK Berater angesprochen, der es ins
-				Feedbacksystem mitnehmen möchte.)</i
+				>(Ich habe hierzu auch eine offizielle Anfrage an die Pressestelle der ÖGK gesendet mit
+				Bitte um Klarstellung der Klausel, bisher leider unbeantwortet - sowie die Problematik bei
+				einem AK Berater angesprochen, der es ins interne Feedbacksystem mitnehmen möchte.)</i
 			>
 		</p>
-		<h3>Ab wann ist ein Kind bereit für den Kindergarten?</h3>
+		<h3>Ab wann ist ein Kind bereit für die Kindergarten-Gruppe?</h3>
 		<p>
 			Kalt erwischt hat mich daher auch das Thema "Ab wann ist das Kind bereit für
 			Kindergarten-Gruppen? / Ab wann ist es entwicklungspsychologisch sinnvoll?". Dieses Thema wird
@@ -104,7 +103,7 @@
 		<p></p>
 		<!-- STAAT SOLLTE MODELLE ERMÖGLICHEN / ELTERN ENTSCHEIDEN? AKTUELL KRAUT UND RÜBEN?-->
 
-		<h3>Ganze Männer müssen - vor allem erstmal sehr viel recherchieren!</h3>
+		<h3>Ganze Männer müssen ... vor allem erstmal sehr viel recherchieren!</h3>
 		<p>
 			Long story short: Ganze Männer machen halbe halbe - nicht so einfach aktuell! Es finden sich
 			online einfach sau wenig Informationen dazu, wie man vom klassischen 12+2 abweicht.
@@ -120,12 +119,12 @@
 
 		<p>
 			Mit diesem Projekt möchte ich zumindest Punkt D) angehen und einen kleinen "Proof of concept"
-			liefern. Mit der Hoffnung, dass der nächsten Mutter und dem nächsten werdenen Vater nicht der
-			Kopf brummt - und ein klein wenig mehr Gleichberechtigung möglich ist.
+			liefern. Mit der Hoffnung, dass der nächsten Mutter und dem nächsten werdenden Vater nicht so
+			der Kopf brummt - und ein klein wenig mehr Gleichberechtigung möglich ist.
 		</p>
 		<p>
-			Und natürlich ist es großartig, dass Österreich ein Sozialstaat ist und es überhaupt Papamonat
-			und Karenz-Förderungen gibt. Aber Luft nach oben ist immer!
+			Und natürlich ist es großartig, dass Österreich ein Sozialstaat ist und es überhaupt
+			Mutterschutz, Papamonat und staatliche Karenz-Förderungen gibt. Aber Luft nach oben ist immer!
 		</p>
 		<p>Kritisches Feedback ist sehr willkommen!</p>
 		<p>
