@@ -1,8 +1,9 @@
-<div class="layout w-full">
-	<div class="page-header mt-10">
-		<h2 class="text-2xl font-semibold text-slate-900">Tool</h2>
-	</div>
-	<div class="content prose mt-8">
+<section class="content">
+	<header class="mt-10">
+		<h1 class="text-3xl font-semibold text-slate-900">Tools</h1>
+	</header>
+
+	<div class="prose mt-6">
 		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
 
 		<ul>
@@ -19,4 +20,4 @@
 			</li>
 		</ul>
 	</div>
-</div>
+</section>

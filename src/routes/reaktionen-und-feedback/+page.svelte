@@ -6,15 +6,15 @@
 	/>
 </svelte:head>
 
-<div class="layout w-full">
-	<div class="page-header mt-10">
+<section class="content">
+	<header class="mt-10 space-y-2">
 		<h1 class="text-3xl font-semibold text-slate-900">Reaktionen und Feedback</h1>
-		<p class="mt-2 text-base text-slate-600">
+		<p class="text-base text-slate-600">
 			Ein Blick darauf, wie Eltern ihre Erfahrungen mit unterschiedlichen Familienzeitmodellen
 			beschreiben.
 		</p>
-	</div>
-	<div class="content prose max-w-none">
+	</header>
+	<div class="prose mt-8 max-w-none">
 		<blockquote
 			class="not-prose rounded-lg border border-slate-200 bg-slate-50 p-6 text-base text-slate-800"
 		>
@@ -37,4 +37,4 @@
 			</footer>
 		</blockquote>
 	</div>
-</div>
+</section>

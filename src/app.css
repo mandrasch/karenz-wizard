@@ -1,3 +1,60 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+@layer base {
+	:root {
+		--content-w: 72rem;
+		--content-px: clamp(1rem, 3vw, 2.5rem);
+		--section-gap: clamp(2.5rem, 5vw, 4rem);
+	}
+}
+
+@layer components {
+	.page-grid {
+		display: grid;
+		gap: var(--section-gap);
+		grid-template-columns: [full-start] minmax(var(--content-px), 1fr) [content-start] minmax(0, var(--content-w)) [content-end] minmax(var(--content-px), 1fr) [full-end];
+		width: 100%;
+	}
+
+	.page-grid > * {
+		grid-column: content;
+	}
+
+	.content {
+		grid-column: content;
+		margin-inline: auto;
+		max-width: var(--content-w);
+		width: min(100%, var(--content-w));
+	}
+
+	.full-bleed {
+		grid-column: full;
+	}
+
+	.skip-link {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translate(-50%, -150%);
+		background-color: #0f172a;
+		color: #f8fafc;
+		padding: 0.75rem 1.25rem;
+		border-radius: 9999px;
+		font-weight: 600;
+		box-shadow: 0 10px 30px -10px rgb(15 23 42 / 0.45);
+		transition: transform 150ms ease;
+		z-index: 50;
+	}
+
+	.skip-link:focus {
+		transform: translate(-50%, 0.75rem);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.skip-link {
+			transition: none;
+		}
+	}
+}

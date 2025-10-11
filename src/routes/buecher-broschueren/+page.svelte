@@ -1,8 +1,9 @@
-<div class="layout w-full">
-	<div class="page-header mt-10">
-		<h2 class="text-2xl font-semibold text-slate-900">Bücher & Broschüren</h2>
-	</div>
-	<div class="content prose mt-8">
+<section class="content">
+	<header class="mt-10">
+		<h1 class="text-3xl font-semibold text-slate-900">Bücher &amp; Broschüren</h1>
+	</header>
+
+	<div class="prose mt-6">
 		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
 		<p>
 			Leider gibt es (noch) keinen Ratgeber, der alles mit rotem Faden und Visualisierungen erklärt
@@ -13,7 +14,7 @@
 			<li>
 				<a
 					href="https://wien.arbeiterkammer.at/service/broschueren/berufundfamilie/index.html"
-					target="_blank">Arbeiterkammer Broschüren Beruf & Familie</a
+					target="_blank">Arbeiterkammer Broschüren Beruf &amp; Familie</a
 				>
 			</li>
 		</ul>
@@ -32,4 +33,4 @@
 			</li>
 		</ul>
 	</div>
-</div>
+</section>

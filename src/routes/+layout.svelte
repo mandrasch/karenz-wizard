@@ -4,14 +4,11 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-
-	// Svelte 5 import
 	import { page } from '$app/state';
 
 	let { children } = $props();
 
-	// rune-derived flag for homepage
-	const isHome = $derived(page.url.pathname === '/');
+	const layoutVariant = $derived(page.data.layoutVariant ?? 'subpages');
 </script>
 
 <!-- TODO: include page title here on individual pages -->
@@ -26,20 +23,21 @@
 	<meta property="og:image" content="/hero_karenz_wizard.jpg" />
 </svelte:head>
 
-<div class="mb-10 flex min-h-screen flex-col bg-white text-slate-900">
+<div
+	class="app-shell flex min-h-screen flex-col bg-white text-slate-900"
+	data-layout={layoutVariant}
+>
+	<a class="skip-link" href="#main">Zum Inhalt springen</a>
 	<Header />
-
-	{#key isHome}
-		{#if isHome}
-			<main class="mx-auto mb-12 w-full">
-				{@render children?.()}
-			</main>
-		{:else}
-			<main class="mx-auto flex w-full max-w-[1200px] flex-1 flex-col px-6 pb-12">
-				{@render children?.()}
-			</main>
-		{/if}
-	{/key}
-
+	<main
+		tabindex="-1"
+		id="main"
+		class="flex-1 pb-16 pt-12 focus:outline-none"
+		data-layout={layoutVariant}
+	>
+		<div class="page-grid">
+			{@render children?.()}
+		</div>
+	</main>
 	<Footer />
 </div>

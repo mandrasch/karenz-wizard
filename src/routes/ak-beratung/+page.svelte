@@ -70,28 +70,25 @@
 	];
 </script>
 
-<div class="layout mx-auto w-full max-w-[1200px]">
-	<div class="page-header mt-10">
-		<h2 class="text-2xl font-semibold text-slate-900">
-			Kostenfreie Beratung bei der Arbeiterkammer
-		</h2>
+<section class="content">
+	<header class="mt-10 space-y-6">
+		<h1 class="text-3xl font-semibold text-slate-900">Kostenfreie Beratung bei der Arbeiterkammer</h1>
 
-		<!-- 🖼️ Bilder -->
-		<div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<img
 				src="/ak_wien_ottakring_außengebauede.jpg"
-				alt=""
+				alt="Außenansicht der Arbeiterkammer Wien in Ottakring"
 				class="w-full rounded-2xl object-cover shadow-md"
 			/>
 			<img
 				src="/ak_wien_ottakring_wartebereich.jpg"
-				alt=""
+				alt="Wartebereich in der Arbeiterkammer Wien"
 				class="w-full rounded-2xl object-cover shadow-md"
 			/>
 		</div>
-	</div>
+	</header>
 
-	<div class="content prose mt-6">
+	<div class="prose mt-6">
 		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
 		<p>
 			Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz sowie
@@ -120,4 +117,4 @@
 			{/each}
 		</ul>
 	</div>
-</div>
+</section>

@@ -1,8 +1,10 @@
-<div class="layout w-full">
-	<div class="page-header mt-10">
-		<h2 class="text-2xl font-semibold text-slate-900">Datenschutz</h2>
-	</div>
-	<div class="content prose">
+
+<section class="content">
+	<header class="mt-10">
+		<h1 class="text-3xl font-semibold text-slate-900">Datenschutz</h1>
+	</header>
+
+	<div class="prose mt-6">
 		<div class="mx-auto max-w-4xl px-4 py-8">
 			<p class="mb-4 text-gray-700">
 				Dieses Projekt speichert keine personenbezogenen Daten. Es erfolgt keine
@@ -50,4 +52,4 @@
 			</p>
 		</div>
 	</div>
-</div>
+</section>

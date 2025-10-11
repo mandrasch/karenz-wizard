@@ -1,9 +1,9 @@
-<div class="layout mx-auto w-full">
-	<div class="page-header mt-10">
-		<h2 class="text-3xl font-semibold text-slate-900">Die Motivation für dieses Projekt</h2>
-	</div>
-	<div class="content prose">
-		<p class="mt-8 font-bold">🚧 Inhalt in Arbeit 🚧</p>
+<section class="content">
+	<header class="mt-10">
+		<h1 class="text-3xl font-semibold text-slate-900">Die Motivation für dieses Projekt</h1>
+	</header>
+	<div class="prose mt-6">
+		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
 		<h3>Ganze Männer machen halbe-halbe?</h3>
 		<p>
 			Als werdender Vater wollte ich nicht zu den Männern gehören, die in den Medien kritisiert
@@ -147,4 +147,4 @@
 			>
 		</p>
 	</div>
-</div>
+</section>

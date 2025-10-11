@@ -51,14 +51,15 @@
 	// Füge Inhalte hinzu, indem du faq.answer mit HTML-Strings (z. B. `<p>...</p>`) befüllst.
 </script>
 
-<div class="layout w-full">
-	<div class="page-header mt-10">
+
+<section class="content">
+	<header class="mt-10 space-y-2">
 		<h1 class="text-3xl font-semibold text-slate-900">FAQ</h1>
-		<p class="mt-2 text-base text-slate-600">
+		<p class="text-base text-slate-600">
 			Antworten auf häufige Fragen rund um Papamonat, Karenz und Kinderbetreuung in Österreich.
 		</p>
-	</div>
-	<div class="content prose max-w-none">
+	</header>
+	<div class="prose mt-8 max-w-none">
 		<nav
 			aria-label="FAQ Inhaltsverzeichnis"
 			class="not-prose rounded-lg border border-slate-200 bg-slate-50 p-4"
@@ -126,4 +127,4 @@
 			{/each}
 		</div>
 	</div>
-</div>
+</section>

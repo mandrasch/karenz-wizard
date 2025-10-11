@@ -34,11 +34,11 @@
 		ok ? 'Ja – vorauss. Anspruch' : 'Nein – vorauss. kein Anspruch';
 </script>
 
-<div class="layout">
-	<div class="page-header mt-10">
-		<h2 class="text-2xl font-semibold text-slate-900">Anspruch auf Familienzeitbonus prüfen</h2>
-	</div>
-	<div class="content prose mt-8">
+<section class="content">
+	<header class="mt-10">
+		<h1 class="text-3xl font-semibold text-slate-900">Anspruch auf Familienzeitbonus prüfen</h1>
+	</header>
+	<div class="prose mt-6">
 		<p class="my-6">
 			Wichtig: Anspruch auf Papamonat hast du <u><b>immer</b></u>!
 			<i
@@ -84,7 +84,7 @@
 
 	{#if toolAvailable}
 		<div
-			class="grid gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 md:grid-cols-[220px_1fr] md:items-center"
+			class="mt-8 grid gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 md:grid-cols-[220px_1fr] md:items-center"
 		>
 			<label for="due" class="text-sm font-semibold text-slate-900">Errechneter Geburtstermin</label
 			>
@@ -97,7 +97,7 @@
 		</div>
 
 		<section
-			class="mt-3 space-y-4 rounded-2xl border border-slate-200 bg-white px-5 py-5 shadow-sm"
+			class="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white px-5 py-5 shadow-sm"
 		>
 			<h2 class="text-lg font-semibold text-slate-900">
 				Hat der Vater Anspruch auf Familienzeitbonus-Geld während Papamonat?
@@ -130,6 +130,6 @@
 			</div>
 		</section>
 	{:else}
-		<p class="mx-auto mt-8 font-semibold">🚧 Tool ist noch in Entwicklung 🚧</p>
+		<p class="mt-8 font-semibold">🚧 Tool ist noch in Entwicklung 🚧</p>
 	{/if}
-</div>
+</section>

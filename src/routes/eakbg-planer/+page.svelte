@@ -631,9 +631,9 @@
 	const toX = (weeks: number) => margins.left + weeks * scale;
 </script>
 
-<div class="layout min-w-0">
+<section class="content planner-page min-w-0">
 	<div class="page-header mt-10 min-w-0">
-		<h2 class="text-2xl font-semibold text-slate-900">ea KBG Planer</h2>
+		<h1 id="planner-title" class="text-3xl font-semibold text-slate-900">ea KBG Planer</h1>
 		<p class="subline">
 			Eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld und die Aufteilung
 			der Karenz.
@@ -1184,7 +1184,7 @@
 			</div>
 		</div>
 	</section>
-</div>
+</section>
 
 <style lang="postcss">
 	/* TODO: convert to tailwind inline styles */
@@ -1200,7 +1200,7 @@
 	}
 
 	/* Let flex/grid children shrink on small screens */
-	.layout,
+	.planner-page,
 	.timeline-section,
 	.planner-controls,
 	.timeline-window,
@@ -1211,7 +1211,7 @@
 	}
 
 	/* Container */
-	.layout {
+	.planner-page {
 		@apply mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-6 pb-12;
 	}
 

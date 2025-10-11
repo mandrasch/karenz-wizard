@@ -1,8 +1,8 @@
-<div class="layout w-full">
-	<div class="page-header mt-10">
-		<h2 class="text-2xl font-semibold text-slate-900">Videos</h2>
-	</div>
-	<div class="content prose mt-8">
+<section class="content">
+	<header class="mt-10">
+		<h1 class="text-3xl font-semibold text-slate-900">Videos</h1>
+	</header>
+	<div class="prose mt-6">
 		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
 		<p>
 			Siehe in der Zwischenzeit meine Sammlung auf <a
@@ -11,4 +11,4 @@
 			>. Obacht: Die Videos zeigen leider oft nur den Fall "Vater nimmt maximal 2 Monate Karenz".
 		</p>
 	</div>
-</div>
+</section>
