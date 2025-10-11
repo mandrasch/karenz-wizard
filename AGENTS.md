@@ -14,7 +14,6 @@ Svelte v5 + adapter-static site. Accessibility-first (WCAG 2.2 AA).
 ## Accessibility Requirements
 
 - Provide a visible **skip link** to `#main`; keep it first in tab order.
-- On client navigation, **focus `<main>`** if the body has focus (`afterNavigate`).
 - Constrain reading width (~70–80ch). Verify color contrast (AA), target sizes ≥44×44, respect `prefers-reduced-motion`.
 - Exactly one visible `<h1>` per page. Preserve landmark roles.
 
