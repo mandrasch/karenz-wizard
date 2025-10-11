@@ -41,7 +41,7 @@
 					<li><a class="hover:text-slate-900" href="/fzb-anspruch">FZB Anspruch?</a></li>
 					<li><a class="hover:text-slate-900" href="/pauschales-kbg">Pauschales KBG</a></li>
 
-					<li><a class="hover:text-slate-900" href="/ueber">AK-Beratung</a></li>
+					<li><a class="hover:text-slate-900" href="/ak-beratung">AK-Beratung</a></li>
 					<li><a class="hover:text-slate-900" href="/videos">Videos</a></li>
 					<li><a class="hover:text-slate-900" href="/tools">Tools</a></li>
 					<li><a class="hover:text-slate-900" href="/faq">FAQ</a></li>
@@ -53,12 +53,16 @@
 				<ul class="space-y-2 text-sm text-slate-600">
 					<li><a class="hover:text-slate-900" href="/ueber">Über das Projekt</a></li>
 					<li>
+						<a class="hover:text-slate-900" href="/reaktionen-und-feedback">
+							Reaktionen &amp; Feedback
+						</a>
+					</li>
+					<li>
 						<a class="hover:text-slate-900" href="/impressum-datenschutz">Impressum</a>
 					</li>
 					<li>
 						<a class="hover:text-slate-900" href="/impressum-datenschutz">Datenschutz</a>
 					</li>
-					<li></li>
 				</ul>
 				<h2 class="text-sm font-semibold text-slate-900">Diversity 🌈</h2>
 				<p class="text-xs text-slate-600">
