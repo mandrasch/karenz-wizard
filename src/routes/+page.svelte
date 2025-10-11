@@ -34,7 +34,9 @@
 </script>
 
 <section class="full-bleed">
-	<div class="relative w-full bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-600 text-white shadow-xl">
+	<div
+		class="relative w-full bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-600 text-white shadow-xl"
+	>
 		<div class="content py-16 sm:py-20">
 			<div class="mx-auto flex max-w-5xl flex-col gap-12">
 				<div class="flex h-56 items-center justify-center sm:h-64 lg:h-72 xl:h-80">
@@ -45,42 +47,42 @@
 					/>
 				</div>
 
-				<div class="space-y-6 text-white/90">
-					<h1 class="text-center text-3xl font-bold leading-snug text-white sm:text-4xl">
+				<div class="space-y-6 px-6 text-white/90">
+					<h1 class="text-center text-3xl leading-snug font-bold text-white sm:text-4xl">
 						Euch brummt der Kopf von der Karenzplanung?
 					</h1>
 
 					<p class="text-base leading-relaxed">
-						Die Karenzplanung ist eine riesige Herausforderung: Warum hat man ein Recht auf zwei Jahre
-						Karenz (Freistellung) auf Arbeit, aber es werden nur 14 Monate beim einkommensabhängigen
-						Betreuungsgeld (ea KBG) bezahlt? Ebenso herausfordernd ist die Frage der Kinderbetreuung
-						nach der Karenz:
+						Die Karenzplanung ist eine riesige Herausforderung: Warum hat man ein Recht auf zwei
+						Jahre Karenz (Freistellung) auf Arbeit, aber es werden nur 14 Monate beim
+						einkommensabhängigen Betreuungsgeld (ea KBG) bezahlt? Ebenso herausfordernd ist die
+						Frage der Kinderbetreuung nach der Karenz:
 					</p>
 
 					{#if expanded}
 						<div id={ctrlId} class="space-y-5">
 							<p class="text-base leading-relaxed">
-								Wann ist unser Kind bereit in eine Kindergarten-Gruppe zu gehen, wie viele Stunde sind
-								anfangs gut? Wollen wir es schon mit 14 Monaten fremdbetreuen lassen? Oder doch erst zu
-								einer Tagesmutter, den Großeltern - oder beide Elternteile arbeiten 20h/Woche in
-								Eltern-Teilzeit und teilen den Tag auf? <br /><br />Oder bleibt einer von uns doch
-								länger in Karenz? Wie organisiert man eine längere, unbezahlte Karenz nach 14 Monaten ea
-								KBG überhaupt? Können wir uns das leisten? Und wie schaut es hier mit der
-								Krankenversicherung aus?
+								Wann ist unser Kind bereit in eine Kindergarten-Gruppe zu gehen, wie viele Stunde
+								sind anfangs gut? Wollen wir es schon mit 14 Monaten fremdbetreuen lassen? Oder doch
+								erst zu einer Tagesmutter, den Großeltern - oder beide Elternteile arbeiten
+								20h/Woche in Eltern-Teilzeit und teilen den Tag auf? <br /><br />Oder bleibt einer
+								von uns doch länger in Karenz? Wie organisiert man eine längere, unbezahlte Karenz
+								nach 14 Monaten ea KBG überhaupt? Können wir uns das leisten? Und wie schaut es hier
+								mit der Krankenversicherung aus?
 							</p>
 
 							<p class="text-base leading-relaxed">
 								Und wie regeln wir die Gleichberechtigung: Wie kommen wir aus der bisherigen Falle
-								heraus, dass der Vater nur die minimalen 2 Monate Karenz nimmt - wie so viele Männer in
-								Österreich aktuell.
+								heraus, dass der Vater nur die minimalen 2 Monate Karenz nimmt - wie so viele Männer
+								in Österreich aktuell.
 							</p>
 
 							<p class="text-base leading-relaxed">
-								Diese private Webseite soll eine kleine Hilfestellung geben. Als Neu-Eltern standen wir
-								vor kurzem selber erst vor diesem Berg an Fragen. Die gute Nachricht: Hat man erstmal
-								einen groben Überblick über alle Begriffe und ob man die Ansprüche erfüllt, wie die
-								Fristen sind, was möglich ist - dann kann man sich bewusster entscheiden. Alles Gute für
-								dein/euer Abenteuer!
+								Diese private Webseite soll eine kleine Hilfestellung geben. Als Neu-Eltern standen
+								wir vor kurzem selber erst vor diesem Berg an Fragen. Die gute Nachricht: Hat man
+								erstmal einen groben Überblick über alle Begriffe und ob man die Ansprüche erfüllt,
+								wie die Fristen sind, was möglich ist - dann kann man sich bewusster entscheiden.
+								Alles Gute für dein/euer Abenteuer!
 							</p>
 
 							<p class="text-base leading-relaxed">
@@ -137,7 +139,9 @@
 					</div>
 
 					<div class="flex flex-1 flex-col px-6 py-6">
-						<p class="text-sm font-medium tracking-wide text-indigo-500 uppercase">{card.subtitle}</p>
+						<p class="text-sm font-medium tracking-wide text-indigo-500 uppercase">
+							{card.subtitle}
+						</p>
 						<h3 class="mt-3 text-lg font-semibold text-slate-900">{card.title}</h3>
 
 						{#each card.description as paragraph}
