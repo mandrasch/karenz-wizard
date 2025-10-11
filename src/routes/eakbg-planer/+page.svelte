@@ -1210,13 +1210,15 @@
 		min-width: 0;
 	}
 
+	/* TODO: add this to div element? general css or inline?*/
 	/* Container */
 	.planner-page {
-		@apply mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-6 pb-12;
+		@apply gap-8;
 	}
 
+	/* TODO: generalize this, not special for this page?
 	.page-header {
-		@apply grid gap-4;
+		@apply mb-4 grid gap-4;
 	}
 
 	.subline {

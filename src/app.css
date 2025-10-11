@@ -5,7 +5,7 @@
 @layer base {
 	:root {
 		--content-w: 72rem;
-		--content-px: clamp(1rem, 3vw, 2.5rem);
+		--content-px: clamp(0.25rem, 2vw, 1.5rem);
 		--section-gap: clamp(2.5rem, 5vw, 4rem);
 	}
 }
@@ -13,9 +13,13 @@
 @layer components {
 	.page-grid {
 		display: grid;
-		gap: var(--section-gap);
-		grid-template-columns: [full-start] minmax(var(--content-px), 1fr) [content-start] minmax(0, var(--content-w)) [content-end] minmax(var(--content-px), 1fr) [full-end];
-		width: 100%;
+		row-gap: var(--section-gap); /* keep generous vertical rhythm */
+		column-gap: clamp(0.5rem, 2vw, 1.5rem); /* much tighter on phones */
+		grid-template-columns:
+			[full-start] minmax(var(--content-px), 1fr)
+			[content-start] minmax(0, var(--content-w))
+			[content-end] minmax(var(--content-px), 1fr)
+			[full-end];
 	}
 
 	.page-grid > * {
