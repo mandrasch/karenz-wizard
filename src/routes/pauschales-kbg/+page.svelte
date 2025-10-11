@@ -43,7 +43,7 @@
 				class="underline"
 				href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html#heading_Die_zwei_Kinderbetreuungsgeld_Modelle"
 				target="_blank">Arbeiterkammer</a
-			>. Siehe auch <a href="/tools" class="underline">Tools</a>.
+			>. Siehe auch <a href="/infothek#tools" class="underline">Tools</a>.
 		</p>
 	</div>
 </section>

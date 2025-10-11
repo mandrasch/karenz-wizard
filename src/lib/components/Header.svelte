@@ -16,9 +16,7 @@
 		{ label: 'ea KBG Anspruch?', href: '/eakbg-anspruch', matchPath: '/eakbg-anspruch' },
 		{ label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch', matchPath: '/fzb-anspruch' },
 		{ label: 'Pauschales KBG', href: '/pauschales-kbg', matchPath: '/pauschales-kbg' },
-		{ label: 'Videos', href: '/videos' },
-		{ label: 'Tools', href: '/tools' },
-		{ label: 'Bücher & Broschüren', href: '/buecher-broschueren' },
+		{ label: 'Infothek', href: '/infothek' },
 		{ label: 'FAQ', href: '/faq' },
 		{ label: 'Über', href: '/ueber' }
 	];

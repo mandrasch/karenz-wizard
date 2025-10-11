@@ -42,8 +42,7 @@
 					<li><a class="hover:text-slate-900" href="/pauschales-kbg">Pauschales KBG</a></li>
 
 					<li><a class="hover:text-slate-900" href="/ak-beratung">AK-Beratung</a></li>
-					<li><a class="hover:text-slate-900" href="/videos">Videos</a></li>
-					<li><a class="hover:text-slate-900" href="/tools">Tools</a></li>
+					<li><a class="hover:text-slate-900" href="/infothek">Infothek</a></li>
 					<li><a class="hover:text-slate-900" href="/faq">FAQ</a></li>
 				</ul>
 			</nav>
