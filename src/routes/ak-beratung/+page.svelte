@@ -6,14 +6,21 @@
 			name: 'Burgenland',
 			links: [
 				{ title: 'Startseite', url: 'https://bgld.arbeiterkammer.at' },
-				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/akburgenland.html' }
+				{ title: 'Väterkarenz', url: 'https://bgld.arbeiterkammer.at/vaeterkarenz' },
+				{
+					title: 'Kontakt: Arbeitsrecht',
+					url: 'https://bgld.arbeiterkammer.at/ueberuns/kontakt/index.html'
+				}
 			]
 		},
 		{
 			name: 'Kärnten',
 			links: [
 				{ title: 'Startseite', url: 'https://kaernten.arbeiterkammer.at' },
-				{ title: 'Kontakt', url: 'https://kaernten.arbeiterkammer.at/kontakt' }
+				{
+					title: 'Kontakt: Mutterschutz und Elternkarenz',
+					url: 'https://kaernten.arbeiterkammer.at/ueberuns/kontakt/karenz/Mutterschutz___Karenz.html'
+				}
 			]
 		},
 		{
@@ -72,7 +79,9 @@
 
 <section class="content">
 	<header class="mt-10 space-y-6">
-		<h1 class="text-3xl font-semibold text-slate-900">Kostenfreie Beratung bei der Arbeiterkammer</h1>
+		<h1 class="text-3xl font-semibold text-slate-900">
+			Kostenfreie Beratung bei der Arbeiterkammer
+		</h1>
 
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<img

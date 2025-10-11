@@ -284,8 +284,8 @@
 
 	const motherLabel = $derived(
 		motherUnpaidMonths > 0
-			? 'Karenz Mutter: ea KBG 💰 + unbezahlte Karenz'
-			: 'Karenz Mutter: ea KBG 💰'
+			? 'Karenz Mutter: ea KBG³ 💰 + unbezahlte Karenz⁷'
+			: 'Karenz Mutter: ea KBG³ 💰'
 	);
 
 	const motherConsumesAllEa = $derived(coverageAfterMother <= 0);
@@ -293,8 +293,8 @@
 	const fatherLabel = $derived(
 		fatherUnpaidMonths > 0
 			? fatherPaidMonths > 0 && !motherConsumesAllEa
-				? 'Karenz Vater: ea KBG 💰 + unbezahlte Karenz'
-				: 'Karenz Vater: unbezahlte Karenz'
+				? 'Karenz Vater: ea KBG³ 💰 + unbezahlte Karenz⁷'
+				: 'Karenz Vater: unbezahlte Karenz⁷'
 			: 'Karenz Vater'
 	);
 
@@ -307,7 +307,7 @@
 	const thirdLabel = $derived(
 		thirdMonths > 0
 			? thirdUnpaidMonths > 0
-				? 'Unbezahlte Karenz (weiterer Teil)'
+				? 'Unbezahlte Karenz⁷ (weiterer Teil)'
 				: 'Karenz weiterer Teil'
 			: ''
 	);
@@ -319,7 +319,7 @@
 			: ''
 	);
 
-	const eaLabel = 'Anspruch ea KBG';
+	const eaLabel = 'Anspruch ea KBG³';
 	const eaDisplay = $derived(
 		jointMonth
 			? `max. t13 Monate ab Geburt (11 + min. 2 Vater) wg. gemeinsamer Monat`
@@ -330,7 +330,7 @@
 		(() => {
 			const intervals: Interval[] = [
 				{
-					label: 'Mutterschutz vor Geburt',
+					label: 'Mutterschutz vor Geburt¹',
 					start: -MUTTERSCHUTZ_PRE_WEEKS,
 					end: 0,
 					displayDuration: `${formatWeeks(MUTTERSCHUTZ_PRE_WEEKS)}, Wochengeld ÖGK 💰`,
@@ -338,8 +338,8 @@
 				},
 				{
 					label: extendedMutterschutz
-						? 'Mutterschutz nach der Geburt'
-						: 'Mutterschutz nach der Geburt',
+						? 'Mutterschutz nach der Geburt²'
+						: 'Mutterschutz nach der Geburt²',
 					start: 0,
 					end: mutterschutzWeeks,
 					displayDuration: `${formatWeeks(mutterschutzWeeks)}, Wochengeld ÖGK 💰`,
@@ -382,7 +382,7 @@
 			}
 
 			intervals.push({
-				label: 'Papamonat',
+				label: 'Papamonat⁶',
 				start: papamonatStart,
 				end: papamonatEnd,
 				displayDuration: 'Ab Entlassung KH, FZB 💰',
@@ -468,10 +468,10 @@
 
 			if (hasParentalPartTime) {
 				result.push({
-					label: 'Anspruch auf Eltern-Teilzeit',
+					label: 'Anspruch auf Eltern-Teilzeit (beide)⁸',
 					start: lastKarenzEnd,
 					end: parentalPartTimeEnd,
-					rowGroup: 'parental-part-time',
+					rowGroup: 'c',
 					hideStartMarker: true,
 					hideEndMarker: true,
 					hideDurationLabel: true
@@ -751,9 +751,12 @@
 				<label class="control-checkbox">
 					<input type="checkbox" bind:checked={jointMonth} />
 					<div class="control-checkbox__text">
-						<span>Gemeinsamer Monat beim ersten Wechsel</span>
+						<span>Gemeinsamer Monat beim ersten Wechsel⁵</span>
 						{#if jointMonth}
 							<small>ea KBG wird um 1 Monat kürzer</small>
+						{:else}
+							<!-- quick hack to fix unecessary layout shift on height-->
+							<small>&nbsp;</small>
 						{/if}
 					</div>
 				</label>
@@ -1120,31 +1123,127 @@
 					Alle hier erwähnten Begriffe haben oft "Anspruchsvoraussetzungen", die man vorher im
 					Detail prüfen sollte. So darf 182 Tage vor dem Papamonat bspw. kein AMS bezogen worden
 					sein, sonst hat man keinen Anspruch auf Familienzeitbonus-Förderung (Das Recht auf die
-					Freistellung im Papamonat hat man aber trotzdem) Siehe "Familienzeitbonus Anspruch prüfen"
-					und "ea KBG Anspruch prüfen". <br />Des Weiteren muss man die Meldefristen bei ÖGK sowie
-					beim Arbeitgeber beachten, hier hilft der
-					<a href="https://elternkalender.arbeiterkammer.at/index.html" class="underline"
-						>Elternkalender der Arbeiterkammer.</a
-					>
+					Freistellung im Papamonat hat man aber trotzdem). Siehe "Familienzeitbonus Anspruch
+					prüfen" und "ea KBG Anspruch prüfen". <br />Des Weiteren muss man die Meldefristen bei ÖGK
+					sowie beim Arbeitgeber beachten, hier hilft der
+					<a href="https://elternkalender.arbeiterkammer.at/index.html" class="underline">
+						Elternkalender der Arbeiterkammer
+					</a>.
 				</p>
 				<p class="text-sm">Hinweis: Auch der Vater kann den ersten Karenzteil übernehmen.</p>
 
-				<h3 id="mutterschutz">Mutterschutz</h3>
-				<p>…</p>
+				<h3 id="mutterschutz-vor"><sup>1</sup> Mutterschutz vor Geburt</h3>
+				<p>
+					Worum geht’s hier? Acht Wochen vor dem errechneten Geburtstermin gilt für die werdende
+					Mutter ein gesetzliches Beschäftigungsverbot – sie darf also nicht mehr arbeiten. Statt
+					Lohn zahlt die ÖGK das sogenannte <em>Wochengeld</em>, das sich aus den letzten drei
+					Monatsgehältern inklusive Sonderzahlungen berechnet und oft dem Netto-Gehalt entspricht
+					oder leicht darüber liegt. Frühgeburten verschieben die Frist – fällt der Zeitraum vor der
+					Geburt kürzer aus, verlängert sich der Mutterschutz danach. Wichtig: Schwangerschaft
+					rechtzeitig melden, ärztliche Bestätigung und Antrag bei der ÖGK nicht vergessen. Mehr:
+					<a href="https://www.arbeiterkammer.at/mutterschutzregelung" class="underline"
+						>AK Mutterschutz</a
+					>,
+					<a href="#faq" class="underline">FAQ</a>.
+				</p>
 
-				<h3 id="eakbg">ea KBG</h3>
-				<p>…</p>
-				<h3 id="sonderleistung-1">Sonderleistung 1</h3>
-				<p>…</p>
-				<h3 id="sonderleistung-1">Gemeinsamer Monat</h3>
-				<p>…</p>
+				<h3 id="mutterschutz-nach"><sup>2</sup> Mutterschutz nach Geburt</h3>
+				<p>
+					Nach der Entbindung besteht ein Beschäftigungsverbot von grundsätzlich acht Wochen; bei
+					Frühgeburten, Mehrlingen oder Kaiserschnitt sind es mindestens zwölf Wochen. Das
+					Wochengeld läuft in dieser Zeit weiter, sodass die Mutter auch nach der Geburt finanziell
+					abgesichert ist. Wird das Kind zu früh geboren, wird die zu kurze Zeit vor der Geburt
+					hinten drangehängt – insgesamt beträgt die Schutzfrist also meist 16 Wochen. Erst nach
+					Ende dieser Frist beginnt die eigentliche Karenz- und KBG-Phase. Mehr:
+					<a href="https://www.arbeiterkammer.at/mutterschutzregelung" class="underline"
+						>AK Mutterschutz</a
+					>,
+					<a href="#faq" class="underline">FAQ</a>.
+				</p>
 
-				<h3 id="papamonat-fzb">Papamonat (und Familienzeitbonus)</h3>
-				<p>…</p>
-				<h3 id="unbezahlte-karenz">Unbezahlte Karenz</h3>
-				<p>…</p>
-				<h3 id="elternteilzeit">Eltern-Teilzeit</h3>
-				<p>…</p>
+				<h3 id="eakbg"><sup>3</sup> ea KBG</h3>
+				<p>
+					Worum geht’s hier? Das einkommensabhängige Kinderbetreuungsgeld ersetzt rund 80 % des
+					letzten Netto (bis zum Höchstsatz) und startet erst <em>nach</em> dem Mutterschutz. Gesamt
+					sind bei Aufteilung maximal 14 Monate nach der Geburt möglich (typisch 12 + 2); pro
+					Elternteil max. 12 Monate, jede/r braucht mindestens 61 Tage eigenen Bezug. Fallstricke:
+					182 Tage durchgehende Erwerbstätigkeit vor Bezug, kein AMS-Bezug, Wahl des KBG-Modells ist
+					für beide bindend. Mehr:
+					<a
+						href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html"
+						class="underline"
+					>
+						AK Kinderbetreuungsgeld
+					</a>,
+					<a href="#faq" class="underline">FAQ</a>.
+				</p>
+
+				<h3 id="sonderleistung-1"><sup>4</sup> Sonderleistung 1</h3>
+				<p>
+					Worum geht’s hier? Erfüllt ein Elternteil die Erwerbstätigkeits-Voraussetzung für das ea
+					KBG nicht, kann die „Sonderleistung I“ (41,14 € täglich) beantragt werden. Damit bleibt
+					das ea KBG-Modell nutzbar, auch wenn z. B. der zweite Elternteil die
+					182-Tage-Voraussetzung nicht erfüllt. Antrag rechtzeitig bei der ÖGK stellen und Nachweise
+					bereit halten. Mehr:
+					<a
+						href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html"
+						class="underline">AK KBG</a
+					>,
+					<a href="#faq" class="underline">FAQ</a>.
+				</p>
+
+				<h3 id="gemeinsamer-monat"><sup>5</sup> Gemeinsamer Monat</h3>
+				<p>
+					Eltern können bis zu 31 Tage gleichzeitig KBG beziehen – die Gesamtdauer verkürzt sich um
+					diese Tage. Beide müssen je mindestens 61 Tage eigenen Bezug haben; der gemeinsame Monat
+					eignet sich z. B. für die Übergabe oder eine gemeinsame Eingewöhnung. Achtet darauf, die
+					Verkürzung des Gesamtanspruchs einzuplanen und den Wechsel rechtzeitig bei der ÖGK
+					anzumelden. Mehr:
+					<a
+						href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html"
+						class="underline">AK KBG</a
+					>,
+					<a href="#faq" class="underline">FAQ</a>.
+				</p>
+
+				<h3 id="papamonat-fzb"><sup>6</sup> Papamonat (und Familienzeitbonus)</h3>
+				<p>
+					Der Papamonat ist ein Monat Freistellung ab Entlassung von Mutter und Kind aus dem
+					Krankenhaus bis zum Ende des Mutterschutzes – ein gesetzliches Recht, das rechtzeitig
+					angekündigt werden muss. Der Arbeitgeber zahlt kein Gehalt, aber der Staat unterstützt
+					über den Familienzeitbonus (ca. 28–31 Tage lang). Voraussetzungen: mind. 182 Tage
+					durchgehende Erwerbstätigkeit vorher, kein AMS-Bezug im Beobachtungszeitraum, Antrag
+					rechtzeitig stellen. Mehr:
+					<a href="https://www.arbeiterkammer.at/papamonat" class="underline">AK Papamonat</a>,
+					<a href="#faq" class="underline">FAQ</a>.
+				</p>
+
+				<h3 id="unbezahlte-karenz"><sup>7</sup> Unbezahlte Karenz</h3>
+				<p>
+					Nach Ende des KBG-Bezugs können Eltern eine unbezahlte Karenz anhängen – der Arbeitsplatz
+					bleibt gesichert, aber ohne staatliche Zahlung. Prüft vorher die Kranken- und
+					Pensionsversicherung (z. B. Mitversicherung beim Partner; bei unverheirateten Paaren gilt
+					die „10-Monate-Haushaltsführung“). Meldepflicht an den Arbeitgeber nicht vergessen.
+					Alternativen: Eltern-Teilzeit für beide, Tagesmutter oder Großeltern zur Unterstützung.
+					Mehr:
+					<a href="https://www.arbeiterkammer.at/beratung/berufundfamilie/karenz" class="underline"
+						>AK Karenz</a
+					>,
+					<a href="#faq" class="underline">FAQ</a>.
+				</p>
+
+				<h3 id="elternteilzeit"><sup>8</sup> Eltern-Teilzeit</h3>
+				<p>
+					Anspruch besteht in Betrieben mit mehr als 20 Beschäftigten und nach 3 Jahren
+					Betriebszugehörigkeit – möglich bis zum 8. Geburtstag des Kindes. Ohne Anspruch ist eine
+					„vereinbarte Elternteilzeit“ möglich, wenn der Arbeitgeber zustimmt. Wichtig: Rechtzeitig
+					melden und den Umfang bzw. die Lage der Arbeitszeit fixieren; beide Eltern können
+					gleichzeitig Teilzeit arbeiten. Mehr:
+					<a href="https://www.arbeiterkammer.at/elternteilzeit" class="underline"
+						>AK Elternteilzeit</a
+					>,
+					<a href="#faq" class="underline">FAQ</a>.
+				</p>
 			</div>
 		</aside>
 	</section>
@@ -1216,7 +1315,7 @@
 		@apply gap-8;
 	}
 
-	/* TODO: generalize this, not special for this page?
+	/* TODO: generalize this, not special for this page? */
 	.page-header {
 		@apply mb-4 grid gap-4;
 	}
