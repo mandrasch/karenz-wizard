@@ -4,6 +4,8 @@
 		title: string;
 		days: number;
 		summaryKey?: string;
+		parent?: 'mother' | 'father' | 'third';
+		benefitType?: 'ea-paid' | 'unpaid' | 'other';
 		[key: string]: unknown;
 	};
 
@@ -20,6 +22,84 @@
 		segmentSummaries.filter(
 			(segment) => segment.summaryKey !== undefined && SUMMARY_WHITELIST.has(segment.summaryKey)
 		)
+	);
+
+	const DEFAULT_DAILY_CAP = 66;
+
+	const sanitizeEuroInput = (value: string): number => {
+		if (!value) {
+			return 0;
+		}
+		const trimmed = value.replace(/\s+/g, '');
+		const needsThousandsCleanup = trimmed.includes(',') && trimmed.includes('.');
+		const normalized = (needsThousandsCleanup ? trimmed.replace(/\./g, '') : trimmed).replace(',', '.');
+		const parsed = Number(normalized);
+		return Number.isFinite(parsed) ? parsed : 0;
+	};
+
+	let motherDailyWochengeldInput = $state('');
+	let fatherDailyBaseInput = $state('');
+	let dailyCapInput = $state(DEFAULT_DAILY_CAP.toFixed(2));
+
+	const motherDailyBase = $derived(sanitizeEuroInput(motherDailyWochengeldInput));
+	const fatherDailyBase = $derived(sanitizeEuroInput(fatherDailyBaseInput));
+	const dailyCap = $derived(() => {
+		const value = sanitizeEuroInput(dailyCapInput);
+		return value > 0 ? value : DEFAULT_DAILY_CAP;
+	});
+
+	const motherEaDaily = $derived(
+		motherDailyBase > 0 ? Math.min(dailyCap, motherDailyBase * 0.8) : 0
+	);
+	const fatherEaDaily = $derived(
+		fatherDailyBase > 0 ? Math.min(dailyCap, fatherDailyBase * 0.8) : 0
+	);
+
+	const euroFormatter = new Intl.NumberFormat('de-AT', {
+		style: 'currency',
+		currency: 'EUR',
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2
+	});
+
+	const formatCurrency = (value: number) => euroFormatter.format(value);
+	const formatDailyRate = (value: number) =>
+		value > 0 ? `${formatCurrency(value)} / Tag` : '—';
+
+	type ComputedSegment = Segment & {
+		dailyRate: number;
+		totalAmount: number;
+	};
+
+	const computedSegments = $derived<ComputedSegment[]>(
+		visibleSegmentSummaries.map((segment) => {
+			const benefitType = segment.benefitType ?? 'other';
+			const parent = segment.parent ?? 'mother';
+			let dailyRate = 0;
+			if (benefitType === 'ea-paid') {
+				if (parent === 'mother' || parent === 'third') {
+					dailyRate = motherEaDaily;
+				} else if (parent === 'father') {
+					dailyRate = fatherEaDaily;
+				}
+			}
+			const totalAmount = dailyRate * segment.days;
+			return { ...segment, dailyRate, totalAmount } satisfies ComputedSegment;
+		})
+	);
+
+	const totalEstimatedAmount = $derived(
+		computedSegments.reduce((sum, segment) => sum + segment.totalAmount, 0)
+	);
+	const motherEstimatedAmount = $derived(
+		computedSegments
+			.filter((segment) => segment.parent === 'mother' || segment.parent === 'third')
+			.reduce((sum, segment) => sum + segment.totalAmount, 0)
+	);
+	const fatherEstimatedAmount = $derived(
+		computedSegments
+			.filter((segment) => segment.parent === 'father')
+			.reduce((sum, segment) => sum + segment.totalAmount, 0)
 	);
 </script>
 
@@ -70,6 +150,72 @@
 				</p>
 			</div>
 
+			<section
+				aria-labelledby="ea-kbg-parameter-heading"
+				class="timeline-summary__calculator"
+			>
+				<div class="timeline-summary__calculator-head">
+					<h4 id="ea-kbg-parameter-heading">Parameter für die Schätzung</h4>
+					<p>
+						ea KBG entspricht 80&#160;% des durchschnittlichen Tagesnettos, gedeckelt auf den
+						offiziellen Tagsatz.
+					</p>
+				</div>
+				<div class="timeline-summary__calculator-grid">
+					<label class="timeline-summary__calculator-field">
+						<span>Wochengeld Mutter (€/Tag)</span>
+						<input
+							type="text"
+							inputmode="decimal"
+							placeholder="z. B. 98,40"
+							class="timeline-summary__input"
+							bind:value={motherDailyWochengeldInput}
+							aria-describedby="ea-kbg-parameter-hint"
+						/>
+					</label>
+					<label class="timeline-summary__calculator-field">
+						<span>Bemessungsgrundlage Vater (€/Tag)</span>
+						<input
+							type="text"
+							inputmode="decimal"
+							placeholder="z. B. 120"
+							class="timeline-summary__input"
+							bind:value={fatherDailyBaseInput}
+							aria-describedby="ea-kbg-parameter-hint"
+						/>
+					</label>
+					<label class="timeline-summary__calculator-field">
+						<span>Max. Tagsatz laut Gesetz (€/Tag)</span>
+						<input
+							type="text"
+							inputmode="decimal"
+							placeholder="66,00"
+							class="timeline-summary__input"
+							bind:value={dailyCapInput}
+							aria-describedby="ea-kbg-parameter-hint"
+						/>
+					</label>
+				</div>
+				<p id="ea-kbg-parameter-hint" class="timeline-summary__calculator-hint">
+					Stand Tagsatz: {formatCurrency(dailyCap)} (Quelle: <a
+						href="https://de.wikipedia.org/wiki/Kinderbetreuungsgeld"
+						class="timeline-summary__link"
+						target="_blank"
+						rel="noopener"
+					>
+						Wikipedia – Kinderbetreuungsgeld</a
+					>) – bitte jährlich beim BKA gegenprüfen.
+				</p>
+				<div class="timeline-summary__calculator-preview" aria-live="polite">
+					<p>
+						Aktueller Schätztagsatz Mutter: <strong>{formatDailyRate(motherEaDaily)}</strong>
+					</p>
+					<p>
+						Aktueller Schätztagsatz Vater: <strong>{formatDailyRate(fatherEaDaily)}</strong>
+					</p>
+				</div>
+			</section>
+
 			<div class="timeline-summary__table-wrapper">
 				<table class="timeline-summary__table">
 					<caption class="sr-only"
@@ -85,30 +231,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each visibleSegmentSummaries as segment (segment.id)}
+						{#each computedSegments as segment (segment.id)}
 							<tr>
 								<th scope="row">{segment.title}</th>
 								<td>{segment.days}</td>
 								<td>{formatSegmentRange(segment)}</td>
-								<td>
-									<input
-										type="text"
-										class="timeline-summary__input"
-										aria-label={`Förderung für ${segment.title}`}
-										disabled
-									/>
-								</td>
-								<td>
-									<input
-										type="text"
-										class="timeline-summary__input"
-										aria-label={`Gesamt für ${segment.title}`}
-										disabled
-									/>
-								</td>
+								<td>{formatDailyRate(segment.dailyRate)}</td>
+								<td>{formatCurrency(segment.totalAmount)}</td>
 							</tr>
 						{/each}
 					</tbody>
+					<tfoot>
+						<tr>
+							<th scope="row">Summe (ea KBG, geschätzt)</th>
+							<td>—</td>
+							<td colspan="2">
+								<span role="text">Mutter {formatCurrency(motherEstimatedAmount)} · Vater {formatCurrency(fatherEstimatedAmount)}</span>
+							</td>
+							<td>{formatCurrency(totalEstimatedAmount)}</td>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 			<p class="mt-4 text-center">
@@ -161,6 +303,42 @@
 
 	.timeline-summary__birthdate span {
 		@apply text-xs font-semibold tracking-wide text-slate-600 uppercase;
+	}
+
+	.timeline-summary__calculator {
+		@apply mb-4 space-y-4 rounded-lg border border-slate-200/80 bg-slate-50/80 p-4 text-sm;
+	}
+
+	.timeline-summary__calculator-head h4 {
+		@apply text-sm font-semibold text-slate-900;
+	}
+
+	.timeline-summary__calculator-head p {
+		@apply mt-1 text-xs text-slate-600;
+	}
+
+	.timeline-summary__calculator-grid {
+		@apply grid gap-3 md:grid-cols-3;
+	}
+
+	.timeline-summary__calculator-field {
+		@apply grid gap-1 text-xs font-semibold uppercase tracking-wide text-slate-700;
+	}
+
+	.timeline-summary__calculator-hint {
+		@apply text-xs text-slate-600;
+	}
+
+	.timeline-summary__calculator-preview {
+		@apply grid gap-1 text-xs text-slate-700 md:grid-cols-2;
+	}
+
+	.timeline-summary__calculator-preview p {
+		@apply m-0;
+	}
+
+	.timeline-summary__link {
+		@apply text-indigo-600 underline decoration-indigo-500/60 underline-offset-2 hover:text-indigo-500;
 	}
 
 	.timeline-summary__table-wrapper {
