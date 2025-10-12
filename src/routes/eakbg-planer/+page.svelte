@@ -331,7 +331,7 @@
 			: ''
 	);
 
-	const eaLabel = 'Anspruch ea KBG³';
+	const eaLabel = 'Anspruch einkommensabhängiges Kinderbetreuungsgeld³ 💰';
 	const eaDisplay = $derived(
 		jointMonth
 			? `max. t13 Monate ab Geburt (11 + min. 2 Vater) wg. gemeinsamer Monat`
@@ -350,12 +350,12 @@
 					color: 'mutterschutz'
 				},
 				{
-					label: 'Recht auf Karenz (Freistellung ≠ Förderung)',
+					label: 'Recht auf Karenz-Freistellung² (≠ Förderung)',
 					start: 0,
 					end: BASE_TOTAL_WEEKS,
 					isInactive: true,
 					displayDuration:
-						'Bis 2. Lebensjahr Recht auf Karenz (Freistellung), Arbeitgeber muss es erlauben. Heißt aber nicht Recht auf staatliche Förderung!',
+						'Bis 2. Lebensjahr Recht auf Freistellung, Arbeitgeber muss es erlauben. Heißt aber nicht Recht auf staatliche Förderung!',
 					hideDurationLabel: false,
 					rowGroup: 'baseline-rights',
 					lineClass: 'baseline-rights',
@@ -379,28 +379,29 @@
 					end: eaKbgWeeks,
 					displayDuration: eaDisplay,
 					isInactive: true,
-					lineClass: 'baseline-rights baseline-rights-ea',
-					labelClass: 'label-baseline-rights label-baseline-rights-ea',
+					lineClass: 'baseline-rights',
+					labelClass: 'label-baseline-rights',
 					labelPosition: 'above',
-					markerVariant: 'line',
-					color: 'ea'
+					markerVariant: 'line'
 				},
-			{
-				label: motherLabel,
-				start: mutterschutzWeeks,
-				end: motherWeeks,
-				displayDuration: motherDisplay,
-				overlayVariant: 'unpaid',
-				overlayStart: motherUnpaidMonths > 0 ? motherUnpaidStart : undefined,
-				overlayEnd: motherUnpaidMonths > 0 ? motherWeeks : undefined,
-				overlayColor: motherPaidMonths > 0 ? 'ea' : undefined,
-				forcePaidStartMarker: true,
-				isEaBase: true,
-				rowGroup: 'mother',
-				color: motherUnpaidMonths > 0 ? undefined : 'ea',
-				startMarkerColor: motherPaidMonths > 0 ? 'ea' : motherUnpaidMonths > 0 ? 'unpaid' : undefined,
-				endMarkerColor: motherUnpaidMonths > 0 ? 'unpaid' : motherPaidMonths > 0 ? 'ea' : undefined
-			}
+				{
+					label: motherLabel,
+					start: mutterschutzWeeks,
+					end: motherWeeks,
+					displayDuration: motherDisplay,
+					overlayVariant: 'unpaid',
+					overlayStart: motherUnpaidMonths > 0 ? motherUnpaidStart : undefined,
+					overlayEnd: motherUnpaidMonths > 0 ? motherWeeks : undefined,
+					overlayColor: motherPaidMonths > 0 ? 'ea' : undefined,
+					forcePaidStartMarker: true,
+					isEaBase: true,
+					rowGroup: 'mother',
+					color: motherUnpaidMonths > 0 ? undefined : 'ea',
+					startMarkerColor:
+						motherPaidMonths > 0 ? 'ea' : motherUnpaidMonths > 0 ? 'unpaid' : undefined,
+					endMarkerColor:
+						motherUnpaidMonths > 0 ? 'unpaid' : motherPaidMonths > 0 ? 'ea' : undefined
+				}
 			];
 
 			if (hasMotherWorkGap) {
@@ -419,18 +420,18 @@
 				});
 			}
 
-				intervals.push({
-					label: 'Papamonat⁶',
-					start: papamonatStart,
-					end: papamonatEnd,
-					displayDuration: 'Ab Entlassung KH, FZB 💰',
-					isInactive: true,
-					overlayStart: papamonatStart,
-					overlayVariant: 'papamonat',
-					overlayEnd: papamonatEnd,
-					rowGroup: 'father',
-					color: 'mutterschutz'
-				});
+			intervals.push({
+				label: 'Papamonat⁶',
+				start: papamonatStart,
+				end: papamonatEnd,
+				displayDuration: 'Ab Entlassung KH, FZB 💰',
+				isInactive: true,
+				overlayStart: papamonatStart,
+				overlayVariant: 'papamonat',
+				overlayEnd: papamonatEnd,
+				rowGroup: 'father',
+				color: 'mutterschutz'
+			});
 
 			if (hasFatherWorkGap) {
 				intervals.push({
@@ -455,18 +456,19 @@
 				displayDuration: fatherDisplay,
 				isUnpaid: fatherUnpaidMonths > 0,
 				overlayVariant: fatherPaidMonths > 0 ? 'paid' : 'unpaid',
-					overlayStart: fatherUnpaidMonths > 0 && fatherPaidMonths > 0 ? fatherStart : undefined,
-					overlayEnd:
-						fatherUnpaidMonths > 0 && fatherPaidMonths > 0
-							? Math.min(fatherPaidEnd, fatherEnd)
-							: undefined,
-					overlayColor: fatherPaidMonths > 0 ? 'ea' : undefined,
-					forcePaidStartMarker: fatherUnpaidMonths > 0,
-					isEaBase: fatherUnpaidMonths === 0 && fatherPaidMonths > 0,
-					rowGroup: 'father',
-					color: fatherPaidMonths > 0 && fatherUnpaidMonths === 0 ? 'ea' : undefined,
-					startMarkerColor: fatherPaidMonths > 0 ? 'ea' : fatherUnpaidMonths > 0 ? 'unpaid' : undefined,
-					endMarkerColor: fatherUnpaidMonths > 0 ? 'unpaid' : fatherPaidMonths > 0 ? 'ea' : undefined
+				overlayStart: fatherUnpaidMonths > 0 && fatherPaidMonths > 0 ? fatherStart : undefined,
+				overlayEnd:
+					fatherUnpaidMonths > 0 && fatherPaidMonths > 0
+						? Math.min(fatherPaidEnd, fatherEnd)
+						: undefined,
+				overlayColor: fatherPaidMonths > 0 ? 'ea' : undefined,
+				forcePaidStartMarker: fatherUnpaidMonths > 0,
+				isEaBase: fatherUnpaidMonths === 0 && fatherPaidMonths > 0,
+				rowGroup: 'father',
+				color: fatherPaidMonths > 0 && fatherUnpaidMonths === 0 ? 'ea' : undefined,
+				startMarkerColor:
+					fatherPaidMonths > 0 ? 'ea' : fatherUnpaidMonths > 0 ? 'unpaid' : undefined,
+				endMarkerColor: fatherUnpaidMonths > 0 ? 'unpaid' : fatherPaidMonths > 0 ? 'ea' : undefined
 			});
 
 			if (hasFatherPostWork) {
@@ -510,7 +512,8 @@
 					isEaBase: thirdUnpaidMonths === 0 && thirdPaidMonths > 0,
 					rowGroup: 'mother',
 					color: thirdPaidMonths > 0 && thirdUnpaidMonths === 0 ? 'ea' : undefined,
-					startMarkerColor: thirdPaidMonths > 0 ? 'ea' : thirdUnpaidMonths > 0 ? 'unpaid' : undefined,
+					startMarkerColor:
+						thirdPaidMonths > 0 ? 'ea' : thirdUnpaidMonths > 0 ? 'unpaid' : undefined,
 					endMarkerColor: thirdUnpaidMonths > 0 ? 'unpaid' : thirdPaidMonths > 0 ? 'ea' : undefined
 				} satisfies Interval);
 			}
@@ -848,16 +851,16 @@
 								x2={toX(timelineWeeks)}
 								y2={rowY(BASELINE_ROW_INDEX)}
 							/>
-				{#each baselineTicks as tickWeeks}
-					{@const isFinalTick = tickWeeks === timelineWeeks}
-						<line
-							class="baseline-month-tick"
-							x1={toX(tickWeeks)}
-							y1={rowY(BASELINE_ROW_INDEX) - (isFinalTick ? 16 : 10)}
-							x2={toX(tickWeeks)}
-							y2={rowY(BASELINE_ROW_INDEX) + (isFinalTick ? 16 : 10)}
-						/>
-					{/each}
+							{#each baselineTicks as tickWeeks}
+								{@const isFinalTick = tickWeeks === timelineWeeks}
+								<line
+									class="baseline-month-tick"
+									x1={toX(tickWeeks)}
+									y1={rowY(BASELINE_ROW_INDEX) - (isFinalTick ? 16 : 10)}
+									x2={toX(tickWeeks)}
+									y2={rowY(BASELINE_ROW_INDEX) + (isFinalTick ? 16 : 10)}
+								/>
+							{/each}
 							<circle
 								class="marker marker-midyear"
 								cx={toX(MID_YEAR_WEEKS)}
@@ -932,24 +935,28 @@
 									: interval.isUnpaid
 										? 'unpaid'
 										: 'active'}
-				{@const customLineClass = interval.lineClass ? ` ${interval.lineClass}` : ''}
-				{@const colorClass = interval.color ? ` color-${interval.color}` : ''}
-				{@const overlayColorClass = interval.overlayColor ? ` color-${interval.overlayColor}` : colorClass}
-				{@const markerVariant = interval.markerVariant ?? 'default'}
-				{@const startMarkerColorKey = interval.startMarkerColor ?? interval.markerColor ?? interval.color}
-				{@const endMarkerColorKey = interval.endMarkerColor ?? interval.markerColor ?? interval.color}
-				{@const startMarkerColorClass = startMarkerColorKey ? ` color-${startMarkerColorKey}` : ''}
-				{@const endMarkerColorClass = endMarkerColorKey ? ` color-${endMarkerColorKey}` : ''}
-				{@const startMarkerLineClass =
-					markerVariant === 'line'
-						? ` marker-line${interval.lineClass ? ` ${interval.lineClass}` : ''}${startMarkerColorClass}`
-						: ''
-				}
-				{@const endMarkerLineClass =
-					markerVariant === 'line'
-						? ` marker-line${interval.lineClass ? ` ${interval.lineClass}` : ''}${endMarkerColorClass}`
-						: ''
-				}
+							{@const customLineClass = interval.lineClass ? ` ${interval.lineClass}` : ''}
+							{@const colorClass = interval.color ? ` color-${interval.color}` : ''}
+							{@const overlayColorClass = interval.overlayColor
+								? ` color-${interval.overlayColor}`
+								: colorClass}
+							{@const markerVariant = interval.markerVariant ?? 'default'}
+							{@const startMarkerColorKey =
+								interval.startMarkerColor ?? interval.markerColor ?? interval.color}
+							{@const endMarkerColorKey =
+								interval.endMarkerColor ?? interval.markerColor ?? interval.color}
+							{@const startMarkerColorClass = startMarkerColorKey
+								? ` color-${startMarkerColorKey}`
+								: ''}
+							{@const endMarkerColorClass = endMarkerColorKey ? ` color-${endMarkerColorKey}` : ''}
+							{@const startMarkerLineClass =
+								markerVariant === 'line'
+									? ` marker-line${interval.lineClass ? ` ${interval.lineClass}` : ''}${startMarkerColorClass}`
+									: ''}
+							{@const endMarkerLineClass =
+								markerVariant === 'line'
+									? ` marker-line${interval.lineClass ? ` ${interval.lineClass}` : ''}${endMarkerColorClass}`
+									: ''}
 							{@const labelAnchor = interval.start < 0 ? 'start' : 'middle'}
 							{@const labelX =
 								interval.start < 0 ? toX(interval.start) : (toX(interval.start) + toX(lineEnd)) / 2}
@@ -989,16 +996,16 @@
 										x2={toX(pausedUntil)}
 										y2={rowY(rowIndex)}
 									/>
-						<line
-							class={`interval-line ${activeLineClass}${customLineClass}${colorClass}`}
+									<line
+										class={`interval-line ${activeLineClass}${customLineClass}${colorClass}`}
 										x1={toX(pausedUntil)}
 										y1={rowY(rowIndex)}
 										x2={toX(lineEnd)}
 										y2={rowY(rowIndex)}
 									/>
 								{:else}
-						<line
-							class={`interval-line ${activeLineClass}${customLineClass}${colorClass}`}
+									<line
+										class={`interval-line ${activeLineClass}${customLineClass}${colorClass}`}
 										x1={toX(interval.start)}
 										y1={rowY(rowIndex)}
 										x2={toX(lineEnd)}
@@ -1018,8 +1025,8 @@
 											r="4"
 										/>
 									{/if}
-						<line
-							class={`interval-line overlay overlay-${overlayVariant}${overlayColorClass}`}
+									<line
+										class={`interval-line overlay overlay-${overlayVariant}${overlayColorClass}`}
 										x1={toX(overlayStart)}
 										y1={rowY(rowIndex)}
 										x2={toX(overlayEnd)}
@@ -1033,24 +1040,24 @@
 									/>
 								{/if}
 
-					{#if !interval.hideStartMarker}
-						{#if markerVariant === 'line'}
-							<line
-								class={`marker${startMarkerLineClass}`}
-								x1={toX(interval.start)}
-								y1={rowY(rowIndex) - 10}
-								x2={toX(interval.start)}
-								y2={rowY(rowIndex) + 10}
-							/>
-						{:else}
-							<circle
-								class={`marker ${startMarkerClass}${startMarkerColorClass}`}
-								cx={toX(interval.start)}
-								cy={rowY(rowIndex)}
-								r="5"
-							/>
-						{/if}
-					{/if}
+								{#if !interval.hideStartMarker}
+									{#if markerVariant === 'line'}
+										<line
+											class={`marker${startMarkerLineClass}`}
+											x1={toX(interval.start)}
+											y1={rowY(rowIndex) - 10}
+											x2={toX(interval.start)}
+											y2={rowY(rowIndex) + 10}
+										/>
+									{:else}
+										<circle
+											class={`marker ${startMarkerClass}${startMarkerColorClass}`}
+											cx={toX(interval.start)}
+											cy={rowY(rowIndex)}
+											r="5"
+										/>
+									{/if}
+								{/if}
 
 								{#if hasPausedSegment}
 									{@const pausedUntil = interval.pausedUntil ?? interval.start}
@@ -1062,26 +1069,26 @@
 									/>
 								{/if}
 
-					{#if !interval.hideEndMarker}
-						{#if markerVariant === 'line'}
-							<line
-								class={`marker${endMarkerLineClass}`}
-								x1={toX(lineEnd)}
-								y1={rowY(rowIndex) - 10}
-								x2={toX(lineEnd)}
-								y2={rowY(rowIndex) + 10}
-							/>
-						{:else}
-							<circle
-								class={`marker ${endMarkerClass}${endMarkerColorClass}`}
-								cx={toX(lineEnd)}
-								cy={rowY(rowIndex)}
-								r="5"
-							/>
-						{/if}
-					{/if}
-						<text
-							class={`label interval-label${interval.labelClass ? ` ${interval.labelClass}` : ''}`}
+								{#if !interval.hideEndMarker}
+									{#if markerVariant === 'line'}
+										<line
+											class={`marker${endMarkerLineClass}`}
+											x1={toX(lineEnd)}
+											y1={rowY(rowIndex) - 10}
+											x2={toX(lineEnd)}
+											y2={rowY(rowIndex) + 10}
+										/>
+									{:else}
+										<circle
+											class={`marker ${endMarkerClass}${endMarkerColorClass}`}
+											cx={toX(lineEnd)}
+											cy={rowY(rowIndex)}
+											r="5"
+										/>
+									{/if}
+								{/if}
+								<text
+									class={`label interval-label${interval.labelClass ? ` ${interval.labelClass}` : ''}`}
 									x={labelX}
 									y={interval.labelPosition === 'below' ? rowY(rowIndex) + 18 : rowY(rowIndex) - 12}
 									text-anchor={labelAnchor}
@@ -1178,8 +1185,9 @@
 	@reference "../../app.css";
 
 	:global(:root) {
-		--timeline-label-font: 'IBM Plex Sans Condensed', 'IBM Plex Sans', system-ui, -apple-system,
-			BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		--timeline-label-font:
+			'IBM Plex Sans Condensed', 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont,
+			'Segoe UI', sans-serif;
 		--timeline-color-rights: #475467;
 		--timeline-color-ea: #0f9eb8;
 		--timeline-color-mutterschutz: #15803d;
@@ -1232,7 +1240,7 @@
 	}
 
 	.timeline-section {
-		@apply grid gap-6;
+		@apply grid;
 	}
 
 	.planner-controls {
