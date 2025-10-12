@@ -17,8 +17,8 @@
 	const SUMMARY_WHITELIST = new Set(['mother-karenz', 'father-karenz', 'third-karenz']);
 
 	const visibleSegmentSummaries = $derived(
-		segmentSummaries.filter((segment) =>
-			segment.summaryKey !== undefined && SUMMARY_WHITELIST.has(segment.summaryKey)
+		segmentSummaries.filter(
+			(segment) => segment.summaryKey !== undefined && SUMMARY_WHITELIST.has(segment.summaryKey)
 		)
 	);
 </script>
@@ -30,7 +30,7 @@
 			aria-label="Überblick zu den Abschnitten ein- und ausklappen"
 		>
 			<div class="flex items-center gap-3">
-				<h3 class="timeline-summary__title m-0">Überblick zu den Abschnitten</h3>
+				<h3 class="timeline-summary__title m-0">Wie viel ea KBG bekommen wir?</h3>
 				<span class="timeline-summary__badge"> Noch in Arbeit, kann Fehler enthalten! </span>
 			</div>
 
@@ -61,6 +61,13 @@
 						aria-label="(Errechneter) Geburtstermin"
 					/>
 				</label>
+				<p class="mt-2">
+					Bitte beachte, dass die obige Auswahl "Mutterschutz 12 Woche - ja / nein" sowie
+					"Gemeinsamer Monat" die Berechnung hier beinflusst. Diese Rechnung hier ist nur eine ganz
+					grobe Vorschau zur ersten Orientierung. Zudem erhaltet ihr Wochengeld, ggf.
+					Familienzeitbonus (Papamonat), Familienbeihilfe. Außerdem gibt es den Partnerschaftsbonus,
+					falls ihr die Karenz 50:50 bis 60:40 aufteilt.
+				</p>
 			</div>
 
 			<div class="timeline-summary__table-wrapper">
@@ -104,6 +111,13 @@
 					</tbody>
 				</table>
 			</div>
+			<p class="mt-4 text-center">
+				Berechne die genauen Beträge: <a
+					class="underline"
+					href="https://services.bundeskanzleramt.gv.at/KBG-Rechner/index.html#willkommen"
+					>KBG-Rechner auf bundeskanzleramt.gv.at</a
+				>
+			</p>
 		</div>
 	</details>
 {:else}
