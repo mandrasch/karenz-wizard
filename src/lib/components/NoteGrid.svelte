@@ -144,8 +144,6 @@
       Nur beim ersten Wechsel dürfen beide Eltern bis zu 31 Tage gleichzeitig Kinderbetreuungsgeld beziehen.  
       Diese überlappenden Tage verkürzen den gesamten Anspruch um genau dieselbe Anzahl Tage.  
       Jeder Abschnitt muss mindestens 61 Tage dauern.
-      <br><br>
-      Der gemeinsame Monat eignet sich gut für die Übergabe oder Eingewöhnung des Kindes.
     `,
 			more: [
 				{
