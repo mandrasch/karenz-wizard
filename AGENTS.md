@@ -11,6 +11,10 @@ Svelte v5 + adapter-static site. Accessibility-first (WCAG 2.2 AA).
 - **No `{#key}` or conditional `<main>`**, no container swaps on navigation.
 - Use **grid full-bleed pattern**: `.page-grid` + `.content` + `.full-bleed`. Never use `100vw` that causes horizontal scroll.
 
+## Important checks
+
+- Run "npm run check" to verify changes do not introduce errors
+
 ## Accessibility Requirements
 
 - Provide a visible **skip link** to `#main`; keep it first in tab order.
