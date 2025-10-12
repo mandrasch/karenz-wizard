@@ -13,9 +13,9 @@
 	let toolAvailable = true;
 
 	// Basisdaten
-	let dueDateStr = $state(''); // ET (errechneter Geburtstermin) – Basis für Mutter (ET−56) und Default Vater
-	let actualBirthStr = $state(''); // Tatsächlicher Geburtstermin (nur wenn ausgewählt)
-	let fatherBirthBasis: 'et' | 'actual' = $state('et'); // Umschalter: Vater-Stichtag basiert auf ET oder tatsächlicher Geburt
+	let dueDateStr = $state(''); // ET (errechneter Geburtstermin)
+	let actualBirthStr = $state(''); // Tatsächlicher Geburtstermin (nur wenn Vater-Basis "actual")
+	let fatherBirthBasis: 'et' | 'actual' = $state('et'); // Umschalter in der Vater-Box
 
 	// Mutter: Beginn Beschäftigungsverbot/Mutterschutz (bekannt?)
 	let motherBanKnownChoice: 'yes' | 'no' = $state('no');
@@ -48,7 +48,7 @@
 	const motherBanKnown = $derived(() => motherBanKnownChoice === 'yes');
 	const motherBanStart = $derived(() => asDate(motherBanStartStr));
 
-	// Mutter-Stichtag: Beginn Beschäftigungsverbot/Mutterschutz (falls unbekannt: ET − 56)
+	// Mutter-Stichtag: Beginn Beschäftigungsverbots/Mutterschutz (falls unbekannt: ET − 56 Tage (8 Wochen))
 	const motherRefDate = $derived(() => {
 		if (motherBanKnown() && isValidDate(motherBanStart())) return motherBanStart();
 		const _et = et();
@@ -97,7 +97,7 @@
 	}
 </script>
 
-<!-- Wrapper mit eigener Font-Familie, damit das Tool überall konsistent rendert -->
+<!-- Wrapper mit eigener Font-Familie -->
 <section class="eakbg content">
 	<p class="mt-8 w-full text-center">
 		⚠️ Vorschau! Dieses Tool ist noch in Arbeit, noch nicht durchgeprüft! ⚠️
@@ -119,8 +119,9 @@
 			<strong>182 Kalendertagen vor einem bestimmten Stichtag</strong> erwerbstätig gewesen sein –
 			und in dieser Zeit
 			<strong>keine AMS-, Notstands- oder Weiterbildungsgeld-Leistungen</strong> erhalten haben. Bei
-			der <strong>Mutter</strong> ist der Stichtag der Mutterschutzbeginn (meist 8 Wochen vor ET),
-			beim <strong>Vater</strong> die <strong>Geburt</strong>. Bitte
+			der <strong>Mutter</strong> ist der Stichtag der Mutterschutzbeginn (meist
+			<strong>56 Tage (8 Wochen)</strong>
+			vor ET), beim <strong>Vater</strong> die <strong>Geburt</strong>. Bitte
 			<strong>beide Elternteile prüfen</strong>
 			– wenn nur einer die Voraussetzungen erfüllt, kann der andere ggf. die
 			<a href="/faq#sonderleistung-1" class="text-indigo-700 underline hover:text-indigo-600"
@@ -166,12 +167,12 @@
 		<section class="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
 			<h2 class="text-base font-semibold text-slate-900">Basisdaten</h2>
 			<p class="mt-1 text-[13px] text-slate-600">
-				Zuerst den <strong>errechneten Geburtstermin (ET)</strong> eintragen. Beim
-				<strong>Vater</strong>
-				kannst du anschließend wählen, ob der Stichtag auf dem <strong>ET</strong> oder auf dem
-				<strong>tatsächlichen Geburtstermin</strong>
-				basiert. Bei der <strong>Mutter</strong> bleibt der Stichtag der Mutterschutzbeginn; wenn
-				unbekannt, wird <strong>ET − 56</strong> verwendet.
+				Zuerst den <strong>errechneten Geburtstermin (ET)</strong> eintragen. Bei der
+				<strong>Mutter</strong>
+				ist der Stichtag der Mutterschutzbeginn; wenn nicht bekannt, wird
+				<strong>ET − 56 Tage (8 Wochen)</strong>
+				verwendet. Beim <strong>Vater</strong> ist der Stichtag die <strong>Geburt</strong> (tatsächlich
+				oder – wenn nicht vorhanden – der ET).
 			</p>
 
 			<div class="mt-4 grid gap-4 md:grid-cols-2">
@@ -188,60 +189,6 @@
 						aria-required="true"
 						class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px] text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
 					/>
-				</div>
-
-				<!-- Umschalter Vater-Stichtag -->
-				<div class="md:col-span-2">
-					<fieldset class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-						<legend class="text-[12px] font-semibold text-slate-900"
-							>Vater – Grundlage für den Stichtag</legend
-						>
-						<div class="mt-1 flex flex-wrap items-center gap-6">
-							<label class="inline-flex items-center gap-2 text-[13px]">
-								<input
-									type="radio"
-									name="father-basis"
-									value="et"
-									bind:group={fatherBirthBasis}
-									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-								/>
-								Errechneter Geburtstermin (ET)
-							</label>
-							<label class="inline-flex items-center gap-2 text-[13px]">
-								<input
-									type="radio"
-									name="father-basis"
-									value="actual"
-									bind:group={fatherBirthBasis}
-									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-								/>
-								Tatsächlicher Geburtstermin
-							</label>
-						</div>
-
-						{#if fatherBirthBasis === 'actual'}
-							<div class="mt-3">
-								<label class="text-[13px] font-semibold text-slate-900" for="birth">
-									Tatsächlicher Geburtstermin <span class="text-rose-600" aria-hidden="true">*</span
-									>
-								</label>
-								<input
-									id="birth"
-									type="date"
-									bind:value={actualBirthStr}
-									required
-									aria-required="true"
-									class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px] text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-								/>
-								<p class="mt-1 text-[12px] text-slate-500">
-									Dieses Datum gilt nur für den <strong>Vater</strong> als Stichtag. Bei der
-									<strong>Mutter</strong>
-									wird weiterhin der Mutterschutzbeginn (falls unbekannt: <strong>ET − 56</strong>)
-									verwendet.
-								</p>
-							</div>
-						{/if}
-					</fieldset>
 				</div>
 			</div>
 		</section>
@@ -341,7 +288,7 @@
 									bind:group={motherBanKnownChoice}
 									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
 								/>
-								Ich kenne es nicht (Standard: ET − 56 Tage)
+								Ich kenne es nicht (Standard: ET − 56 Tage (8 Wochen))
 							</label>
 						</div>
 						{#if motherBanKnown()}
@@ -356,7 +303,7 @@
 							</div>
 						{:else}
 							<p class="mt-2 text-[12px] text-slate-600">
-								Es wird <strong>ET − 56 Tage</strong> verwendet.
+								Es wird <strong>ET − 56 Tage (8 Wochen)</strong> verwendet.
 							</p>
 						{/if}
 					</fieldset>
@@ -367,25 +314,25 @@
 							bind:checked={mHasDV}
 							class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
 						/>
-						Ich habe ein aufrechtes Arbeitsverhältnis.
+						Ich habe ein aufrechtes Arbeitsverhältnis (oder gleichgestellte Zeiten).
 					</label>
 
 					<label class="flex items-start gap-2 text-[13px] text-slate-700">
 						<input
 							type="checkbox"
 							bind:checked={mNoALV}
-							class="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+							disabled={!mHasDV}
+							class="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-60"
 						/>
 						<span>
 							Keine AMS-/Notstands-/Weiterbildungsgeld-Leistungen im Zeitraum <strong
 								>{mRangeLabel()}</strong
 							>.<br />
-							<span class="text-[11px] text-slate-500"
-								>Erklärung: Der Zeitraum umfasst die <strong
-									>182 Kalendertage vor dem Stichtag</strong
-								>
-								({mStichtagLabel()}).</span
-							>
+							<span class="text-[11px] text-slate-500">
+								Gilt nur, wenn das Dienstverhältnis (oder gleichgestellte Zeiten) im Zeitraum
+								aufrecht war; kurze Unterbrechungen bis 14 Tage sind unschädlich. ({mStichtagLabel()}
+								− 182 Tage)
+							</span>
 						</span>
 					</label>
 				</div>
@@ -423,6 +370,57 @@
 					>).
 				</p>
 
+				<!-- Vater – Grundlage für den Stichtag -->
+				<fieldset class="mt-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
+					<legend class="text-[12px] font-semibold text-slate-900"
+						>Vater – Grundlage für den Stichtag</legend
+					>
+					<div class="mt-1 flex flex-wrap items-center gap-6">
+						<label class="inline-flex items-center gap-2 text-[13px]">
+							<input
+								type="radio"
+								name="father-basis"
+								value="et"
+								bind:group={fatherBirthBasis}
+								class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
+							/>
+							Errechneter Geburtstermin (ET)
+						</label>
+						<label class="inline-flex items-center gap-2 text-[13px]">
+							<input
+								type="radio"
+								name="father-basis"
+								value="actual"
+								bind:group={fatherBirthBasis}
+								class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
+							/>
+							Tatsächlicher Geburtstermin
+						</label>
+					</div>
+
+					{#if fatherBirthBasis === 'actual'}
+						<div class="mt-3">
+							<label class="text-[13px] font-semibold text-slate-900" for="birth">
+								Tatsächlicher Geburtstermin <span class="text-rose-600" aria-hidden="true">*</span>
+							</label>
+							<input
+								id="birth"
+								type="date"
+								bind:value={actualBirthStr}
+								required
+								aria-required="true"
+								class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px] text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+							/>
+							<p class="mt-1 text-[12px] text-slate-500">
+								Dieses Datum gilt nur für den <strong>Vater</strong> als Stichtag. Bei der
+								<strong>Mutter</strong>
+								bleibt der Stichtag der Mutterschutzbeginn (ist dieser nicht bekannt, wird
+								<strong>ET − 56 Tage (8 Wochen)</strong> verwendet).
+							</p>
+						</div>
+					{/if}
+				</fieldset>
+
 				<div class="mt-3 grid gap-3">
 					<label class="flex items-center gap-2 text-[13px] text-slate-700">
 						<input
@@ -430,25 +428,25 @@
 							bind:checked={fHasDV}
 							class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
 						/>
-						Ich habe ein aufrechtes Arbeitsverhältnis.
+						Ich habe ein aufrechtes Arbeitsverhältnis (oder gleichgestellte Zeiten).
 					</label>
 
 					<label class="flex items-start gap-2 text-[13px] text-slate-700">
 						<input
 							type="checkbox"
 							bind:checked={fNoALV}
-							class="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+							disabled={!fHasDV}
+							class="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-60"
 						/>
 						<span>
 							Keine AMS-/Notstands-/Weiterbildungsgeld-Leistungen im Zeitraum <strong
 								>{fRangeLabel()}</strong
 							>.<br />
-							<span class="text-[11px] text-slate-500"
-								>Erklärung: Der Zeitraum umfasst die <strong
-									>182 Kalendertage vor dem Stichtag</strong
-								>
-								({fStichtagLabel()}).</span
-							>
+							<span class="text-[11px] text-slate-500">
+								Gilt nur, wenn das Dienstverhältnis (oder gleichgestellte Zeiten) im Zeitraum
+								aufrecht war; kurze Unterbrechungen bis 14 Tage sind unschädlich. ({fStichtagLabel()}
+								− 182 Tage)
+							</span>
 						</span>
 					</label>
 				</div>
@@ -482,8 +480,8 @@
 					</li>
 					<li>
 						<strong>Stichtage:</strong> Mutter: Mutterschutzbeginn (falls unbekannt:
-						<strong>ET − 56 Tage</strong>). Vater: <strong>Geburt</strong> (je nach Auswahl
-						tatsächlicher Termin oder ET). Der Prüfzeitraum umfasst jeweils die
+						<strong>ET − 56 Tage (8 Wochen)</strong>). Vater: <strong>Geburt</strong> (je nach
+						Auswahl tatsächlicher Termin oder ET). Der Prüfzeitraum umfasst jeweils die
 						<strong>182 Kalendertage davor</strong>.
 					</li>
 					<li>
@@ -561,7 +559,6 @@
 			'Apple Color Emoji',
 			'Segoe UI Emoji';
 	}
-
 	[hidden] {
 		display: none;
 	}

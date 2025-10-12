@@ -296,19 +296,14 @@
 		class="note-box rounded-b-2xl border-t border-neutral-200/70 bg-neutral-50 p-4 shadow-sm md:p-6"
 	>
 		<div class="mx-auto max-w-5xl">
-			<div class="mx-auto prose prose-sm max-w-prose leading-relaxed">
+			<div class=" leading-relaxed">
 				<p class="mb-1 text-xs">
-					Viele Begriffe &amp; Fristen – keine Sorge, man blickt am Ende durch.
-				</p>
-				<p class="mb-3 text-xs">
-					<span class="font-medium text-red-600"
-						>Wichtig: Anspruchsvoraussetzungen und Fristen prüfen!</span
-					>
-					Der
+					Viele Begriffe auf einmal – keine Sorge, am Ende blickt man schon durch. Der
 					<a href="https://elternkalender.arbeiterkammer.at/index.html" class="underline"
 						>AK-Elternkalender</a
 					> hilft beim Fristen im Blick halten.
 				</p>
+				<p class="mb-3 text-xs"></p>
 			</div>
 
 			<div class="xl:columns-2 xl:gap-10">

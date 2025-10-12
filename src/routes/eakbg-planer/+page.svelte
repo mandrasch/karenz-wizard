@@ -548,6 +548,8 @@
 		endWeeks: number;
 		labelPosition: 'above' | 'below';
 		summaryKey: string;
+		parent?: 'mother' | 'father' | 'third';
+		benefitType?: 'ea-paid' | 'unpaid' | 'other';
 	};
 
 	const TIMELINE_SUMMARY_KEYS = new Set(['mother-karenz', 'father-karenz', 'third-karenz']);
@@ -601,7 +603,8 @@
 				startWeeks: number,
 				endWeeks: number,
 				summaryKey: string,
-				labelPosition: 'above' | 'below'
+				labelPosition: 'above' | 'below',
+				meta: Partial<Pick<SegmentSummary, 'parent' | 'benefitType'>> = {}
 			) => {
 				const durationWeeks = Math.max(0, endWeeks - startWeeks);
 				if (durationWeeks <= MIN_DURATION_WEEKS) {
@@ -614,7 +617,8 @@
 					startWeeks,
 					endWeeks,
 					labelPosition,
-					summaryKey
+					summaryKey,
+					...meta
 				});
 			};
 
@@ -642,7 +646,8 @@
 							startWeeks,
 							paidEnd,
 							summaryKey,
-							labelPosition
+							labelPosition,
+							{ parent: 'mother', benefitType: 'ea-paid' }
 						);
 					}
 
@@ -653,7 +658,8 @@
 							unpaidStart,
 							endWeeks,
 							summaryKey,
-							labelPosition
+							labelPosition,
+							{ parent: 'mother', benefitType: 'unpaid' }
 						);
 					}
 
@@ -664,7 +670,8 @@
 							startWeeks,
 							endWeeks,
 							summaryKey,
-							labelPosition
+							labelPosition,
+							{ parent: 'mother', benefitType: 'other' }
 						);
 					}
 					return;
@@ -683,7 +690,8 @@
 							startWeeks,
 							paidEnd,
 							summaryKey,
-							labelPosition
+							labelPosition,
+							{ parent: 'father', benefitType: 'ea-paid' }
 						);
 					}
 
@@ -694,7 +702,8 @@
 							unpaidStart,
 							endWeeks,
 							summaryKey,
-							labelPosition
+							labelPosition,
+							{ parent: 'father', benefitType: 'unpaid' }
 						);
 					}
 
@@ -705,7 +714,56 @@
 							startWeeks,
 							endWeeks,
 							summaryKey,
-							labelPosition
+							labelPosition,
+							{ parent: 'father', benefitType: 'other' }
+						);
+					}
+					return;
+				}
+
+				if (summaryKey === 'third-karenz') {
+					const hasPaidThird = thirdPaidMonths > MIN_DURATION_WEEKS;
+					const hasUnpaidThird = thirdUnpaidMonths > MIN_DURATION_WEEKS;
+					const thirdPaidEnd = Math.min(startWeeks + paidThirdWeeks, endWeeks);
+					const thirdUnpaidStart = hasPaidThird ? thirdPaidEnd : startWeeks;
+
+					if (hasPaidThird) {
+						pushSummary(
+							`${summaryKey}-${index}-paid`,
+							label,
+							startWeeks,
+							thirdPaidEnd,
+							summaryKey,
+							labelPosition,
+							{ parent: 'mother', benefitType: 'ea-paid' }
+						);
+					}
+
+					if (hasUnpaidThird) {
+						const unpaidLabel =
+							label.includes('unbezahlt') || label.includes('Unbezahlte')
+								? label
+								: 'Unbezahlte Karenz⁷ (weiterer Teil)';
+						pushSummary(
+							`${summaryKey}-${index}-unpaid`,
+							unpaidLabel,
+							thirdUnpaidStart,
+							endWeeks,
+							summaryKey,
+							labelPosition,
+							{ parent: 'mother', benefitType: 'unpaid' }
+						);
+					}
+
+					if (!hasPaidThird && !hasUnpaidThird && label) {
+						pushSummary(
+							`${summaryKey}-${index}`,
+							label,
+							startWeeks,
+							endWeeks,
+							summaryKey,
+							labelPosition,
+							{ parent: 'mother', benefitType: 'other' }
 						);
 					}
 					return;
@@ -721,7 +779,8 @@
 					startWeeks,
 					endWeeks,
 					summaryKey,
-					labelPosition
+					labelPosition,
+					{ benefitType: 'other' }
 				);
 			});
 
@@ -1536,7 +1595,6 @@
 
 	svg {
 		@apply block rounded-xl;
-		background: linear-gradient(90deg, rgba(15, 23, 42, 0.04) 0 16px, transparent 16px);
 	}
 
 	.timeline-track {
