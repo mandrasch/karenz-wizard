@@ -1,12 +1,14 @@
 <script lang="ts">
 	type Link = { label: string; href: string; underline?: boolean };
+	type ActionBtn = { label: string; href: string; ariaLabel?: string };
 	type NoteItem = {
 		id: string;
 		sup: number | string;
 		title: string;
 		body: string; // one paragraph (no <p> in data)
-		more?: Link[]; // “Mehr: …” links
-		references?: Link[]; // “Quellen: …” links (official refs)
+		more?: Link[]; // “Mehr: …”
+		references?: Link[]; // “Quellen: …”
+		actionButtons?: ActionBtn[]; // optional small CTA buttons
 	};
 
 	const items: NoteItem[] = [
@@ -36,8 +38,42 @@
 			]
 		},
 		{
-			id: 'mutterschutz-nach',
+			id: 'recht-auf-karenz',
 			sup: 2,
+			title: 'Recht auf Karenz (≠ Förderung)',
+			body: `
+        Es besteht ein arbeitsrechtlicher Anspruch auf Karenz (Freistellung) bis zum vollendeten 2. Lebensjahr des Kindes – der Arbeitgeber darf das nicht verweigern, wenn Fristen eingehalten werden.
+        Dieser Anspruch bedeutet jedoch nicht automatisch, dass der Staat die gesamte Karenz finanziell fördert: Kinderbetreuungsgeld kann früher enden oder variieren (Modellwahl, Dauer, Voraussetzungen).
+        Wichtig sind die Meldefristen: Nimmt die Mutter zuerst Karenz, muss sie spätestens am letzten Tag der Schutzfrist melden; nimmt der andere Elternteil den ersten Abschnitt, gilt grundsätzlich 8 Wochen ab Geburt.
+        Karenzplanung und KBG sind getrennt zu denken: Arbeitsrechtlicher Schutz ≠ Förderanspruch.
+      `,
+			more: [
+				{
+					label: 'AK: Meldefristen Karenz',
+					href: 'https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Meldefristen.html',
+					underline: true
+				},
+				{
+					label: 'AK: Kinderbetreuungsgeld – Überblick',
+					href: 'https://www.arbeiterkammer.at/kbg',
+					underline: true
+				}
+			],
+			references: [
+				{
+					label: 'oesterreich.gv.at: Elternkarenz – Anspruch',
+					href: 'https://www.oesterreich.gv.at/de/themen/arbeit_beruf_und_pension/Karenz-und-Mutterschutz/elternkarenz_und_elternteilzeit/Seite.3590007'
+				},
+				{
+					label: 'AK: Meldefristen Karenz',
+					href: 'https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Meldefristen.html'
+				},
+				{ label: 'AK: Kinderbetreuungsgeld – Varianten', href: 'https://www.arbeiterkammer.at/kbg' }
+			]
+		},
+		{
+			id: 'mutterschutz-nach',
+			sup: 3,
 			title: 'Mutterschutz nach Geburt',
 			body: `
         Nach der Entbindung besteht grundsätzlich 8 Wochen Schutzfrist; bei Frühgeburten, Mehrlingen oder Kaiserschnitt mindestens 12 Wochen.
@@ -61,13 +97,14 @@
 		},
 		{
 			id: 'eakbg',
-			sup: 3,
+			sup: 4,
 			title: 'Einkommensabhängiges Kinderbetreuungsgeld (ea KBG)',
 			body: `
         Das ea KBG beträgt 80 % eines fiktiven Wochengeldes (mit Deckelung; jährliche Valorisierung).
         Anspruch setzt u. a. 182 Kalendertage ununterbrochene, vollversicherungspflichtige Erwerbstätigkeit in Österreich in den 182 Tagen vor der Geburt voraus; in diesem Zeitraum dürfen keine Leistungen aus der Arbeitslosenversicherung bezogen worden sein.
         Der Bezug ruht während des Mutterschutzes und wird danach ausbezahlt.
         Maximal 365 Tage ab Geburt pro Elternteil; bei Inanspruchnahme durch beide insgesamt bis zu 426 Tage ab Geburt. Jeder Bezugsblock muss mindestens 61 Tage dauern.
+        <br><br><strong>Sonderleistung&nbsp;I (im ea-KBG-Modell):</strong> Erfüllt ein Elternteil die Erwerbstätigkeitsvoraussetzung nicht oder liegt dessen errechneter Tagesbetrag unter dem Mindestwert, kann für diesen Elternteil eine Sonderleistung&nbsp;I (fixer Tagesbetrag, z.&nbsp;B. 2025: 41,14&nbsp;€) beantragt werden. Die Werte sind valorisiert – aktuelle Beträge prüfen.
       `,
 			more: [
 				{
@@ -91,36 +128,13 @@
 					label: 'ÖGK: KBG allgemein',
 					href: 'https://www.gesundheitskasse.at/cdscontent/?contentid=10007.880037'
 				}
-			]
-		},
-		{
-			id: 'sonderleistung-1',
-			sup: 4,
-			title: 'Sonderleistung I',
-			body: `
-        Erfüllt ein Elternteil die Erwerbstätigkeitsvoraussetzung nicht oder liegt dessen errechneter Tagesbetrag unter dem Mindestwert,
-        kann für diesen Elternteil eine „Sonderleistung I“ (fixer Tagesbetrag, z. B. 2025: 41,14 €) beantragt werden.
-        So bleibt das ea-KBG-Modell nutzbar, während der andere Elternteil regulär ea KBG bezieht.
-        Höhe und Werte werden regelmäßig valorisiert – aktuelle Beträge prüfen.
-      `,
-			more: [
-				{
-					label: 'BKA: ea KBG – Sonderleistung I',
-					href: 'https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html',
-					underline: true
-				},
-				{
-					label: 'AK: KBG – Sonderleistung (Werte)',
-					href: 'https://www.arbeiterkammer.at/kbg',
-					underline: true
-				}
 			],
-			references: [
+			actionButtons: [
 				{
-					label: 'BKA: Sonderleistung I – Details',
-					href: 'https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html'
-				},
-				{ label: 'AK: KBG – Werte & Index', href: 'https://www.arbeiterkammer.at/kbg' }
+					label: 'Anspruch prüfen',
+					href: '/eakbg-anspruch',
+					ariaLabel: 'Anspruch auf einkommensabhängiges Kinderbetreuungsgeld prüfen'
+				}
 			]
 		},
 		{
@@ -242,7 +256,6 @@
 		}
 	];
 
-	// collapsed by default
 	let open = $state(false);
 </script>
 
@@ -254,9 +267,10 @@
 	>
 		<div class="flex items-center gap-3">
 			<div class="flex flex-col">
-				<span class="text-base font-semibold text-slate-900 sm:text-lg"
-					>Die Begriffe kurz erklärt</span
-				>
+				<span class="text-base font-semibold text-slate-900 sm:text-lg">
+					Die Begriffe kurz erklärt
+					<span class="note-grid__badge">Noch in Arbeit, kann Fehler enthalten!</span>
+				</span>
 			</div>
 		</div>
 		<svg
@@ -278,65 +292,99 @@
 	<aside
 		class="note-box rounded-b-2xl border-t border-neutral-200/70 bg-neutral-50 p-4 shadow-sm md:p-6"
 	>
-		<div class="prose prose-sm max-w-none leading-tight">
-			<h3 class="mb-2">🚧 Die Begriffe kurz erklärt – in Arbeit 🚧</h3>
-			<p class="mb-1 text-xs">
-				Viele Begriffe &amp; Fristen – keine Sorge, man blickt am Ende durch.
-			</p>
-			<p class="mb-1 text-xs">
-				<span class="font-medium text-red-600"
-					>Wichtig: Anspruchsvoraussetzungen und Fristen prüfen!</span
-				>
-				Der
-				<a href="https://elternkalender.arbeiterkammer.at/index.html" class="underline"
-					>AK-Elternkalender</a
-				> hilft beim Fristen im Blick halten.
-			</p>
+		<div class="mx-auto max-w-5xl">
+			<div class="mx-auto prose prose-sm max-w-prose leading-relaxed">
+				<p class="mb-1 text-xs">
+					Viele Begriffe &amp; Fristen – keine Sorge, man blickt am Ende durch.
+				</p>
+				<p class="mb-3 text-xs">
+					<span class="font-medium text-red-600"
+						>Wichtig: Anspruchsvoraussetzungen und Fristen prüfen!</span
+					>
+					Der
+					<a href="https://elternkalender.arbeiterkammer.at/index.html" class="underline"
+						>AK-Elternkalender</a
+					> hilft beim Fristen im Blick halten.
+				</p>
+			</div>
 
-			<div class="grid gap-6 md:grid-cols-2">
+			<div class="xl:columns-2 xl:gap-10">
 				{#each items as it (it.id)}
-					<section class="space-y-1.5">
-						<h4 id={it.id}><sup>{it.sup}</sup> {it.title}</h4>
+					<section class="mb-6 break-inside-avoid last:mb-0">
+						<div class="prose prose-sm max-w-prose leading-relaxed">
+							<h4 id={it.id} class="text-base font-semibold text-slate-800">
+								<sup class="mr-1 align-super text-[11px] text-slate-500">{it.sup}</sup>
+								{it.title}
+							</h4>
 
-						<p>{@html it.body}</p>
+							<p>{@html it.body}</p>
 
-						{#if it.more?.length}
-							<div class="mt-2 text-xs text-slate-700">
-								<span class="mr-1 font-semibold">Mehr:</span>
-								{#each it.more as link, i (link.href)}
-									<a href={link.href} class={link.underline ? 'underline' : ''}>{link.label}</a
-									>{#if i < it.more.length - 1}
-										<span aria-hidden="true"> · </span>{/if}
-								{/each}
-							</div>
-						{/if}
+							{#if it.actionButtons?.length}
+								<div class="mt-2 flex flex-wrap gap-2">
+									{#each it.actionButtons as btn (btn.href)}
+										<a
+											class="note-grid__btn"
+											href={btn.href}
+											aria-label={btn.ariaLabel ?? btn.label}
+										>
+											{btn.label}
+										</a>
+									{/each}
+								</div>
+							{/if}
 
-						{#if it.references?.length}
-							<div class="mt-1 text-[11px] text-slate-600">
-								<span class="mr-1 font-semibold">Quellen:</span>
-								{#each it.references as ref, i (ref.href)}
-									<a href={ref.href} class="underline">{ref.label}</a
-									>{#if i < it.references.length - 1}
-										<span aria-hidden="true"> · </span>{/if}
-								{/each}
-							</div>
-						{/if}
+							{#if it.more?.length}
+								<div class="mt-2 text-xs text-slate-700">
+									<span class="mr-1 font-semibold">Mehr:</span>
+									{#each it.more as link, i (link.href)}
+										<a href={link.href} class={link.underline ? 'underline' : ''}>{link.label}</a
+										>{#if i < it.more.length - 1}
+											<span aria-hidden="true"> · </span>{/if}
+									{/each}
+								</div>
+							{/if}
+
+							{#if it.references?.length}
+								<div class="mt-1 text-[11px] text-slate-600">
+									<span class="mr-1 font-semibold">Quellen:</span>
+									{#each it.references as ref, i (ref.href)}
+										<a href={ref.href} class="underline">{ref.label}</a
+										>{#if i < it.references.length - 1}
+											<span aria-hidden="true"> · </span>{/if}
+									{/each}
+								</div>
+							{/if}
+						</div>
 					</section>
 				{/each}
 			</div>
 
-			<p class="mt-4 mb-0 text-xs">
+			<p class="mx-auto prose prose-sm mt-4 mb-0 max-w-prose text-xs text-slate-600">
 				Hinweis: Auch der Vater kann den ersten Karenzteil übernehmen.
 			</p>
 		</div>
 	</aside>
 </details>
 
-<style>
+<style lang="scss">
+	@reference "../../app.css";
+
+	/* hide native triangle while preserving <details>/<summary> semantics */
 	:global(details > summary::-webkit-details-marker) {
 		display: none;
 	}
 	:global(details > summary) {
 		list-style: none;
 	}
+
+	.note-grid__badge {
+		@apply ml-2 inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 align-middle text-[11px] font-semibold tracking-wide text-amber-700 uppercase;
+	}
+
+	.note-grid__btn {
+		@apply inline-flex items-center rounded-full bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
+	}
+
+	/* safety for older Tailwind: uncomment if needed */
+	/* .break-inside-avoid { break-inside: avoid; } */
 </style>
