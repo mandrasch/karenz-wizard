@@ -3,6 +3,7 @@
 		id: string;
 		title: string;
 		days: number;
+		summaryKey?: string;
 		[key: string]: unknown;
 	};
 
@@ -12,9 +13,17 @@
 		formatSegmentRange,
 		open = $bindable(true)
 	} = $props();
+
+	const SUMMARY_WHITELIST = new Set(['mother-karenz', 'father-karenz', 'third-karenz']);
+
+	const visibleSegmentSummaries = $derived(
+		segmentSummaries.filter((segment) =>
+			segment.summaryKey !== undefined && SUMMARY_WHITELIST.has(segment.summaryKey)
+		)
+	);
 </script>
 
-{#if segmentSummaries.length > 0}
+{#if visibleSegmentSummaries.length > 0}
 	<details class="timeline-summary group" bind:open>
 		<summary
 			class="timeline-summary__summary"
@@ -69,7 +78,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each segmentSummaries as segment (segment.id)}
+						{#each visibleSegmentSummaries as segment (segment.id)}
 							<tr>
 								<th scope="row">{segment.title}</th>
 								<td>{segment.days}</td>

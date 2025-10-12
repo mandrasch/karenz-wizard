@@ -1,594 +1,621 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 
-	let toolAvailable = false;
+	/* ===== State ===== */
+	let toolAvailable = true;
 
-	// Shared
+	// Basisdaten
+	let useActualBirth = $state(false);
 	let dueDateStr = $state('');
-	let motherEarlyLeaveStr = $state('');
+	let actualBirthStr = $state('');
 
-	// Mother
+	// Mutter: Beginn Beschäftigungsverbot/Mutterschutz
+	// Radio-Choice -> Boolean abgeleitet (vermeidet String/Boolean-Mix in bind:group)
+	let motherBanKnownChoice: 'yes' | 'no' = $state('no');
+	let motherBanStartStr = $state('');
+
+	// Personenspezifisch
 	type YesNo = '' | 'yes' | 'no';
-	let motherWorkedChoice: YesNo = $state('');
-	let motherJobStart = $state('');
-	let motherNoBenefits = $state(false);
+	let mWorkedAndContinues: YesNo = $state('');
+	let mJobStartStr = $state('');
+	let mNoALV = $state(false);
+	let mAllow14 = $state(false);
 
-	// Father
-	let fatherWorkedChoice: YesNo = $state('');
-	let fatherJobStart = $state('');
-	let fatherNoBenefits = $state(false);
+	let fWorkedAndContinues: YesNo = $state('');
+	let fJobStartStr = $state('');
+	let fNoALV = $state(false);
+	let fAllow14 = $state(false);
 
-	// Submit state
-	let hasSubmittedMother = $state(false);
-	let hasSubmittedFather = $state(false);
+	// UI
+	let showAdvanced = $state(false);
 	let hasSubmittedAll = $state(false);
+	let resultHeadingEl: HTMLHeadingElement | null = null;
 
-	// DOM refs
-	let motherResultEl: HTMLElement | null = null;
-	let fatherResultEl: HTMLElement | null = null;
-	let summaryEl: HTMLElement | null = null;
-	let motherFirstInputEl: HTMLInputElement | null = null;
-	let fatherFirstInputEl: HTMLInputElement | null = null;
-
-	const addDays = (date: Date, days: number) => {
-		const next = new Date(date);
-		next.setDate(next.getDate() + days);
-		return next;
+	/* ===== Helpers / Derived ===== */
+	const addDays = (d: Date, days: number) => {
+		const x = new Date(d);
+		x.setDate(x.getDate() + days);
+		return x;
 	};
 	const daysBetween = (a: Date, b: Date) => Math.floor((a.getTime() - b.getTime()) / 86_400_000);
-
-	const dueDate = $derived(() => (dueDateStr ? new Date(`${dueDateStr}T00:00:00`) : null));
-	const mutterschutzStart = $derived(() => {
-		const due = dueDate();
-		return due ? addDays(due, -56) : null;
-	});
-	const motherReferenceDate = $derived(() => {
-		if (motherEarlyLeaveStr) return new Date(`${motherEarlyLeaveStr}T00:00:00`);
-		return mutterschutzStart();
-	});
-	const motherJobStartDate = $derived(() =>
-		motherJobStart ? new Date(`${motherJobStart}T00:00:00`) : null
-	);
-	const fatherJobStartDate = $derived(() =>
-		fatherJobStart ? new Date(`${fatherJobStart}T00:00:00`) : null
-	);
-
-	const dateFormatter = new Intl.DateTimeFormat('de-AT', {
+	const isValidDate = (d: Date | null): d is Date =>
+		d instanceof Date && !Number.isNaN(d.getTime());
+	const asDate = (s: string) => (s ? new Date(`${s}T00:00:00`) : null);
+	const dateFmt = new Intl.DateTimeFormat('de-AT', {
 		day: '2-digit',
 		month: '2-digit',
 		year: 'numeric'
 	});
-	const isValidDate = (value: Date | null): value is Date =>
-		value instanceof Date && !Number.isNaN(value.getTime());
 
-	const benefitsRangeLabel = (endDate: Date | null) => {
-		if (!isValidDate(endDate)) return null;
-		const start = addDays(endDate, -182);
-		const end = addDays(endDate, -1);
-		return `${dateFormatter.format(start)} - ${dateFormatter.format(end)}`;
+	// ET / tatsächliche Geburt
+	const et = $derived(() => asDate(dueDateStr));
+	const actualBirth = $derived(() => asDate(actualBirthStr));
+	const effectiveBirth = $derived(() => (useActualBirth && actualBirth() ? actualBirth() : et()));
+
+	// Mutter: Radio-Choice -> Boolean
+	const motherBanKnown = $derived(() => motherBanKnownChoice === 'yes');
+
+	// Mutter-Stichtag: bekannt -> Datum, sonst ET − 56 (8 Wochen)
+	const motherBanStart = $derived(() => asDate(motherBanStartStr));
+	const motherRefDate = $derived(() => {
+		if (motherBanKnown() && isValidDate(motherBanStart())) return motherBanStart();
+		const _et = et();
+		return isValidDate(_et) ? addDays(_et, -56) : null;
+	});
+
+	// Vater-Stichtag: Geburt (ET oder tatsächlich)
+	const fatherRefDate = $derived(() => effectiveBirth());
+
+	// Jobstarts
+	const mJobStart = $derived(() => asDate(mJobStartStr));
+	const fJobStart = $derived(() => asDate(fJobStartStr));
+
+	// Labels & 182-Tage-Zeiträume
+	const rangeLabel = (ref: Date | null) => {
+		if (!isValidDate(ref)) return '—';
+		const start = addDays(ref, -182);
+		const end = addDays(ref, -1);
+		return `${dateFmt.format(start)} – ${dateFmt.format(end)}`;
 	};
+	const mRangeLabel = $derived(() => rangeLabel(motherRefDate()));
+	const fRangeLabel = $derived(() => rangeLabel(fatherRefDate()));
+	const mStichtagLabel = $derived(() =>
+		isValidDate(motherRefDate()) ? dateFmt.format(motherRefDate()!) : '—'
+	);
+	const fStichtagLabel = $derived(() =>
+		isValidDate(fatherRefDate()) ? dateFmt.format(fatherRefDate()!) : '—'
+	);
 
-	const motherBenefitsRange = $derived(() => benefitsRangeLabel(motherReferenceDate()));
-	const fatherBenefitsRange = $derived(() => benefitsRangeLabel(dueDate()));
+	// Eligibility (mit optionaler 14-Tage-Toleranz)
+	function eligibleDays(jobStart: Date | null, refDate: Date | null, allow14: boolean): number {
+		if (!isValidDate(jobStart) || !isValidDate(refDate)) return -1;
+		const span = daysBetween(refDate!, jobStart!);
+		return allow14 ? span + 14 : span;
+	}
+	const motherEligible = $derived(
+		() =>
+			mWorkedAndContinues === 'yes' &&
+			mNoALV &&
+			eligibleDays(mJobStart(), motherRefDate(), mAllow14) >= 182
+	);
+	const fatherEligible = $derived(
+		() =>
+			fWorkedAndContinues === 'yes' &&
+			fNoALV &&
+			eligibleDays(fJobStart(), fatherRefDate(), fAllow14) >= 182
+	);
 
-	// Labels for Stichtag
-	const motherStichtagLabel = $derived<string>(() => {
-		const ref = motherReferenceDate();
-		return isValidDate(ref) ? dateFormatter.format(ref) : '—';
-	});
-	const fatherStichtagLabel = $derived<string>(() => {
-		const due = dueDate();
-		return isValidDate(due) ? dateFormatter.format(due) : '—';
-	});
-
-	// Convenience booleans for form state
-	const motherWorkedAndContinues = $derived(() => motherWorkedChoice === 'yes');
-	const fatherWorkedAndContinues = $derived(() => fatherWorkedChoice === 'yes');
-	const motherInputsDisabled = $derived(() => !motherWorkedAndContinues());
-	const fatherInputsDisabled = $derived(() => !fatherWorkedAndContinues());
-	const motherHasInputs = $derived(() => Boolean(motherJobStart));
-	const fatherHasInputs = $derived(() => Boolean(fatherJobStart));
-	const dueDateProvided = $derived(() => Boolean(dueDateStr));
-
-	// Eligibility (requires "yes" to worked+continuing)
-	const motherEligible = $derived(() => {
-		if (!motherWorkedAndContinues()) return false;
-		const due = dueDate();
-		const job = motherJobStartDate();
-		const reference = motherReferenceDate();
-		if (!due || !reference || !job) return false;
-		if (!motherNoBenefits) return false;
-		return daysBetween(reference, job) >= 182;
-	});
-	const fatherEligible = $derived(() => {
-		if (!fatherWorkedAndContinues()) return false;
-		const due = dueDate();
-		const job = fatherJobStartDate();
-		if (!due || !job) return false;
-		if (!fatherNoBenefits) return false;
-		return daysBetween(due, job) >= 182;
-	});
-
+	// UI: Badges
 	const badgeClass = (ok: boolean) =>
 		ok
-			? 'inline-flex items-center rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700'
-			: 'inline-flex items-center rounded-full border border-rose-300 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700';
-	const badgeLabel = (ok: boolean) =>
+			? 'inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700'
+			: 'inline-flex items-center gap-2 rounded-full border border-rose-300 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700';
+	const badgeText = (ok: boolean) =>
 		ok ? 'Ja – vorauss. Anspruch' : 'Nein – vorauss. kein Anspruch';
 
-	// Shared check
-	const handleCheckBoth = async () => {
-		hasSubmittedMother = true;
-		hasSubmittedFather = true;
+	async function handleCheck() {
 		hasSubmittedAll = true;
 		await tick();
-		summaryEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-	};
-
-	// Resets (per section; keep shared due/early-leave)
-	const resetMother = () => {
-		motherWorkedChoice = '';
-		motherJobStart = '';
-		motherNoBenefits = false;
-		hasSubmittedMother = false;
-		motherFirstInputEl?.focus();
-	};
-	const resetFather = () => {
-		fatherWorkedChoice = '';
-		fatherJobStart = '';
-		fatherNoBenefits = false;
-		hasSubmittedFather = false;
-		fatherFirstInputEl?.focus();
-	};
+		resultHeadingEl?.setAttribute('tabindex', '-1');
+		resultHeadingEl?.focus();
+	}
 </script>
 
 <section class="content">
 	<header class="mt-10">
-		<h1 class="text-3xl font-semibold text-slate-900">
-			Anspruch auf einkommensabhängiges KBG prüfen
-		</h1>
+		<h1 class="text-3xl font-semibold text-slate-900">eaKBG – Vorab-Check (Österreich)</h1>
+		<p class="mt-2 max-w-prose text-sm text-slate-600">
+			Dieses Tool prüft vereinfacht, ob die <strong>182 Kalendertage Erwerbstätigkeit</strong> für
+			das
+			<strong>einkommensabhängige Kinderbetreuungsgeld</strong> (eaKBG) voraussichtlich erfüllt
+			sind. Es ist ein <strong>Näherungs-/Planungs-Check</strong> – maßgeblich sind die
+			<strong>tatsächlichen Daten</strong>
+			(Geburt bzw. Beginn des Beschäftigungsverbots / Mutterschutz) und die Entscheidung der zuständigen
+			Krankenkasse.
+			<br />
+			<em>Hinweis:</em> Zusätzlich kann – sofern die Voraussetzungen erfüllt sind – die
+			<a href="/faq#sonderleistung-1" class="text-indigo-700 underline hover:text-indigo-600"
+				>Sonderleistung 1</a
+			>
+			bezogen werden; sie ist hier nicht Gegenstand des Checks.
+		</p>
+
+		<!-- Offizielle Quellen -->
+		<div class="mt-3 flex flex-wrap gap-2 text-xs">
+			<a
+				class="text-indigo-700 underline hover:text-indigo-600"
+				href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.880037"
+				target="_blank"
+				rel="noreferrer">ÖGK: Einkommensabhängiges KBG</a
+			>
+			<a
+				class="text-indigo-700 underline hover:text-indigo-600"
+				href="https://www.sozialversicherung.at/cdscontent/load?contentid=10008.638104&version=1632292834"
+				target="_blank"
+				rel="noreferrer">Sozialversicherung: Voraussetzungen (inkl. 14-Tage-Regel)</a
+			>
+			<a
+				class="text-indigo-700 underline hover:text-indigo-600"
+				href="https://stmk.arbeiterkammer.at/service/broschuerenundratgeber/beruffamilie/20250108_Broschuere_Wenn_ein_Baby_kommt_2025.pdf"
+				target="_blank"
+				rel="noreferrer">AK: „Wenn ein Baby kommt“</a
+			>
+			<a
+				class="text-indigo-700 underline hover:text-indigo-600"
+				href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1/Seite.080614"
+				target="_blank"
+				rel="noreferrer">oesterreich.gv.at: Antrag & Rückwirkung</a
+			>
+		</div>
 	</header>
 
-	<p class="mt-8 font-semibold">🚧 Tool ist noch in Entwicklung 🚧</p>
-
-	<div class="prose mt-6">
-		<p>
-			Mit diesem Check findet ihr heraus, ob Mutter oder Vater die 182 Kalendertage Beschäftigung
-			für das einkommensabhängige Kinderbetreuungsgeld erfüllen. Gebt den errechneten Geburtstermin
-			sowie eure Beschäftigungsdaten ein und startet die Prüfung mit „Check“.
-		</p>
-		<p class="text-sm text-slate-500">
-			<span class="text-rose-600" aria-hidden="true">*</span> Pflichtfelder
-		</p>
-	</div>
-
 	{#if toolAvailable}
-		<!-- Geburtstermin + früherer Mutterschutz (gemeinsam) -->
-		<fieldset
-			class="mt-8 grid gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 md:grid-cols-[220px_1fr] md:items-center"
-		>
-			<legend class="sr-only">Geburts- und Mutterschutzdaten</legend>
-
-			<label for="due" class="text-sm font-semibold text-slate-900">
-				Errechneter Geburtstermin <span class="text-rose-600" aria-hidden="true">*</span>
-			</label>
-			<input
-				id="due"
-				type="date"
-				bind:value={dueDateStr}
-				required
-				aria-required="true"
-				class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-			/>
-
-			<label
-				for="mother-early-leave"
-				class="text-sm font-semibold text-slate-900 md:col-start-1 md:row-start-2"
-			>
-				Früherer Mutterschutz-Beginn (ärztlich)
-			</label>
-			<input
-				id="mother-early-leave"
-				type="date"
-				bind:value={motherEarlyLeaveStr}
-				class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none md:col-start-2 md:row-start-2"
-			/>
-		</fieldset>
-
-		{#if !dueDateProvided() && hasSubmittedAll}
-			<p class="mt-2 text-sm font-semibold text-rose-600">
-				Bitte gib den errechneten Geburtstermin an.
+		<!-- 1) Basisdaten -->
+		<section class="mt-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+			<h2 class="text-lg font-semibold text-slate-900">1) Basisdaten</h2>
+			<p class="mt-1 text-sm text-slate-600">
+				Für den Vorab-Check genügt der <strong>errechnete Geburtstermin (ET)</strong>. Falls die
+				<strong>tatsächliche Geburt</strong> bereits feststeht, kannst du umschalten.
 			</p>
-		{/if}
 
-		<div class="mt-6 flex flex-col gap-4 md:flex-row">
-			<!-- Mutter -->
-			<section
-				class="flex-1 space-y-4 rounded-2xl border border-slate-200 bg-white px-5 py-5 shadow-sm"
-				aria-labelledby="mother-heading"
-			>
-				<div class="flex items-start justify-between gap-4">
-					<div>
-						<h2 id="mother-heading" class="text-lg font-semibold text-slate-900">
-							Hat die Mutter Anspruch auf einkommensabhängiges KBG?
-						</h2>
-						<p class="mt-1 text-xs text-slate-600">
-							<strong>Stichtag (Mutter):</strong> früherer Mutterschutz (falls angegeben), sonst
-							<strong>ET − 56</strong>.
-						</p>
-					</div>
-					<button
-						type="button"
-						onclick={resetMother}
-						class="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-						aria-label="Eingaben für Mutter zurücksetzen"
+			<div class="mt-4 grid gap-4 md:grid-cols-2">
+				<label class="flex items-center gap-2 text-sm font-medium text-slate-900">
+					<input
+						type="checkbox"
+						bind:checked={useActualBirth}
+						class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+						aria-describedby="actual-birth-help"
+					/>
+					Ich gebe den tatsächlichen Geburtstermin an (statt ET)
+				</label>
+				<p id="actual-birth-help" class="text-xs text-slate-500 md:col-span-2">
+					Vater: Stichtag = tatsächliche Geburt (wenn gesetzt), sonst ET. Mutter: Beginn
+					Beschäftigungs­verbot/Mutterschutz (oder ET − 56).
+				</p>
+
+				<div>
+					<label class="text-sm font-semibold text-slate-900" for="due"
+						>Errechneter Geburtstermin (ET) <span class="text-rose-600" aria-hidden="true">*</span
+						></label
 					>
-						Zurücksetzen
-					</button>
+					<input
+						id="due"
+						type="date"
+						bind:value={dueDateStr}
+						required
+						aria-required="true"
+						class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+					/>
 				</div>
 
-				<!-- Arbeitssituation – Mutter -->
-				<div class="space-y-4 text-sm text-slate-600">
+				{#if useActualBirth}
 					<div>
-						<h3 class="text-sm font-semibold text-slate-900">Arbeitssituation – Mutter</h3>
-
-						<!-- NEW: Ja/Nein radios; grey-out rest when "Nein" -->
-						<fieldset class="mt-3">
-							<legend class="text-sm font-medium text-slate-900">
-								Mutter hat in den letzten 182 Tagen vor Stichtag gearbeitet
-								<strong>und hat weiterhin eine Beschäftigung?</strong>
-								<span class="text-rose-600" aria-hidden="true">*</span>
-							</legend>
-							<div
-								class="mt-2 flex gap-6"
-								role="radiogroup"
-								aria-label="Mutter gearbeitet & weiterhin beschäftigt"
-							>
-								<label class="inline-flex items-center gap-2">
-									<input
-										type="radio"
-										name="mother-worked"
-										bind:group={motherWorkedChoice}
-										value="yes"
-										class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-									/>
-									<span class="text-sm text-slate-700">Ja</span>
-								</label>
-								<label class="inline-flex items-center gap-2">
-									<input
-										type="radio"
-										name="mother-worked"
-										bind:group={motherWorkedChoice}
-										value="no"
-										class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-									/>
-									<span class="text-sm text-slate-700">Nein</span>
-								</label>
-							</div>
-						</fieldset>
-
-						<div
-							class={motherInputsDisabled() ? 'pointer-events-none opacity-50' : ''}
-							aria-disabled={motherInputsDisabled()}
+						<label class="text-sm font-semibold text-slate-900" for="birth"
+							>Tatsächlicher Geburtstermin <span class="text-rose-600" aria-hidden="true">*</span
+							></label
 						>
-							<div class="mt-4 grid gap-3">
-								<label class="text-sm font-medium text-slate-900" for="mother-job-start">
-									Beschäftigungsbeginn <span class="text-rose-600" aria-hidden="true">*</span>
-								</label>
-								<input
-									type="date"
-									bind:value={motherJobStart}
-									id="mother-job-start"
-									bind:this={motherFirstInputEl}
-									required
-									aria-required="true"
-									disabled={motherInputsDisabled()}
-									class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none disabled:bg-slate-100"
-								/>
-
-								<fieldset class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
-									<legend class="text-sm font-semibold text-slate-900">
-										In den letzten 182 Tagen <strong>vor Beginn des Mutterschutzes</strong> keine
-										Leistungen (AMS/Notstand/Weiterbildungsgeld) bezogen?
-										{#if motherBenefitsRange()}
-											<span class="font-normal text-slate-600">
-												(Zeitraum: {motherBenefitsRange()})</span
-											>
-										{/if}
-									</legend>
-									<p class="mt-1 text-xs text-slate-500">
-										Die Mutter braucht vor dem Mutterschutz 6 Monate (182 Kalendertage).
-									</p>
-									<label class="mt-2 flex items-center gap-2 text-sm text-slate-700">
-										<input
-											type="checkbox"
-											bind:checked={motherNoBenefits}
-											disabled={motherInputsDisabled()}
-											class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 disabled:bg-slate-100"
-										/>
-										Ja, keine Leistungen in diesem Zeitraum erhalten
-									</label>
-								</fieldset>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Regel & Stichtag (Mutter) — stacked -->
-				<div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-					<p class="text-sm text-slate-900">
-						<strong>Regel (Mutter):</strong> 182 Kalendertage vor
-						<strong>Beginn des Mutterschutzes</strong> ohne AMS-, Notstands- oder Weiterbildungsgeld.
-					</p>
-					<dl class="mt-2 grid grid-cols-1 gap-2">
-						<div>
-							<dt class="text-xs font-medium text-slate-500">Stichtag</dt>
-							<dd
-								class="mt-1 inline-flex items-center rounded-full border border-slate-300 bg-white px-2 py-0.5 text-xs font-medium text-slate-800"
-							>
-								{motherStichtagLabel()}
-							</dd>
-						</div>
-						<div>
-							<dt class="text-xs font-medium text-slate-500">Zeitraum (182 Tage)</dt>
-							<dd
-								class="mt-1 inline-flex items-center rounded-full border border-slate-300 bg-white px-2 py-0.5 text-xs font-medium text-slate-800"
-							>
-								{motherBenefitsRange() ?? '—'}
-							</dd>
-						</div>
-						<div>
-							<dt class="text-xs font-medium text-slate-500">Berechnung</dt>
-							<dd class="mt-1 text-xs text-slate-700">
-								<strong>Früherer Mutterschutz</strong> (falls angegeben), sonst
-								<strong>ET − 56</strong>.
-							</dd>
-						</div>
-					</dl>
-				</div>
-
-				{#if hasSubmittedMother}
-					<div
-						bind:this={motherResultEl}
-						class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
-						aria-live="polite"
-					>
-						{#if motherWorkedChoice !== 'yes' || !motherHasInputs() || !dueDateProvided()}
-							<p class="rounded-lg bg-amber-50 px-3 py-2 text-sm font-medium text-amber-700">
-								Bitte wähle „Ja“ bei „gearbeitet & weiterhin beschäftigt“ und gib den
-								{!dueDateProvided() ? ' errechneten Geburtstermin' : ' Beschäftigungsbeginn'} an.
-							</p>
-						{:else}
-							<div class={badgeClass(motherEligible())}>{badgeLabel(motherEligible())}</div>
-							<div class="mt-2 space-y-2 text-sm text-slate-700">
-								{#if motherEligible()}
-									<p>Die Mutter erfüllt die 182 Kalendertage.</p>
-								{:else}
-									<p>Derzeit reichen die Angaben nicht für 182 Kalendertage.</p>
-								{/if}
-							</div>
-						{/if}
+						<input
+							id="birth"
+							type="date"
+							bind:value={actualBirthStr}
+							required
+							aria-required="true"
+							class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+						/>
 					</div>
 				{/if}
+
+				<!-- Bekannt/Unbekannt Auswahl für Mutter -->
+				<div class="grid gap-2 md:col-span-2">
+					<fieldset class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+						<legend class="text-sm font-semibold text-slate-900"
+							>Beginn Beschäftigungsverbot/Mutterschutz</legend
+						>
+
+						<div
+							class="mt-1 flex flex-wrap gap-6 text-sm"
+							role="radiogroup"
+							aria-label="Beginn Beschäftigungsverbot bekannt?"
+						>
+							<label class="inline-flex items-center gap-2">
+								<input
+									type="radio"
+									name="ban-known"
+									value="yes"
+									bind:group={motherBanKnownChoice}
+									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
+								/>
+								Ich kenne das Datum
+							</label>
+							<label class="inline-flex items-center gap-2">
+								<input
+									type="radio"
+									name="ban-known"
+									value="no"
+									bind:group={motherBanKnownChoice}
+									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
+								/>
+								Ich kenne es nicht (Standard: ET − 56 Tage)
+							</label>
+						</div>
+
+						{#if motherBanKnown()}
+							<div class="mt-3">
+								<label class="text-sm font-medium text-slate-900" for="ban"
+									>Datum (tt.mm.jjjj)</label
+								>
+								<input
+									id="ban"
+									type="date"
+									bind:value={motherBanStartStr}
+									class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+								/>
+								<p class="mt-1 text-xs text-slate-500">
+									Stichtag (Mutter) = dieses Datum. Zeitraum (182): {mRangeLabel()}
+								</p>
+							</div>
+						{:else}
+							<div class="mt-3 text-sm text-slate-700">
+								Es wird <strong>ET − 56 Tage (8 Wochen)</strong> als Stichtag verwendet.
+								<div
+									class="mt-1 inline-flex items-center rounded-full border border-slate-300 bg-white px-2 py-0.5 text-xs font-medium text-slate-800"
+								>
+									Stichtag (Mutter): {mStichtagLabel()}
+								</div>
+								<div class="mt-1 text-xs text-slate-500">Zeitraum (182): {mRangeLabel()}</div>
+							</div>
+						{/if}
+					</fieldset>
+				</div>
+			</div>
+		</section>
+
+		<!-- 2) Personenkarten -->
+		<div class="mt-6 grid gap-6 md:grid-cols-2">
+			<!-- Mutter -->
+			<section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+				<header><h2 class="text-lg font-semibold text-slate-900">2a) Mutter</h2></header>
+
+				<div class="mt-3 space-y-4">
+					<fieldset>
+						<legend class="text-sm font-medium text-slate-900">
+							In den letzten 182 Tagen <strong>vor dem Stichtag ({mStichtagLabel()})</strong>
+							gearbeitet und <strong>aktuelles Dienstverhältnis aufrecht</strong>?
+							<span class="text-rose-600" aria-hidden="true">*</span>
+						</legend>
+						<div class="mt-2 flex gap-6">
+							<label class="inline-flex items-center gap-2">
+								<input
+									type="radio"
+									name="m-worked"
+									bind:group={mWorkedAndContinues}
+									value="yes"
+									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
+								/>
+								<span class="text-sm">Ja</span>
+							</label>
+							<label class="inline-flex items-center gap-2">
+								<input
+									type="radio"
+									name="m-worked"
+									bind:group={mWorkedAndContinues}
+									value="no"
+									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
+								/>
+								<span class="text-sm">Nein</span>
+							</label>
+						</div>
+					</fieldset>
+
+					{#if mWorkedAndContinues === 'no'}
+						<p class="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700">
+							Vereinfacht: vermutlich <strong>kein Anspruch</strong>. Prüfe ggf. das
+							<a
+								href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/Seite.080613"
+								class="underline"
+								target="_blank"
+								rel="noreferrer">Kinderbetreuungsgeld-Konto</a
+							>.
+						</p>
+					{:else}
+						<div
+							class="grid gap-3"
+							aria-disabled={mWorkedAndContinues !== 'yes'}
+							class:opacity-50={mWorkedAndContinues !== 'yes'}
+							class:pointer-events-none={mWorkedAndContinues !== 'yes'}
+						>
+							<label class="text-sm font-medium text-slate-900" for="m-start"
+								>Beschäftigungsbeginn <span class="text-rose-600" aria-hidden="true">*</span></label
+							>
+							<input
+								id="m-start"
+								type="date"
+								bind:value={mJobStartStr}
+								required
+								aria-required="true"
+								class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+							/>
+
+							<label class="mt-1 flex items-center gap-2 text-sm text-slate-700">
+								<input
+									type="checkbox"
+									bind:checked={mNoALV}
+									class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+								/>
+								Keine Leistungen (AMS/Notstand/Weiterbildungsgeld) im Zeitraum {mRangeLabel()}
+							</label>
+
+							{#if showAdvanced}
+								<label class="mt-1 flex items-center gap-2 text-sm text-slate-700">
+									<input
+										type="checkbox"
+										bind:checked={mAllow14}
+										class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+									/>
+									Kurze Unterbrechungen bis 14 Tage berücksichtigen
+								</label>
+							{/if}
+
+							<div class="mt-2 text-xs text-slate-600">
+								<strong>Stichtag:</strong>
+								{mStichtagLabel()} · <strong>Zeitraum (182):</strong>
+								{mRangeLabel()}
+							</div>
+						</div>
+					{/if}
+				</div>
 			</section>
 
 			<!-- Vater -->
-			<section
-				class="flex-1 space-y-4 rounded-2xl border border-slate-200 bg-white px-5 py-5 shadow-sm"
-				aria-labelledby="father-heading"
-			>
-				<div class="flex items-start justify-between gap-4">
-					<div>
-						<h2 id="father-heading" class="text-lg font-semibold text-slate-900">
-							Hat der Vater Anspruch auf einkommensabhängiges KBG?
-						</h2>
-						<p class="mt-1 text-xs text-slate-600">
-							<strong>Stichtag (Vater):</strong> <strong>ET</strong> (errechneter Geburtstermin).
-						</p>
-					</div>
-					<button
-						type="button"
-						onclick={resetFather}
-						class="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-						aria-label="Eingaben für Vater zurücksetzen"
-					>
-						Zurücksetzen
-					</button>
-				</div>
+			<section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+				<header><h2 class="text-lg font-semibold text-slate-900">2b) Vater</h2></header>
 
-				<!-- Arbeitssituation – Vater -->
-				<div class="space-y-4 text-sm text-slate-600">
-					<div>
-						<h3 class="text-sm font-semibold text-slate-900">Arbeitssituation – Vater</h3>
-
-						<!-- NEW: Ja/Nein radios; grey-out rest when "Nein" -->
-						<fieldset class="mt-3">
-							<legend class="text-sm font-medium text-slate-900">
-								Vater hat in den letzten 182 Tagen vor Stichtag gearbeitet
-								<strong>und hat weiterhin eine Beschäftigung?</strong>
-								<span class="text-rose-600" aria-hidden="true">*</span>
-							</legend>
-							<div
-								class="mt-2 flex gap-6"
-								role="radiogroup"
-								aria-label="Vater gearbeitet & weiterhin beschäftigt"
-							>
-								<label class="inline-flex items-center gap-2">
-									<input
-										type="radio"
-										name="father-worked"
-										bind:group={fatherWorkedChoice}
-										value="yes"
-										class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-									/>
-									<span class="text-sm text-slate-700">Ja</span>
-								</label>
-								<label class="inline-flex items-center gap-2">
-									<input
-										type="radio"
-										name="father-worked"
-										bind:group={fatherWorkedChoice}
-										value="no"
-										class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-									/>
-									<span class="text-sm text-slate-700">Nein</span>
-								</label>
-							</div>
-						</fieldset>
-
-						<div
-							class={fatherInputsDisabled() ? 'pointer-events-none opacity-50' : ''}
-							aria-disabled={fatherInputsDisabled()}
-						>
-							<div class="mt-4 grid gap-3">
-								<label class="text-sm font-medium text-slate-900" for="father-job-start">
-									Beschäftigungsbeginn <span class="text-rose-600" aria-hidden="true">*</span>
-								</label>
+				<div class="mt-3 space-y-4">
+					<fieldset>
+						<legend class="text-sm font-medium text-slate-900">
+							In den letzten 182 Tagen <strong>vor dem Stichtag ({fStichtagLabel()})</strong>
+							gearbeitet und <strong>aktuelles Dienstverhältnis aufrecht</strong>?
+							<span class="text-rose-600" aria-hidden="true">*</span>
+						</legend>
+						<div class="mt-2 flex gap-6">
+							<label class="inline-flex items-center gap-2">
 								<input
-									type="date"
-									bind:value={fatherJobStart}
-									id="father-job-start"
-									bind:this={fatherFirstInputEl}
-									required
-									aria-required="true"
-									disabled={fatherInputsDisabled()}
-									class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none disabled:bg-slate-100"
+									type="radio"
+									name="f-worked"
+									bind:group={fWorkedAndContinues}
+									value="yes"
+									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
 								/>
+								<span class="text-sm">Ja</span>
+							</label>
+							<label class="inline-flex items-center gap-2">
+								<input
+									type="radio"
+									name="f-worked"
+									bind:group={fWorkedAndContinues}
+									value="no"
+									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
+								/>
+								<span class="text-sm">Nein</span>
+							</label>
+						</div>
+					</fieldset>
 
-								<fieldset class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
-									<legend class="text-sm font-semibold text-slate-900">
-										In den letzten 182 Tagen <strong>vor der Geburt</strong> keine Leistungen
-										(AMS/Notstand/Weiterbildungsgeld) bezogen?
-										{#if fatherBenefitsRange()}
-											<span class="font-normal text-slate-600">
-												(Zeitraum: {fatherBenefitsRange()})</span
-											>
-										{/if}
-									</legend>
-									<p class="mt-1 text-xs text-slate-500">
-										– der Vater vor Geburt 6 Monate (182 Kalendertage).
-									</p>
-									<label class="mt-2 flex items-center gap-2 text-sm text-slate-700">
-										<input
-											type="checkbox"
-											bind:checked={fatherNoBenefits}
-											disabled={fatherInputsDisabled()}
-											class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 disabled:bg-slate-100"
-										/>
-										Ja, keine Leistungen in diesem Zeitraum erhalten
-									</label>
-								</fieldset>
+					{#if fWorkedAndContinues === 'no'}
+						<p class="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700">
+							Vereinfacht: vermutlich <strong>kein Anspruch</strong>. Prüfe ggf. das
+							<a
+								href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/Seite.080613"
+								class="underline"
+								target="_blank"
+								rel="noreferrer">Kinderbetreuungsgeld-Konto</a
+							>.
+						</p>
+					{:else}
+						<div
+							class="grid gap-3"
+							aria-disabled={fWorkedAndContinues !== 'yes'}
+							class:opacity-50={fWorkedAndContinues !== 'yes'}
+							class:pointer-events-none={fWorkedAndContinues !== 'yes'}
+						>
+							<label class="text-sm font-medium text-slate-900" for="f-start"
+								>Beschäftigungsbeginn <span class="text-rose-600" aria-hidden="true">*</span></label
+							>
+							<input
+								id="f-start"
+								type="date"
+								bind:value={fJobStartStr}
+								required
+								aria-required="true"
+								class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+							/>
+
+							<label class="mt-1 flex items-center gap-2 text-sm text-slate-700">
+								<input
+									type="checkbox"
+									bind:checked={fNoALV}
+									class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+								/>
+								Keine Leistungen (AMS/Notstand/Weiterbildungsgeld) im Zeitraum {fRangeLabel()}
+							</label>
+
+							{#if showAdvanced}
+								<label class="mt-1 flex items-center gap-2 text-sm text-slate-700">
+									<input
+										type="checkbox"
+										bind:checked={fAllow14}
+										class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+									/>
+									Kurze Unterbrechungen bis 14 Tage berücksichtigen
+								</label>
+							{/if}
+
+							<div class="mt-2 text-xs text-slate-600">
+								<strong>Stichtag:</strong>
+								{fStichtagLabel()} · <strong>Zeitraum (182):</strong>
+								{fRangeLabel()}
 							</div>
 						</div>
-					</div>
+					{/if}
 				</div>
-
-				<!-- Regel & Stichtag (Vater) — stacked -->
-				<div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-					<p class="text-sm text-slate-900">
-						<strong>Regel (Vater):</strong> 182 Kalendertage <strong>vor der Geburt</strong> ohne AMS-,
-						Notstands- oder Weiterbildungsgeld.
-					</p>
-					<dl class="mt-2 grid grid-cols-1 gap-2">
-						<div>
-							<dt class="text-xs font-medium text-slate-500">Stichtag</dt>
-							<dd
-								class="mt-1 inline-flex items-center rounded-full border border-slate-300 bg-white px-2 py-0.5 text-xs font-medium text-slate-800"
-							>
-								{fatherStichtagLabel()}
-							</dd>
-						</div>
-						<div>
-							<dt class="text-xs font-medium text-slate-500">Zeitraum (182 Tage)</dt>
-							<dd
-								class="mt-1 inline-flex items-center rounded-full border border-slate-300 bg-white px-2 py-0.5 text-xs font-medium text-slate-800"
-							>
-								{fatherBenefitsRange() ?? '—'}
-							</dd>
-						</div>
-						<div>
-							<dt class="text-xs font-medium text-slate-500">Berechnung</dt>
-							<dd class="mt-1 text-xs text-slate-700"><strong>ET</strong> ist der Stichtag.</dd>
-						</div>
-					</dl>
-				</div>
-
-				{#if hasSubmittedFather}
-					<div
-						bind:this={fatherResultEl}
-						class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
-						aria-live="polite"
-					>
-						{#if fatherWorkedChoice !== 'yes' || !fatherHasInputs() || !dueDateProvided()}
-							<p class="rounded-lg bg-amber-50 px-3 py-2 text-sm font-medium text-amber-700">
-								Bitte wähle „Ja“ bei „gearbeitet & weiterhin beschäftigt“ und gib den
-								{!dueDateProvided() ? ' errechneten Geburtstermin' : ' Beschäftigungsbeginn'} an.
-							</p>
-						{:else}
-							<div class={badgeClass(fatherEligible())}>{badgeLabel(fatherEligible())}</div>
-							<div class="mt-2 space-y-2 text-sm text-slate-700">
-								{#if fatherEligible()}
-									<p>Der Vater erfüllt die 182 Kalendertage.</p>
-								{:else}
-									<p>Derzeit reichen die Angaben nicht für 182 Kalendertage.</p>
-								{/if}
-							</div>
-						{/if}
-					</div>
-				{/if}
 			</section>
 		</div>
 
-		<!-- Shared Check button for both -->
+		<!-- 3) Spezialfälle -->
+		<section class="mt-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+			<button
+				type="button"
+				class="w-full text-left"
+				onclick={() => (showAdvanced = !showAdvanced)}
+				aria-expanded={showAdvanced}
+				aria-controls="advanced-panel"
+			>
+				<div class="flex items-center justify-between">
+					<h3 class="text-sm font-semibold text-slate-900">
+						3) Spezialfälle einblenden (optional)
+					</h3>
+					<span class="text-xs text-slate-600">{showAdvanced ? 'verbergen' : 'anzeigen'}</span>
+				</div>
+			</button>
+			<div
+				id="advanced-panel"
+				class="mt-3 grid gap-3 text-sm text-slate-700"
+				hidden={!showAdvanced}
+			>
+				<p>
+					• <strong>14-Tage-Toleranz</strong>: Unterbrechungen bis zu 14 Kalendertagen im
+					182-Tage-Fenster sind unschädlich.
+					<a
+						class="text-indigo-700 underline"
+						href="https://www.sozialversicherung.at/cdscontent/load?contentid=10008.638104&version=1632292834"
+						target="_blank"
+						rel="noreferrer">Quelle</a
+					>
+				</p>
+				<p>
+					• <strong>Gleichgestellte Zeiten</strong> (z. B. Mutterschutz, Karenz bis max. 2. Geburtstag
+					bei aufrechtem DV) können als Erwerbstätigkeit gelten – Details siehe Quelle.
+				</p>
+				<p>
+					• <strong>Antrag & Frist</strong>: Antrag frühestens ab Geburt; rückwirkend max. 182 Tage.
+					<a
+						class="text-indigo-700 underline"
+						href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1/Seite.080614"
+						target="_blank"
+						rel="noreferrer">oesterreich.gv.at</a
+					>
+				</p>
+			</div>
+		</section>
+
+		<!-- Prüfen -->
 		<div class="mt-6 flex items-center justify-end">
 			<button
 				type="button"
-				onclick={handleCheckBoth}
+				onclick={handleCheck}
 				class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
 			>
-				Check (beide)
+				Anspruch prüfen (beide)
 			</button>
 		</div>
 
-		<!-- Shared summary below both boxes -->
+		<!-- Ergebnis -->
 		{#if hasSubmittedAll}
-			<section
-				bind:this={summaryEl}
-				class="mt-4 space-y-3 rounded-2xl border border-slate-200 bg-white px-5 py-5 shadow-sm"
-				aria-labelledby="summary-heading"
-			>
-				<h2 id="summary-heading" class="text-lg font-semibold text-slate-900">Zusammenfassung</h2>
+			<section class="mt-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+				<h2 bind:this={resultHeadingEl} class="text-lg font-semibold text-slate-900">
+					Ergebnis (Vorab-Check)
+				</h2>
+				<p class="mt-1 text-sm text-slate-600">
+					Endgültig ist die Beurteilung erst mit den <strong>tatsächlichen Daten</strong> und der
+					Prüfung durch die <strong>zuständige Krankenkasse</strong>.
+				</p>
 
-				<div class="grid gap-3 md:grid-cols-2">
-					<div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+				<div class="mt-4 grid gap-4 md:grid-cols-2">
+					<div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
 						<p class="text-sm font-semibold text-slate-900">Mutter</p>
 						<div class="mt-2">
-							<div class={badgeClass(motherEligible())}>{badgeLabel(motherEligible())}</div>
+							<div class={badgeClass(motherEligible())}>{badgeText(motherEligible())}</div>
 							<ul class="mt-2 list-disc pl-5 text-sm text-slate-700">
-								<li>Stichtag: {motherStichtagLabel()}</li>
-								<li>Zeitraum: {motherBenefitsRange() ?? '—'}</li>
+								<li>Stichtag: {mStichtagLabel()}</li>
+								<li>Zeitraum (182): {mRangeLabel()}</li>
 								<li>
-									Gearbeitet & weiterhin beschäftigt: {motherWorkedAndContinues() ? 'Ja' : 'Nein'}
+									Gearbeitet & Dienstverhältnis aufrecht: {mWorkedAndContinues === 'yes'
+										? 'Ja'
+										: 'Nein'}
 								</li>
-								<li>Keine Leistungen: {motherNoBenefits ? 'Ja' : 'Nein'}</li>
+								<li>Kein AMS/Notstand/Weiterbildungsgeld: {mNoALV ? 'Ja' : 'Nein'}</li>
+								{#if showAdvanced}<li>
+										14-Tage-Toleranz berücksichtigt: {mAllow14 ? 'Ja' : 'Nein'}
+									</li>{/if}
 							</ul>
 						</div>
 					</div>
 
-					<div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+					<div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
 						<p class="text-sm font-semibold text-slate-900">Vater</p>
 						<div class="mt-2">
-							<div class={badgeClass(fatherEligible())}>{badgeLabel(fatherEligible())}</div>
+							<div class={badgeClass(fatherEligible())}>{badgeText(fatherEligible())}</div>
 							<ul class="mt-2 list-disc pl-5 text-sm text-slate-700">
-								<li>Stichtag: {fatherStichtagLabel()}</li>
-								<li>Zeitraum: {fatherBenefitsRange() ?? '—'}</li>
+								<li>Stichtag: {fStichtagLabel()}</li>
+								<li>Zeitraum (182): {fRangeLabel()}</li>
 								<li>
-									Gearbeitet & weiterhin beschäftigt: {fatherWorkedAndContinues() ? 'Ja' : 'Nein'}
+									Gearbeitet & Dienstverhältnis aufrecht: {fWorkedAndContinues === 'yes'
+										? 'Ja'
+										: 'Nein'}
 								</li>
-								<li>Keine Leistungen: {fatherNoBenefits ? 'Ja' : 'Nein'}</li>
+								<li>Kein AMS/Notstand/Weiterbildungsgeld: {fNoALV ? 'Ja' : 'Nein'}</li>
+								{#if showAdvanced}<li>
+										14-Tage-Toleranz berücksichtigt: {fAllow14 ? 'Ja' : 'Nein'}
+									</li>{/if}
 							</ul>
 						</div>
 					</div>
+				</div>
+
+				<div class="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+					<p class="font-medium">Was jetzt?</p>
+					<ul class="mt-2 list-disc pl-5">
+						<li>
+							Antrag bei der <a
+								class="underline"
+								href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.880037"
+								target="_blank"
+								rel="noreferrer">ÖGK</a
+							> stellen (frühestens ab Geburt; rückwirkend max. 182 Tage).
+						</li>
+						<li>
+							Allgemeine Voraussetzungen beachten: gemeinsamer Haushalt/Hauptwohnsitzmeldung,
+							Familienbeihilfe, Mutter-Kind-Pass-Untersuchungen.
+						</li>
+						<li>
+							Bei Unsicherheiten: Beratung der <a
+								class="underline"
+								href="https://www.arbeiterkammer.at/kbg"
+								target="_blank"
+								rel="noreferrer">Arbeiterkammer</a
+							> nutzen.
+						</li>
+					</ul>
 				</div>
 			</section>
 		{/if}
@@ -596,3 +623,10 @@
 		<p class="mt-8 font-semibold">🚧 Tool ist noch in Entwicklung 🚧</p>
 	{/if}
 </section>
+
+<style>
+	/* Kleine Helfer */
+	[hidden] {
+		display: none;
+	}
+</style>

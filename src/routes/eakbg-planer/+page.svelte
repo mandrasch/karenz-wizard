@@ -31,13 +31,14 @@
 		markerVariant?: 'default' | 'line';
 		labelPosition?: 'above' | 'below';
 		hideDurationLabel?: boolean;
+		summaryKey?: string;
 	};
 
 	const BASE_TOTAL_WEEKS = 104; // 2 years expressed in weeks
 	const BASELINE_WIDTH = 640;
 	const margins = { top: 32, right: 48, bottom: 32, left: 96 };
 	const rowHeight = 60;
-	const TIMELINE_EXTRA_HEIGHT = 100;
+	const TIMELINE_EXTRA_HEIGHT = 0;
 	const BASELINE_ROW_INDEX = 1;
 	const MID_YEAR_WEEKS = BASE_TOTAL_WEEKS / 2;
 
@@ -392,7 +393,7 @@
 					overlayVariant: 'unpaid',
 					overlayStart: motherUnpaidMonths > 0 ? motherUnpaidStart : undefined,
 					overlayEnd: motherUnpaidMonths > 0 ? motherWeeks : undefined,
-					overlayColor: motherPaidMonths > 0 ? 'ea' : undefined,
+					overlayColor: motherPaidMonths > 0 && motherUnpaidMonths === 0 ? 'ea' : undefined,
 					forcePaidStartMarker: true,
 					isEaBase: true,
 					rowGroup: 'mother',
@@ -400,7 +401,8 @@
 					startMarkerColor:
 						motherPaidMonths > 0 ? 'ea' : motherUnpaidMonths > 0 ? 'unpaid' : undefined,
 					endMarkerColor:
-						motherUnpaidMonths > 0 ? 'unpaid' : motherPaidMonths > 0 ? 'ea' : undefined
+						motherUnpaidMonths > 0 ? 'unpaid' : motherPaidMonths > 0 ? 'ea' : undefined,
+					summaryKey: 'mother-karenz'
 				}
 			];
 
@@ -468,7 +470,8 @@
 				color: fatherPaidMonths > 0 && fatherUnpaidMonths === 0 ? 'ea' : undefined,
 				startMarkerColor:
 					fatherPaidMonths > 0 ? 'ea' : fatherUnpaidMonths > 0 ? 'unpaid' : undefined,
-				endMarkerColor: fatherUnpaidMonths > 0 ? 'unpaid' : fatherPaidMonths > 0 ? 'ea' : undefined
+				endMarkerColor: fatherUnpaidMonths > 0 ? 'unpaid' : fatherPaidMonths > 0 ? 'ea' : undefined,
+				summaryKey: 'father-karenz'
 			});
 
 			if (hasFatherPostWork) {
@@ -514,7 +517,8 @@
 					color: thirdPaidMonths > 0 && thirdUnpaidMonths === 0 ? 'ea' : undefined,
 					startMarkerColor:
 						thirdPaidMonths > 0 ? 'ea' : thirdUnpaidMonths > 0 ? 'unpaid' : undefined,
-					endMarkerColor: thirdUnpaidMonths > 0 ? 'unpaid' : thirdPaidMonths > 0 ? 'ea' : undefined
+					endMarkerColor: thirdUnpaidMonths > 0 ? 'unpaid' : thirdPaidMonths > 0 ? 'ea' : undefined,
+					summaryKey: 'third-karenz'
 				} satisfies Interval);
 			}
 
@@ -542,11 +546,14 @@
 		startWeeks: number;
 		endWeeks: number;
 		labelPosition: 'above' | 'below';
+		summaryKey: string;
 	};
+
+	const TIMELINE_SUMMARY_KEYS = new Set(['mother-karenz', 'father-karenz', 'third-karenz']);
 
 	const weeksToDays = (weeks: number) => Math.max(0, Math.round(weeks * 7));
 
-	let birthDateInput = $state('2026-01-01');
+	let birthDateInput = $state('');
 
 	const addDays = (date: Date, days: number) => {
 		const result = new Date(date);
@@ -586,6 +593,10 @@
 		(() => {
 			return intervals
 				.map((interval, index) => {
+					const summaryKey = interval.summaryKey;
+					if (!summaryKey || !TIMELINE_SUMMARY_KEYS.has(summaryKey)) {
+						return null;
+					}
 					const label = interval.label?.trim();
 					if (!label) {
 						return null;
@@ -597,12 +608,13 @@
 						return null;
 					}
 					return {
-						id: `${index}-${label}`,
+						id: `${summaryKey}-${index}`,
 						title: label,
 						days: weeksToDays(durationWeeks),
 						startWeeks,
 						endWeeks,
-						labelPosition: interval.labelPosition ?? 'above'
+						labelPosition: interval.labelPosition ?? 'above',
+						summaryKey
 					} satisfies SegmentSummary;
 				})
 				.filter((entry): entry is SegmentSummary => entry !== null);
@@ -651,9 +663,9 @@
 	const baseSvgHeight = $derived(
 		margins.top + margins.bottom + rowHeight * (maxRowIndex + 1) + TIMELINE_EXTRA_HEIGHT
 	);
-	const viewportHeight = $derived(Math.ceil(baseSvgHeight));
 	const svgWidth = $derived(baseSvgWidth * zoomLevel);
 	const svgHeight = $derived(baseSvgHeight * zoomLevel);
+	const viewportHeight = $derived(Math.ceil(svgHeight));
 	const svgViewBox = $derived(`0 0 ${baseSvgWidth} ${baseSvgHeight}`);
 	const canZoomOut = $derived(zoomLevel > MIN_ZOOM + 1e-3);
 	const canZoomIn = $derived(zoomLevel < MAX_ZOOM - 1e-3);
@@ -686,161 +698,164 @@
 
 <section class="content planner-page min-w-0">
 	<div class="page-header mt-10 min-w-0">
-		<h1 id="planner-title" class="text-3xl font-semibold text-slate-900">ea KBG Planer</h1>
+		<h1 id="planner-title" class="planner-heading text-2xl font-semibold text-slate-900">ea KBG Planer</h1>
 		<p class="subline">
 			Eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld und die Aufteilung
 			der Karenz.
 		</p>
-		<aside class="infobox">
-			⚠️ Alle Angaben ohne Gewähr, bitte alle Planungen bei der
-			<a href="/ak-beratung" class="underline">Arbeiterkammer kostenfrei überprüfen lassen</a>! ⚠️
-		</aside>
-		<aside class="infobox">
-			Unsicher, ob du oder dein/e Partner/in Anspruch hat auf ea KBG? Wenn nur eine Person Anspruch
-			hat, kann das andere Elternteil Sonderleistung 1 beziehen. Achtung bei AMS-Zeiten vor
-			Geburt/Mutterschutz! <a href="/eakbg-anspruch" class="link underline">Hier Prüfen</a>.
-		</aside>
+		<div class="planner-quick-info" role="note">
+			<p class="planner-note">
+				⚠️ Alle Angaben ohne Gewähr, bitte alle Planungen bei der
+				<a href="/ak-beratung" class="planner-link">Arbeiterkammer kostenfrei überprüfen lassen</a>!
+			</p>
+			<p class="planner-note">
+				Unsicher, ob du oder dein/e Partner/in Anspruch hat auf ea KBG? Wenn nur eine Person Anspruch
+				hat, kann das andere Elternteil Sonderleistung 1 beziehen. Achtung bei AMS-Zeiten vor
+				Geburt/Mutterschutz! <a href="/eakbg-anspruch" class="planner-link">Hier prüfen</a>.
+			</p>
+		</div>
 	</div>
 
 	<section aria-labelledby="planner-title" class="timeline-section min-w-0">
-		<div class="planner-controls flex min-w-0 flex-row flex-wrap">
-			<div class="example-presets min-w-0">
-				<span>Beispiele:</span>
+		<div class="planner-panel min-w-0">
+			<div class="planner-controls flex min-w-0 flex-row flex-wrap">
+				<div class="example-presets min-w-0">
+					<span>Beispiele:</span>
 
-				<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
-					>10 + 10 (Halbe Halbe)</button
-				>
-				<button type="button" on:click={() => applyExample(10, 2)} class="example-link"
-					>10 + 2</button
-				>
-				<button type="button" on:click={() => applyExample(6, 6)} class="example-link">6 + 6</button
-				>
-			</div>
-			<div class="flex min-w-0 flex-row self-start">
-				<div class="control-group min-w-0">
-					<label for="mother-months">Karenz-Teil 1: Mutter</label>
-					<div class="stepper min-w-0">
-						<button
-							type="button"
-							on:click={() => adjustMotherMonths(-1)}
-							aria-label="Monat verringern"
-						>
-							-
-						</button>
-						<input
-							id="mother-months"
-							type="number"
-							min={MIN_MOTHER_MONTHS}
-							max={MAX_MOTHER_MONTHS}
-							bind:value={motherMonths}
-						/>
-						<button
-							type="button"
-							on:click={() => adjustMotherMonths(1)}
-							aria-label="Monat erhoehen"
-						>
-							+
-						</button>
-					</div>
-				</div>
-				<div class="control-group min-w-0">
-					<label for="father-months">Karenz-Teil 2: Vater</label>
-					<div class="stepper min-w-0">
-						<button
-							type="button"
-							on:click={() => adjustFatherMonths(-1)}
-							aria-label="Monat verringern"
-						>
-							-
-						</button>
-						<input
-							id="father-months"
-							type="number"
-							min={MIN_FATHER_MONTHS}
-							max={MAX_FATHER_MONTHS}
-							bind:value={fatherMonths}
-						/>
-						<button
-							type="button"
-							on:click={() => adjustFatherMonths(1)}
-							aria-label="Monat erhoehen"
-						>
-							+
-						</button>
-					</div>
-				</div>
-				<div class="control-group min-w-0">
-					<label for="third-months">(Karenz-Teil 3: Mutter)</label>
-					<div class="stepper min-w-0">
-						<button
-							type="button"
-							on:click={() => adjustThirdMonths(-1)}
-							aria-label="Monat verringern"
-						>
-							-
-						</button>
-						<input
-							id="third-months"
-							type="number"
-							min={MIN_THIRD_MONTHS}
-							max={MAX_THIRD_MONTHS}
-							bind:value={thirdMonths}
-						/>
-						<button type="button" on:click={() => adjustThirdMonths(1)} aria-label="Monat erhoehen">
-							+
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="flex min-w-0 flex-col gap-5 self-start">
-				<label class="control-checkbox">
-					<input type="checkbox" bind:checked={extendedMutterschutz} />
-					<div class="control-checkbox__text">
-						<span
-							>Mutterschutz 12 Wochen (statt 8 Wochen) <br />(Früh-/Mehrlings-Geburt, Kaiserschnitt)</span
-						>
-					</div>
-				</label>
-				<label class="control-checkbox">
-					<input type="checkbox" bind:checked={jointMonth} />
-					<div class="control-checkbox__text">
-						<span>Gemeinsamer Monat beim ersten Wechsel⁵</span>
-						{#if jointMonth}
-							<small>ea KBG wird um 1 Monat kürzer</small>
-						{:else}
-							<!-- quick hack to fix unecessary layout shift on height-->
-							<small>&nbsp;</small>
-						{/if}
-					</div>
-				</label>
-			</div>
-		</div>
-
-		{#if fatherEaBlocked}
-			<div class="warning-banner" role="alert">
-				⚠️ Die Mutter nutzt den gesamten Anspruch auf einkommensabhängiges Kinderbetreuungsgeld. Der
-				Vater kann daher keinen ea KBG-Bezug mehr geltend machen, weil er mindestens 2 Monate im
-				Zeitraum der 14 Monate ab Geburt nehmen muss (12+2 Modell).
-			</div>
-		{/if}
-
-		<div class="timeline-shell min-w-0">
-			<div
-				class="timeline-window max-w-full min-w-0"
-				role="region"
-				aria-labelledby="planner-title"
-				style={`max-height: ${viewportHeight}px; min-height: ${viewportHeight}px;`}
-			>
-				<div class="timeline-viewport min-w-0">
-					<svg
-						width={svgWidth}
-						height={svgHeight}
-						viewBox={svgViewBox}
-						role="img"
-						aria-labelledby="planner-title"
-						style="min-width: 100%; max-width: none;"
+					<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
+						>10 + 10 (Halbe Halbe)</button
 					>
-						<title>Zeitstrahl mit Basis von zwei Jahren und zusaetzlichen Phasen</title>
+					<button type="button" on:click={() => applyExample(10, 2)} class="example-link"
+						>10 + 2</button
+					>
+					<button type="button" on:click={() => applyExample(6, 6)} class="example-link">6 + 6</button
+					>
+				</div>
+				<div class="flex min-w-0 flex-row self-start">
+					<div class="control-group min-w-0">
+						<label for="mother-months">Karenz-Teil 1: Mutter</label>
+						<div class="stepper min-w-0">
+							<button
+								type="button"
+								on:click={() => adjustMotherMonths(-1)}
+								aria-label="Monat verringern"
+							>
+								-
+							</button>
+							<input
+								id="mother-months"
+								type="number"
+								min={MIN_MOTHER_MONTHS}
+								max={MAX_MOTHER_MONTHS}
+								bind:value={motherMonths}
+							/>
+							<button
+								type="button"
+								on:click={() => adjustMotherMonths(1)}
+								aria-label="Monat erhoehen"
+							>
+								+
+							</button>
+						</div>
+					</div>
+					<div class="control-group min-w-0">
+						<label for="father-months">Karenz-Teil 2: Vater</label>
+						<div class="stepper min-w-0">
+							<button
+								type="button"
+								on:click={() => adjustFatherMonths(-1)}
+								aria-label="Monat verringern"
+							>
+								-
+							</button>
+							<input
+								id="father-months"
+								type="number"
+								min={MIN_FATHER_MONTHS}
+								max={MAX_FATHER_MONTHS}
+								bind:value={fatherMonths}
+							/>
+							<button
+								type="button"
+								on:click={() => adjustFatherMonths(1)}
+								aria-label="Monat erhoehen"
+							>
+								+
+							</button>
+						</div>
+					</div>
+					<div class="control-group min-w-0">
+						<label for="third-months">(Karenz-Teil 3: Mutter)</label>
+						<div class="stepper min-w-0">
+							<button
+								type="button"
+								on:click={() => adjustThirdMonths(-1)}
+								aria-label="Monat verringern"
+							>
+								-
+							</button>
+							<input
+								id="third-months"
+								type="number"
+								min={MIN_THIRD_MONTHS}
+								max={MAX_THIRD_MONTHS}
+								bind:value={thirdMonths}
+							/>
+							<button type="button" on:click={() => adjustThirdMonths(1)} aria-label="Monat erhoehen">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="flex min-w-0 flex-col gap-4 self-start">
+					<label class="control-checkbox">
+						<input type="checkbox" bind:checked={extendedMutterschutz} />
+						<div class="control-checkbox__text">
+							<span
+								>Mutterschutz 12 Wochen (statt 8 Wochen) <br />(Früh-/Mehrlings-Geburt, Kaiserschnitt)</span
+							>
+						</div>
+					</label>
+					<label class="control-checkbox">
+						<input type="checkbox" bind:checked={jointMonth} />
+						<div class="control-checkbox__text">
+							<span>Gemeinsamer Monat beim ersten Wechsel⁵</span>
+							{#if jointMonth}
+								<small>ea KBG wird um 1 Monat kürzer</small>
+							{:else}
+								<!-- quick hack to fix unecessary layout shift on height-->
+								<small>&nbsp;</small>
+							{/if}
+						</div>
+					</label>
+				</div>
+			</div>
+
+			{#if fatherEaBlocked}
+				<div class="warning-banner" role="alert">
+					⚠️ Die Mutter nutzt den gesamten Anspruch auf einkommensabhängiges Kinderbetreuungsgeld. Der
+					Vater kann daher keinen ea KBG-Bezug mehr geltend machen, weil er mindestens 2 Monate im
+					Zeitraum der 14 Monate ab Geburt nehmen muss (12+2 Modell).
+				</div>
+			{/if}
+
+			<div class="timeline-shell min-w-0">
+				<div
+					class="timeline-window max-w-full min-w-0"
+					role="region"
+					aria-labelledby="planner-title"
+					style={`height: ${viewportHeight}px;`}
+				>
+					<div class="timeline-viewport min-w-0">
+						<svg
+							width={svgWidth}
+							height={svgHeight}
+							viewBox={svgViewBox}
+							role="img"
+							aria-labelledby="planner-title"
+							style="min-width: 100%; max-width: none;"
+						>
+							<title>Zeitstrahl mit Basis von zwei Jahren und zusaetzlichen Phasen</title>
 
 						<g class="baseline" aria-hidden="true">
 							<circle class="marker marker-birth" cx={toX(0)} cy={rowY(BASELINE_ROW_INDEX)} r="6" />
@@ -1137,6 +1152,7 @@
 				<span class="zoom-status" aria-live="polite">{zoomPercent}%</span>
 			</div>
 		</div>
+		</div>
 
 		<NoteGrid />
 		<TimelineSummary {segmentSummaries} bind:birthDateInput {formatSegmentRange} open={false} />
@@ -1185,9 +1201,9 @@
 	@reference "../../app.css";
 
 	:global(:root) {
-		--timeline-label-font:
-			'IBM Plex Sans Condensed', 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont,
-			'Segoe UI', sans-serif;
+		--planner-font: 'IBM Plex Sans Condensed', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		--planner-font-condensed: 'IBM Plex Sans Condensed', var(--planner-font);
+		--timeline-label-font: var(--planner-font-condensed);
 		--timeline-color-rights: #475467;
 		--timeline-color-ea: #0f9eb8;
 		--timeline-color-mutterschutz: #15803d;
@@ -1223,32 +1239,57 @@
 	/* TODO: add this to div element? general css or inline?*/
 	/* Container */
 	.planner-page {
-		@apply gap-8;
+		@apply gap-6;
+		font-family: var(--planner-font);
+	}
+
+	.planner-heading {
+		font-family: var(
+			--planner-heading-font,
+			ui-sans-serif,
+			system-ui,
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			sans-serif
+		);
 	}
 
 	/* TODO: generalize this, not special for this page? */
 	.page-header {
-		@apply mb-4 grid gap-4;
+		@apply mb-4 grid gap-3;
+	}
+
+	.planner-panel {
+		@apply grid gap-0 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm;
 	}
 
 	.subline {
-		@apply text-base leading-relaxed text-slate-800;
+		@apply text-sm leading-relaxed text-slate-800;
 	}
 
-	.infobox {
-		@apply rounded-xl border-l-4 border-indigo-500 bg-indigo-500/10 px-4 py-3 text-sm font-medium text-slate-900;
+	.planner-quick-info {
+		@apply flex flex-col gap-1.5 rounded-2xl bg-slate-100/70 px-3 py-2 text-xs text-slate-700 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2;
+	}
+
+	.planner-note {
+		@apply m-0 leading-snug;
+	}
+
+	.planner-link {
+		@apply font-semibold text-slate-900 underline decoration-dotted underline-offset-2 transition hover:text-slate-700;
 	}
 
 	.timeline-section {
-		@apply grid;
+		@apply grid gap-6;
 	}
 
 	.planner-controls {
-		@apply w-full items-end gap-5 rounded-xl border border-slate-200 bg-slate-50 px-5 py-4;
+		@apply w-full items-end gap-4 border-b border-slate-200 bg-white px-4 py-3;
 	}
 
 	.example-presets {
-		@apply flex w-full items-center gap-3 text-sm text-slate-600;
+		@apply flex w-full items-center gap-2 text-xs text-slate-600;
 	}
 
 	.example-presets span {
@@ -1260,11 +1301,11 @@
 	}
 
 	.control-group {
-		@apply grid gap-2;
+		@apply grid gap-1.5;
 	}
 
 	.control-group label {
-		@apply text-xs font-semibold text-slate-900;
+		@apply text-xs font-semibold uppercase tracking-wide text-slate-900;
 	}
 
 	.control-note {
@@ -1272,23 +1313,23 @@
 	}
 
 	.stepper {
-		@apply inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-2 py-1;
+		@apply inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-2 py-1;
 	}
 
 	.stepper button {
-		@apply grid h-8 w-8 place-items-center rounded-full border-0 bg-slate-200 text-lg font-medium text-slate-800 transition hover:bg-slate-300;
+		@apply grid h-11 w-11 place-items-center rounded-full border-0 bg-slate-200 text-base font-semibold text-slate-800 transition hover:bg-slate-300;
 	}
 
 	.stepper input {
-		@apply w-16 border-0 bg-transparent text-center text-base font-semibold text-slate-800 focus:outline-none;
+		@apply w-14 border-0 bg-transparent text-center text-sm font-semibold tracking-wide text-slate-800 focus:outline-none;
 	}
 
 	.control-checkbox {
-		@apply flex items-start gap-3 text-sm font-semibold text-slate-900;
+		@apply flex items-start gap-2 text-xs font-semibold text-slate-900;
 	}
 
 	.control-checkbox input {
-		@apply mt-1 shrink-0;
+		@apply mt-0.5 shrink-0;
 	}
 
 	.control-checkbox__text {
@@ -1320,11 +1361,11 @@
 	}
 
 	.timeline-shell {
-		@apply w-full;
+		@apply w-full bg-white px-4 pb-4 pt-4;
 	}
 
 	.timeline-zoom-controls {
-		@apply mt-3 flex items-center gap-2 text-xs font-semibold text-slate-600;
+		@apply mt-2 flex items-center gap-2 text-xs font-semibold text-slate-600;
 	}
 
 	.zoom-button {
@@ -1342,7 +1383,7 @@
 	/* Key fix: keep timeline to container width (no 100vw) */
 	.timeline-window {
 		width: 100%;
-		@apply overflow-hidden rounded-xl border border-slate-200 bg-white pb-4;
+		@apply overflow-hidden rounded-2xl bg-white pb-3;
 	}
 
 	.timeline-viewport {
@@ -1357,6 +1398,10 @@
 
 	.warning-banner {
 		@apply mt-4 rounded-[10px] border border-amber-300 bg-amber-300/20 px-4 py-3 text-sm font-semibold text-amber-700;
+	}
+
+	.planner-panel > .warning-banner {
+		@apply mx-4;
 	}
 
 	svg {
