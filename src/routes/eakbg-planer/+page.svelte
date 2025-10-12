@@ -14,6 +14,7 @@
 		overlayStart?: number;
 		overlayEnd?: number;
 		overlayVariant?: 'paid' | 'unpaid' | 'papamonat';
+		overlayColor?: string;
 		isInactive?: boolean;
 		isUnpaid?: boolean;
 		forcePaidStartMarker?: boolean;
@@ -24,6 +25,10 @@
 		lineClass?: string;
 		labelClass?: string;
 		color?: string;
+		markerColor?: string;
+		startMarkerColor?: string;
+		endMarkerColor?: string;
+		markerVariant?: 'default' | 'line';
 		labelPosition?: 'above' | 'below';
 		hideDurationLabel?: boolean;
 	};
@@ -341,7 +346,22 @@
 					start: -MUTTERSCHUTZ_PRE_WEEKS,
 					end: 0,
 					displayDuration: `${formatWeeks(MUTTERSCHUTZ_PRE_WEEKS)}, Wochengeld ÖGK 💰`,
-					isInactive: true
+					isInactive: true,
+					color: 'mutterschutz'
+				},
+				{
+					label: 'Recht auf Karenz (Freistellung ≠ Förderung)',
+					start: 0,
+					end: BASE_TOTAL_WEEKS,
+					isInactive: true,
+					displayDuration:
+						'Bis 2. Lebensjahr Recht auf Karenz (Freistellung), Arbeitgeber muss es erlauben. Heißt aber nicht Recht auf staatliche Förderung!',
+					hideDurationLabel: false,
+					rowGroup: 'baseline-rights',
+					lineClass: 'baseline-rights',
+					labelClass: 'label-baseline-rights',
+					labelPosition: 'above',
+					markerVariant: 'line'
 				},
 				{
 					label: extendedMutterschutz
@@ -350,27 +370,37 @@
 					start: 0,
 					end: mutterschutzWeeks,
 					displayDuration: `${formatWeeks(mutterschutzWeeks)}, Wochengeld ÖGK 💰`,
-					isInactive: true
+					isInactive: true,
+					color: 'mutterschutz'
 				},
 				{
 					label: eaLabel,
 					start: 0,
 					end: eaKbgWeeks,
 					displayDuration: eaDisplay,
-					isInactive: true
+					isInactive: true,
+					lineClass: 'baseline-rights baseline-rights-ea',
+					labelClass: 'label-baseline-rights label-baseline-rights-ea',
+					labelPosition: 'above',
+					markerVariant: 'line',
+					color: 'ea'
 				},
-				{
-					label: motherLabel,
-					start: mutterschutzWeeks,
-					end: motherWeeks,
-					displayDuration: motherDisplay,
-					overlayVariant: 'unpaid',
-					overlayStart: motherUnpaidMonths > 0 ? motherUnpaidStart : undefined,
-					overlayEnd: motherUnpaidMonths > 0 ? motherWeeks : undefined,
-					forcePaidStartMarker: true,
-					isEaBase: true,
-					rowGroup: 'mother'
-				}
+			{
+				label: motherLabel,
+				start: mutterschutzWeeks,
+				end: motherWeeks,
+				displayDuration: motherDisplay,
+				overlayVariant: 'unpaid',
+				overlayStart: motherUnpaidMonths > 0 ? motherUnpaidStart : undefined,
+				overlayEnd: motherUnpaidMonths > 0 ? motherWeeks : undefined,
+				overlayColor: motherPaidMonths > 0 ? 'ea' : undefined,
+				forcePaidStartMarker: true,
+				isEaBase: true,
+				rowGroup: 'mother',
+				color: motherUnpaidMonths > 0 ? undefined : 'ea',
+				startMarkerColor: motherPaidMonths > 0 ? 'ea' : motherUnpaidMonths > 0 ? 'unpaid' : undefined,
+				endMarkerColor: motherUnpaidMonths > 0 ? 'unpaid' : motherPaidMonths > 0 ? 'ea' : undefined
+			}
 			];
 
 			if (hasMotherWorkGap) {
@@ -389,17 +419,18 @@
 				});
 			}
 
-			intervals.push({
-				label: 'Papamonat⁶',
-				start: papamonatStart,
-				end: papamonatEnd,
-				displayDuration: 'Ab Entlassung KH, FZB 💰',
-				isInactive: true,
-				overlayStart: papamonatStart,
-				overlayVariant: 'papamonat',
-				overlayEnd: papamonatEnd,
-				rowGroup: 'father'
-			});
+				intervals.push({
+					label: 'Papamonat⁶',
+					start: papamonatStart,
+					end: papamonatEnd,
+					displayDuration: 'Ab Entlassung KH, FZB 💰',
+					isInactive: true,
+					overlayStart: papamonatStart,
+					overlayVariant: 'papamonat',
+					overlayEnd: papamonatEnd,
+					rowGroup: 'father',
+					color: 'mutterschutz'
+				});
 
 			if (hasFatherWorkGap) {
 				intervals.push({
@@ -424,14 +455,18 @@
 				displayDuration: fatherDisplay,
 				isUnpaid: fatherUnpaidMonths > 0,
 				overlayVariant: fatherPaidMonths > 0 ? 'paid' : 'unpaid',
-				overlayStart: fatherUnpaidMonths > 0 && fatherPaidMonths > 0 ? fatherStart : undefined,
-				overlayEnd:
-					fatherUnpaidMonths > 0 && fatherPaidMonths > 0
-						? Math.min(fatherPaidEnd, fatherEnd)
-						: undefined,
-				forcePaidStartMarker: fatherUnpaidMonths > 0,
-				isEaBase: fatherUnpaidMonths === 0 && fatherPaidMonths > 0,
-				rowGroup: 'father'
+					overlayStart: fatherUnpaidMonths > 0 && fatherPaidMonths > 0 ? fatherStart : undefined,
+					overlayEnd:
+						fatherUnpaidMonths > 0 && fatherPaidMonths > 0
+							? Math.min(fatherPaidEnd, fatherEnd)
+							: undefined,
+					overlayColor: fatherPaidMonths > 0 ? 'ea' : undefined,
+					forcePaidStartMarker: fatherUnpaidMonths > 0,
+					isEaBase: fatherUnpaidMonths === 0 && fatherPaidMonths > 0,
+					rowGroup: 'father',
+					color: fatherPaidMonths > 0 && fatherUnpaidMonths === 0 ? 'ea' : undefined,
+					startMarkerColor: fatherPaidMonths > 0 ? 'ea' : fatherUnpaidMonths > 0 ? 'unpaid' : undefined,
+					endMarkerColor: fatherUnpaidMonths > 0 ? 'unpaid' : fatherPaidMonths > 0 ? 'ea' : undefined
 			});
 
 			if (hasFatherPostWork) {
@@ -471,8 +506,12 @@
 						thirdUnpaidMonths > 0 && thirdPaidMonths > 0
 							? Math.min(thirdPaidEnd, thirdEnd)
 							: undefined,
+					overlayColor: thirdPaidMonths > 0 ? 'ea' : undefined,
 					isEaBase: thirdUnpaidMonths === 0 && thirdPaidMonths > 0,
-					rowGroup: 'mother'
+					rowGroup: 'mother',
+					color: thirdPaidMonths > 0 && thirdUnpaidMonths === 0 ? 'ea' : undefined,
+					startMarkerColor: thirdPaidMonths > 0 ? 'ea' : thirdUnpaidMonths > 0 ? 'unpaid' : undefined,
+					endMarkerColor: thirdUnpaidMonths > 0 ? 'unpaid' : thirdPaidMonths > 0 ? 'ea' : undefined
 				} satisfies Interval);
 			}
 
@@ -809,15 +848,16 @@
 								x2={toX(timelineWeeks)}
 								y2={rowY(BASELINE_ROW_INDEX)}
 							/>
-							{#each baselineTicks as tickWeeks}
-								<line
-									class="baseline-month-tick"
-									x1={toX(tickWeeks)}
-									y1={rowY(BASELINE_ROW_INDEX) - 10}
-									x2={toX(tickWeeks)}
-									y2={rowY(BASELINE_ROW_INDEX) + 10}
-								/>
-							{/each}
+				{#each baselineTicks as tickWeeks}
+					{@const isFinalTick = tickWeeks === timelineWeeks}
+						<line
+							class="baseline-month-tick"
+							x1={toX(tickWeeks)}
+							y1={rowY(BASELINE_ROW_INDEX) - (isFinalTick ? 16 : 10)}
+							x2={toX(tickWeeks)}
+							y2={rowY(BASELINE_ROW_INDEX) + (isFinalTick ? 16 : 10)}
+						/>
+					{/each}
 							<circle
 								class="marker marker-midyear"
 								cx={toX(MID_YEAR_WEEKS)}
@@ -845,15 +885,6 @@
 								text-anchor="middle"
 							>
 								1. Lebensjahr
-							</text>
-							<text
-								class="label label-end"
-								x={(toX(0) + toX(timelineWeeks)) / 2}
-								y={rowY(BASELINE_ROW_INDEX) + 26}
-								text-anchor="middle"
-								style="font-size:10px"
-							>
-								Recht auf Karenz (Freistellung ≠ Förderung)
 							</text>
 							<text
 								class="label label-start"
@@ -903,6 +934,22 @@
 										: 'active'}
 				{@const customLineClass = interval.lineClass ? ` ${interval.lineClass}` : ''}
 				{@const colorClass = interval.color ? ` color-${interval.color}` : ''}
+				{@const overlayColorClass = interval.overlayColor ? ` color-${interval.overlayColor}` : colorClass}
+				{@const markerVariant = interval.markerVariant ?? 'default'}
+				{@const startMarkerColorKey = interval.startMarkerColor ?? interval.markerColor ?? interval.color}
+				{@const endMarkerColorKey = interval.endMarkerColor ?? interval.markerColor ?? interval.color}
+				{@const startMarkerColorClass = startMarkerColorKey ? ` color-${startMarkerColorKey}` : ''}
+				{@const endMarkerColorClass = endMarkerColorKey ? ` color-${endMarkerColorKey}` : ''}
+				{@const startMarkerLineClass =
+					markerVariant === 'line'
+						? ` marker-line${interval.lineClass ? ` ${interval.lineClass}` : ''}${startMarkerColorClass}`
+						: ''
+				}
+				{@const endMarkerLineClass =
+					markerVariant === 'line'
+						? ` marker-line${interval.lineClass ? ` ${interval.lineClass}` : ''}${endMarkerColorClass}`
+						: ''
+				}
 							{@const labelAnchor = interval.start < 0 ? 'start' : 'middle'}
 							{@const labelX =
 								interval.start < 0 ? toX(interval.start) : (toX(interval.start) + toX(lineEnd)) / 2}
@@ -965,35 +1012,45 @@
 									{@const renderOverlayStart = overlayStart > interval.start}
 									{#if renderOverlayStart}
 										<circle
-											class={`marker marker-overlay-start overlay-${overlayVariant}`}
+											class={`marker marker-overlay-start overlay-${overlayVariant}${overlayColorClass}`}
 											cx={toX(overlayStart)}
 											cy={rowY(rowIndex)}
 											r="4"
 										/>
 									{/if}
 						<line
-							class={`interval-line overlay overlay-${overlayVariant}${colorClass}`}
+							class={`interval-line overlay overlay-${overlayVariant}${overlayColorClass}`}
 										x1={toX(overlayStart)}
 										y1={rowY(rowIndex)}
 										x2={toX(overlayEnd)}
 										y2={rowY(rowIndex)}
 									/>
 									<circle
-										class={`marker marker-overlay-end overlay-${overlayVariant}`}
+										class={`marker marker-overlay-end overlay-${overlayVariant}${overlayColorClass}`}
 										cx={toX(overlayEnd)}
 										cy={rowY(rowIndex)}
 										r="4"
 									/>
 								{/if}
 
-								{#if !interval.hideStartMarker}
-									<circle
-										class={`marker ${startMarkerClass}`}
-										cx={toX(interval.start)}
-										cy={rowY(rowIndex)}
-										r="5"
-									/>
-								{/if}
+					{#if !interval.hideStartMarker}
+						{#if markerVariant === 'line'}
+							<line
+								class={`marker${startMarkerLineClass}`}
+								x1={toX(interval.start)}
+								y1={rowY(rowIndex) - 10}
+								x2={toX(interval.start)}
+								y2={rowY(rowIndex) + 10}
+							/>
+						{:else}
+							<circle
+								class={`marker ${startMarkerClass}${startMarkerColorClass}`}
+								cx={toX(interval.start)}
+								cy={rowY(rowIndex)}
+								r="5"
+							/>
+						{/if}
+					{/if}
 
 								{#if hasPausedSegment}
 									{@const pausedUntil = interval.pausedUntil ?? interval.start}
@@ -1005,14 +1062,24 @@
 									/>
 								{/if}
 
-								{#if !interval.hideEndMarker}
-									<circle
-										class={`marker ${endMarkerClass}`}
-										cx={toX(lineEnd)}
-										cy={rowY(rowIndex)}
-										r="5"
-									/>
-								{/if}
+					{#if !interval.hideEndMarker}
+						{#if markerVariant === 'line'}
+							<line
+								class={`marker${endMarkerLineClass}`}
+								x1={toX(lineEnd)}
+								y1={rowY(rowIndex) - 10}
+								x2={toX(lineEnd)}
+								y2={rowY(rowIndex) + 10}
+							/>
+						{:else}
+							<circle
+								class={`marker ${endMarkerClass}${endMarkerColorClass}`}
+								cx={toX(lineEnd)}
+								cy={rowY(rowIndex)}
+								r="5"
+							/>
+						{/if}
+					{/if}
 						<text
 							class={`label interval-label${interval.labelClass ? ` ${interval.labelClass}` : ''}`}
 									x={labelX}
@@ -1113,6 +1180,17 @@
 	:global(:root) {
 		--timeline-label-font: 'IBM Plex Sans Condensed', 'IBM Plex Sans', system-ui, -apple-system,
 			BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		--timeline-color-rights: #475467;
+		--timeline-color-ea: #0f9eb8;
+		--timeline-color-mutterschutz: #15803d;
+		--timeline-color-active-line: #2563eb;
+		--timeline-color-marker-active: #1d4ed8;
+		--timeline-color-unpaid: #d97706;
+		--timeline-color-overlay-unpaid: #f59e0b;
+		--timeline-color-papamonat: #15803d;
+		--timeline-color-inactive: #cbd5e1;
+		--timeline-color-working: #94a3b8;
+		--timeline-color-marker-neutral: #1f2937;
 	}
 	:global(main) {
 		@apply max-w-none;
@@ -1279,7 +1357,7 @@
 	}
 
 	.timeline-track {
-		@apply stroke-slate-800 stroke-[6px];
+		@apply stroke-slate-800 stroke-[4px];
 		stroke-linecap: round;
 	}
 
@@ -1307,104 +1385,212 @@
 	}
 
 	.marker {
-		@apply fill-slate-800;
+		fill: var(--timeline-color-marker-neutral);
 	}
 
 	.marker-start {
-		@apply fill-amber-500;
+		fill: var(--timeline-color-marker-active);
 	}
 
 	.marker-ea {
-		@apply fill-emerald-600 stroke-white stroke-[1.5px];
+		fill: var(--timeline-color-ea);
+		stroke: #fff;
+		stroke-width: 1.5px;
 	}
 
 	.marker-end {
-		@apply fill-amber-500 opacity-80;
+		fill: var(--timeline-color-marker-active);
+		opacity: 0.9;
 	}
 
 	.marker-resume {
-		@apply fill-amber-500 stroke-white stroke-[1.5px];
+		fill: var(--timeline-color-marker-active);
+		stroke: #fff;
+		stroke-width: 1.5px;
 	}
 
 	.marker-inactive {
-		@apply fill-slate-400 opacity-70;
+		fill: var(--timeline-color-inactive);
+		opacity: 0.75;
 	}
 
 	.marker-unpaid {
-		@apply fill-red-500;
+		fill: var(--timeline-color-unpaid);
 	}
 
 	.marker-overlay-end,
 	.marker-overlay-start {
-		@apply fill-amber-500 stroke-white stroke-[1.5px];
+		fill: var(--timeline-color-marker-active);
+		stroke: #fff;
+		stroke-width: 1.5px;
 	}
 
 	.marker-overlay-end.overlay-paid,
 	.marker-overlay-start.overlay-paid {
-		@apply fill-emerald-600;
+		fill: var(--timeline-color-marker-active);
 	}
 
 	.marker-overlay-end.overlay-unpaid,
 	.marker-overlay-start.overlay-unpaid {
-		@apply fill-red-500;
+		fill: var(--timeline-color-overlay-unpaid);
 	}
 
 	.interval-line {
-		@apply stroke-[10px];
+		stroke-width: 6px;
 		stroke-linecap: round;
+		stroke: var(--timeline-color-inactive);
 	}
 
 	.interval-line.active {
-		@apply stroke-amber-500;
+		stroke: var(--timeline-color-active-line);
 	}
 
 	.interval-line.ea {
-		@apply stroke-emerald-600;
+		stroke: var(--timeline-color-ea);
 	}
 
 	.interval-line.paused {
-		@apply stroke-slate-300;
+		stroke: var(--timeline-color-inactive);
 	}
 
 	.interval-line.inactive {
-		@apply stroke-slate-400;
+		stroke: var(--timeline-color-inactive);
 	}
 
 	.interval-line.working {
-		@apply stroke-[4px];
+		stroke-width: 4px;
+		stroke: var(--timeline-color-working);
+	}
+
+	.interval-line.baseline-rights {
+		stroke-width: 5px;
+		stroke: var(--timeline-color-rights);
+		stroke-linecap: square;
+	}
+
+	.interval-line.baseline-rights-ea {
+		stroke: var(--timeline-color-ea);
 	}
 
 	.interval-line.color-parental-part-time {
-		@apply stroke-emerald-500;
+		stroke: var(--timeline-color-active-line);
 	}
 
 	.interval-line.unpaid {
-		@apply stroke-red-500;
+		stroke: var(--timeline-color-unpaid);
 	}
 
 	.interval-line.overlay {
-		@apply stroke-[10px];
+		stroke-width: 8px;
 		stroke-linecap: round;
 	}
 
 	.interval-line.overlay.overlay-paid {
-		@apply stroke-emerald-600;
+		stroke: var(--timeline-color-active-line);
 	}
 
 	.interval-line.overlay.overlay-unpaid {
-		@apply stroke-red-500;
+		stroke: var(--timeline-color-overlay-unpaid);
 	}
 
 	.interval-line.overlay.overlay-papamonat {
-		@apply stroke-amber-500;
+		stroke: var(--timeline-color-papamonat);
+	}
+
+	.interval-line.color-ea {
+		stroke: var(--timeline-color-ea);
+	}
+
+	.interval-line.overlay.color-ea {
+		stroke: var(--timeline-color-ea);
+	}
+
+	.interval-line.color-mutterschutz {
+		stroke: var(--timeline-color-mutterschutz);
+	}
+
+	.interval-line.overlay.color-mutterschutz {
+		stroke: var(--timeline-color-mutterschutz);
+	}
+
+	.marker.marker-line {
+		stroke-width: 3px;
+		stroke: var(--timeline-color-rights);
+		fill: none;
+		stroke-linecap: square;
+	}
+
+	.marker.marker-line.baseline-rights-ea {
+		stroke: var(--timeline-color-ea);
+	}
+
+	.marker.marker-line.color-ea {
+		stroke: var(--timeline-color-ea);
+	}
+
+	.marker.color-ea {
+		fill: var(--timeline-color-ea);
+		stroke: #fff;
+		stroke-width: 1.5px;
+	}
+
+	.marker.marker-line.color-mutterschutz {
+		stroke: var(--timeline-color-mutterschutz);
+	}
+
+	.marker.color-mutterschutz {
+		fill: var(--timeline-color-mutterschutz);
+		stroke: #fff;
+		stroke-width: 1.5px;
+	}
+
+	.marker.marker-line.color-unpaid {
+		stroke: var(--timeline-color-unpaid);
+	}
+
+	.marker.color-unpaid {
+		fill: var(--timeline-color-unpaid);
+		stroke: #fff;
+		stroke-width: 1.5px;
+	}
+
+	.marker.marker-line.color-active-line {
+		stroke: var(--timeline-color-active-line);
+	}
+
+	.marker.color-active-line {
+		fill: var(--timeline-color-active-line);
+		stroke: #fff;
+		stroke-width: 1.5px;
+	}
+
+	.marker.marker-line.color-parental-part-time {
+		stroke: var(--timeline-color-active-line);
+	}
+
+	.marker.color-parental-part-time {
+		fill: var(--timeline-color-active-line);
+		stroke: #fff;
+		stroke-width: 1.5px;
 	}
 
 	.interval-label.label-working {
-		@apply text-xs font-normal fill-slate-700;
+		@apply text-xs font-normal;
+		fill: var(--timeline-color-working);
+	}
+
+	.label-baseline-rights {
+		@apply text-xs font-medium;
+		fill: var(--timeline-color-rights);
+	}
+
+	.label-baseline-rights-ea {
+		fill: var(--timeline-color-ea);
 	}
 
 	.label {
-		@apply fill-slate-900 text-sm font-normal;
+		@apply text-sm font-normal;
+		fill: #1e293b;
 		font-family: var(--timeline-label-font);
 	}
 
