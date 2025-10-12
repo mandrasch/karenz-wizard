@@ -15,13 +15,13 @@
 		{
 			id: 'mutterschutz-vor',
 			sup: 1,
-			title: 'Mutterschutz vor Geburt',
+			title: 'Mutterschutz vor der Geburt',
 			body: `
-        Acht Wochen vor dem errechneten Geburtstermin gilt ein Beschäftigungsverbot („Schutzfrist“).
-        Währenddessen ersetzt das Wochengeld den entfallenden Verdienst (Bemessung durch die ÖGK auf Basis der letzten Entgeltzeiträume inkl. Sonderzahlungen).
-        Kommt das Kind früher, wird die zu kurze Vorfrist nach der Geburt angehängt (insgesamt max. 16 Wochen Schutzfrist).
-        Schwangerschaft rechtzeitig melden und Wochengeld beantragen.
-      `,
+      Acht Wochen vor dem errechneten Geburtstermin gilt ein Beschäftigungsverbot („Schutzfrist“).  
+      In dieser Zeit ersetzt das Wochengeld den Verdienstausfall.  
+      Kommt das Kind früher, werden die fehlenden Tage nach der Geburt angehängt – insgesamt höchstens 16 Wochen Schutzfrist.  
+      Schwangerschaft rechtzeitig melden und Wochengeld beantragen.
+    `,
 			more: [
 				{
 					label: 'AK: Mutterschutz',
@@ -42,11 +42,11 @@
 			sup: 2,
 			title: 'Recht auf Karenz (≠ Förderung)',
 			body: `
-        Es besteht ein arbeitsrechtlicher Anspruch auf Karenz (Freistellung) bis zum vollendeten 2. Lebensjahr des Kindes – der Arbeitgeber darf das nicht verweigern, wenn Fristen eingehalten werden.
-        Dieser Anspruch bedeutet jedoch nicht automatisch, dass der Staat die gesamte Karenz finanziell fördert: Kinderbetreuungsgeld kann früher enden oder variieren (Modellwahl, Dauer, Voraussetzungen).
-        Wichtig sind die Meldefristen: Nimmt die Mutter zuerst Karenz, muss sie spätestens am letzten Tag der Schutzfrist melden; nimmt der andere Elternteil den ersten Abschnitt, gilt grundsätzlich 8 Wochen ab Geburt.
-        Karenzplanung und KBG sind getrennt zu denken: Arbeitsrechtlicher Schutz ≠ Förderanspruch.
-      `,
+      Eltern haben einen gesetzlichen Anspruch auf Karenz bis zum 2. Geburtstag des Kindes.  
+      Der Arbeitgeber kann das nicht ablehnen, wenn die Fristen eingehalten werden.  
+      Dieser Anspruch bedeutet aber nicht automatisch, dass auch das Kinderbetreuungsgeld so lange bezahlt wird.  
+      Wichtig: Die Karenz muss rechtzeitig gemeldet werden – meist spätestens am letzten Tag der Schutzfrist.
+    `,
 			more: [
 				{
 					label: 'AK: Meldefristen Karenz',
@@ -64,22 +64,18 @@
 					label: 'oesterreich.gv.at: Elternkarenz – Anspruch',
 					href: 'https://www.oesterreich.gv.at/de/themen/arbeit_beruf_und_pension/Karenz-und-Mutterschutz/elternkarenz_und_elternteilzeit/Seite.3590007'
 				},
-				{
-					label: 'AK: Meldefristen Karenz',
-					href: 'https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Meldefristen.html'
-				},
 				{ label: 'AK: Kinderbetreuungsgeld – Varianten', href: 'https://www.arbeiterkammer.at/kbg' }
 			]
 		},
 		{
 			id: 'mutterschutz-nach',
 			sup: 3,
-			title: 'Mutterschutz nach Geburt',
+			title: 'Mutterschutz nach der Geburt',
 			body: `
-        Nach der Entbindung besteht grundsätzlich 8 Wochen Schutzfrist; bei Frühgeburten, Mehrlingen oder Kaiserschnitt mindestens 12 Wochen.
-        Verkürzte Vorfristen werden nach der Geburt angehängt (Gesamtgrenze i. d. R. 16 Wochen).
-        Während der Schutzfrist gebührt weiterhin Wochengeld; erst danach beginnt die Karenz-/KBG-Phase.
-      `,
+      Nach der Geburt gilt eine Schutzfrist von 8 Wochen, bei Frühgeburten, Mehrlingen oder Kaiserschnitt mindestens 12 Wochen.  
+      Verkürzte Wochen vor der Geburt werden angehängt (max. 16 Wochen insgesamt).  
+      Während dieser Zeit wird weiter Wochengeld bezahlt. Erst danach beginnt die Karenz bzw. das Kinderbetreuungsgeld.
+    `,
 			more: [
 				{
 					label: 'AK: Mutterschutz',
@@ -100,12 +96,19 @@
 			sup: 4,
 			title: 'Einkommensabhängiges Kinderbetreuungsgeld (ea KBG)',
 			body: `
-        Das ea KBG beträgt 80 % eines fiktiven Wochengeldes (mit Deckelung; jährliche Valorisierung).
-        Anspruch setzt u. a. 182 Kalendertage ununterbrochene, vollversicherungspflichtige Erwerbstätigkeit in Österreich in den 182 Tagen vor der Geburt voraus; in diesem Zeitraum dürfen keine Leistungen aus der Arbeitslosenversicherung bezogen worden sein.
-        Der Bezug ruht während des Mutterschutzes und wird danach ausbezahlt.
-        Maximal 365 Tage ab Geburt pro Elternteil; bei Inanspruchnahme durch beide insgesamt bis zu 426 Tage ab Geburt. Jeder Bezugsblock muss mindestens 61 Tage dauern.
-        <br><br><strong>Sonderleistung&nbsp;I (im ea-KBG-Modell):</strong> Erfüllt ein Elternteil die Erwerbstätigkeitsvoraussetzung nicht oder liegt dessen errechneter Tagesbetrag unter dem Mindestwert, kann für diesen Elternteil eine Sonderleistung&nbsp;I (fixer Tagesbetrag, z.&nbsp;B. 2025: 41,14&nbsp;€) beantragt werden. Die Werte sind valorisiert – aktuelle Beträge prüfen.
-      `,
+      Das einkommensabhängige Kinderbetreuungsgeld ersetzt rund 80 % des früheren Einkommens.  
+      Es wird nach dem Mutterschutz ausbezahlt.
+      <br><br>
+      Voraussetzungen:  
+      • 182 Tage durchgehende, vollversicherungspflichtige Arbeit in Österreich vor der Geburt  
+      • kein AMS-Geld (Arbeitslosengeld, Notstandshilfe oder Weiterbildungsgeld) in diesem Zeitraum  
+      <br><br>
+      Die Gesamtdauer beträgt bis zu 14 Monate ab Geburt (12 Monate + mindestens 2 Monate für den anderen Elternteil).  
+      Jeder Abschnitt muss mindestens 61 Tage dauern.  
+      Beim ersten Wechsel dürfen beide Eltern bis zu 31 Tage gleichzeitig beziehen – diese Tage verkürzen den gesamten Anspruch.
+      <br><br>
+      Wenn ein Elternteil die Voraussetzung nicht erfüllt, kann stattdessen eine <strong>Sonderleistung I</strong> (fixer Tagessatz) beantragt werden.
+    `,
 			more: [
 				{
 					label: 'BKA: ea KBG – Voraussetzungen',
@@ -113,7 +116,7 @@
 					underline: true
 				},
 				{
-					label: 'AK: Kinderbetreuungsgeld (Überblick & Regeln)',
+					label: 'AK: Kinderbetreuungsgeld – Überblick',
 					href: 'https://www.arbeiterkammer.at/kbg',
 					underline: true
 				}
@@ -123,11 +126,7 @@
 					label: 'BKA: ea KBG – Voraussetzungen & Dauer',
 					href: 'https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html'
 				},
-				{ label: 'AK: KBG – Varianten & Mindestblöcke', href: 'https://www.arbeiterkammer.at/kbg' },
-				{
-					label: 'ÖGK: KBG allgemein',
-					href: 'https://www.gesundheitskasse.at/cdscontent/?contentid=10007.880037'
-				}
+				{ label: 'AK: KBG – Varianten & Mindestblöcke', href: 'https://www.arbeiterkammer.at/kbg' }
 			],
 			actionButtons: [
 				{
@@ -142,13 +141,15 @@
 			sup: 5,
 			title: 'Gemeinsamer Monat',
 			body: `
-        Beim ersten Wechsel dürfen beide Eltern bis zu 31 Tage gleichzeitig KBG beziehen; die Gesamtanspruchsdauer verkürzt sich um die überlappenden Tage.
-        Jeder Bezugsblock muss durchgehend mindestens 61 Tage umfassen.
-        Die gemeinsame Phase eignet sich z. B. für Übergabe oder Eingewöhnung – die Verkürzung unbedingt im Zeitplan berücksichtigen.
-      `,
+      Nur beim ersten Wechsel dürfen beide Eltern bis zu 31 Tage gleichzeitig Kinderbetreuungsgeld beziehen.  
+      Diese überlappenden Tage verkürzen den gesamten Anspruch um genau dieselbe Anzahl Tage.  
+      Jeder Abschnitt muss mindestens 61 Tage dauern.
+      <br><br>
+      Der gemeinsame Monat eignet sich gut für die Übergabe oder Eingewöhnung des Kindes.
+    `,
 			more: [
 				{
-					label: 'AK: KBG – Aufteilung & gleichzeitiger Bezug',
+					label: 'AK: KBG – Aufteilung & gemeinsamer Bezug',
 					href: 'https://www.arbeiterkammer.at/kbg',
 					underline: true
 				}
@@ -162,10 +163,13 @@
 			sup: 6,
 			title: 'Papamonat (und Familienzeitbonus)',
 			body: `
-        Der Papamonat ist eine Freistellung des anderen Elternteils ab Entlassung von Mutter/Kind aus dem Krankenhaus bis längstens zum Ende der Schutzfrist.
-        Einkommen gibt es dabei keines; finanziell unterstützt der Familienzeitbonus (28–31 Tage, innerhalb einer Frist ab Geburt zu beziehen).
-        Voraussetzung u. a.: durchgehende vollversicherungspflichtige Erwerbstätigkeit 182 Tage vor Beginn des Bonus; kein AMS-Bezug im Beobachtungszeitraum. Antragsfristen unbedingt beachten.
-      `,
+      Der Papamonat ist eine Freistellung des anderen Elternteils direkt nach der Geburt.  
+      In dieser Zeit gibt es kein Gehalt, aber den <strong>Familienzeitbonus (FZB)</strong> – eine finanzielle Unterstützung für 28 bis 31 aufeinanderfolgende Tage innerhalb der ersten 91 Tage nach der Geburt.
+      <br><br>
+      Voraussetzung: mindestens 182 Tage durchgehende, vollversicherungspflichtige Beschäftigung vor Beginn des Bonus und kein AMS-Bezug in dieser Zeit.  
+      <br><br>
+      Der FZB ist eine eigene Leistung und verkürzt das Kinderbetreuungsgeld nicht.
+    `,
 			more: [
 				{
 					label: 'AK: Papamonat & Familienzeitbonus',
@@ -173,7 +177,7 @@
 					underline: true
 				},
 				{
-					label: 'ÖGK: Familienzeitbonus – Fristen/Unterlagen',
+					label: 'ÖGK: Familienzeitbonus – Fristen & Antrag',
 					href: 'https://www.gesundheitskasse.at/cdscontent/?contentid=10007.879676&portal=oegkportal',
 					underline: true
 				}
@@ -194,11 +198,10 @@
 			sup: 7,
 			title: 'Unbezahlte Karenz',
 			body: `
-        Arbeitsrechtlich besteht ein Anspruch auf Karenz bis zum vollendeten 2. Lebensjahr des Kindes (Freistellung ohne Entgelt).
-        Das ist vom Kinderbetreuungsgeld zu trennen; die staatliche Leistung kann früher enden.
-        Meldefristen gegenüber dem Arbeitgeber beachten (Meldung spätestens am letzten Tag der Schutzfrist, wenn die Mutter zuerst in Karenz geht).
-        Bei Verlängerungen ohne KBG unbedingt Kranken-/Pensionsversicherung klären (z. B. Mitversicherung, freiwillige Versicherung).
-      `,
+      Arbeitsrechtlich besteht ein Anspruch auf Karenz bis zum 2. Geburtstag des Kindes.  
+      Diese Zeit ist unbezahlt und unabhängig vom Kinderbetreuungsgeld.  
+      Wer keine Leistung mehr bekommt, sollte rechtzeitig die Kranken- und Pensionsversicherung klären (z. B. Mitversicherung oder freiwillige Weiterversicherung).
+    `,
 			more: [
 				{
 					label: 'oesterreich.gv.at: Elternkarenz – Rechtsanspruch',
@@ -225,12 +228,12 @@
 		{
 			id: 'elternteilzeit',
 			sup: 8,
-			title: 'Eltern-Teilzeit',
+			title: 'Elternteilzeit',
 			body: `
-        Rechtsanspruch besteht, wenn der Betrieb mehr als 20 Beschäftigte hat und das Arbeitsverhältnis bereits 3 Jahre ununterbrochen gedauert hat (Mutterschutz/Karenz zählen mit).
-        Ohne Rechtsanspruch ist eine „vereinbarte Elternteilzeit“ möglich, wenn der Arbeitgeber zustimmt.
-        Elternteilzeit kann sowohl Reduktion der Stunden als auch eine Änderung der Lage der Arbeitszeit bedeuten.
-      `,
+      Elternteilzeit bedeutet, dass nach der Karenz weniger oder zu anderen Zeiten gearbeitet werden kann.  
+      Ein Rechtsanspruch besteht, wenn der Betrieb mehr als 20 Beschäftigte hat und das Arbeitsverhältnis bereits 3 Jahre besteht (Mutterschutz und Karenz zählen mit).  
+      Auch ohne Anspruch kann eine einvernehmliche Lösung mit dem Arbeitgeber vereinbart werden.
+    `,
 			more: [
 				{
 					label: 'AK: Elternteilzeit – Anspruch & Optionen',

@@ -109,9 +109,10 @@
 		>
 			<p class="max-w-full leading-relaxed">
 				Diese Seite ist unabhängig und ein privates Hobby-Projekt. Alle Angaben sind ohne Gewähr und
-				unverbindlich, es können Fehler und Ungenauigkeiten auftreten. Diese Webseite stellt keine
-				Rechtsberatung dar. Bitte unbedingt bei
-				<a href="/ak-beratung" class="underline">der AK kostenfrei beraten lassen</a>!
+				unverbindlich, es können Fehler enthalten sein. Diese Webseite stellt keine Rechtsberatung
+				dar. Für verbindliche Auskünfte wende dich an <a href="/ak-beratung" class="underline"
+					>deine Arbeiterkammer</a
+				>, Gewerkschaft oder zuständige Sozialversicherung – Gesetze können sich ändern.
 			</p>
 		</div>
 	</div>

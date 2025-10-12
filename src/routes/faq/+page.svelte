@@ -21,17 +21,21 @@
 			]
 		},
 		{
-			id: 'sonderleistung-1',
+			id: 'ea-und-pauschal-kbg-kombinieren',
 			question:
-				'Kann man Einkommensabhängiges KBG und Pauschales KBG nutzen, wenn einer vorher nicht 6 Monate (182 Tage) gearbeitet hat?',
+				'Kann man Einkommensabhängiges KBG und Pauschales KBG nutzen, wenn ein Elternteil nicht 6 Monate (182 Tage) gearbeitet hat?',
 			answer: [
-				`Nein, ein Kind - ein System. Das Mischen beider Förderungsmodelle geht nicht.`,
-				`Für den Partner:in, der nicht Anspruch vom einkommensabhängigen Kinderbetreuungsgeld nicht erfüllt, gibt es aber Sonderleistung I:`,
-				`<blockquote><p>Erfüllt ein Elternteil nicht das Erwerbstätigkeitserfordernis, so gebührt bei Erfüllung sämtlicher anderer Anspruchsvoraussetzungen auf Antrag ein einkommensabhängiges Kinderbetreuungsgeld in Höhe von 41,14 Euro täglich (Sonderleistung I).</p><cite><a href="https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html">Bundeskanzleramt</a></cite></blockquote>
-				
-				<blockquote><p>Was ist, wenn nur ein Elternteil die Voraussetzungen für das ea KBG erfüllt?
-Sie wollen das ea KBG nutzen, aber einer der beiden Elternteile erfüllt die Anspruchsvoraussetzungen nicht? Oder liegt der Tagsatz eines Elternteiles unter 41,14€ (2025)? Dann kann dieser Elternteil auf eine Sonderleistung umsteigen, die der Dauer des KBG entspricht. Der Tagsatz dafür beträgt 41,14€ (2025). Der andere Elternteil, der die Anspruchsvoraussetzungen erfüllt, kann trotzdem das ea KBG beziehen.</p><cite><a href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html">arbeiterkammer.at</a></cite></blockquote>
-				`
+				`Kurz: <strong>Nein</strong> – „ein Kind, ein System“. Das Mischen von <em>einkommensabhängigem</em> KBG und <em>pauschalem</em> KBG für dasselbe Kind ist nicht vorgesehen.`,
+				`Wenn ein Elternteil die Voraussetzungen für das <em>ea KBG</em> (u. a. 182 Tage durchgehende vollversicherungspflichtige Erwerbstätigkeit vor Geburt) <strong>nicht</strong> erfüllt, gibt es im <em>ea-KBG-Modell</em> eine Alternative: die <a href="#sonderleistung-1">Sonderleistung&nbsp;I</a> mit fixem Tagsatz. Der andere Elternteil kann weiterhin regulär <em>ea KBG</em> beziehen.`
+			]
+		},
+		{
+			id: 'sonderleistung-1',
+			question: 'Was ist Sonderleistung 1 beim ea KBG?',
+			answer: [
+				`<blockquote><p>Erfüllt ein Elternteil nicht das Erwerbstätigkeitserfordernis, so gebührt bei Erfüllung sämtlicher anderer Anspruchsvoraussetzungen auf Antrag ein einkommensabhängiges Kinderbetreuungsgeld in Höhe von 41,14 Euro täglich (Sonderleistung I).</p><cite><a href="https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html">Bundeskanzleramt</a></cite></blockquote>`,
+				`<blockquote><p>Was ist, wenn nur ein Elternteil die Voraussetzungen für das ea KBG erfüllt?
+Sie wollen das ea KBG nutzen, aber einer der beiden Elternteile erfüllt die Anspruchsvoraussetzungen nicht? Oder liegt der Tagsatz eines Elternteiles unter 41,14€ (2025)? Dann kann dieser Elternteil auf eine Sonderleistung umsteigen, die der Dauer des KBG entspricht. Der Tagsatz dafür beträgt 41,14€ (2025). Der andere Elternteil, der die Anspruchsvoraussetzungen erfüllt, kann trotzdem das ea KBG beziehen.</p><cite><a href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html">arbeiterkammer.at</a></cite></blockquote>`
 			]
 		},
 		{
