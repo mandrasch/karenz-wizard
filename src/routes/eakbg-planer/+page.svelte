@@ -1,6 +1,8 @@
 <script lang="ts">
 	import NoteGrid from '$lib/components/NoteGrid.svelte';
 	import TimelineSummary from '$lib/components/TimelineSummary.svelte';
+	import '@fontsource/ibm-plex-sans-condensed/400.css';
+	import '@fontsource/ibm-plex-sans-condensed/600.css';
 
 	type Interval = {
 		label: string;
@@ -20,6 +22,8 @@
 		isEaBase?: boolean;
 		rowGroup?: string;
 		lineClass?: string;
+		labelClass?: string;
+		color?: string;
 		labelPosition?: 'above' | 'below';
 		hideDurationLabel?: boolean;
 	};
@@ -380,6 +384,7 @@
 					hideDurationLabel: true,
 					labelPosition: 'below',
 					lineClass: 'working',
+					labelClass: 'label-working',
 					rowGroup: 'mother'
 				});
 			}
@@ -407,6 +412,7 @@
 					hideDurationLabel: true,
 					labelPosition: 'below',
 					lineClass: 'working',
+					labelClass: 'label-working',
 					rowGroup: 'father'
 				});
 			}
@@ -439,6 +445,7 @@
 					hideDurationLabel: true,
 					labelPosition: 'below',
 					lineClass: 'working',
+					labelClass: 'label-working',
 					rowGroup: 'father'
 				});
 			}
@@ -477,7 +484,8 @@
 					rowGroup: 'c',
 					hideStartMarker: true,
 					hideEndMarker: true,
-					hideDurationLabel: true
+					hideDurationLabel: true,
+					color: 'parental-part-time'
 				});
 			}
 
@@ -845,8 +853,7 @@
 								text-anchor="middle"
 								style="font-size:10px"
 							>
-								Bis 2. Lebensjahr Recht auf Karenz (Freistellung), Arbeitgeber muss es erlauben.
-								Heißt aber nicht Recht auf staatliche Förderung!
+								Recht auf Karenz (Freistellung ≠ Förderung)
 							</text>
 							<text
 								class="label label-start"
@@ -894,7 +901,8 @@
 									: interval.isUnpaid
 										? 'unpaid'
 										: 'active'}
-							{@const customLineClass = interval.lineClass ? ` ${interval.lineClass}` : ''}
+				{@const customLineClass = interval.lineClass ? ` ${interval.lineClass}` : ''}
+				{@const colorClass = interval.color ? ` color-${interval.color}` : ''}
 							{@const labelAnchor = interval.start < 0 ? 'start' : 'middle'}
 							{@const labelX =
 								interval.start < 0 ? toX(interval.start) : (toX(interval.start) + toX(lineEnd)) / 2}
@@ -934,16 +942,16 @@
 										x2={toX(pausedUntil)}
 										y2={rowY(rowIndex)}
 									/>
-									<line
-										class={`interval-line ${activeLineClass}${customLineClass}`}
+						<line
+							class={`interval-line ${activeLineClass}${customLineClass}${colorClass}`}
 										x1={toX(pausedUntil)}
 										y1={rowY(rowIndex)}
 										x2={toX(lineEnd)}
 										y2={rowY(rowIndex)}
 									/>
 								{:else}
-									<line
-										class={`interval-line ${activeLineClass}${customLineClass}`}
+						<line
+							class={`interval-line ${activeLineClass}${customLineClass}${colorClass}`}
 										x1={toX(interval.start)}
 										y1={rowY(rowIndex)}
 										x2={toX(lineEnd)}
@@ -963,8 +971,8 @@
 											r="4"
 										/>
 									{/if}
-									<line
-										class={`interval-line overlay overlay-${overlayVariant}`}
+						<line
+							class={`interval-line overlay overlay-${overlayVariant}${colorClass}`}
 										x1={toX(overlayStart)}
 										y1={rowY(rowIndex)}
 										x2={toX(overlayEnd)}
@@ -1005,8 +1013,8 @@
 										r="5"
 									/>
 								{/if}
-								<text
-									class="label interval-label"
+						<text
+							class={`label interval-label${interval.labelClass ? ` ${interval.labelClass}` : ''}`}
 									x={labelX}
 									y={interval.labelPosition === 'below' ? rowY(rowIndex) + 18 : rowY(rowIndex) - 12}
 									text-anchor={labelAnchor}
@@ -1101,6 +1109,11 @@
 	/* TODO: convert to tailwind inline styles */
 
 	@reference "../../app.css";
+
+	:global(:root) {
+		--timeline-label-font: 'IBM Plex Sans Condensed', 'IBM Plex Sans', system-ui, -apple-system,
+			BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	}
 	:global(main) {
 		@apply max-w-none;
 	}
@@ -1361,6 +1374,10 @@
 		@apply stroke-[4px];
 	}
 
+	.interval-line.color-parental-part-time {
+		@apply stroke-emerald-500;
+	}
+
 	.interval-line.unpaid {
 		@apply stroke-red-500;
 	}
@@ -1382,8 +1399,13 @@
 		@apply stroke-amber-500;
 	}
 
+	.interval-label.label-working {
+		@apply text-xs font-normal fill-slate-700;
+	}
+
 	.label {
 		@apply fill-slate-900 text-sm font-normal;
+		font-family: var(--timeline-label-font);
 	}
 
 	.label-start {
@@ -1405,6 +1427,7 @@
 
 	.interval-duration {
 		@apply fill-slate-600 text-xs;
+		font-family: var(--timeline-label-font);
 	}
 
 	.timeline-summary {
