@@ -9,6 +9,98 @@
 	<div class="prose mt-6 space-y-12">
 		<p class="font-bold">🚧 Übersicht in Arbeit 🚧</p>
 
+		<section id="akteurinnen">
+			<h2>Akteur:innen</h2>
+
+			<ul>
+				<li>
+					Teresa Bücker - Journalistin & Autorin, Zeitgerechtigkeit. <a
+						href="https://www.instagram.com/fraeulein_tessa/?hl=de">Instagram</a
+					>
+					| <a href="https://www.linkedin.com/in/teresabuecker/">LinkedIn</a>
+				</li>
+				<li>
+					Patricia Cammarata, Autorin und Diplompsychologin - <a
+						href="https://www.instagram.com/dasnuf/?hl=de">Instagram</a
+					>
+				</li>
+				<li>
+					Sabine Rath - Vereinbarkeit in Vollzeit <a
+						href="https://www.instagram.com/sabine_rath_4_vereinbarkeit/">Instagram</a
+					>
+					| <a href="https://www.linkedin.com/in/sabine-rath/">LinkedIn</a>
+				</li>
+			</ul>
+		</section>
+
+		<section id="artikel">
+			<h2>Artikel: Warum übernehmen Männer so wenig Karenz?</h2>
+			<p>
+				Liegt es an uns Männern, der Wirtschaft, wie Erwerbsarbeit aktuell mit Vollzeit organisiert
+				ist, dem Karriere-Druck bei steigenden Lebens- und Mietkosten, den staatlichen
+				Förderungsregeln (max. 14 Monate ea KBG), fehlenden Kindergarten-Plätzen, den eingelernten
+				Mustern früherer Zeiten ... Oder reden wir generell teils aneinander vorbei, weil keiner die
+				genauen Regeln kennt, unterschiedliche Vorstellungen existieren wann Babys in den
+				Kindergarten sollen und die Option "unbezahlte Karenz" nicht bekannt ist?
+			</p>
+			<ul>
+				<li>
+					„In Österreich wird immer noch das sogenannte „Male-Breadwinner-Modell“ praktiziert: Der
+					Mann als Ernährer, die Frau schupft den Haushalt. Österreichs Frauen sollten sich ein
+					Beispiel an den Isländerinnen nehmen.“ - Nina Horaczek (<a
+						href="https://www.instagram.com/p/DNAq95nst_a">Falter</a
+					>, August 2025)
+				</li>
+				<li>
+					„Die Bilanz ist ernüchternd: Nur rund zwei von zehn Vätern nehmen sich eine Auszeit von
+					der Arbeit, um für ihre Kinder da zu sein.“ (<a
+						href="https://www.derstandard.at/story/3000000274158/vaeter-gehen-nur-kurz-oder-gar-nicht-in-elternkarenz"
+						>Der Standard</a
+					>, Juni 2025) -
+					<i
+						>kritische Randnotiz: Eltern-Teilzeit wird nicht miteinbezogen, eaKBG max. 14 Monate
+						wird nicht erwähnt</i
+					>
+				</li>
+				<li>
+					„Der Mann arbeitet Vollzeit, die Frau ungefähr 50 Prozent. So sieht das Modell in vielen
+					Familien aus, wenn Kinder da sind. Auch das Elterngeld hat daran kaum etwas geändert, die
+					Gleichstellung stockt. ⁠ ⁠ Zeit für neue Wege, findet SZ-Autor Oliver Klasen und hat eine
+					radikale Idee: Teilzeit abschaffen [und 30h/Woche für alle].⁠“ (<a
+						href="https://www.instagram.com/p/DPjk2t2j1Fp/">SZ</a
+					>, Oktober 2025)
+				</li>
+				<li>
+					„Kurze Unterbrechungen von ein bis zwei Monaten sind meist nicht mehr so ein Problem. Wenn
+					Männer aber eine längere Auszeit wollen, schlägt ihnen doch oft ein ­rauer Wind entgegen“,
+					sagt Bergmann. Das sei vor allem in männerdominierten Branchen der Fall, in denen
+					Vereinbarkeit von Beruf und Familie oftmals eine untergeordnete Rolle spielt. Die Folgen
+					würden von Benachteiligungen im Job bis zum Ende des Dienstverhältnisses reichen.“ (<a
+						href="https://www.derstandard.at/story/3000000240848/immer-weniger-maenner-gehen-in-karenz-woran-liegt-das"
+						>Der Standard</a
+					>, Oktober 2024)
+				</li>
+
+				<li>
+					Eigener Blogbeitrag: „Die Empfehlung an Väter für 50:50-Karenz muss auf einen Bierdeckel
+					passen – tut sie aber aktuell nicht!“ (<a
+						href="https://workwhileclimate.at/die-empfehlung-an-vaeter-fuer-5050-karenz-muss-auf-einen-bierdeckel-passen-tut-sie-aber-aktuell-nicht/"
+						>workwhileclimate.at</a
+					>, Juli 2025)
+				</li>
+				<li>
+					„Hier setzt das AK ÖGB Familienarbeitszeitmodell an: Statt einseitig nur Frauen zu
+					belasten, soll es eine finanzielle Förderung für halbe-halbe bei der Elternteilzeit geben:
+					Beide Eltern reduzieren/erhöhen nach der Karenz ihre Arbeitszeit auf 28 bis 32 Stunden pro
+					Woche. Dafür erhalten sie 350 Euro Pauschale pro Elternteil pro Monat steuerfrei
+					ausbezahlt. Auch Alleinerziehende erhalten die monatliche Pauschale von 350 Euro.“ (<a
+						href="https://www.arbeiterkammer.at/interessenvertretung/arbeitundsoziales/frauen/Halbe-halbe-statt-Herdpraemie.html"
+						>arbeiterkammer.at</a
+					>)
+				</li>
+			</ul>
+		</section>
+
 		<section id="literatur">
 			<h2>Bücher &amp; Broschüren</h2>
 			<h3>Bücher Elternkarenz Österreich</h3>
@@ -90,30 +182,6 @@
 					<a href="https://www.youtube.com/watch?v=sepdrZagF98"
 						>Elternteilzeit in Österreich (AK/YouTube)
 					</a>
-				</li>
-			</ul>
-		</section>
-
-		<section id="akteurinnen">
-			<h2>Akteur:innen</h2>
-
-			<ul>
-				<li>
-					Teresa Bücker - Journalistin & Autorin, Zeitgerechtigkeit. <a
-						href="https://www.instagram.com/fraeulein_tessa/?hl=de">Instagram</a
-					>
-					| <a href="https://www.linkedin.com/in/teresabuecker/">LinkedIn</a>
-				</li>
-				<li>
-					Patricia Cammarata, Autorin und Diplompsychologin - <a
-						href="https://www.instagram.com/dasnuf/?hl=de">Instagram</a
-					>
-				</li>
-				<li>
-					Sabine Rath - Vereinbarkeit in Vollzeit <a
-						href="https://www.instagram.com/sabine_rath_4_vereinbarkeit/">Instagram</a
-					>
-					| <a href="https://www.linkedin.com/in/sabine-rath/">LinkedIn</a>
 				</li>
 			</ul>
 		</section>
