@@ -52,6 +52,9 @@
 				<ul class="space-y-2 text-sm text-slate-600">
 					<li><a class="hover:text-slate-900" href="/ueber">Über das Projekt</a></li>
 					<li>
+						<a class="hover:text-slate-900" href="/changelog"> Changelog </a>
+					</li>
+					<li>
 						<a class="hover:text-slate-900" href="/reaktionen-und-feedback">
 							Reaktionen &amp; Feedback
 						</a>
