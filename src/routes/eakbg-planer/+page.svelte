@@ -90,7 +90,7 @@
 		fatherMonths = clamp(fatherPreset, MIN_FATHER_MONTHS, MAX_FATHER_MONTHS);
 	};
 
-	const formatWeeks = (value: number) => `${value.toFixed(0)} Wochen`;
+	const formatWeeks = (value: number) => `${value.toFixed(0)} Wo.`;
 
 	$effect(() => {
 		motherMonths = clamp(motherMonths, motherMin, motherMax);
@@ -347,7 +347,7 @@
 					label: 'Mutterschutz vor Geburt¹',
 					start: -MUTTERSCHUTZ_PRE_WEEKS,
 					end: 0,
-					displayDuration: `${formatWeeks(MUTTERSCHUTZ_PRE_WEEKS)}, Wochengeld ÖGK 💰`,
+					displayDuration: `${formatWeeks(MUTTERSCHUTZ_PRE_WEEKS)}, WGeld 💰`,
 					isInactive: true,
 					color: 'mutterschutz'
 				},
@@ -366,12 +366,10 @@
 					markerVariant: 'line'
 				},
 				{
-					label: extendedMutterschutz
-						? 'Mutterschutz nach der Geburt²'
-						: 'Mutterschutz nach der Geburt²',
+					label: extendedMutterschutz ? 'MS n. G.⁴' : 'MS n. G.⁴',
 					start: 0,
 					end: mutterschutzWeeks,
-					displayDuration: `${formatWeeks(mutterschutzWeeks)}, Wochengeld ÖGK 💰`,
+					displayDuration: `${formatWeeks(mutterschutzWeeks)}, WGeld 💰`,
 					isInactive: true,
 					color: 'mutterschutz'
 				},
@@ -1075,7 +1073,7 @@
 									y={rowY(BASELINE_ROW_INDEX) - 22}
 									text-anchor="middle"
 								>
-									2. Lebensjahr
+									2. Lebensjahr 🎂
 								</text>
 								<text
 									class="label label-dot-mid"
@@ -1083,7 +1081,7 @@
 									y={rowY(BASELINE_ROW_INDEX) - 22}
 									text-anchor="middle"
 								>
-									1. Lebensjahr
+									1. Lebensjahr 🎂
 								</text>
 								<text
 									class="label label-start"
@@ -1091,7 +1089,7 @@
 									y={rowY(BASELINE_ROW_INDEX) - 18}
 									text-anchor="middle"
 								>
-									Geburt
+									Geburt 🐣
 								</text>
 							</g>
 
