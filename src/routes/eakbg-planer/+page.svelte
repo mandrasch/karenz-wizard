@@ -366,14 +366,6 @@
 					markerVariant: 'line'
 				},
 				{
-					label: extendedMutterschutz ? 'MS n. G.⁴' : 'MS n. G.⁴',
-					start: 0,
-					end: mutterschutzWeeks,
-					displayDuration: `${formatWeeks(mutterschutzWeeks)}, WGeld 💰`,
-					isInactive: true,
-					color: 'mutterschutz'
-				},
-				{
 					label: eaLabel,
 					start: 0,
 					end: eaKbgWeeks,
@@ -383,6 +375,15 @@
 					labelClass: 'label-baseline-rights',
 					labelPosition: 'above',
 					markerVariant: 'line'
+				},
+				{
+					label: extendedMutterschutz ? 'MS n. G.⁴' : 'MS n. G.⁴',
+					start: 0,
+					end: mutterschutzWeeks,
+					displayDuration: `${formatWeeks(mutterschutzWeeks)}, WGeld 💰`,
+					isInactive: true,
+					color: 'mutterschutz',
+					rowGroup: 'mother'
 				},
 				{
 					label: motherLabel,
