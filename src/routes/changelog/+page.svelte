@@ -10,6 +10,7 @@
 	</header>
 	<div class="prose mt-8 max-w-none">
 		<ul>
+			<li>13.10.2025 - ea KBG Planer optimiert, Inhalte ergänzt (Infothek)</li>
 			<li>12.10.2025 - Vorschau ea KBG Anspruch, ea KBG Planer überarbeitet (Style, Infoboxen)</li>
 			<li>06.10.2025 - erste Vorschauversion veröffentlicht 🐣</li>
 		</ul>
