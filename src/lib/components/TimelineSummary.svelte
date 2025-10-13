@@ -30,7 +30,7 @@
 			aria-label="Überblick zu den Abschnitten ein- und ausklappen"
 		>
 			<div class="flex items-center gap-3">
-				<h3 class="timeline-summary__title m-0">Wie viel ea KBG bekommen wir?</h3>
+				<h3 class="timeline-summary__title m-0">Zeit-Tabelle: Wie viel Förderung bekommen wir?</h3>
 				<span class="timeline-summary__badge"> Noch in Arbeit, kann Fehler enthalten! </span>
 			</div>
 

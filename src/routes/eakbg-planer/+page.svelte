@@ -298,7 +298,7 @@
 
 	const motherLabel = $derived(
 		motherUnpaidMonths > 0
-			? 'Karenz Mutter: ea KBG³ 💰 + unbezahlte Karenz⁷'
+			? 'Karenz Mutter: ea KBG³ 💰 + unbezahlte Karenz⁵'
 			: 'Karenz Mutter: ea KBG³ 💰'
 	);
 
@@ -307,7 +307,7 @@
 	const fatherLabel = $derived(
 		fatherUnpaidMonths > 0
 			? fatherPaidMonths > 0 && !motherConsumesAllEa
-				? 'Karenz Vater: ea KBG³ 💰 + unbezahlte Karenz⁷'
+				? 'Karenz Vater: ea KBG³ 💰 + unbezahlte Karenz⁵'
 				: 'Karenz Vater: unbezahlte Karenz⁷'
 			: 'Karenz Vater'
 	);
@@ -321,7 +321,7 @@
 	const thirdLabel = $derived(
 		thirdMonths > 0
 			? thirdUnpaidMonths > 0
-				? 'Unbezahlte Karenz⁷ (weiterer Teil)'
+				? 'Unbezahlte Karenz⁵ (weiterer Teil)'
 				: 'Karenz weiterer Teil'
 			: ''
 	);
@@ -423,7 +423,7 @@
 			}
 
 			intervals.push({
-				label: 'Papamonat⁶',
+				label: 'Papamonat⁵',
 				start: papamonatStart,
 				end: papamonatEnd,
 				displayDuration: 'Ab Entlassung KH, FZB 💰',
@@ -865,11 +865,11 @@
 <section class="content planner-page min-w-0">
 	<div class="page-header mt-10 min-w-0">
 		<h1 id="planner-title" class="planner-heading text-2xl font-semibold text-slate-900">
-			ea KBG Planer
+			ea KBG Planer für Paare
 		</h1>
 		<p class="subline">
-			Prototyp für eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld und
-			die Aufteilung der Karenz.
+			Eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld und die Aufteilung
+			der Karenz.
 		</p>
 		<div class="planner-quick-info" role="note">
 			<p class="planner-note">
@@ -878,9 +878,9 @@
 			</p>
 			<p class="planner-note">
 				Unsicher, ob du oder dein/e Partner/in Anspruch hat auf ea KBG? Wenn nur eine Person
-				Anspruch hat, kann das andere Elternteil Sonderleistung 1 beziehen. Achtung bei AMS-Zeiten
-				o.ä. vor Geburt/Mutterschutz! <a href="/eakbg-anspruch" class="planner-link">Hier prüfen</a
-				>.
+				Anspruch hat, kann das andere Elternteil ggf. <a href="/faq#sonderleistung-1">SL1</a>
+				beziehen. Achtung bei AMS-Zeiten o.ä. vor Geburt/Mutterschutz!
+				<a href="/eakbg-anspruch" class="planner-link">Hier prüfen</a>.
 			</p>
 		</div>
 	</div>
@@ -994,7 +994,7 @@
 					<label class="control-checkbox">
 						<input type="checkbox" bind:checked={jointMonth} />
 						<div class="control-checkbox__text">
-							<span>Gemeinsamer Monat beim ersten Wechsel⁵</span>
+							<span>Gemeinsamer Monat beim ersten Wechsel⁷</span>
 							{#if jointMonth}
 								<small>ea KBG wird um 1 Monat kürzer</small>
 							{:else}

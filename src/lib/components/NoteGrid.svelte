@@ -68,32 +68,8 @@
 			]
 		},
 		{
-			id: 'mutterschutz-nach',
-			sup: 3,
-			title: 'Mutterschutz nach der Geburt',
-			body: `
-      Nach der Geburt gilt eine Schutzfrist von 8 Wochen, bei Frühgeburten, Mehrlingen oder Kaiserschnitt mindestens 12 Wochen.  
-      Verkürzte Wochen vor der Geburt werden angehängt (max. 16 Wochen insgesamt).  
-      Während dieser Zeit wird weiter Wochengeld bezahlt. Erst danach beginnt die Karenz bzw. das Kinderbetreuungsgeld.
-    `,
-			more: [
-				{
-					label: 'AK: Mutterschutz',
-					href: 'https://www.arbeiterkammer.at/mutterschutzregelung',
-					underline: true
-				}
-			],
-			references: [
-				{ label: 'AK: Mutterschutz', href: 'https://www.arbeiterkammer.at/mutterschutzregelung' },
-				{
-					label: 'oesterreich.gv.at: Mutterschutz',
-					href: 'https://www.oesterreich.gv.at/themen/arbeit_und_pension/arbeitsrecht/Seite.1660200.html'
-				}
-			]
-		},
-		{
 			id: 'eakbg',
-			sup: 4,
+			sup: 3,
 			title: 'Einkommensabhängiges Kinderbetreuungsgeld (ea KBG)',
 			body: `
       Das einkommensabhängige Kinderbetreuungsgeld ersetzt rund 80 % des früheren Einkommens.  
@@ -137,28 +113,32 @@
 			]
 		},
 		{
-			id: 'gemeinsamer-monat',
-			sup: 5,
-			title: 'Gemeinsamer Monat',
+			id: 'mutterschutz-nach',
+			sup: 3,
+			title: 'Mutterschutz nach der Geburt',
 			body: `
-      Nur beim ersten Wechsel dürfen beide Eltern bis zu 31 Tage gleichzeitig Kinderbetreuungsgeld beziehen.  
-      Diese überlappenden Tage verkürzen den gesamten Anspruch um genau dieselbe Anzahl Tage.  
-      Jeder Abschnitt muss mindestens 61 Tage dauern.
+      Nach der Geburt gilt eine Schutzfrist von 8 Wochen, bei Frühgeburten, Mehrlingen oder Kaiserschnitt mindestens 12 Wochen.  
+      Verkürzte Wochen vor der Geburt werden angehängt (max. 16 Wochen insgesamt).  
+      Während dieser Zeit wird weiter Wochengeld bezahlt. Erst danach beginnt die Karenz bzw. das Kinderbetreuungsgeld.
     `,
 			more: [
 				{
-					label: 'AK: KBG – Aufteilung & gemeinsamer Bezug',
-					href: 'https://www.arbeiterkammer.at/kbg',
+					label: 'AK: Mutterschutz',
+					href: 'https://www.arbeiterkammer.at/mutterschutzregelung',
 					underline: true
 				}
 			],
 			references: [
-				{ label: 'AK: KBG – Teilung & Überlappung', href: 'https://www.arbeiterkammer.at/kbg' }
+				{ label: 'AK: Mutterschutz', href: 'https://www.arbeiterkammer.at/mutterschutzregelung' },
+				{
+					label: 'oesterreich.gv.at: Mutterschutz',
+					href: 'https://www.oesterreich.gv.at/themen/arbeit_und_pension/arbeitsrecht/Seite.1660200.html'
+				}
 			]
 		},
 		{
 			id: 'papamonat-fzb',
-			sup: 6,
+			sup: 5,
 			title: 'Papamonat (und Familienzeitbonus)',
 			body: `
       Der Papamonat ist eine Freistellung des anderen Elternteils direkt nach der Geburt.  
@@ -193,7 +173,7 @@
 		},
 		{
 			id: 'unbezahlte-karenz',
-			sup: 7,
+			sup: 6,
 			title: 'Unbezahlte Karenz',
 			body: `
       Arbeitsrechtlich besteht ein Anspruch auf Karenz bis zum 2. Geburtstag des Kindes.  
@@ -221,6 +201,26 @@
 					label: 'AK: Meldefristen',
 					href: 'https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Meldefristen.html'
 				}
+			]
+		},
+		{
+			id: 'gemeinsamer-monat',
+			sup: 7,
+			title: 'Gemeinsamer Monat',
+			body: `
+      Nur beim ersten Wechsel dürfen beide Eltern bis zu 31 Tage gleichzeitig Kinderbetreuungsgeld beziehen.  
+      Diese überlappenden Tage verkürzen den gesamten Anspruch um genau dieselbe Anzahl Tage.  
+      Jeder Abschnitt muss mindestens 61 Tage dauern.
+    `,
+			more: [
+				{
+					label: 'AK: KBG – Aufteilung & gemeinsamer Bezug',
+					href: 'https://www.arbeiterkammer.at/kbg',
+					underline: true
+				}
+			],
+			references: [
+				{ label: 'AK: KBG – Teilung & Überlappung', href: 'https://www.arbeiterkammer.at/kbg' }
 			]
 		},
 		{
@@ -269,7 +269,7 @@
 		<div class="flex items-center gap-3">
 			<div class="flex flex-col">
 				<span class="text-base font-semibold text-slate-900 sm:text-lg">
-					Die Begriffe kurz erklärt
+					Fußnoten: Die Begriffe kurz erklärt
 					<span class="note-grid__badge">Noch in Arbeit, kann Fehler enthalten!</span>
 				</span>
 			</div>
