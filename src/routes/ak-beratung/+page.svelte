@@ -5,71 +5,83 @@
 		{
 			name: 'Burgenland',
 			links: [
-				{ title: 'Startseite', url: 'https://bgld.arbeiterkammer.at' },
+				/*{ title: 'Startseite', url: 'https://bgld.arbeiterkammer.at' },
 				{ title: 'Väterkarenz', url: 'https://bgld.arbeiterkammer.at/vaeterkarenz' },
 				{
 					title: 'Kontakt: Arbeitsrecht',
 					url: 'https://bgld.arbeiterkammer.at/ueberuns/kontakt/index.html'
-				}
+				}*/
 			]
 		},
 		{
 			name: 'Kärnten',
 			links: [
-				{ title: 'Startseite', url: 'https://kaernten.arbeiterkammer.at' },
+				/*{ title: 'Startseite', url: 'https://kaernten.arbeiterkammer.at' },
 				{
 					title: 'Kontakt: Mutterschutz und Elternkarenz',
 					url: 'https://kaernten.arbeiterkammer.at/ueberuns/kontakt/karenz/Mutterschutz___Karenz.html'
-				}
+				}*/
 			]
 		},
 		{
 			name: 'Niederösterreich',
 			links: [
+				/*
 				{ title: 'Startseite', url: 'https://noe.arbeiterkammer.at' },
 				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/aknoe.html' }
+			*/
 			]
 		},
 		{
 			name: 'Oberösterreich',
 			links: [
+				/*
 				{ title: 'Startseite', url: 'https://ooe.arbeiterkammer.at' },
 				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/akooe.html' }
+			*/
 			]
 		},
 		{
 			name: 'Salzburg',
 			links: [
+				/*
 				{ title: 'Startseite', url: 'https://sbg.arbeiterkammer.at' },
 				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/aksbg.html' }
+			*/
 			]
 		},
 		{
 			name: 'Steiermark',
 			links: [
+				/*
 				{ title: 'Startseite', url: 'https://stmk.arbeiterkammer.at' },
 				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/akstmk.html' }
+			*/
 			]
 		},
 		{
 			name: 'Tirol',
 			links: [
+				/*
 				{ title: 'Startseite', url: 'https://tirol.arbeiterkammer.at' },
 				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/AK_Tirol.html' }
+			*/
 			]
 		},
 		{
 			name: 'Vorarlberg',
 			links: [
+				/*
 				{ title: 'Startseite', url: 'https://vbg.arbeiterkammer.at' },
 				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/akvbg.html' }
+			*/
 			]
 		},
 		{
 			name: 'Wien',
 			links: [
 				{
-					title: 'Beratung Elternkarenz',
+					title: 'Beratung Elternkarenz (Telefon & Formular)',
 					url: 'https://wien.arbeiterkammer.at/ueberuns/kontakt/elternkarenz/Elternkarenz.html'
 				}
 			]
@@ -82,7 +94,32 @@
 		<h1 class="text-3xl font-semibold text-slate-900">
 			Kostenfreie Beratung bei der Arbeiterkammer
 		</h1>
+	</header>
 
+	<div class="prose mt-6">
+		<p class="font-bold">🚧 Inhalte und Links in Arbeit 🚧</p>
+		<p>
+			Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz sowie
+			Sozialversicherungsfragen. Sie ist als Vertretung <b>auf deiner Seite</b> als Arbeitnehmer:in.
+		</p>
+		<p>
+			Um keine Fehler bei deinem Kinderbetreuungsgeld-Antrag zu machen, solltest du deine Pläne bei
+			dieser Beratung absichern lassen. Die Mitarbeiter:innen kennen alle gesetzlichen Regeln und
+			können deine Planung überprüfen. So bist du auf der sicheren Seite, dass dir kein Geld
+			verloren geht oder du etwas übersiehst. Sie beantworten auch Fragen dazu, wie du den
+			KBG-Antrag (<a
+				href="https://www.sozialversicherung.at/cdscontent/load?contentid=10008.638102&version=1577958680"
+				>PDF</a
+			>,
+			<a href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.879630&portal=oegkportal"
+				>ÖGK-Onlineformular</a
+			>) dann korrekt ausfüllst. So kannst du danach ruhigen Gewissens in die Karenz starten.
+		</p>
+
+		<p>
+			Hier ein Foto aus dem Wartebereich in Wien Ottakring. Du meldest dich beim freundlichen
+			Mitarbeiter / der freundlichen Mitarbeiterin am Eingang an und erhältst deine Wartenummer:
+		</p>
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<img
 				src="/ak_wien_ottakring_außengebauede.jpg"
@@ -95,14 +132,7 @@
 				class="w-full rounded-2xl object-cover shadow-md"
 			/>
 		</div>
-	</header>
-
-	<div class="prose mt-6">
-		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
-		<p>
-			Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz sowie
-			Sozialversicherungsfragen.
-		</p>
+		<p>Empfehlung: Ersten Termin machen und hingehen! :)</p>
 
 		<ul>
 			{#each akList as ak}
@@ -125,5 +155,13 @@
 				</li>
 			{/each}
 		</ul>
+		<h3>Feministische Beratung / Einführungskurs?</h3>
+
+		<p>
+			Was die AK (leider) bisher nicht leistet soweit ich weiß: Eine feministische Beratung, wie man
+			die Karenzteile gleichberechtigt zwischen den Elternteilen aufteilt. Hier solltest du dich bei
+			anderen Stellen, Freunden und Bekannten oder im Netz zusätzlich informieren. Denn "ganze
+			Männer machen halbe halbe". Siehe auch <a href="/infothek">Infothek</a> auf dieser Webseite.
+		</p>
 	</div>
 </section>
