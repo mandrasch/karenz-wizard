@@ -10,7 +10,7 @@
 					Mit ❤️ für das Land der Berge entwickelt von <a
 						class="underline"
 						href="https://mandrasch.dev">Matthias Andrasch</a
-					>, zugezogener Piefke. 🤝
+					>.
 				</p>
 				<h2 id="footer-open-source" class="mt-6 text-sm font-semibold text-slate-900">
 					Open Source
