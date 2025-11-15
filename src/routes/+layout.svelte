@@ -27,7 +27,7 @@
 	{/if}
 	<link rel="icon" href={favicon} />
 	<!-- TODO: add fitting dimensions and more tags -->
-	<meta property="og:image" content="/hero_karenz_wizard.jpg" />
+	<meta property="og:image" content="https://karenz-wizard.at/hero_karenz_wizard.jpg" />
 </svelte:head>
 
 <div
