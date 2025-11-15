@@ -14,29 +14,29 @@
 
   <!-- Wand shaft outline -->
   <line 
-    x1="12" y1="52" x2="44" y2="24"
-    stroke="black" stroke-width="6" stroke-linecap="round"
-  />
-  <!-- Wand shaft inner (white) -->
-  <line 
-    x1="12" y1="52" x2="44" y2="24"
-    stroke="white" stroke-width="4" stroke-linecap="round"
+    x1="14" y1="50" x2="49" y2="18"
+    stroke="black" stroke-width="10" stroke-linecap="round"
   />
 
-  <!-- Star (white with black outline) -->
-  <path
-    d="
-       M44 14
-       L47 20
-       L54 21
-       L49 25
-       L50 32
-       L44 28
-       L38 32
-       L39 25
-       L34 21
-       L41 20
-       Z
+  <!-- Wand shaft inner (white) -->
+  <line 
+    x1="14" y1="50" x2="49" y2="18"
+    stroke="white" stroke-width="7" stroke-linecap="round"
+  />
+
+  <!-- Perfect geometric star centered on (49,18) -->
+  <polygon
+    points="
+      49,8
+      53.7,16.5
+      63,17.8
+      56,24.2
+      58,33
+      49,28
+      40,33
+      42,24.2
+      35,17.8
+      44.3,16.5
     "
     fill="white"
     stroke="black"
