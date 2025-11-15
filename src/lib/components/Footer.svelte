@@ -34,30 +34,21 @@
 			</section>
 
 			<nav class="space-y-3" aria-labelledby="footer-links">
-				<h2 id="footer-links" class="text-sm font-semibold text-slate-900">Inhalte</h2>
+				<h2 id="footer-links" class="text-sm font-semibold text-slate-900">Menü</h2>
 				<ul class="space-y-2 text-sm text-slate-600">
+					<li><a class="hover:text-slate-900" href="/ueber">Über diese Webseite</a></li>
 					<li><a class="hover:text-slate-900" href="/eakbg-planer">eaKBG-Planer</a></li>
 					<li><a class="hover:text-slate-900" href="/eakbg-anspruch">ea KBG Anspruch?</a></li>
 					<li><a class="hover:text-slate-900" href="/fzb-anspruch">FZB Anspruch?</a></li>
 					<li><a class="hover:text-slate-900" href="/pauschales-kbg">Pauschales KBG</a></li>
-
 					<li><a class="hover:text-slate-900" href="/ak-beratung">AK-Beratung</a></li>
 					<li><a class="hover:text-slate-900" href="/infothek">Infothek</a></li>
 					<li><a class="hover:text-slate-900" href="/faq">FAQ</a></li>
-				</ul>
-			</nav>
-
-			<section class="space-y-3" aria-labelledby="footer-legal">
-				<h2 id="footer-legal" class="text-sm font-semibold text-slate-900">Mehr Informationen</h2>
-				<ul class="space-y-2 text-sm text-slate-600">
-					<li><a class="hover:text-slate-900" href="/ueber">Über das Projekt</a></li>
+					<li><a class="hover:text-slate-900" href="/blog">Blog</a></li>
 					<li>
-						<a class="hover:text-slate-900" href="/changelog"> Changelog </a>
-					</li>
-					<li>
-						<a class="hover:text-slate-900" href="/reaktionen-und-feedback">
-							Reaktionen &amp; Feedback
-						</a>
+						<a class="hover:text-slate-900" href="/reaktionen-und-feedback"
+							>Reaktionen &amp; Feedback</a
+						>
 					</li>
 					<li>
 						<a class="hover:text-slate-900" href="/impressum-datenschutz">Impressum</a>
@@ -66,6 +57,9 @@
 						<a class="hover:text-slate-900" href="/impressum-datenschutz">Datenschutz</a>
 					</li>
 				</ul>
+			</nav>
+
+			<section class="space-y-3" aria-labelledby="footer-legal">
 				<h2 class="text-sm font-semibold text-slate-900">Diversity 🌈</h2>
 				<p class="text-xs text-slate-600">
 					Das Tool ist leider noch nicht bzgl. Regenbogenfamilien optimiert. Ich bitte dies zu

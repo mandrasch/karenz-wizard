@@ -11,13 +11,13 @@
 	let showPreviewBanner = $state(true);
 
 	const navItems: NavItem[] = [
-		{ label: 'Start', href: '/', matchPath: '/' },
+		// { label: 'Start', href: '/', matchPath: '/' },
 		{ label: 'ea KBG Planer 🪄', href: '/eakbg-planer', matchPath: '/eakbg-planer' },
 		{ label: 'ea KBG Anspruch?', href: '/eakbg-anspruch', matchPath: '/eakbg-anspruch' },
 		{ label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch', matchPath: '/fzb-anspruch' },
 		{ label: 'Pauschales KBG', href: '/pauschales-kbg', matchPath: '/pauschales-kbg' },
-		{ label: 'Infothek', href: '/infothek' },
 		{ label: 'FAQ', href: '/faq' },
+		{ label: 'Blog', href: '/blog' },
 		{ label: 'Über', href: '/ueber' }
 	];
 
@@ -54,30 +54,44 @@
 <!-- HEADER -->
 <header
 	class="z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80"
-	on:keydown={onKeydown}
 	role="banner"
 >
 	{#if showPreviewBanner}
 		<!-- Preview banner -->
-		<div class="prose-body relative border-b border-amber-200 bg-red-100 text-red-700">
-			<p
-				class="mx-auto max-w-prose px-12 py-6 text-center text-xs font-medium sm:text-sm"
+		<div class="prose-body relative border-b border-amber-200 bg-red-100 text-red-800">
+			<div
+				class="mx-auto flex max-w-prose flex-col items-center gap-3 px-6 py-5 text-center text-xs font-medium sm:text-sm"
 				aria-live="polite"
 				id="preview-banner"
 			>
-				Frühe Vorschau-Version: Das ist ein Hobby-Projekt und wird noch entwickelt, alle Angaben
-				ohne Gewähr! Inhalte wurden noch nicht von Expert:innen geprüft. Die Seite ist noch nicht
-				mobil-optimiert.<br /><br />
-				⚠️ Bitte unbedingt
-				<a class="underline" href="/ak-beratung/">kostenfrei bei der Arbeiterkammer</a>
-				beraten lassen! ⚠️
-			</p>
+				<p class="font-semibold tracking-wide text-red-900 uppercase">Frühe Vorschau-Version</p>
+				<p>Das ist ein Hobby-Projekt und wird noch entwickelt – alle Angaben ohne Gewähr!</p>
+
+				<div class="space-y-3">
+					<p>Inhalte wurden noch nicht von Expert:innen geprüft.</p>
+					<p>
+						⚠️ Bitte unbedingt
+						<a class="underline" href="/ak-beratung/">kostenfrei bei der Arbeiterkammer</a>
+						beraten lassen! ⚠️
+					</p>
+				</div>
+
+				<button
+					type="button"
+					class="inline-flex items-center rounded-full border border-red-200 px-4 py-2 text-xs font-semibold text-red-900 transition hover:bg-red-200/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+					onclick={() => (showPreviewBanner = false)}
+				>
+					Hinweis ausblenden
+				</button>
+			</div>
 		</div>
 	{/if}
 
 	<!-- MAIN NAV WRAPPER -->
-	<div class="mx-auto flex w-full max-w-[1200px] flex-wrap items-center gap-4 px-4 py-4 sm:px-6">
-		<a class="text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard 🪄</a>
+	<div
+		class="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6"
+	>
+		<a class="text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard</a>
 
 		<!-- Mobile menu button -->
 		<button
@@ -85,32 +99,34 @@
 			class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 md:hidden"
 			aria-expanded={navOpen}
 			aria-controls="mobile-menu"
-			on:click={toggleNav}
+			onclick={toggleNav}
+			onkeydown={onKeydown}
 			title={`Menü ${navOpen ? 'schließen' : 'öffnen'}`}
 		>
 			<span class="sr-only">Hauptnavigation {navOpen ? 'schließen' : 'öffnen'}</span>
 
 			<!-- Bars wrapper -->
-			<span class="relative block h-5 w-6" aria-hidden="true">
+			<div class="relative block h-5 w-6" aria-hidden="true">
 				<!-- top -->
 				<span
 					class={`absolute top-1/2 left-0 block h-0.5 w-6 -translate-y-1/2 rounded-full bg-slate-800 transition-transform duration-200 ${
 						navOpen ? 'rotate-45' : '-translate-y-2'
 					}`}
-				/>
+				></span>
 				<!-- middle -->
 				<span
 					class={`absolute top-1/2 left-0 block h-0.5 w-6 -translate-y-1/2 rounded-full bg-slate-800 transition-opacity duration-200 ${
 						navOpen ? 'opacity-0' : 'opacity-100'
 					}`}
-				/>
+				></span>
 				<!-- bottom -->
 				<span
 					class={`absolute top-1/2 left-0 block h-0.5 w-6 -translate-y-1/2 rounded-full bg-slate-800 transition-transform duration-200 ${
 						navOpen ? '-rotate-45' : 'translate-y-2'
 					}`}
-				/>
-			</span>
+				>
+				</span>
+			</div>
 		</button>
 
 		<!-- DESKTOP NAV -->
@@ -118,7 +134,7 @@
 			<ul class="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
 				{#each navItems as item}
 					<li>
-						<a href={item.href} class={navLinkClasses(item)} on:click={closeNav}>
+						<a href={item.href} class={navLinkClasses(item)} onclick={closeNav}>
 							{item.label}
 						</a>
 					</li>
@@ -138,14 +154,14 @@
 	>
 		<!-- top bar within panel (keeps close button reachable) -->
 		<div class="flex items-center justify-between border-b border-slate-200 px-4 py-4 sm:px-6">
-			<a class="text-lg font-bold tracking-tight text-slate-950" href="/" on:click={closeNav}
+			<a class="text-lg font-bold tracking-tight text-slate-950" href="/" onclick={closeNav}
 				>Karenz Wizard 🪄</a
 			>
 			<button
 				type="button"
-				class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+				class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
 				aria-label="Menü schließen"
-				on:click={closeNav}
+				onclick={closeNav}
 			>
 				<span class="relative block h-5 w-5" aria-hidden="true">
 					<span
@@ -166,7 +182,7 @@
 						<a
 							href={item.href}
 							class={`block rounded-lg px-3 py-3 ${navLinkClasses(item)} hover:bg-slate-50`}
-							on:click={closeNav}
+							onclick={closeNav}
 						>
 							{item.label}
 						</a>

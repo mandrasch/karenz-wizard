@@ -151,12 +151,12 @@ Sie wollen das ea KBG nutzen, aber einer der beiden Elternteile erfüllt die Ans
 				>
 					<h2
 						id={`${faq.id}-heading`}
-						class="group flex items-center gap-2 text-2xl font-semibold text-slate-900"
+						class="group mt-2 flex items-center gap-2 text-2xl font-semibold text-slate-900"
 					>
 						<span>{faq.question}</span>
 						<a
 							href={`#${faq.id}`}
-							class="text-slate-400 transition-colors hover:text-slate-600 focus-visible:text-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+							class="text-slate-400 transition-colors hover:text-slate-600 focus-visible:text-slate-600 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-slate-500"
 							aria-label={`Direktlink zu ${faq.question}`}
 						>
 							<svg

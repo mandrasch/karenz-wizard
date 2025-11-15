@@ -13,7 +13,8 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:e2e": "playwright test",
-		"test": "npm run test:e2e"
+		"test": "npm run test:e2e",
+		"postbuild": "npx svelte-sitemap --domain https://karenz-wizard.at"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
@@ -38,6 +39,7 @@
 		"sass-embedded": "^1.93.2",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
+		"svelte-sitemap": "^2.7.1",
 		"tailwindcss": "^4.0.0",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.20.0",

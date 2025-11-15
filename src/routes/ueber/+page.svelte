@@ -1,10 +1,34 @@
 <section class="content">
 	<header class="mt-10">
-		<h1 class="text-3xl font-semibold text-slate-900">Die Motivation für dieses Projekt</h1>
+		<h1 class="text-3xl font-semibold text-slate-900">Über</h1>
 	</header>
 	<div class="prose mt-6">
 		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
-		<h3>Ganze Männer machen halbe-halbe?</h3>
+		<h3>Dieses Tool sollte die AK oder eine NGO betreiben!</h3>
+		<p>
+			Dieses Projekt ist ein temporärer Prototyp. Ich habe es als Privatperson entwickelt, um zu
+			beweisen dass ein Online-Tool für die Karenzplanung einfach umsetzbar ist. Ein solches Tool
+			fehlt aktuell dringend, die Karenzplanung ist unnötig kompliziert.
+		</p>
+		<p>
+			Meiner bescheidenen Ansicht nach sollte eine öffentliche Behörde, die Arbeiterkammer oder eine
+			NGO ein solches Tool offiziell betreiben. Insbesondere, um mehr Gleichberechtigung bei der
+			Kinderbetreuung zu gewährleisten: Aktuell nehmen Väter in Österreich nur die minimal
+			erforderlichen 2 Monate Karenz. Ich behaupte: Auch aus Unwissenheit, dass mehr Monate
+			überhaupt möglich wären. So zeigen Videos der AK nur Beispiele mit "2 Monaten Väterkarenz".
+			Ein Online-Tool kann vielfältige Wege aufzeigen.
+		</p>
+		<p>
+			To be fair: Der Sozialstaat Österreich fördert allerdings auch nur 12+2 Monate mit gutem Geld
+			und wenig Einkommensverlust, für eine längere Karenz muss man sich eine "unbezahlte Karenz"
+			leisten können - diese Problematik wird mit diesem Tool ebenso sichtbar gemacht. Die
+			Eltern-Teilzeit, bei welcher Mutter und Vater 20h/Woche arbeiten und sich die Betreuung
+			teilen, stellt allerdings eine Alternative für Gleichberechtigung dar.
+		</p>
+
+		<h3>Die Entstehungsgeschichte</h3>
+
+		<h4>Ganze Männer machen halbe-halbe?</h4>
 		<p>
 			Als werdender Vater wollte ich nicht zu den Männern gehören, die in den Medien kritisiert
 			werden weil sie gar keine oder nur sehr wenig Karenz (2 Monate) in Anspruch nehmen:
@@ -30,7 +54,7 @@
 			>
 		</blockquote>
 		<p>"Ganze Männer machen halbe-halbe" - mit diesem Anspruch startete ich meine Planung.</p>
-		<h3>Ganz so einfach ist es nicht!?</h3>
+		<h4>Ganz so einfach ist es nicht!?</h4>
 		<p>
 			Schnell bemerkte ich jedoch, dass die Kritik mit "Väter nehmen nur 2 Monate" zwar im Kern
 			berechtigt ist - aber die Artikel oft nicht das gesamte Regelwerk dahinter erklären:
@@ -48,7 +72,7 @@
 				Erfahrung nach.)</i
 			>
 		</p>
-		<h4>Bildungskarenz jetzt verboten nach Elternkarenz</h4>
+		<h5>Bildungskarenz jetzt verboten nach Elternkarenz</h5>
 		<p>
 			Auch die Bildungskarenz wurde oft benutzt, um im zweiten Lebensjahr nach der Geburt noch
 			Betreuung gewährleisten zu können wenn die 14 Monate vorbei waren - und die Eltern ihr Kind
@@ -87,7 +111,7 @@
 				einem AK Berater angesprochen, der es ins interne Feedbacksystem mitnehmen möchte.)</i
 			>
 		</p>
-		<h3>Ab wann ist ein Kind bereit für die Kindergarten-Gruppe?</h3>
+		<h4>Ab wann ist ein Kind bereit für die Kindergarten-Gruppe?</h4>
 		<p>
 			Kalt erwischt hat mich daher auch das Thema "Ab wann ist das Kind bereit für
 			Kindergarten-Gruppen? / Ab wann ist es entwicklungspsychologisch sinnvoll?". Dieses Thema wird
