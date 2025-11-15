@@ -34,14 +34,14 @@
 </script>
 
 <section class="content">
-	<header class="mt-10 space-y-4">
+	<header class="mt-10 space-y-4 text-center">
 		<h1 class="text-3xl font-semibold text-slate-900">Blog</h1>
-		<p class="max-w-2xl text-base leading-relaxed text-slate-600">
+		<p class="text-base leading-relaxed text-slate-600">
 			Aktuelle Infos rund um Kinderbetreuungsgeld, Karenzplanung und diese Webseite.
 		</p>
 	</header>
 
-	<div class="mt-6">
+	<div class="mx-auto mt-6 max-w-4xl">
 		{#if articles.length === 0}
 			<p
 				class="rounded-3xl border border-dashed border-slate-300/80 bg-slate-50 px-6 py-10 text-base text-slate-600"

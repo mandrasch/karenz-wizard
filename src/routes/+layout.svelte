@@ -6,18 +6,25 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import { page } from '$app/state';
 
-	let { children } = $props();
+	import type { SeoMeta } from '$lib/seo';
 
-	const layoutVariant = $derived(page.data.layoutVariant ?? 'subpages');
+	const { data, children } = $props<{
+		data: {
+			layoutVariant: string;
+			seo: SeoMeta;
+		};
+	}>();
+
+	const layoutVariant = $derived(data.layoutVariant ?? 'subpages');
+	const fallbackSeo = data.seo;
+	const seo = $derived((page.data?.seo as SeoMeta | undefined) ?? fallbackSeo);
 </script>
 
-<!-- TODO: include page title here on individual pages -->
 <svelte:head>
-	<title>Karenz Wizard 🪄 - der Karenzplaner für Österreich</title>
-	<meta
-		name="description"
-		content="Euch brummt der Kopf von der Karenzplanung? Die Karenzplanung ist eine riesige Herausforderung: Warum hat man ein Recht auf zwei Jahre Karenz (Freistellung) auf Arbeit, aber es werden nur 14 Monate beim einkommensabhängigen Betreuungsgeld (ea KBG) bezahlt? Ebenso herausfordernd ist die Frage der Kinderbetreuung nach der Karenz:"
-	/>
+	<title>{seo?.title ?? 'Karenz Wizard'}</title>
+	{#if seo?.description}
+		<meta name="description" content={seo.description} />
+	{/if}
 	<link rel="icon" href={favicon} />
 	<!-- TODO: add fitting dimensions and more tags -->
 	<meta property="og:image" content="/hero_karenz_wizard.jpg" />

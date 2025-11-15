@@ -15,5 +15,11 @@ export const load = (({ params }) => {
 
 	const { component: _component, ...safeArticle } = article;
 
-	return { article: safeArticle };
+	return {
+		article: safeArticle,
+		seo: {
+			title: `${article.title} – Karenz Wizard Blog`,
+			description: article.description ?? 'Aktueller Beitrag auf dem Karenz Wizard Blog.'
+		}
+	};
 }) satisfies PageServerLoad;

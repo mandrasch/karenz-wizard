@@ -30,11 +30,6 @@
 	};
 </script>
 
-<svelte:head>
-	<title>{article.title} – Karenz Wizard Blog</title>
-	<meta name="description" content={article.description ?? article.title} />
-</svelte:head>
-
 <section class="content">
 	<header class="mt-10 space-y-4">
 		<a
