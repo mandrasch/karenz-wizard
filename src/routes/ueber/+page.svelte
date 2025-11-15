@@ -1,8 +1,8 @@
 <section class="content">
-	<header class="mt-10">
+	<header class="mt-10 text-center">
 		<h1 class="text-3xl font-semibold text-slate-900">Über</h1>
 	</header>
-	<div class="prose mt-6">
+	<div class="prose prose-slate mt-6 mx-auto max-w-3xl">
 		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
 		<h3>Dieses Tool sollte die AK oder eine NGO betreiben!</h3>
 		<p>

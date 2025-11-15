@@ -1,40 +1,102 @@
 <section class="content">
-	<header class="mt-10 space-y-4">
+	<header class="mt-10 space-y-4 text-center">
 		<h1 class="text-3xl font-semibold text-slate-900">Infothek</h1>
 		<p class="text-base text-slate-600">
 			Gesammelte Ressourcen für Planung, Gleichberechtigung und Engagement.
 		</p>
 	</header>
 
-	<div class="prose mt-6 space-y-12">
-		<p class="font-bold">🚧 Übersicht in Arbeit 🚧</p>
+	<div class="mx-auto prose mt-6 max-w-4xl space-y-10">
+		<nav
+			aria-label="Inhaltsverzeichnis"
+			class="rounded-3xl border border-slate-200 bg-white px-6 py-5 shadow-sm"
+		>
+			<p class="text-sm font-semibold tracking-wide text-slate-500 uppercase">Direkt zu</p>
+			<ul class="mt-3 grid gap-2 sm:grid-cols-2">
+				<li>
+					<a class="text-sm font-semibold text-slate-700 hover:text-slate-900" href="#akteurinnen"
+						>Akteur:innen</a
+					>
+				</li>
+				<li>
+					<a
+						class="text-sm font-semibold text-slate-700 hover:text-slate-900"
+						href="#artikel-warum-maenner-so-wenig-karenz"
+						>Artikel: Warum nehmen Männer so wenig Karenz?</a
+					>
+				</li>
+				<li>
+					<a class="text-sm font-semibold text-slate-700 hover:text-slate-900" href="#literatur"
+						>Bücher &amp; Broschüren</a
+					>
+				</li>
+				<li>
+					<a class="text-sm font-semibold text-slate-700 hover:text-slate-900" href="#tools"
+						>Tools &amp; Rechner</a
+					>
+				</li>
+				<li>
+					<a class="text-sm font-semibold text-slate-700 hover:text-slate-900" href="#videos"
+						>Videos</a
+					>
+				</li>
+				<li>
+					<a class="text-sm font-semibold text-slate-700 hover:text-slate-900" href="#sonstiges"
+						>Sonstiges</a
+					>
+				</li>
+			</ul>
+		</nav>
 
 		<section id="akteurinnen">
 			<h2>Akteur:innen</h2>
 
 			<ul>
 				<li>
-					Teresa Bücker - Journalistin & Autorin, Zeitgerechtigkeit. <a
-						href="https://www.instagram.com/fraeulein_tessa/?hl=de">Instagram</a
-					>
+					Teresa Bücker - Journalistin & Autorin, Zeitgerechtigkeit.<br />
+					<a href="https://www.instagram.com/fraeulein_tessa/?hl=de">Instagram</a>
 					| <a href="https://www.linkedin.com/in/teresabuecker/">LinkedIn</a>
+					<!-- TODO: add alt text -->
+					<a href="https://www.instagram.com/fraeulein_tessa/?hl=de">
+						<img
+							class="mt-2 max-w-[300px]"
+							src="/infothek/teresa_buecker_instagram_story_30h.jpg"
+							alt=""
+						/>
+					</a>
 				</li>
 				<li>
-					Patricia Cammarata, Autorin und Diplompsychologin - <a
-						href="https://www.instagram.com/dasnuf/?hl=de">Instagram</a
-					>
+					Patricia Cammarata, Autorin und Diplompsychologin <br />
+					<a href="https://www.instagram.com/dasnuf/?hl=de">Instagram</a> |
+					<a href="https://dasnuf.de/uber-mich/">Webseite</a>
+					<!-- TODO: add alt text -->
+					<a href="https://www.instagram.com/p/C14Ol24t4xU/?hl=de&img_index=3">
+						<img
+							src="/infothek/musterbruch_cammarata_instagram.jpg"
+							class="mt-2 max-w-[300px]"
+							alt=""
+						/>
+					</a>
 				</li>
 				<li>
-					Sabine Rath - Vereinbarkeit in Vollzeit <a
-						href="https://www.instagram.com/sabine_rath_4_vereinbarkeit/">Instagram</a
-					>
+					Sabine Rath - Vereinbarkeit in Vollzeit<br />
+					<a href="https://www.instagram.com/sabine_rath_4_vereinbarkeit/">Instagram</a>
 					| <a href="https://www.linkedin.com/in/sabine-rath/">LinkedIn</a>
+
+					<!-- TODO: add alt text -->
+					<a href="https://www.instagram.com/p/DN0Zkx80C6n/"
+						><img
+							class="mt-2 max-w-[300px]"
+							src="/infothek/32h_sabine_rath_instagram.jpg"
+							alt=""
+						/></a
+					>
 				</li>
 			</ul>
 		</section>
 
-		<section id="artikel">
-			<h2>Artikel: Warum übernehmen Männer so wenig Karenz?</h2>
+		<section id="artikel-warum-maenner-so-wenig-karenz">
+			<h2>Artikel: Warum nehmen Männer so wenig Karenz?</h2>
 			<p>
 				Liegt es an uns Männern, der Wirtschaft, wie Erwerbsarbeit aktuell mit Vollzeit organisiert
 				ist, dem Karriere-Druck bei steigenden Lebens- und Mietkosten, den staatlichen

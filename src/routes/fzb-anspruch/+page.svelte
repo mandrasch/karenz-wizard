@@ -35,10 +35,10 @@
 </script>
 
 <section class="content">
-	<header class="mt-10">
+	<header class="mt-10 text-center">
 		<h1 class="text-3xl font-semibold text-slate-900">Anspruch auf Familienzeitbonus prüfen</h1>
 	</header>
-	<div class="prose mt-6">
+	<div class="prose mx-auto mt-6 max-w-3xl">
 		{#if toolAvailable}
 			<div
 				class="mt-8 grid gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 md:grid-cols-[220px_1fr] md:items-center"

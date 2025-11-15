@@ -1,36 +1,57 @@
 <script lang="ts">
+	import type { PageData } from './$types';
+
+	// TODO: descriptions are just quick examples, re-work them
 	const cards = [
 		{
 			title: 'Habe ich und meine/e Partner/in Anspruch?',
-			subtitle: 'Prüft eure Voraussetzungen.',
+			subtitle: 'Prüft eure Voraussetzungen',
 			description: [
-				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+				'Finde heraus, welche Karenzmodelle euch offenstehen und welche Fristen ihr unbedingt einhalten solltet.',
+				'Der Check erklärt verständlich, welche Voraussetzungen für ea KBG, Papamonat, FZB und unbezahlte Karenz gelten.'
 			],
 			href: '/eakbg-anspruch',
-			cta: 'Anspruch prüfen'
+			cta: 'ea KBG Anspruch prüfen'
 		},
+		// TODO: explain eakbg here briefly
 		{
 			title: 'ea KBG Karenz-Planer',
-			subtitle: 'Plant euren Karenzverlauf Schritt für Schritt.',
+			subtitle: 'Plant eure Karenzaufteilung',
 			description: [
-				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+				'Stellt Monate für beide Elternteile zusammen, kombiniert ea KBG mit unbezahlter Karenz oder Eltern-Teilzeit.',
+				'Ihr seht sofort, wann ihr Arbeitgeber:in, ÖGK oder AK informieren müsst und wie viel Zeit wirklich bleibt.'
 			],
 			href: '/eakbg-planer',
 			cta: 'Zum Karenz-Planer'
 		},
 		{
-			title: 'Beratung & Ressourcen',
-			subtitle: 'Unterstützung für Ihren individuellen Weg.',
+			title: 'Mehr Hintergründe',
+			subtitle: 'Weitere Ressourcen',
 			description: [
-				'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+				'Hier findet ihr Links zu offiziellen Infos, Beratungsstellen, Formularen und Tools – alles an einem Ort.',
+				'Vorlagen für Arbeitgeber-Schreiben, Kontaktstellen der AK sowie Tipps zur Finanzplanung helfen bei euren nächsten Schritten.'
 			],
 			href: '/infothek',
-			cta: 'Ressourcen entdecken'
+			cta: 'Infothek anschauen'
 		}
 	];
 
+	const { data } = $props<{ data: PageData }>();
+	const latestPosts = data.posts ?? [];
+
 	let expanded = $state(false);
 	const ctrlId = 'teaser-more';
+
+	const dateFormatter = new Intl.DateTimeFormat('de-AT', {
+		day: '2-digit',
+		month: 'long',
+		year: 'numeric'
+	});
+
+	const formatDate = (date: string) => {
+		const parsed = new Date(date);
+		return Number.isNaN(parsed.valueOf()) ? date : dateFormatter.format(parsed);
+	};
 </script>
 
 <section class="full-bleed">
@@ -45,7 +66,7 @@
 					/>
 				</div>
 
-				<div class="space-y-6 px-6 text-slate-600">
+				<div class="space-y-6 px-6 pb-4 text-slate-600">
 					<h1 class="text-center text-3xl leading-snug font-bold text-slate-900 sm:text-4xl">
 						Euch brummt der Kopf von der Karenzplanung?
 					</h1>
@@ -136,9 +157,9 @@
 						</p>
 						<h3 class="mt-3 text-lg font-semibold text-slate-900">{card.title}</h3>
 
-						{#each card.description as paragraph}
+						<!-- {#each card.description as paragraph}
 							<p class="mt-2 text-sm leading-relaxed text-slate-500">{paragraph}</p>
-						{/each}
+						{/each} -->
 					</div>
 
 					<div class="px-6 pb-6">
@@ -154,3 +175,58 @@
 		</div>
 	</div>
 </section>
+
+{#if latestPosts.length > 0}
+	<section class="content">
+		<div class="space-y-8">
+			<div class="max-w-3xl">
+				<p class="text-sm font-semibold tracking-wide text-slate-500 uppercase">Blog</p>
+				<h2 class="text-2xl font-semibold text-slate-900 sm:text-3xl">Aktuelle Beiträge</h2>
+				<!-- <p class="mt-2 text-base text-slate-600">
+					Kurz notiert, damit du nichts verpasst: frische Hinweise aus dem Karenz-Alltag.
+				</p> -->
+			</div>
+
+			<div class="grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3">
+				{#each latestPosts as post}
+					<article
+						class="flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-sm transition-shadow duration-200 focus-within:shadow-lg hover:shadow-lg focus:outline-none"
+					>
+						<div class="flex flex-1 flex-col px-6 py-6">
+							<p class="text-xs font-semibold tracking-wide text-slate-500 uppercase">
+								{formatDate(post.pubDate)}
+							</p>
+							<h3 class="mt-2 text-lg font-semibold text-slate-900">
+								<a
+									href={`/blog/${post.slug}`}
+									class="transition hover:text-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+								>
+									{post.title}
+								</a>
+							</h3>
+							<p class="mt-3 text-sm leading-relaxed text-slate-600">{post.teaser}</p>
+						</div>
+
+						<div class="px-6 pb-6">
+							<a
+								class="inline-flex items-center justify-center rounded-full bg-[#C94D54] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[#b64048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54]"
+								href={`/blog/${post.slug}`}
+							>
+								Weiterlesen
+							</a>
+						</div>
+					</article>
+				{/each}
+			</div>
+
+			<div class="text-center">
+				<a
+					class="inline-flex items-center justify-center rounded-full border border-[#C94D54] px-6 py-3.5 text-base font-semibold text-[#C94D54] transition hover:bg-[#C94D54]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54]"
+					href="/blog"
+				>
+					Alle Beiträge anzeigen
+				</a>
+			</div>
+		</div>
+	</section>
+{/if}

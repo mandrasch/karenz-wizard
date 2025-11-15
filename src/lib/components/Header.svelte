@@ -5,6 +5,7 @@
 		label: string;
 		href: string;
 		matchPath?: string;
+		mobileOnly?: boolean;
 	};
 
 	let navOpen = $state(false);
@@ -16,9 +17,13 @@
 		{ label: 'ea KBG Anspruch?', href: '/eakbg-anspruch', matchPath: '/eakbg-anspruch' },
 		{ label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch', matchPath: '/fzb-anspruch' },
 		{ label: 'Pauschales KBG', href: '/pauschales-kbg', matchPath: '/pauschales-kbg' },
+		{ label: 'Infothek', href: '/infothek' },
 		{ label: 'FAQ', href: '/faq' },
+		{ label: 'Über', href: '/ueber' },
 		{ label: 'Blog', href: '/blog' },
-		{ label: 'Über', href: '/ueber' }
+		{ label: 'AK-Beratung', href: '/ak-beratung', mobileOnly: true },
+		{ label: 'Reaktionen & Feedback', href: '/reaktionen-und-feedback', mobileOnly: true },
+		{ label: 'Impressum & Datenschutz', href: '/impressum-datenschutz', mobileOnly: true }
 	];
 
 	const pathname = $derived(page.url.pathname);
@@ -132,7 +137,7 @@
 		<!-- DESKTOP NAV -->
 		<nav aria-label="Hauptnavigation" class="hidden md:flex md:items-center md:gap-6">
 			<ul class="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
-				{#each navItems as item}
+				{#each navItems.filter((item) => !item.mobileOnly) as item}
 					<li>
 						<a href={item.href} class={navLinkClasses(item)} onclick={closeNav}>
 							{item.label}

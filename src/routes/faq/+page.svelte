@@ -116,13 +116,13 @@ Sie wollen das ea KBG nutzen, aber einer der beiden Elternteile erfüllt die Ans
 </script>
 
 <section class="content">
-	<header class="mt-10 space-y-2">
+	<header class="mt-10 space-y-2 text-center">
 		<h1 class="text-3xl font-semibold text-slate-900">FAQ</h1>
 		<p class="text-base text-slate-600">
 			Antworten auf häufige Fragen rund um Papamonat, Karenz und Kinderbetreuung in Österreich.
 		</p>
 	</header>
-	<div class="prose mt-8 max-w-none">
+	<div class="prose mx-auto mt-8 max-w-4xl">
 		<nav
 			aria-label="FAQ Inhaltsverzeichnis"
 			class="not-prose rounded-lg border border-slate-200 bg-slate-50 p-4"

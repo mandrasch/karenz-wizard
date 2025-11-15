@@ -1,11 +1,11 @@
 <section class="content">
-	<header class="mt-10 space-y-4">
+	<header class="mt-10 space-y-4 text-center">
 		<h1 class="text-3xl font-semibold text-slate-900">
 			Pauschales Kinderbetreuungsgeld (KBG-Konto)
 		</h1>
 	</header>
 
-	<div class="prose mt-6">
+	<div class="prose mx-auto mt-6 max-w-3xl">
 		<p>🚧 Inhalt in Arbeit 🚧</p>
 		<p>
 			Das pauschale Kinderbetreuungsgeld-Konto steht allen Eltern offen – unabhängig davon, ob sie
