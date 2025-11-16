@@ -9,9 +9,9 @@ type SeoEntry = {
 };
 
 const defaultMeta: SeoMeta = {
-	title: 'Karenz Wizard – Karenzplanung & Kinderbetreuung in Österreich',
+	title: 'Karenz Wizard – Der Karenzplaner für Österreich',
 	description:
-		'Tools und Infos rund um Karenzplanung, Familienzeitbonus, Kinderbetreuungsgeld und Beratungsstellen in Österreich.'
+		'Tools und Infos rund um Karenzplanung, Familienzeitbonus, Kinderbetreuungsgeld und Beratungsstellen in Österreich. Für mehr Gleichberechtigung!'
 };
 
 const seoEntries: SeoEntry[] = [
