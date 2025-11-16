@@ -143,6 +143,7 @@ const seoEntries: SeoEntry[] = [
 				'Infos zur Verlängerung nach ea KBG: Mitversicherung, finanzielle Planung und mögliche Stolperfallen.'
 		}
 	},
+	// TODO: use description from markdown files?
 	{
 		match: '/blog/*',
 		meta: {

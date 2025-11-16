@@ -37,7 +37,8 @@
 	<header class="mt-10 space-y-4 text-center">
 		<h1 class="text-3xl font-semibold text-slate-900">Blog</h1>
 		<p class="text-base leading-relaxed text-slate-600">
-			Aktuelle Infos rund um Kinderbetreuungsgeld, Karenzplanung und diese Webseite.
+			Aktuelle Infos zu dieser Webseite sowie ausgewählte Links rund um Kinderbetreuungsgeld und
+			Karenzplanung.
 		</p>
 	</header>
 
