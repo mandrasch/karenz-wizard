@@ -24,7 +24,7 @@ export const prerender = true;
 
 export const load = (() => {
 	const posts = getBlogSummaries()
-		.slice(0, 3)
+		.slice(0, 9)
 		.map((post) => ({
 			...post,
 			teaser: toTeaser(post.source)
