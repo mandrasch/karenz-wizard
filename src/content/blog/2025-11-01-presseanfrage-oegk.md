@@ -4,12 +4,14 @@ pubDate: 2025-11-01
 slug: presseanfrage-oegk-unbezahlte-karenz-mitversicherung-haushaltsfuehrende-person
 ---
 
-Am 15.08.2025 stellte ich diese Anfrage an das ÖGK-Presseteam, bisher leider unbeantwortet:
+Am 15.08.2025 stellte ich diese Anfrage an das ÖGK-Presseteam, ~~bisher leider unbeantwortet~~:
+
+Update 3.12.2025: Die Anfrage wurde [inzwischen beantwortet](/blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/).
 
 <details>
 <summary>Anfrage: Infos zu "Unbezahlte Karenz und ÖGK Mitversicherung - haushaltsführende Person"</summary>
 
-Hintergrund:Während meiner eigenen Karenzplanung wollte ich mich zum Thema "unbezahlte Karenz" informieren, die AK wies mich mehrfach hin dass bei "unverheirateten Paaren" die Haushalts-Klausel ggf. ein Fallstrick sein könnte.
+Hintergrund: Während meiner eigenen Karenzplanung wollte ich mich zum Thema "unbezahlte Karenz" informieren, die AK wies mich mehrfach hin dass bei "unverheirateten Paaren" die Haushalts-Klausel ggf. ein Fallstrick sein könnte.
 
 Auch bei der AK habe ich bei einem Beratungsgespräch darauf hingewiesen, der Mitarbeitende wollte dies in das interne Feedbacksystem mitnehmen.
 
