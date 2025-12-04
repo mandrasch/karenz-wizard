@@ -64,7 +64,7 @@
 	{/if}
 </svelte:head>
 
-<section class="content">
+<section class="content max-w-3xl">
 	<header class="mt-10 space-y-4">
 		<a
 			href="/blog"
@@ -79,19 +79,17 @@
 		</div>
 
 		<div class="space-y-4">
-			<h1 class="text-3xl font-semibold text-slate-900 sm:text-4xl">{article.title}</h1>
+			<h1 class="text-3xl font-semibold text-slate-900 sm:text-3xl">{article.title}</h1>
 			{#if article.description}
 				<p class="max-w-2xl text-base leading-relaxed text-slate-600">{article.description}</p>
 			{/if}
 		</div>
 	</header>
-</section>
 
-<section class="content">
 	{#if ArticleContent}
 		{@const ContentComponent = ArticleContent}
 		{#key article.slug}
-			<div class="prose max-w-none prose-slate">
+			<div class="mx-auto prose mt-8 max-w-3xl prose-slate">
 				<svelte:component this={ContentComponent} />
 			</div>
 		{/key}
