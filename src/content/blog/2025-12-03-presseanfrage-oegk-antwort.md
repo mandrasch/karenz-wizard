@@ -6,9 +6,13 @@ slug: antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung
 
 Gut Ding will - manchmal - Weile haben. Die ÖGK hat sich netterweise gestern bei mir gemeldet bzgl. meiner Presseanfrage "Unbezahlte Karenz und Mitversicherung - haushaltsführende Person (unverheiratete Paare)" und sich zudem für die späte Antwort entschuldigt. Vielen Dank!
 
-Worum geht es?
+### Worum ging es bei meiner Anfrage?
+
+#### Für verheiratete Paare - alles easy bei der Mitversicherung
 
 Bei verheirateten Paaren ist in Österreich alles easy: Möchte ein Elternteil nach den 12+2 Monaten mit einkommensabhängigem Kinderbetreuungsgeld (ea KBG) noch in "unbezahlter Karenz" bleiben, so kann er/sie sich einfach bei seinem Partner/in in der Krankenversicherung mitversichern lassen. Rechtlichen Anspruch beim Arbeitgeber auf Karenz-Freistellung hat man nämlich bis zum 2. Lebensjahr des Kindes.
+
+#### Mitversicherung bei unverheirateten Paaren - Prüfung?
 
 Bei unverheirateten Paaren gibt es jedoch für die <a href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.870667&portal=oegkportal">ÖGK Mitversicherung</a> folgende neue Klausel:
 
@@ -16,15 +20,23 @@ Bei unverheirateten Paaren gibt es jedoch für die <a href="https://www.gesundhe
 
 Die Arbeiterkammer Wien wies mich bei zwei voneinander unabhängigen Beratungsgesprächen darauf hin, dass bei unverheirateten Paaren die Haushaltsführungs-Klausel ggf. ein Fallstrick sein könnte. Verlässliche Informationen zum Thema findet man bisher jedoch kaum. Planungssicherheit für werdende Eltern? Schwierig!
 
-Dieser Unsicherheitsfaktor erschwert die finanzielle Planung natürlich immens, weil sonst im schlimmsten Fall monatliche Beiträge bis zu 526,79 € / Monat (freiwillige Selbstversicherung ÖGK - falls [Antrag auf Herabsetzung der Beitragsgrundlage für Selbstversicherte in der Krankenversicherung](https://www.gesundheitskasse.at/cdscontent/?contentid=10007.867315&portal=oegkportal) ebenso nicht bewilligt wird) fällig werden würden für den Elternteil, der in unbezahlte Karenz geht. Während dieser zeitgleich logischerweise keine Einkünfte hat.
+Dieser Unsicherheitsfaktor erschwert die finanzielle Planung natürlich immens, weil sonst im schlimmsten Fall monatliche Beiträge bis zu 526,79 € / Monat (freiwillige Selbstversicherung ÖGK ) fällig werden würden für den Elternteil, der in unbezahlte Karenz geht. Während dieser zeitgleich logischerweise keine Einkünfte hat. (Es gibt jedoch auch den „Antrag auf Herabsetzung der Beitragsgrundlage für Selbstversicherte in der Krankenversicherung“.)
 
-Auch durch den [Wegfall der Bildungskarenz nach Elternkarenz](/blog/bildungskarenz-bruecke-erwerbsleben-entfaellt/) könnte das Modell „unbezahlte Karenz“-Monate relevanter werden für einige Eltern, welche ihr Kind nicht direkt nach 12+2 Monaten fremdbetreuen lassen oder direkt beide in Eltern-Teilzeit gehen möchten.
+#### Unbezahlte Karenz spielt für Väter eine Rolle, die für 2 Monate Karenz medial kritisiert werden
 
-Inbesondere für Väter wären ein paar Monate unbezahlte Karenz eine wichtige Option, falls die Mutter bspw. 12 Monate mit ea KBG Förderung in Karenz geht, der Vater die noch 2 verbleibenden ea KBG-Monate Karenz nimmt und danach noch die unbezahlte Karenzmonate anhängen könnte. Gerade Väter werden in Österreich medial heftig kritisiert, dass sie größtenteils nur 2 Monate Karenz nehmen.
+Inbesondere für Väter wären ein paar Monate unbezahlte Karenz eine wichtige Option, falls die Mutter bspw. 12 Monate mit ea KBG Förderung in Karenz geht, der Vater die noch 2 verbleibenden ea KBG-Monate Karenz nimmt und er danach noch die unbezahlte Karenzmonate anhängen könnte. Gerade Väter werden in Österreich medial heftig kritisiert, dass sie nur 2 Monate Karenz nehmen.
 
-Ich möchte das Thema jedoch nicht dramatisieren. Möglicherweise werden die meisten Mitversicherungen bewilligt?
+#### Auch durch Wegfall der Bildungskarenz mehr Relevanz?
+
+Auch durch den [Wegfall der Bildungskarenz nach Elternkarenz](/blog/bildungskarenz-bruecke-erwerbsleben-entfaellt/) könnte das Modell „unbezahlte Karenz“-Monate relevanter werden für einige Eltern, welche ihr Kind nicht direkt nach 12+2 Monaten fremdbetreuen lassen oder direkt beide in Eltern-Teilzeit gehen möchten. Rechtlichen Anspruch beim Arbeitgeber auf Karenz-Freistellung hat man nämlich bis zum 2. Lebensjahr des Kindes.
+
+#### Was wird in der Praxis bewilligt?
+
+Ich möchte das Thema jedoch nicht dramatisieren. Möglicherweise werden die meisten Mitversicherungen bei unverheirateten Paaren bewilligt? Fakt ist aber auch: Online finden sich kaum verlässliche Informationen, die Arbeiterkammer weist auf Fallstrick hin. Werdende Eltern sind aktuell mit Unsicherheit konfrontiert.
 
 _Falls schon jemand unverheiratet in unbezahlte Karenz gegangen ist und die ÖGK Mitversicherung bewilligt / nicht bewilligt bekommen hat - sehr gerne [bei mir melden](mailto:matthias-andrasch-kontakt@mailbox.org) mit kurzem Erfahrungsbericht!_
+
+### Antwort der ÖGK
 
 Hier nun die Antwort der ÖGK zu [meiner Anfrage](/blog/presseanfrage-oegk-unbezahlte-karenz-mitversicherung-haushaltsfuehrende-person/), welche etwas mehr rechtlichen Kontext bietet. Die Antwort weist aber ebenso darauf hin, dass es sich stets um eine Einzelfall-Prüfung handelt:
 
@@ -66,14 +78,14 @@ Das erwähnte Formular „Prüfung der Anspruchsberechtigung für Angehörige ge
 
 ### Hintergrund: Keine Planungssicherheit für unverheiratete Eltern?
 
-Ich möchte das Thema wie schon erwähnt nicht dramatisieren. Möglicherweise werden die meisten Mitversicherungen bewilligt?
+Ich möchte das Thema wie schon erwähnt nicht dramatisieren.
 
-Wenn ich jedoch bei zwei voneinander unabhängigen Beratungsgesprächen bei der Arbeiterkammer Wien auf einen möglichen Fallstrick für unverheiratete Paare hingewiesen werde, weil ich von einer geplanten unbezahlten Karenz erzähle - dann stellt sich für mich natürlich die Frage, wie ich das sinnvoll und verlässlich planen soll.
+Wenn ich jedoch bei zwei voneinander unabhängigen Beratungsgesprächen bei der Arbeiterkammer Wien auf einen möglichen Fallstrick für unverheiratete Paare hingewiesen werde, weil ich von einer geplanten unbezahlten Karenz erzähle - dann stellt sich für mich natürlich die Frage, wie ich das finanziell verlässlich planen soll.
 
-In meinem letzten AK-Beratungsgespräch zu Karenz/Arbeitsrecht habe ich nochmal darauf aufmerksam gemacht, dass hier anscheinend Unsicherheiten bestehen ob eine Mitversicherung bei unverheirateten Paaren bewilligt wird. Der von mir angesprochene Mitarbeitende der AK wollte dies in das interne Feedbacksystem mitnehmen.
+In meinem letzten AK-Beratungsgespräch zu Karenz/Arbeitsrecht im Sommer 2025 habe ich nochmal darauf aufmerksam gemacht, dass hier anscheinend Unsicherheiten bestehen ob eine Mitversicherung bei unverheirateten Paaren bewilligt wird. Der von mir angesprochene Mitarbeitende der AK wollte dies in das interne Feedbacksystem mitnehmen.
 
 Warum diese Regelung eingeführt wurde, müsste ich nun wohl beim BMASGPK [Bundesministerium für Arbeit, Soziales, Gesundheit, Pflege und Konsumentenschutz] erfragen.
 
 Eine echte Planungssicherheit für unverheiratete Eltern wäre meiner Ansicht nach enorm wichtig - insbesondere wenn Väter bspw. noch ein paar Monate länger nach den 12+2 Monaten des einkommensabhängigen Kinderbetreuungsgeld in unbezahlte Karenz gehen möchten! Auch durch den [Wegfall der Bildungskarenz nach Elternkarenz](/blog/bildungskarenz-bruecke-erwerbsleben-entfaellt/) könnte eine unbezahlte Karenz relevanter werden für einige Eltern.
 
-Falls schon jemand unverheiratet in unbezahlte Karenz gegangen ist und die ÖGK Mitversicherung bewilligt / nicht bewilligt bekommen hat - sehr gerne [bei mir melden](mailto:matthias-andrasch-kontakt@mailbox.org) mit kurzem Erfahrungsbericht!
+_Falls schon jemand unverheiratet in unbezahlte Karenz gegangen ist und die ÖGK Mitversicherung bewilligt / nicht bewilligt bekommen hat - sehr gerne [bei mir melden](mailto:matthias-andrasch-kontakt@mailbox.org) mit kurzem Erfahrungsbericht!_
