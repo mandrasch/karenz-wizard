@@ -12,6 +12,11 @@
 						href="https://mandrasch.dev">Matthias Andrasch</a
 					>.
 				</p>
+				<p class="text-xs leading-relaxed text-slate-600">
+					Dieses Tool ist ein privater "proof of concept". Aus meiner bescheidenen Sicht sollte es
+					von einer Vertretung wie der Arbeiterkammer oder einer NGO betrieben werden, um mehr
+					Väterkarenz und Gleichberechtigung zu ermöglichen. 💪
+				</p>
 				<h2 id="footer-open-source" class="mt-6 text-sm font-semibold text-slate-900">
 					Open Source
 				</h2>
