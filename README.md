@@ -6,11 +6,7 @@ Planning tool for parental leave in Austria.
 
 Quick proof of concept with a lot of help of [ChatGPT Codex (VSCode)](https://marketplace.visualstudio.com/items?itemName=openai.chatgpt) and regular ChatGPT 5, done in my leisure time.
 
-Status: It's messy, inaccessible and needs improvement!
-
-🚧 Work in progress 🚧
-
-https://karenz-wizard.matthias-andrasch.eu/
+https://karenz-wizard.at
 
 ## Stack
 
