@@ -1,4 +1,3 @@
-
 <section class="content">
 	<header class="mt-10">
 		<h1 class="text-3xl font-semibold text-slate-900">Datenschutz</h1>
@@ -7,9 +6,19 @@
 	<div class="prose mt-6">
 		<div class="mx-auto max-w-4xl px-4 py-8">
 			<p class="mb-4 text-gray-700">
-				Dieses Projekt speichert keine personenbezogenen Daten. Es erfolgt keine
-				IP-Adressprotokollierung, keine Server-Statistiken und keine externe Analyse. Alle Daten
-				werden ausschließlich lokal im Browser mittels JavaScript verarbeitet.
+				Dieses Projekt speichert oder verarbeitet keine personenbezogenen Daten.
+			</p>
+
+			<p class="mb-4 text-gray-700">
+				Alle Daten, die eingegeben werden, werden ausschließlich lokal im Browser mittels JavaScript
+				verarbeitet. Es erfolgt keine Speicherung, Weitergabe o.ä.
+			</p>
+
+			<p class="mb-4 text-gray-700">
+				Die reinen Webseiten-Aufrufe (Views) zähle ich mit dem datentschutzfreundlichen Tool <a
+					href="https://umami.is/">umami</a
+				>, welches ebenfalls keine personenbezogenen Daten speichert oder verarbeitet - und auch
+				keinerlei Cookies nutzt.
 			</p>
 
 			<p class="mb-8 text-gray-700">
