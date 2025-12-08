@@ -4,7 +4,7 @@ Planning tool for parental leave in Austria.
 
 ![](static/hero_karenz_wizard.jpg)
 
-Quick proof of concept with a lot of help of [ChatGPT Codex (VSCode)](https://marketplace.visualstudio.com/items?itemName=openai.chatgpt) and regular ChatGPT 5, done in my leisure time.
+Quick proof of concept with a lot of help of [ChatGPT Codex (VSCode)](https://marketplace.visualstudio.com/items?itemName=openai.chatgpt) and regular ChatGPT 5, done in my leisure time. Needs improvements in regards to accessibility & diversity.
 
 https://karenz-wizard.at
 

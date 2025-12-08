@@ -19,6 +19,6 @@ By the way:
 
 Mich würden die Erfahrungen zur Karenzberatung, insbesondere Väterkarenz, sehr interessieren. Vielleicht starte ich mal einen Reddit-Thread o.ä., um dies zu diskutieren.
 
-Bis dahin gerne Erfahrungsberichte gerne [per Mail](matthias-andrasch-kontakt@mailbox.org) schicken. Ich sammele Reaktionen & Feedback [hier](/reaktionen-und-feedback/), natürlich ggf. auch anonymisiert.
+Bis dahin gerne Erfahrungsberichte gerne [per Mail](mailto:matthias-andrasch-kontakt@mailbox.org) schicken. Ich sammele Reaktionen & Feedback [hier](/reaktionen-und-feedback/), natürlich ggf. auch anonymisiert.
 
 Grüße aus Wien!
