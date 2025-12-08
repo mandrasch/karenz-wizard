@@ -1,5 +1,5 @@
 ---
-title: Jede AK berät änders?
+title: Jede AK berät anders?
 pubDate: 2025-12-08
 slug: jede-ak-beraet-anders
 ---
