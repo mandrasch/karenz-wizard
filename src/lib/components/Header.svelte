@@ -64,12 +64,27 @@
 	{#if showPreviewBanner}
 		<!-- Preview banner -->
 		<div class="prose-body relative border-b border-amber-200 bg-red-100 text-red-800">
+			<button
+				type="button"
+				class="absolute right-2 top-2 rounded-md p-1.5 text-red-800/60 transition hover:bg-red-200 hover:text-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+				aria-label="Hinweis ausblenden"
+				onclick={() => (showPreviewBanner = false)}
+			>
+				<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+					<path
+						d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+					/>
+				</svg>
+			</button>
 			<div
 				class="mx-auto flex max-w-prose flex-col items-center gap-3 px-6 py-5 text-center text-xs font-medium sm:text-sm"
 				aria-live="polite"
 				id="preview-banner"
 			>
-				<p>Diese Webseite ist ein Hobby-Projekt – alle Angaben ohne Gewähr! Inhalte wurden noch nicht von Expert:innen geprüft.</p>
+				<p>
+					Diese Webseite ist ein Hobby-Projekt – alle Angaben ohne Gewähr! Die Inhalte wurden noch nicht
+					von Expert:innen geprüft.
+				</p>
 
 				<div class="space-y-3">
 					<p>
@@ -78,14 +93,6 @@
 						beraten lassen! ⚠️
 					</p>
 				</div>
-
-				<button
-					type="button"
-					class="inline-flex items-center rounded-full border border-red-200 px-4 py-2 text-xs font-semibold text-red-900 transition hover:bg-red-200/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
-					onclick={() => (showPreviewBanner = false)}
-				>
-					Hinweis ausblenden
-				</button>
 			</div>
 		</div>
 	{/if}
