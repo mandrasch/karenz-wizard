@@ -9,6 +9,7 @@ export type BlogFrontmatter = {
 
 export type BlogSummary = BlogFrontmatter & {
 	source: string;
+	teaser: string;
 };
 
 type BlogModule = {
@@ -27,6 +28,10 @@ export type BlogArticle = BlogSummary & {
 };
 
 const blogModules = import.meta.glob<BlogModule>('/src/content/blog/*.md', { eager: true });
+const blogSources = import.meta.glob<string>('/src/content/blog/*.md', {
+	eager: true,
+	as: 'raw'
+});
 
 const isFrontmatterComplete = (
 	metadata?: Partial<BlogFrontmatter>
@@ -45,9 +50,27 @@ const collectRecords = (): BlogRecord[] => {
 	return records;
 };
 
+const stripFrontmatter = (content: string) => {
+	const match = content.match(/^---[\s\S]*?---\s*/);
+	return match ? content.slice(match[0].length) : content;
+};
+
+const toTeaser = (source: string, length = 100) => {
+	const raw = blogSources[source];
+	if (!raw) return '';
+
+	const clean = stripFrontmatter(raw).replace(/\s+/g, ' ').trim();
+	if (clean.length <= length) return clean;
+	return `${clean.slice(0, length).trim()}…`;
+};
+
 export const getBlogSummaries = (): BlogSummary[] => {
 	return collectRecords()
-		.map(({ path, metadata }) => ({ ...metadata, source: path }))
+		.map(({ path, metadata }) => ({
+			...metadata,
+			source: path,
+			teaser: toTeaser(path)
+		}))
 		.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
 };
 
@@ -58,7 +81,12 @@ export const getBlogEntries = (): string[] => {
 export const getBlogArticle = (slug: string): BlogArticle | null => {
 	for (const { path, module, metadata } of collectRecords()) {
 		if (metadata.slug !== slug) continue;
-		return { ...metadata, source: path, component: module.default };
+		return {
+			...metadata,
+			source: path,
+			component: module.default,
+			teaser: toTeaser(path)
+		};
 	}
 
 	return null;

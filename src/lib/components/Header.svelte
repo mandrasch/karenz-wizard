@@ -69,11 +69,9 @@
 				aria-live="polite"
 				id="preview-banner"
 			>
-				<p class="font-semibold tracking-wide text-red-900 uppercase">Frühe Vorschau-Version</p>
-				<p>Das ist ein Hobby-Projekt und wird noch entwickelt – alle Angaben ohne Gewähr!</p>
+				<p>Diese Webseite ist ein Hobby-Projekt – alle Angaben ohne Gewähr! Inhalte wurden noch nicht von Expert:innen geprüft.</p>
 
 				<div class="space-y-3">
-					<p>Inhalte wurden noch nicht von Expert:innen geprüft.</p>
 					<p>
 						⚠️ Bitte unbedingt
 						<a class="underline" href="/ak-beratung/">kostenfrei bei der Arbeiterkammer</a>
