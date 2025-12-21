@@ -24,8 +24,6 @@
 	Danke für ihre Arbeit. Sehr coole Seite! 🙌 (<a href="https://www.instagram.com/reel/DR9RaZTDnXO/">Instagram-Kommentar</a>)
 		</blockquote>
 
-
-
 		<blockquote
 			class="not-prose rounded-lg border border-slate-200 bg-slate-50 p-6 text-base text-slate-800"
 		>
