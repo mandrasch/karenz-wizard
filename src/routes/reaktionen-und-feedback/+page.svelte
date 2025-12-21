@@ -15,6 +15,17 @@
 		</p>
 	</header>
 	<div class="prose mt-8 max-w-none">
+
+		<blockquote>
+			Ich finde die visuelle Darstellung des ea KBG Planers super. Das hätte mir vor Kurzem einigen Stunden an Recherche erspart. (<a href="https://www.instagram.com/reel/DR9RaZTDnXO/">Instagram-Kommentar</a>)
+		</blockquote>
+
+		<blockquote>
+	Danke für ihre Arbeit. Sehr coole Seite! 🙌 (<a href="https://www.instagram.com/reel/DR9RaZTDnXO/">Instagram-Kommentar</a>)
+		</blockquote>
+
+
+
 		<blockquote
 			class="not-prose rounded-lg border border-slate-200 bg-slate-50 p-6 text-base text-slate-800"
 		>
