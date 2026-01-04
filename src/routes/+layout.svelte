@@ -36,7 +36,7 @@
 >
 	<a class="skip-link" href="#main">Zum Inhalt springen</a>
 	<Header />
-	<main tabindex="-1" id="main" class="flex-1 pb-16 focus:outline-none" data-layout={layoutVariant}>
+	<main tabindex="-1" id="main" class="flex-1 pb-12 focus:outline-none" data-layout={layoutVariant}>
 		<div class="page-grid">
 			{@render children?.()}
 		</div>
