@@ -102,10 +102,6 @@
 			Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz sowie
 			Sozialversicherungsfragen. Sie ist als Arbeitnehmer:innen-Vertretung <b>auf deiner Seite</b>.
 		</p>
-		<p>
-			Um keine Fehler bei deinem Kinderbetreuungsgeld-Antrag zu machen, solltest du deine Pläne bei
-			dieser Beratung vorher prüfen lassen.
-		</p>
 		<p class="font-semibold">
 			Tipp: Direkt einen Termin für die erste Beratung bei deiner AK vereinbaren. Je früher, desto
 			besser. 💪
