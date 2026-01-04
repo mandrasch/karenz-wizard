@@ -1,87 +1,165 @@
 <script>
-	// TODO: check links
-	// TODO: add Burgenland https://bgld.arbeiterkammer.at/vaeterkarenz
 	const akList = [
 		{
 			name: 'Burgenland',
 			links: [
-				/*{ title: 'Startseite', url: 'https://bgld.arbeiterkammer.at' },
-				{ title: 'Väterkarenz', url: 'https://bgld.arbeiterkammer.at/vaeterkarenz' },
+				{ title: 'Startseite', url: 'https://bgld.arbeiterkammer.at' },
 				{
-					title: 'Kontakt: Arbeitsrecht',
-					url: 'https://bgld.arbeiterkammer.at/ueberuns/kontakt/index.html'
-				}*/
+					title: 'Beruf & Familie',
+					url: 'https://bgld.arbeiterkammer.at/beratung/berufundfamilie/index.html'
+				},
+				{
+					title: 'Elternberatungs-Termine vor Ort',
+					url: 'https://bgld.arbeiterkammer.at/elternberatung'
+				},
+				{ title: 'Kontakt', url: 'https://bgld.arbeiterkammer.at/ueberuns/kontakt/index.html' }
 			]
 		},
 		{
 			name: 'Kärnten',
 			links: [
-				/*{ title: 'Startseite', url: 'https://kaernten.arbeiterkammer.at' },
+				{ title: 'Startseite', url: 'https://kaernten.arbeiterkammer.at' },
+				{
+					title: 'Beruf & Familie',
+					url: 'https://kaernten.arbeiterkammer.at/beratung/berufundfamilie/index.html'
+				},
+				{
+					title: 'AK Kärnten lädt zum Elternfrühstück',
+					url: 'https://kaernten.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreuungsgeld/AK_laedt_zum_Elternfruehstueck.html'
+				},
 				{
 					title: 'Kontakt: Mutterschutz und Elternkarenz',
 					url: 'https://kaernten.arbeiterkammer.at/ueberuns/kontakt/karenz/Mutterschutz___Karenz.html'
-				}*/
+				}
 			]
 		},
 		{
 			name: 'Niederösterreich',
 			links: [
-				/*
 				{ title: 'Startseite', url: 'https://noe.arbeiterkammer.at' },
+				{
+					title: 'Beruf & Familie',
+					url: 'https://noe.arbeiterkammer.at/beratung/berufundfamilie/index.html'
+				},
+				{
+					title: 'Quiz - Karenz',
+					url: 'https://noe.arbeiterkammer.at/beratung/berufundfamilie/karenz/Quiz-_Karenz.html'
+				},
+				{
+					title: 'Quiz - Papamonat',
+					url: 'https://noe.arbeiterkammer.at/beratung/berufundfamilie/karenz/Quiz-_Papamonat.html'
+				},
+				{
+					title: 'Quiz - Kinderbetreuungsgeld',
+					url: 'https://noe.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreuungsgeld/index.html'
+				},
 				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/aknoe.html' }
-			*/
 			]
 		},
 		{
 			name: 'Oberösterreich',
 			links: [
-				/*
 				{ title: 'Startseite', url: 'https://ooe.arbeiterkammer.at' },
-				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/akooe.html' }
-			*/
+				{
+					title: 'Beruf & Familie',
+					url: 'https://ooe.arbeiterkammer.at/beratung/berufundfamilie/index.html'
+				},
+				{
+					title: 'Webinar - Ein Baby kommt - was Eltern wissen sollten',
+					url: 'https://ooe.arbeiterkammer.at/service/veranstaltungen/allgemeinetermine/online/Ein_Baby_kommt_-_was_Eltern_wissen_sollten.html'
+				},
+
+				{
+					title: 'Webinar - Nach der Karenz - was Eltern wissen sollten',
+					url: 'https://ooe.arbeiterkammer.at/service/veranstaltungen/allgemeinetermine/online/Nach-der-Karenz---was-Eltern-wissen-sollten.html'
+				},
+				{
+					title: 'Kontakt / persönliche Beratung: Ein Baby kommt: Infos zu Job, Versicherung, Geld',
+					url: 'https://ooe.arbeiterkammer.at/ueberuns/kontakte/beratung/Elternschaft.html'
+				}
 			]
 		},
 		{
 			name: 'Salzburg',
 			links: [
-				/*
 				{ title: 'Startseite', url: 'https://sbg.arbeiterkammer.at' },
-				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/aksbg.html' }
-			*/
+				{
+					title: 'Beruf & Familie',
+					url: 'https://sbg.arbeiterkammer.at/beratung/berufundfamilie/index.html'
+				},
+				{
+					title: 'Kontakt - Arbeitsrecht',
+					url: 'https://sbg.arbeiterkammer.at/ueberuns/kontakt/arbeitsrecht/Arbeitsrecht.html'
+				}
 			]
 		},
 		{
 			name: 'Steiermark',
 			links: [
-				/*
 				{ title: 'Startseite', url: 'https://stmk.arbeiterkammer.at' },
-				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/akstmk.html' }
-			*/
+				{
+					title: 'Beruf & Familie',
+					url: 'https://stmk.arbeiterkammer.at/beratung/berufundfamilie/Beruf_und_Familie_Uebersichtsseite.html'
+				},
+				{
+					title: 'Infofrühstück für WiedereinsteigerInnen',
+					url: 'https://stmk.arbeiterkammer.at/beratung/berufundfamilie/wiedereinstieg/Infofruehstueck.html'
+				},
+				{
+					title: 'Kontakt - Frau, Beruf & Familie',
+					url: 'https://stmk.arbeiterkammer.at/ueberuns/kontakt/Kontakt_Frauen_und_Gleichstellung.html'
+				}
 			]
 		},
 		{
 			name: 'Tirol',
 			links: [
-				/*
 				{ title: 'Startseite', url: 'https://tirol.arbeiterkammer.at' },
-				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/AK_Tirol.html' }
-			*/
+				{
+					title: 'Beruf & Familie',
+					url: 'https://tirol.arbeiterkammer.at/beratung/berufundfamilie/index.html'
+				},
+				{
+					title: 'Webinar: Ein Baby kommt - Das müssen Sie rund um die Geburt Ihres Kindes wissen!',
+					url: 'https://tirol.arbeiterkammer.at/beratung/berufundfamilie/Webinar-Ein-Baby-kommt.html'
+				},
+				{
+					title: 'Kontakt - Arbeitsrecht',
+					url: 'https://tirol.arbeiterkammer.at/ueberuns/kontakt/Arbeitsrecht/Arbeitsrecht.html'
+				}
 			]
 		},
 		{
 			name: 'Vorarlberg',
 			links: [
-				/*
 				{ title: 'Startseite', url: 'https://vbg.arbeiterkammer.at' },
-				{ title: 'Kontakt', url: 'https://www.arbeiterkammer.at/kontakt/akvbg.html' }
-			*/
+				{
+					title: 'Familie & Beruf',
+					url: 'https://vbg.arbeiterkammer.at/beratung/berufundfamilie/index.html'
+				},
+				{
+					title: 'Karenz-Service: Termin vereinbaren',
+					url: 'https://vbg.arbeiterkammer.at/beratung/berufundfamilie/Beratungstermin.html'
+				}
 			]
 		},
 		{
 			name: 'Wien',
 			links: [
 				{
-					title: 'Beratung Elternkarenz (Telefon & Formular)',
+					title: 'Startseite',
+					url: 'https://wien.arbeiterkammer.at'
+				},
+				{
+					title: 'Beruf & Familie',
+					url: 'https://wien.arbeiterkammer.at/beratung/berufundfamilie/index.html'
+				},
+				{
+					title: 'Veranstaltungen: Kind und Job',
+					url: 'https://wien.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreuungsgeld/Veranstaltungen_zu_Kindergeld_und_Elternteilzeit.html'
+				},
+				{
+					title: 'Kontakt: Beratungstermin Elternkarenz',
 					url: 'https://wien.arbeiterkammer.at/ueberuns/kontakt/elternkarenz/Elternkarenz.html'
 				}
 			]
@@ -173,7 +251,7 @@
 			Was die AK (leider) bisher nicht leistet soweit ich weiß: Eine feministische Beratung, wie man
 			die Karenzteile gleichberechtigt zwischen den Elternteilen aufteilt. Hier solltest du dich bei
 			anderen Stellen, Freunden und Bekannten oder im Netz zusätzlich informieren. Denn "ganze
-			Männer machen halbe halbe". Siehe auch <a href="/infothek">Infothek</a> auf dieser Webseite.
+			Männer machen Halbe-Halbe". Siehe auch <a href="/infothek">Infothek</a> auf dieser Webseite.
 		</p>
 	</div>
 </section>
