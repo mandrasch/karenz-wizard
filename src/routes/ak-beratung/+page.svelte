@@ -195,23 +195,8 @@
 				>ÖGK-Onlineformular</a
 			>) dann im Detail korrekt ausfüllst.
 		</p>
-		<p>
-			Hier ein Foto aus dem Wartebereich der Arbeiterkammer in Wien Ottakring. Du meldest dich bei
-			dem / der freundlichen Mitarbeiter:in am Eingang an wenn du deinen Termin hast und erhältst
-			deine Wartenummer:
-		</p>
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-			<img
-				src="/ak_wien_ottakring_außengebauede.jpg"
-				alt="Außenansicht der Arbeiterkammer Wien in Ottakring"
-				class="w-full rounded-2xl object-cover shadow-md"
-			/>
-			<img
-				src="/ak_wien_ottakring_wartebereich.jpg"
-				alt="Wartebereich in der Arbeiterkammer Wien"
-				class="w-full rounded-2xl object-cover shadow-md"
-			/>
-		</div>
+
+		<p>Einige Arbeiterkammern bieten auch Inforveranstaltungen vor Ort oder Webinare an.</p>
 
 		<ul>
 			{#each akList as ak}
@@ -253,5 +238,24 @@
 			anderen Stellen, Freunden und Bekannten oder im Netz zusätzlich informieren. Denn "ganze
 			Männer machen Halbe-Halbe". Siehe auch <a href="/infothek">Infothek</a> auf dieser Webseite.
 		</p>
+
+		<h3>Wie schaut es bei der Arbeiterkammer vor Ort aus?</h3>
+		<p>
+			Hier ein Foto aus dem Wartebereich der Arbeiterkammer in Wien Ottakring. Du meldest dich bei
+			dem / der freundlichen Mitarbeiter:in am Eingang an wenn du deinen Termin hast und erhältst
+			deine Wartenummer:
+		</p>
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+			<img
+				src="/ak_wien_ottakring_außengebauede.jpg"
+				alt="Außenansicht der Arbeiterkammer Wien in Ottakring"
+				class="w-full rounded-2xl object-cover shadow-md"
+			/>
+			<img
+				src="/ak_wien_ottakring_wartebereich.jpg"
+				alt="Wartebereich in der Arbeiterkammer Wien"
+				class="w-full rounded-2xl object-cover shadow-md"
+			/>
+		</div>
 	</div>
 </section>
