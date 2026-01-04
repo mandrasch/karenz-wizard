@@ -13,7 +13,7 @@
 
 	const navItems: NavItem[] = [
 		// { label: 'Start', href: '/', matchPath: '/' },
-		{ label: 'ea KBG Planer 🪄', href: '/eakbg-planer', matchPath: '/eakbg-planer' },
+		{ label: 'ea KBG Planer', href: '/eakbg-planer', matchPath: '/eakbg-planer' },
 		{ label: 'ea KBG Anspruch?', href: '/eakbg-anspruch', matchPath: '/eakbg-anspruch' },
 		{ label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch', matchPath: '/fzb-anspruch' },
 		{ label: 'Pauschales KBG', href: '/pauschales-kbg', matchPath: '/pauschales-kbg' },
