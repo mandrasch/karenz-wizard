@@ -76,7 +76,7 @@
 				nach 14 Monaten entscheiden muss, ob das Kind fremdbetreut wird, eine Eltern-Teilzeit
 				vereinbart wird oder – falls finanziell möglich – eine unbezahlte Karenzzeit angehangen wird
 				wenn man das Kind bis zum 2. Lebensjahr selbst betreuen möchte. Siehe <a
-					href="eakbg-planer"
+					href="/eakbg-planer"
 					class="underline">ea KBG Planer</a
 				>.</i
 			>
