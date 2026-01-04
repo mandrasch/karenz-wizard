@@ -94,8 +94,8 @@
 			</p>
 		{/if}
 		<p class="my-6">
-			Wichtig: <u><b>Anspruch auf Papamonat hast du immer</b></u>! Das bedeutet: Du hast Recht auf
-			Freistellung von der Arbeit ab Entlassung aus dem Krankenhaus nach der Geburt.
+			Wichtig: <u><b>Anspruch auf Papamonat hast du immer</b></u>! Das bedeutet: Du hast ein gesetzliches Recht auf
+			(unbezahlte) Freistellung von der Arbeit ab Entlassung aus dem Krankenhaus nach der Geburt.
 			<br /><br />
 			Bei diesem Check geht es nur um den Anspruch auf finanzielle Förderung in dem Monat. Solltest du
 			nicht gefördert werden, musst du deine Krankenversicherung abklären. Hier gibt es aber die Option
@@ -131,11 +131,6 @@
 			Für den Tag der Geburt bis Entlassung ist Sonderurlaub nehmen nötig, je nach Kollektivvertrag
 			hat man ggf. auch garantierten Anspruch darauf. Der Papamonat kann erst genommen werden,
 			sobald ihr euch gemeinsam in einem Haushalt befindet.
-		</p>
-		<!-- TODO: move to comp? -->
-		<p>
-			Für verbindliche Auskünfte wende dich an <a href="/ak-beratung">deine Arbeiterkammer</a>,
-			Gewerkschaft oder zuständige Sozialversicherung – Gesetze können sich ändern.
 		</p>
 	</div>
 </section>

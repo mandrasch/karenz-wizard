@@ -100,25 +100,31 @@
 		<p class="font-bold">🚧 Inhalte und Links in Arbeit 🚧</p>
 		<p>
 			Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz sowie
-			Sozialversicherungsfragen. Sie ist als Vertretung <b>auf deiner Seite</b> als Arbeitnehmer:in.
+			Sozialversicherungsfragen. Sie ist als Arbeitnehmer:innen-Vertretung <b>auf deiner Seite</b>.
 		</p>
 		<p>
 			Um keine Fehler bei deinem Kinderbetreuungsgeld-Antrag zu machen, solltest du deine Pläne bei
-			dieser Beratung absichern lassen. Die Mitarbeiter:innen kennen alle gesetzlichen Regeln und
-			können deine Planung überprüfen. So bist du auf der sicheren Seite, dass dir kein Geld
-			verloren geht oder du etwas übersiehst. Sie beantworten auch Fragen dazu, wie du den
-			KBG-Antrag (<a
+			dieser Beratung vorher prüfen lassen.
+		</p>
+		<p class="font-semibold">
+			Tipp: Direkt einen Termin für die erste Beratung bei deiner AK vereinbaren. Je früher, desto
+			besser. 💪
+		</p>
+		<p>
+			Die Mitarbeiter:innen kennen alle gesetzlichen Regeln und können deine Planung überprüfen. So
+			bist du auf der sicheren Seite, dass dir kein Geld verloren geht oder du etwas übersiehst. Sie
+			beantworten auch Fragen dazu, wie du den KBG-Antrag (<a
 				href="https://www.sozialversicherung.at/cdscontent/load?contentid=10008.638102&version=1577958680"
 				>PDF</a
 			>,
 			<a href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.879630&portal=oegkportal"
 				>ÖGK-Onlineformular</a
-			>) dann korrekt ausfüllst. So kannst du danach ruhigen Gewissens in die Karenz starten.
+			>) dann im Detail korrekt ausfüllst.
 		</p>
-
 		<p>
-			Hier ein Foto aus dem Wartebereich in Wien Ottakring. Du meldest dich beim freundlichen
-			Mitarbeiter / der freundlichen Mitarbeiterin am Eingang an und erhältst deine Wartenummer:
+			Hier ein Foto aus dem Wartebereich der Arbeiterkammer in Wien Ottakring. Du meldest dich bei
+			dem / der freundlichen Mitarbeiter:in am Eingang an wenn du deinen Termin hast und erhältst
+			deine Wartenummer:
 		</p>
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<img
@@ -132,7 +138,6 @@
 				class="w-full rounded-2xl object-cover shadow-md"
 			/>
 		</div>
-		<p>Empfehlung: Ersten Termin machen und hingehen! :)</p>
 
 		<ul>
 			{#each akList as ak}
@@ -159,7 +164,10 @@
 		<h3>ÖGK</h3>
 		<ul>
 			<li>
-				<a href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.882921&portal=oegkportal">Kunden­service Wien Kinder­betreuungs­geld</a>
+				<a
+					href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.882921&portal=oegkportal"
+					>Kunden­service Wien Kinder­betreuungs­geld</a
+				>
 			</li>
 		</ul>
 
