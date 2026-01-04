@@ -60,7 +60,7 @@
 	const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 	const rowY = (rowIndex: number) => margins.top + rowIndex * rowHeight;
 
-	let motherMonths = $state(10);
+	let motherMonths = $state(12);
 	let fatherMonths = $state(2);
 	let thirdMonths = $state(0);
 	let jointMonth = $state(false);
@@ -90,8 +90,9 @@
 		fatherMonths = clamp(fatherPreset, MIN_FATHER_MONTHS, MAX_FATHER_MONTHS);
 	};
 
-	// TODO: use Months here!
 	const formatWeeks = (value: number) => `${value.toFixed(0)} Wo.`;
+	const formatMonths = (weeks: number) =>
+		`${(weeks / WEEKS_PER_MONTH).toLocaleString('de-AT', { maximumFractionDigits: 0 })}`;
 
 	$effect(() => {
 		motherMonths = clamp(motherMonths, motherMin, motherMax);
@@ -124,7 +125,7 @@
 			? EXTENDED_MUTTERSCHUTZ_WEEKS
 			: DEFAULT_MUTTERSCHUTZ_WEEKS;
 		const mutterschutzMonthsCurrent = mutterschutzWeeksActive / WEEKS_PER_MONTH;
-		const totalMonthsCap = Math.max(0, MAX_TOTAL_MONTHS - mutterschutzMonthsCurrent);
+		const totalMonthsCap = Math.max(0, MAX_TOTAL_MONTHS);
 
 		const maxMotherAllowed = Math.max(motherMin, totalMonthsCap - MIN_FATHER_MONTHS);
 		if (motherMonths > maxMotherAllowed) {
@@ -147,13 +148,10 @@
 		extendedMutterschutz ? EXTENDED_MUTTERSCHUTZ_WEEKS : DEFAULT_MUTTERSCHUTZ_WEEKS
 	);
 	const motherTotalMonths = $derived(motherMonths + (jointMonth ? 1 : 0));
-	const motherWeeks = $derived(mutterschutzWeeks + monthsToWeeks(motherTotalMonths));
+	const motherWeeks = $derived(monthsToWeeks(motherTotalMonths));
 	const fatherWeeks = $derived(monthsToWeeks(fatherMonths));
 	const fatherStart = $derived(
-		Math.max(
-			mutterschutzWeeks,
-			jointMonth ? mutterschutzWeeks + monthsToWeeks(motherMonths) : motherWeeks
-		)
+		Math.max(mutterschutzWeeks, jointMonth ? monthsToWeeks(motherMonths) : motherWeeks)
 	);
 	const fatherEnd = $derived(fatherStart + fatherWeeks);
 
@@ -218,13 +216,10 @@
 		const motherCoverageDemand = Math.max(0, motherMonths - overlapAdjustment);
 		motherCoverageDemandValue = motherCoverageDemand;
 
-		let remainingCoverage = Math.max(0, eaKbgMonths - mutterschutzMonths);
+		let remainingCoverage = Math.max(0, eaKbgMonths);
 		const minimumReservedForFather = Math.min(MIN_FATHER_MONTHS, fatherMonths);
 		const maxMotherPaidCoverage = Math.max(0, remainingCoverage - minimumReservedForFather);
-		const motherCoverageWindowMonths = Math.max(
-			0,
-			(eaKbgWeeks - mutterschutzWeeks) / WEEKS_PER_MONTH
-		);
+		const motherCoverageWindowMonths = Math.max(0, eaKbgWeeks / WEEKS_PER_MONTH);
 
 		motherPaidMonths = Math.min(
 			motherMonths,
@@ -292,13 +287,13 @@
 	const exceedsEaKbg = $derived(totalParentalMonths > eaKbgMonths);
 
 	const motherDisplay = $derived(
-		motherUnpaidMonths > 0
-			? `${motherMonths.toFixed(0)} Monate; ${motherPaidMonths.toFixed(0)} bezahlt, ${motherUnpaidMonths.toFixed(0)} unbezahlte)`
-			: `${motherMonths.toFixed(0)} Monate`
+		motherUnpaidMonths > 0.01
+			? `${motherMonths.toFixed(0)} Mon. (${formatMonths(mutterschutzWeeks)} ruhend, ${motherUnpaidMonths.toFixed(0)} unbezahlt)`
+			: `${motherMonths.toFixed(0)} Mon. (${formatMonths(mutterschutzWeeks)} ruhend)`
 	);
 
 	const motherLabel = $derived(
-		motherUnpaidMonths > 0
+		motherUnpaidMonths > 0.01
 			? 'Karenz Mutter: ea KBG³ 💰 + unbezahlte Karenz⁵'
 			: 'Karenz Mutter: ea KBG³ 💰'
 	);
@@ -306,7 +301,7 @@
 	const motherConsumesAllEa = $derived(coverageAfterMother <= 0);
 
 	const fatherLabel = $derived(
-		fatherUnpaidMonths > 0
+		fatherUnpaidMonths > 0.01
 			? fatherPaidMonths > 0 && !motherConsumesAllEa
 				? 'Karenz Vater: ea KBG³ 💰 + unbezahlte Karenz⁵'
 				: 'Karenz Vater: unbezahlte Karenz⁷'
@@ -314,30 +309,30 @@
 	);
 
 	const fatherDisplay = $derived(
-		fatherUnpaidMonths > 0
+		fatherUnpaidMonths > 0.01
 			? `${fatherMonths.toFixed(0)} Monate (${fatherPaidMonths.toFixed(0)} bezahlt, ${fatherUnpaidMonths.toFixed(0)} unbezahlte)`
 			: `${fatherMonths.toFixed(0)} Monate`
 	);
 
 	const thirdLabel = $derived(
 		thirdMonths > 0
-			? thirdUnpaidMonths > 0
+			? thirdUnpaidMonths > 0.01
 				? 'Unbezahlte Karenz⁵ (weiterer Teil)'
 				: 'Karenz weiterer Teil'
 			: ''
 	);
 	const thirdDisplay = $derived(
 		thirdMonths > 0
-			? thirdUnpaidMonths > 0
+			? thirdUnpaidMonths > 0.01
 				? `${thirdMonths.toFixed(0)} Monate (${thirdPaidMonths.toFixed(0)} bezahlt, ${thirdUnpaidMonths.toFixed(0)} unbezahlte)`
 				: `${thirdMonths.toFixed(0)} Monate`
 			: ''
 	);
 
-	const eaLabel = 'Anspruch einkommensabhängiges Kinderbetreuungsgeld³ 💰';
+	const eaLabel = 'Anspruch einkommensabhängiges KBG 💰';
 	const eaDisplay = $derived(
 		jointMonth
-			? `max. t13 Monate ab Geburt (11 + min. 2 Vater) wg. gemeinsamer Monat`
+			? `max. 13 Monate (11 + min. 2 Vater)`
 			: `max. 14 Monate ab Geburt (12 +  min. 2 Vater)`
 	);
 
@@ -348,12 +343,12 @@
 					label: 'Mutterschutz vor Geburt¹',
 					start: -MUTTERSCHUTZ_PRE_WEEKS,
 					end: 0,
-					displayDuration: `${formatWeeks(MUTTERSCHUTZ_PRE_WEEKS)}, WGeld 💰`,
+					displayDuration: `${formatMonths(MUTTERSCHUTZ_PRE_WEEKS)} Mon., WoGeld 💰`,
 					isInactive: true,
 					color: 'mutterschutz'
 				},
 				{
-					label: 'Recht auf Karenz-Freistellung² (≠ Förderung)',
+					label: 'Recht auf Karenz-Freistellung²',
 					start: 0,
 					end: BASE_TOTAL_WEEKS,
 					isInactive: true,
@@ -379,32 +374,56 @@
 				},
 				{
 					// avoid visual overlap
-					label: motherMonths < 9 ? 'MS n.G.⁴' : 'Mutterschutz n.G.⁴',
+					label: 'Mutterschutz nach Geburt⁴',
 					start: 0,
 					end: mutterschutzWeeks,
-					displayDuration: `${formatWeeks(mutterschutzWeeks)}, WGeld 💰`,
+					displayDuration: `${formatMonths(mutterschutzWeeks)} Mon., WoGeld 💰`,
 					isInactive: true,
 					color: 'mutterschutz',
-					rowGroup: 'mother'
+					rowGroup: 'mutterschutz'
 				},
 				{
-					label: motherLabel,
+					label: '',
+					start: 0,
+					end: mutterschutzWeeks,
+					displayDuration: '',
+					hideDurationLabel: true,
+					hideEndMarker: true,
+					color: 'inactive',
+					isInactive: true,
+					rowGroup: 'mother',
+					summaryKey: 'mother-karenz-ruhend'
+				},
+				{
+					label: '',
 					start: mutterschutzWeeks,
 					end: motherWeeks,
-					displayDuration: motherDisplay,
+					hideStartMarker: true,
+					displayDuration: '',
+					hideDurationLabel: true,
 					overlayVariant: 'unpaid',
-					overlayStart: motherUnpaidMonths > 0 ? motherUnpaidStart : undefined,
-					overlayEnd: motherUnpaidMonths > 0 ? motherWeeks : undefined,
-					overlayColor: motherPaidMonths > 0 && motherUnpaidMonths === 0 ? 'ea' : undefined,
+					overlayStart: motherUnpaidMonths > 0.01 ? motherUnpaidStart : undefined,
+					overlayEnd: motherUnpaidMonths > 0.01 ? motherWeeks : undefined,
+					overlayColor: motherPaidMonths > 0.01 && motherUnpaidMonths <= 0.01 ? 'ea' : undefined,
 					forcePaidStartMarker: true,
 					isEaBase: true,
 					rowGroup: 'mother',
-					color: motherUnpaidMonths > 0 ? undefined : 'ea',
+					color: motherUnpaidMonths > 0.01 ? undefined : 'ea',
 					startMarkerColor:
-						motherPaidMonths > 0 ? 'ea' : motherUnpaidMonths > 0 ? 'unpaid' : undefined,
+						motherPaidMonths > 0.01 ? 'ea' : motherUnpaidMonths > 0.01 ? 'unpaid' : undefined,
 					endMarkerColor:
-						motherUnpaidMonths > 0 ? 'unpaid' : motherPaidMonths > 0 ? 'ea' : undefined,
+						motherUnpaidMonths > 0.01 ? 'unpaid' : motherPaidMonths > 0.01 ? 'ea' : undefined,
 					summaryKey: 'mother-karenz'
+				},
+				{
+					label: motherLabel,
+					start: 0,
+					end: motherWeeks,
+					displayDuration: motherDisplay,
+					lineClass: 'invisible-stroke',
+					hideStartMarker: true,
+					hideEndMarker: true,
+					rowGroup: 'mother'
 				}
 			];
 
@@ -428,7 +447,7 @@
 				label: 'Papamonat⁵',
 				start: papamonatStart,
 				end: papamonatEnd,
-				displayDuration: 'Ab Entlassung KH, FZB 💰',
+				displayDuration: 'Ab Entlassung KH, ggf. FZB 💰',
 				isInactive: true,
 				overlayStart: papamonatStart,
 				overlayVariant: 'papamonat',
@@ -458,21 +477,23 @@
 				start: fatherStart,
 				end: fatherEnd,
 				displayDuration: fatherDisplay,
-				isUnpaid: fatherUnpaidMonths > 0,
-				overlayVariant: fatherPaidMonths > 0 ? 'paid' : 'unpaid',
-				overlayStart: fatherUnpaidMonths > 0 && fatherPaidMonths > 0 ? fatherStart : undefined,
+				isUnpaid: fatherUnpaidMonths > 0.01,
+				overlayVariant: fatherPaidMonths > 0.01 ? 'paid' : 'unpaid',
+				overlayStart:
+					fatherUnpaidMonths > 0.01 && fatherPaidMonths > 0.01 ? fatherStart : undefined,
 				overlayEnd:
-					fatherUnpaidMonths > 0 && fatherPaidMonths > 0
+					fatherUnpaidMonths > 0.01 && fatherPaidMonths > 0.01
 						? Math.min(fatherPaidEnd, fatherEnd)
 						: undefined,
-				overlayColor: fatherPaidMonths > 0 ? 'ea' : undefined,
-				forcePaidStartMarker: fatherUnpaidMonths > 0,
-				isEaBase: fatherUnpaidMonths === 0 && fatherPaidMonths > 0,
+				overlayColor: fatherPaidMonths > 0.01 ? 'ea' : undefined,
+				forcePaidStartMarker: fatherUnpaidMonths > 0.01,
+				isEaBase: fatherUnpaidMonths <= 0.01 && fatherPaidMonths > 0.01,
 				rowGroup: 'father',
-				color: fatherPaidMonths > 0 && fatherUnpaidMonths === 0 ? 'ea' : undefined,
+				color: fatherPaidMonths > 0.01 && fatherUnpaidMonths <= 0.01 ? 'ea' : undefined,
 				startMarkerColor:
-					fatherPaidMonths > 0 ? 'ea' : fatherUnpaidMonths > 0 ? 'unpaid' : undefined,
-				endMarkerColor: fatherUnpaidMonths > 0 ? 'unpaid' : fatherPaidMonths > 0 ? 'ea' : undefined,
+					fatherPaidMonths > 0.01 ? 'ea' : fatherUnpaidMonths > 0.01 ? 'unpaid' : undefined,
+				endMarkerColor:
+					fatherUnpaidMonths > 0.01 ? 'unpaid' : fatherPaidMonths > 0.01 ? 'ea' : undefined,
 				summaryKey: 'father-karenz'
 			});
 
@@ -500,37 +521,38 @@
 		(() => {
 			const result: Interval[] = [...baseIntervals];
 
-			if (thirdMonths > 0) {
+			if (thirdMonths > 0.01) {
 				result.push({
 					label: thirdLabel,
 					start: thirdStart,
 					end: thirdEnd,
 					displayDuration: thirdDisplay,
-					isUnpaid: thirdUnpaidMonths > 0,
-					overlayVariant: thirdPaidMonths > 0 ? 'paid' : 'unpaid',
-					overlayStart: thirdUnpaidMonths > 0 && thirdPaidMonths > 0 ? thirdStart : undefined,
+					isUnpaid: thirdUnpaidMonths > 0.01,
+					overlayVariant: thirdPaidMonths > 0.01 ? 'paid' : 'unpaid',
+					overlayStart: thirdUnpaidMonths > 0.01 && thirdPaidMonths > 0.01 ? thirdStart : undefined,
 					overlayEnd:
-						thirdUnpaidMonths > 0 && thirdPaidMonths > 0
+						thirdUnpaidMonths > 0.01 && thirdPaidMonths > 0.01
 							? Math.min(thirdPaidEnd, thirdEnd)
 							: undefined,
-					overlayColor: thirdPaidMonths > 0 ? 'ea' : undefined,
-					isEaBase: thirdUnpaidMonths === 0 && thirdPaidMonths > 0,
+					overlayColor: thirdPaidMonths > 0.01 ? 'ea' : undefined,
+					isEaBase: thirdUnpaidMonths <= 0.01 && thirdPaidMonths > 0.01,
 					rowGroup: 'mother',
-					color: thirdPaidMonths > 0 && thirdUnpaidMonths === 0 ? 'ea' : undefined,
+					color: thirdPaidMonths > 0.01 && thirdUnpaidMonths <= 0.01 ? 'ea' : undefined,
 					startMarkerColor:
-						thirdPaidMonths > 0 ? 'ea' : thirdUnpaidMonths > 0 ? 'unpaid' : undefined,
-					endMarkerColor: thirdUnpaidMonths > 0 ? 'unpaid' : thirdPaidMonths > 0 ? 'ea' : undefined,
+						thirdPaidMonths > 0.01 ? 'ea' : thirdUnpaidMonths > 0.01 ? 'unpaid' : undefined,
+					endMarkerColor:
+						thirdUnpaidMonths > 0.01 ? 'unpaid' : thirdPaidMonths > 0.01 ? 'ea' : undefined,
 					summaryKey: 'third-karenz'
 				} satisfies Interval);
 			}
 
 			if (hasParentalPartTime) {
 				result.push({
-					label: 'ggf. Anspruch auf Eltern-Teilzeit (beide)⁸',
+					label: 'ab jetzt ggf. Anspruch auf Eltern-Teilzeit (beide)⁸',
 					start: lastKarenzEnd,
 					end: parentalPartTimeEnd,
 					rowGroup: 'c',
-					hideStartMarker: true,
+					hideStartMarker: false,
 					hideEndMarker: true,
 					hideDurationLabel: true,
 					color: 'parental-part-time'
@@ -553,7 +575,12 @@
 		benefitType?: 'ea-paid' | 'unpaid' | 'other';
 	};
 
-	const TIMELINE_SUMMARY_KEYS = new Set(['mother-karenz', 'father-karenz', 'third-karenz']);
+	const TIMELINE_SUMMARY_KEYS = new Set([
+		'mother-karenz',
+		'mother-karenz-ruhend',
+		'father-karenz',
+		'third-karenz'
+	]);
 
 	const weeksToDays = (weeks: number) => Math.max(0, Math.round(weeks * 7));
 
@@ -633,6 +660,19 @@
 				const endWeeks = interval.lineEnd ?? interval.end;
 				const label = interval.label?.trim();
 				const labelPosition = interval.labelPosition ?? 'above';
+
+				if (summaryKey === 'mother-karenz-ruhend') {
+					pushSummary(
+						`${summaryKey}-${index}`,
+						'Karenz Mutter: Ruhend (Mutterschutz)',
+						startWeeks,
+						endWeeks,
+						summaryKey,
+						labelPosition,
+						{ parent: 'mother', benefitType: 'ea-paid' }
+					);
+					return;
+				}
 
 				if (summaryKey === 'mother-karenz') {
 					const paidEnd = Math.min(startWeeks + motherPaidWeeks, endWeeks);
@@ -891,20 +931,17 @@
 		<div class="example-presets mb-2 min-w-0">
 			<span>Beispiele:</span>
 
-			<button type="button" on:click={() => applyExample(10, 2)} class="example-link">10 + 2</button
+			<button type="button" on:click={() => applyExample(12, 2)} class="example-link">12 + 2</button
 			>
 			|
-			<button type="button" on:click={() => applyExample(6, 6)} class="example-link">6 + 6</button>
+			<button type="button" on:click={() => applyExample(8, 6)} class="example-link">8 + 6</button>
 			|
-			<button type="button" on:click={() => applyExample(8, 4)} class="example-link">8 + 4</button>
+			<button type="button" on:click={() => applyExample(10, 4)} class="example-link">10 + 4</button
+			>
 			|
 
-			<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
-				>10 + 10 (Halbe Halbe mit unbezahlter Karenz)</button
-			>|
-
-			<button type="button" on:click={() => applyExample(10, 12)} class="example-link"
-				>10 + 12 (2 Jahre ausnutzen, unbezahlt)</button
+			<button type="button" on:click={() => applyExample(12, 12)} class="example-link"
+				>12 + 12 (Halbe Halbe mit unbezahlter Karenz)</button
 			>
 		</div>
 	</section>
@@ -1007,7 +1044,7 @@
 						<div class="control-checkbox__text">
 							<span>Gemeinsamer Monat beim ersten Wechsel⁷</span>
 							{#if jointMonth}
-								<small>ea KBG wird um 1 Monat kürzer (13 Monate)</small>
+								<small>ea KBG Gesamt-Anspruch wird um 1 Monat kürzer</small>
 							{:else}
 								<!-- quick hack to fix unecessary layout shift on height-->
 								<small>&nbsp;</small>
@@ -1106,14 +1143,6 @@
 									Geburt 🐣
 								</text>
 							</g>
-
-							<line
-								class="ea-marker-line"
-								x1={toX(0)}
-								y1={rowY(BASELINE_ROW_INDEX)}
-								x2={toX(0)}
-								y2={eaMarkerEndY}
-							/>
 
 							<line
 								class="ea-marker-line"
@@ -1437,6 +1466,10 @@
 		min-width: 0;
 	}
 
+	.invisible-stroke {
+		stroke: none !important;
+	}
+
 	/* TODO: add this to div element? general css or inline?*/
 	/* Container */
 	.planner-page {
@@ -1633,7 +1666,7 @@
 	}
 
 	.ea-marker-line {
-		@apply stroke-slate-500 stroke-[2px] opacity-65;
+		@apply stroke-red-500 stroke-[2px] opacity-65;
 		stroke-dasharray: 4 6;
 	}
 
