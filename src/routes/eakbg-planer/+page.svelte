@@ -888,34 +888,30 @@
 	</div>
 
 	<section>
-		<div class="example-presets min-w-0 mb-2">
-					<span>Beispiele:</span>
+		<div class="example-presets mb-2 min-w-0">
+			<span>Beispiele:</span>
 
-					
-					<button type="button" on:click={() => applyExample(10, 2)} class="example-link"
-						>10 + 2</button
-					> |
-					<button type="button" on:click={() => applyExample(6, 6)} class="example-link"
-						>6 + 6</button
-					> |
-					<button type="button" on:click={() => applyExample(8, 4)} class="example-link"
-						>8 + 4</button
-					> |
-				
-					<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
-						>10 + 10 (Halbe Halbe mit unbezahlter Karenz)</button
-					>|
-				
-					<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
-						>10 + 12 (2 Jahre ausnutzen, unbezahlt)</button
-					>
-				</div>
+			<button type="button" on:click={() => applyExample(10, 2)} class="example-link">10 + 2</button
+			>
+			|
+			<button type="button" on:click={() => applyExample(6, 6)} class="example-link">6 + 6</button>
+			|
+			<button type="button" on:click={() => applyExample(8, 4)} class="example-link">8 + 4</button>
+			|
+
+			<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
+				>10 + 10 (Halbe Halbe mit unbezahlter Karenz)</button
+			>|
+
+			<button type="button" on:click={() => applyExample(10, 12)} class="example-link"
+				>10 + 12 (2 Jahre ausnutzen, unbezahlt)</button
+			>
+		</div>
 	</section>
 
 	<section aria-labelledby="planner-title" class="timeline-section min-w-0">
 		<div class="planner-panel min-w-0">
 			<div class="planner-controls flex min-w-0 flex-row flex-wrap">
-				
 				<div class="flex min-w-0 flex-row self-start">
 					<div class="control-group min-w-0">
 						<label for="mother-months">Karenz-Teil 1: Mutter</label>
@@ -996,7 +992,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="flex min-w-0 flex-col gap-4 self-start mt-2">
+				<div class="mt-2 flex min-w-0 flex-col gap-4 self-start">
 					<label class="control-checkbox">
 						<input type="checkbox" bind:checked={extendedMutterschutz} />
 						<div class="control-checkbox__text">
@@ -1021,17 +1017,15 @@
 				</div>
 
 				{#if fatherEaBlocked}
-				<div class="warning-banner" role="alert">
-					⚠️ Die Mutter nutzt den gesamten Anspruch auf einkommensabhängiges Kinderbetreuungsgeld.
-					Der Vater kann daher keinen ea KBG-Bezug mehr geltend machen, weil er mindestens 2 Monate
-					im Zeitraum der 14 Monate ab Geburt nehmen muss (12+2 Modell).
-				</div>
+					<div class="warning-banner" role="alert">
+						⚠️ Die Mutter nutzt den gesamten Anspruch auf einkommensabhängiges Kinderbetreuungsgeld.
+						Der Vater kann daher keinen ea KBG-Bezug mehr geltend machen, weil er mindestens 2
+						Monate im Zeitraum der 14 Monate ab Geburt nehmen muss (12+2 Modell).
+					</div>
 
-				<!-- TODO: Add warning, when ein Teil unbezahlte Karenz ist und ea KBG überschritten-->
-			{/if}
+					<!-- TODO: Add warning, when ein Teil unbezahlte Karenz ist und ea KBG überschritten-->
+				{/if}
 			</div>
-
-			
 
 			<div class="timeline-shell min-w-0">
 				<div
