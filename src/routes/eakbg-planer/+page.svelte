@@ -86,6 +86,10 @@
 	};
 
 	const applyExample = (motherPreset: number, fatherPreset: number) => {
+		// reset these, to avoid confusion (and false results with unpaid months)
+		jointMonth = false;
+		previousJointMonth = false;
+		extendedMutterschutz = false;
 		motherMonths = clamp(motherPreset, motherMin, motherMax);
 		fatherMonths = clamp(fatherPreset, MIN_FATHER_MONTHS, MAX_FATHER_MONTHS);
 	};
