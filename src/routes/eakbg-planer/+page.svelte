@@ -276,7 +276,7 @@
 
 	const motherPaidWeeks = $derived(monthsToWeeks(motherPaidMonths));
 	const motherUnpaidWeeks = $derived(monthsToWeeks(motherUnpaidMonths));
-	const motherUnpaidStart = $derived(mutterschutzWeeks + motherPaidWeeks);
+	const motherUnpaidStart = $derived(motherPaidWeeks);
 
 	const paidFatherWeeks = $derived(monthsToWeeks(fatherPaidMonths));
 	const fatherUnpaidWeeks = $derived(monthsToWeeks(fatherUnpaidMonths));
@@ -395,6 +395,7 @@
 					hideEndMarker: true,
 					color: 'inactive',
 					isInactive: true,
+					startMarkerColor: 'ea',
 					rowGroup: 'mother',
 					summaryKey: 'mother-karenz-ruhend'
 				},
@@ -405,14 +406,18 @@
 					hideStartMarker: true,
 					displayDuration: '',
 					hideDurationLabel: true,
-					overlayVariant: 'unpaid',
-					overlayStart: motherUnpaidMonths > 0.01 ? motherUnpaidStart : undefined,
-					overlayEnd: motherUnpaidMonths > 0.01 ? motherWeeks : undefined,
-					overlayColor: motherPaidMonths > 0.01 && motherUnpaidMonths <= 0.01 ? 'ea' : undefined,
+					isUnpaid: motherUnpaidMonths > 0.01,
+					overlayVariant: 'paid',
+					overlayStart: motherPaidWeeks > mutterschutzWeeks ? mutterschutzWeeks : undefined,
+					overlayEnd:
+						motherPaidWeeks > mutterschutzWeeks
+							? Math.min(motherPaidWeeks, motherWeeks)
+							: undefined,
+					overlayColor: 'ea',
 					forcePaidStartMarker: true,
-					isEaBase: true,
+					isEaBase: motherUnpaidMonths <= 0.01,
 					rowGroup: 'mother',
-					color: motherUnpaidMonths > 0.01 ? undefined : 'ea',
+					color: motherPaidMonths > 0.01 && motherUnpaidMonths <= 0.01 ? 'ea' : undefined,
 					startMarkerColor:
 						motherPaidMonths > 0.01 ? 'ea' : motherUnpaidMonths > 0.01 ? 'unpaid' : undefined,
 					endMarkerColor:
@@ -920,13 +925,8 @@
 		<div class="planner-quick-info" role="note">
 			<p class="planner-note">
 				⚠️ Alle Angaben ohne Gewähr, bitte alle Planungen bei der
-				<a href="/ak-beratung" class="planner-link">Arbeiterkammer kostenfrei überprüfen lassen</a>!
-			</p>
-			<p class="planner-note">
-				Unsicher, ob du oder dein/e Partner/in Anspruch hat auf ea KBG? Wenn nur eine Person
-				Anspruch hat, kann das andere Elternteil ggf. <a href="/faq#sonderleistung-1">SL1</a>
-				beziehen. Achtung bei AMS-Zeiten o.ä. vor Geburt/Mutterschutz!
-				<a href="/eakbg-anspruch" class="planner-link">Hier prüfen</a>.
+				<a href="/ak-beratung" class="planner-link">Arbeiterkammer kostenfrei überprüfen lassen</a> vor
+				Antragsstellung!
 			</p>
 		</div>
 	</div>
@@ -1386,6 +1386,14 @@
 			</div>
 		</div>
 
+		<p class="planner-note">
+			❓ Unsicher, ob du oder dein/e Partner/in überhaupt Anspruch auf einkommensabhängiges
+			Kinderbetreuungsgeld hat? Wenn nur eine Person Anspruch hat, kann das andere Elternteil ggf. <a
+				href="/faq#sonderleistung-1">Sonderleistung I</a
+			>
+			beziehen. Achtung bei AMS-Zeiten o.ä. vor Geburt/Mutterschutz (182-Tage-Regel)! Siehe
+			<a href="/eakbg-anspruch" class="planner-link">ea KBG Anspruch prüfen</a>.
+		</p>
 		<NoteGrid />
 		<TimelineSummary {segmentSummaries} bind:birthDateInput {formatSegmentRange} open={false} />
 	</section>
