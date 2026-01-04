@@ -1,136 +1,112 @@
 <script lang="ts">
-	let toolAvailable = false;
-
-	let dueDateStr = $state();
-	let fatherJobStart = $state();
-	let fatherNoBenefits = $state(false);
-
-	const addDays = (date: Date, days: number) => {
-		const next = new Date(date);
-		next.setDate(next.getDate() + days);
-		return next;
-	};
-
-	const daysBetween = (a: Date, b: Date) => Math.floor((a.getTime() - b.getTime()) / 86_400_000);
-
-	const dueDate = $derived(() => (dueDateStr ? new Date(`${dueDateStr}T00:00:00`) : null));
-	const fatherJobStartDate = $derived(() =>
-		fatherJobStart ? new Date(`${fatherJobStart}T00:00:00`) : null
-	);
-
-	const mutterschutzStart = $derived(() => (dueDate ? addDays(dueDate, -56) : null));
-
-	const fatherEligible = $derived(() => {
-		if (!dueDate || !fatherJobStartDate) return false;
-		if (!fatherNoBenefits) return false;
-		return daysBetween(dueDate, fatherJobStartDate) >= 182;
-	});
-
-	const badgeClass = (ok: boolean) =>
-		ok
-			? 'inline-flex items-center rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700'
-			: 'inline-flex items-center rounded-full border border-rose-300 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700';
-	const badgeLabel = (ok: boolean) =>
-		ok ? 'Ja – vorauss. Anspruch' : 'Nein – vorauss. kein Anspruch';
+	import EligibiltyDateCalculator from '$lib/components/EligibiltyDateCalculator.svelte';
 </script>
 
 <section class="content">
 	<header class="mt-10 text-center">
-		<h1 class="text-3xl font-semibold text-slate-900">Anspruch auf Familienzeitbonus prüfen</h1>
+		<h1 class="text-3xl font-semibold text-slate-900">
+			Anspruch auf Familienzeitbonus für Papamonat prüfen
+		</h1>
 	</header>
-	<div class="prose mx-auto mt-6 max-w-3xl">
-		{#if toolAvailable}
-			<div
-				class="mt-8 grid gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 md:grid-cols-[220px_1fr] md:items-center"
-			>
-				<label for="due" class="text-sm font-semibold text-slate-900"
-					>Errechneter Geburtstermin</label
-				>
-				<input
-					id="due"
-					type="date"
-					bind:value={dueDateStr}
-					class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-				/>
-			</div>
-
-			<section
-				class="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white px-5 py-5 shadow-sm"
-			>
-				<h2 class="text-lg font-semibold text-slate-900">
-					Hat der Vater Anspruch auf Familienzeitbonus-Geld während Papamonat?
-				</h2>
-				<div class="space-y-4 text-sm text-slate-600">
-					<p class="text-sm text-slate-500">
-						Hier erscheint die Detailprüfung zum Familienzeitbonus (Papamonat).
-					</p>
-					<div>
-						<h3 class="text-sm font-semibold text-slate-900">Arbeitssituation – Vater</h3>
-						<div class="mt-3 grid gap-3">
-							<label class="text-sm font-medium text-slate-900">Beschäftigungsbeginn</label>
-							<input
-								type="date"
-								bind:value={fatherJobStart}
-								class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-							/>
-
-							<label class="flex items-center gap-2 text-sm text-slate-700">
-								<input
-									type="checkbox"
-									bind:checked={fatherNoBenefits}
-									class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-								/>
-								In den letzten 182 Tagen keine Leistungen (AMS/Notstand/Weiterbildungsgeld)
-							</label>
-						</div>
-					</div>
-					<div class={badgeClass(fatherEligible)}>{badgeLabel(fatherEligible)}</div>
-				</div>
-			</section>
-		{:else}
-			<p class="mt-8 font-semibold">
-				🚧 Tool ist noch in Entwicklung, du kannst aber beim ea KBG Anspruch vorbeischauen. Die
-				Vorraussetzungen beim Familienzeitbonus sind diesselben wie beim ea KBG für den Vater. 🚧
-			</p>
-		{/if}
-		<p class="my-6">
-			Wichtig: <u><b>Anspruch auf Papamonat hast du immer</b></u>! Das bedeutet: Du hast ein gesetzliches Recht auf
-			(unbezahlte) Freistellung von der Arbeit ab Entlassung aus dem Krankenhaus nach der Geburt.
-			<br /><br />
-			Bei diesem Check geht es nur um den Anspruch auf finanzielle Förderung in dem Monat. Solltest du
-			nicht gefördert werden, musst du deine Krankenversicherung abklären. Hier gibt es aber die Option
-			Mitversicherung bei der Partnerin - ansonsten gilt aber in der Regel auch die 6-wöchige Schutzfrist
-			der ÖGK sobald dich dein Arbeitgeber für den Papamonat abmeldet.
+	<div class="mx-auto prose mt-6 max-w-3xl">
+		<p>
+			In Österreich haben Väter tollerweise das Recht darauf, den ersten Lebensmonat ihres Kindes
+			daheim zu erleben und die Partnerin während des Wochenbetts, den Herausforderungen des
+			Stillens (falls es funktioniert) und allen weiteren, neuen und aufregenden Tätigkeiten
+			intensiv unterstützen zu können. 💪
 		</p>
 		<p>
-			Achtung bei Jobwechsel & Co: 182-Tagesfrist beachten, in dieser darf kein Arbeitslosengeld
-			o.ä. bezogen worden sein bevor man den Papamonat in Anspruch nimmt!
+			Die finanzielle Förderung vom Staat, der Familienzeitbonus (FZB), ist jedoch an Bedingungen
+			geknüpft.
 		</p>
-		<blockquote>
-			182 Tage Erwerbstätigkeit muss vorliegen: Der Vater muss durchgehend 182 Tage (ca. 6 Monate)
-			vor Bezugsbeginn des Familienzeitbonus kranken- und pensionsversicherungspflichtig
-			erwerbstätig sein. Unterbrechungen von 14 Tagen im Beobachtungszeitraum (182 Tage) schaden
-			allerdings nicht. Er darf im genannten Beobachtungszeitraum keine Leistungen aus der
-			Arbeitslosenversicherung (z.B. Arbeitslosengeld) bezogen haben.
-			<cite>https://www.arbeiterkammer.at/papamonat</cite>
-		</blockquote>
+		<p class="my-6 text-sm">
+			Wichtig: <b>Anspruch auf den Papamonat (= unbezahlte Freistellung) hast du <u>immer</u></b>!
+			Das bedeutet: Du hast ein gesetzliches Recht auf unbezahlte Freistellung von der Arbeit ab dem
+			Tag, an dem deine Partnerin und Baby aus dem Krankenhaus entlassen werden. Ankündigen musst es
+			dem Arbeitgeber spätestens drei Monate vor dem errechneten Geburtstermin (siehe
+			<a href="https://www.arbeiterkammer.at/papamonat">arbeiterkammer.at/papamonat</a>).
+		</p>
+
+		<h3>
+			Die 6 Monate (182 Tage) vor der Entlassung aus dem Krankenhaus sind für den Familienzeitbonus
+			entscheidend
+		</h3>
+		<p>
+			Um während des Papamonats finanziell gefördert zu werden, musst du eine sogenannte
+			"Erwerbstätigkeitserfordernis" erfüllen. Das klingt kompliziert, bedeutet aber eigentlich nur:
+			Du musst im Zeitraum der 6 Monate (182 Tage) vor der Entlassung aus dem Krankenhaus
+			durchgehend gearbeitet haben und du darfst keine AMS-Leistungen bezogen haben. Rechne hier den
+			relevanten Zeitraum aus:
+		</p>
+
+		<EligibiltyDateCalculator />
+
+		<h3>Was ist, wenn ich keinen Anspruch auf Familienzeitbonus habe?</h3>
+		<p>
+			Solltest du nicht gefördert werden können, musst du deine Krankenversicherung abklären im
+			Papamonat.
+		</p>
+		<p>
+			Hier gibt es bspw. die Option Mitversicherung bei der Partnerin - ansonsten greift aber in der
+			Regel auch einfach die 6-wöchige Schutzfrist der ÖGK, sobald dich dein Arbeitgeber für den
+			Papamonat von der Sozialversicherungabmeldet (was normalerweise der Fall ist). Sprich hier am
+			besten vorab mit deinem Arbeitgeber und/oder lass dich bei der ÖGK oder Arbeiterkammer
+			beraten.
+		</p>
+		<h4>Erfahrungsbericht: Jobwechsel / arbeitssuchend vor Geburt - keine Förderung</h4>
+		<p>
+			Bei mir persönlich ergab sich wegen eines Jobwechsels und AMS-Bezug vor der Geburt genau
+			dieser Fall, dass ich keinen Anspruch auf Familienzeitbonus-Förderung hatte. Ich konnte den
+			Papamonat beim neuen Arbeitgeber aber problemlos warnehmen als unbezahlte Freistellung, mein
+			Arbeitgeber hat mich während dieser Zeit von der Sozialversicherung abgemeldet. Für die
+			Krankenversicherung habe ich die 6-wöchige Schutzfrist der ÖGK genutzt (weil die
+			Mitversicherung als unverheirates Paar wg. der <a
+				href="blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/"
+				class="underline">Haushaltsführungs-Klausel</a
+			> nicht ganz verständlich war damals für mich, hätte aber vermutlich auch funktioniert). Den Papamonat
+			musste ich natürlich von Ersparnissen finanzieren, Gehalt gab es ja nicht.
+		</p>
+		<p>
+			Ob die 182-Tage-Frist wirklich noch zeitgemäß ist heutzutage - das wage ich sehr stark zu
+			bezweifeln!
+		</p>
+
+		<h3>Mehr Informationen, Mustertext und Fristen zur Beantragung</h3>
 		<ul>
+			<li>
+				<a href="https://www.arbeiterkammer.at/papamonat"
+					>Papamonat & Familienzeitbonus - arbeiterkammer.at</a
+				>
+			</li>
+			<li>
+				YouTube-Video: Papamonat in Österreich | Meldung, Antrag & Geld<a
+					href="https://www.youtube.com/watch?v=IMUBAZGAER8"
+					aria-label="YouTube-Video: Papamonat in Österreich | Meldung, Antrag & Geld"
+				>
+					<img src="/ak_video_thumbnail_papamonat.jpg" alt="" class="mt-1" />
+				</a>
+			</li>
 			<li>
 				<a
 					href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/Seite.080623"
 					>Familienzeitbonus für Väter - oesterreich.gv.at</a
 				>
 			</li>
-			<li>
-				<a href="https://www.arbeiterkammer.at/papamonat"
-					>Papamonat & Familienzeitbonus - arbeiterkammer.at</a
-				>
-			</li>
 		</ul>
+		<h3>Pro-Tipp: Urlaubstage aufheben / Sonderurlaub abklären für KH-Aufenthalt</h3>
+		<p>Ich dachte zuerst, der Papamonat gilt ab Geburt.</p>
 		<p>
-			Für den Tag der Geburt bis Entlassung ist Sonderurlaub nehmen nötig, je nach Kollektivvertrag
-			hat man ggf. auch garantierten Anspruch darauf. Der Papamonat kann erst genommen werden,
-			sobald ihr euch gemeinsam in einem Haushalt befindet.
+			Stattdessen gilt das Recht auf Freistellung aber erst, sobald ihr euch gemeinsam in einem
+			Haushalt befindet. Sprich mit der Entlassung der Partnerin sowie eures Babies aus dem
+			Krankenhaus.
+		</p>
+		<p>
+			Für den Tag der Geburt sowie die Tage bis zur Entlassung kannst du abklären, ob dir ggf.
+			Sonderurlaub im Kollektivertrag zusteht (falls für dich ein Kollektivvertrag gilt).
+		</p>
+		<p>
+			Ansonsten solltest du dir ein paar Urlaubstage aufheben, um deine Partnerin auch im
+			Krankenhaus unterstützen zu können nach der Geburt.
 		</p>
 	</div>
 </section>
