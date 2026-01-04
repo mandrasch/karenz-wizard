@@ -16,13 +16,13 @@
 		// { label: 'Start', href: '/', matchPath: '/' },
 		{ label: '1. eaKBG Anspruch?', href: '/eakbg-anspruch', matchPath: '/eakbg-anspruch' },
 		{ label: '2. eaKBG Planer', href: '/eakbg-planer', matchPath: '/eakbg-planer' },
-
+		{ label: '3. AK-Beratung', href: '/ak-beratung' },
 		{ label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch', matchPath: '/fzb-anspruch' },
 		{ label: 'Pauschales KBG', href: '/pauschales-kbg', matchPath: '/pauschales-kbg' },
 		{ label: 'Infothek', href: '/infothek' },
-		{ label: 'FAQ', href: '/faq' },
-		{ label: 'Über', href: '/ueber' },
+		{ label: 'FAQ', href: '/faq', mobileOnly: true },
 		{ label: 'Blog', href: '/blog' },
+		{ label: 'Über', href: '/ueber', mobileOnly: true },
 		{ label: 'AK-Beratung', href: '/ak-beratung', mobileOnly: true },
 		{ label: 'Reaktionen & Feedback', href: '/reaktionen-und-feedback', mobileOnly: true },
 		{ label: 'Impressum & Datenschutz', href: '/impressum-datenschutz', mobileOnly: true }

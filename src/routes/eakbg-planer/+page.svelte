@@ -946,7 +946,9 @@
 			|
 			<button type="button" on:click={() => applyExample(8, 6)} class="example-link">8 + 6</button>
 			|
-			<button type="button" on:click={() => applyExample(7, 7)} class="example-link">7 + 7*</button>
+			<button type="button" on:click={() => applyExample(7, 7)} class="example-link"
+				>7 + 7* (Hinweise beachten)</button
+			>
 			|
 			<button type="button" on:click={() => applyExample(12, 12)} class="example-link"
 				>12 + 12 (Halbe-Halbe mit unbezahlter Karenz)</button
@@ -1435,6 +1437,12 @@
 				Karenz gehen. Die Mutter verbringt die ersten 12 Monate in Karenz, der Vater nimmt die
 				verbleibenden 2 Monate (<em>Quelle ergänzen</em>).
 			</p>
+			<p>
+				Leider nehmen aber auch aktuell viele Väter in Österreich gar keine Karenz in Anspruch
+				(siehe <a href="/infothek/#artikel-warum-maenner-so-wenig-karenz" class="underline"
+					>Infothek</a
+				>).
+			</p>
 			<p class="text-sm italic">
 				Info am Rande: Die <a href="/blog/halbe-halbe-bei-karenz/"
 					>politischen Entscheider:innen überlegen aktuell, wie für Väter mehr Karenzmonate
@@ -1558,6 +1566,14 @@
 	<section class="prose mt-10">
 		<h3>Mehr Informationen, Videos und Beratung</h3>
 		<ul>
+			<li>
+				Infoseite: <a
+					class="underline"
+					href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1"
+				>
+					Einkommensabgängiges Kinderbetreuungsgeld - oesterreich.gv.at</a
+				>
+			</li>
 			<li>
 				Infoseite: <a
 					href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.867463&portal=oegkportal"
