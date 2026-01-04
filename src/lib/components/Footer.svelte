@@ -1,5 +1,19 @@
-<footer class="border-t border-slate-200 bg-slate-50" role="contentinfo">
+<footer class="border-t border-slate-200 bg-slate-50">
+	
 	<div class="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
+
+		<div
+			class="mb-10 flex flex-col items-start justify-between gap-4 border-b border-slate-200 pb-6 text-sm  sm:flex-row"
+		>
+			<p class="max-w-full leading-relaxed font-semibold text-slate-700">
+				⚠️ Diese Seite ist ein privates Hobby-Projekt. Alle Angaben sind ohne Gewähr und
+				unverbindlich, es können Fehler enthalten sein. Diese Webseite stellt keine Rechtsberatung
+				dar! Für verbindliche Auskünfte wende dich an <a href="/ak-beratung" class="underline"
+					>deine Arbeiterkammer</a
+				>, Gewerkschaft oder Sozialversicherung – Gesetze können sich ändern.
+			</p>
+		</div>
+
 		<div
 			class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:gap-12"
 			aria-label="Footer Navigation"
@@ -13,7 +27,7 @@
 					>.
 				</p>
 				<p class="text-xs leading-relaxed text-slate-600">
-					Dieses Tool ist ein privater "proof of concept". Aus meiner bescheidenen Sicht sollte es
+					Dieses Tool ist ein privater "proof of concept", um zu zeigen dass ein Online-Tool für die Karenzplanung machbar und möglich ist. Aus meiner bescheidenen Sicht sollte es
 					von einer Vertretung wie der Arbeiterkammer oder einer NGO betrieben werden, um mehr
 					Väterkarenz und Gleichberechtigung zu ermöglichen. 💪
 				</p>
@@ -77,6 +91,11 @@
 					schnellen Prototyp in meiner Freizeit. Die Barrierefreiheit gemäß WCAG 2.2 AA wird in
 					Zukunft gewährleistet.
 				</p>
+				<h2 class="text-sm font-semibold text-slate-900">Solidarität für unerfüllte Kinderwünsche ❤️‍🩹</h2>
+				<p class="text-xs text-slate-600">
+					„Einfach mal so Kinder kriegen" ist keineswegs für alle Paare möglich. Unterstützung findet sich unter anderem beim <a href="https://uik-verein.de/" class="underline">Verein UIK</a>.
+ <br><br>Ein großer Dank an die mutigen Pionier:innen der IVF-Befruchtung (siehe u.a. Film <a class="underline" href="https://de.wikipedia.org/wiki/Joy_(2024)">Joy</a>) und den ersten Frauen, die sich für die Forschung - und gegen alle Widerstände - zur Verfügung gestellt haben. <br><br>In stillen Gedenken an alle Sternenkinder.
+				</p>
 			</section>
 
 			<section class="space-y-3" aria-labelledby="footer-contact">
@@ -106,16 +125,6 @@
 			</section>
 		</div>
 
-		<div
-			class="mt-10 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-6 text-sm text-slate-500 sm:flex-row"
-		>
-			<p class="max-w-full leading-relaxed">
-				Diese Seite ist unabhängig und ein privates Hobby-Projekt. Alle Angaben sind ohne Gewähr und
-				unverbindlich, es können Fehler enthalten sein. Diese Webseite stellt keine Rechtsberatung
-				dar. Für verbindliche Auskünfte wende dich an <a href="/ak-beratung" class="underline"
-					>deine Arbeiterkammer</a
-				>, Gewerkschaft oder zuständige Sozialversicherung – Gesetze können sich ändern.
-			</p>
-		</div>
+		
 	</div>
 </footer>
