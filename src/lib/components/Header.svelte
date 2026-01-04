@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import logo from '$lib/assets/logo.png';
 
 	type NavItem = {
 		label: string;
@@ -66,7 +67,7 @@
 		<div class="prose-body relative border-b border-amber-200 bg-red-100 text-red-800">
 			<button
 				type="button"
-				class="absolute right-2 top-2 rounded-md p-1.5 text-red-800/60 transition hover:bg-red-200 hover:text-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+				class="absolute top-2 right-2 rounded-md p-1.5 text-red-800/60 transition hover:bg-red-200 hover:text-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
 				aria-label="Hinweis ausblenden"
 				onclick={() => (showPreviewBanner = false)}
 			>
@@ -82,8 +83,8 @@
 				id="preview-banner"
 			>
 				<p>
-					Diese Webseite ist ein Hobby-Projekt – alle Angaben ohne Gewähr! Die Inhalte wurden noch nicht
-					von Expert:innen geprüft.
+					Diese Webseite ist ein Hobby-Projekt – alle Angaben ohne Gewähr! Die Inhalte wurden noch
+					nicht von Expert:innen geprüft.
 				</p>
 
 				<div class="space-y-3">
@@ -101,7 +102,14 @@
 	<div
 		class="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6"
 	>
-		<a class="text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard</a>
+		<div class="flex items-center gap-2">
+			<img
+				alt="Logo: Ein Baby mit Magierhut und Zauberstab, gezeichnet"
+				src={logo}
+				class="h-12.5 w-12.5"
+			/>
+			<a class="text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard</a>
+		</div>
 
 		<!-- Mobile menu button -->
 		<button
