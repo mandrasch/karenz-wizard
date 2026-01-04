@@ -61,7 +61,7 @@
 			Arbeitgeber hat mich während dieser Zeit von der Sozialversicherung abgemeldet. Für die
 			Krankenversicherung habe ich die 6-wöchige Schutzfrist der ÖGK genutzt (weil die
 			Mitversicherung als unverheirates Paar wg. der <a
-				href="blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/"
+				href="/blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/"
 				class="underline">Haushaltsführungs-Klausel</a
 			> nicht ganz verständlich war damals für mich, hätte aber vermutlich auch funktioniert). Den Papamonat
 			musste ich natürlich von Ersparnissen finanzieren, Gehalt gab es ja nicht.
