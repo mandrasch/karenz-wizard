@@ -114,7 +114,7 @@
 		},
 		{
 			id: 'mutterschutz-nach',
-			sup: 3,
+			sup: 4,
 			title: 'Mutterschutz nach der Geburt',
 			body: `
       Nach der Geburt gilt eine Schutzfrist von 8 Wochen, bei Frühgeburten, Mehrlingen oder Kaiserschnitt mindestens 12 Wochen.  
