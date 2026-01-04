@@ -61,7 +61,7 @@
 	const rowY = (rowIndex: number) => margins.top + rowIndex * rowHeight;
 
 	let motherMonths = $state(10);
-	let fatherMonths = $state(10);
+	let fatherMonths = $state(2);
 	let thirdMonths = $state(0);
 	let jointMonth = $state(false);
 	let extendedMutterschutz = $state(false);
@@ -90,6 +90,7 @@
 		fatherMonths = clamp(fatherPreset, MIN_FATHER_MONTHS, MAX_FATHER_MONTHS);
 	};
 
+	// TODO: use Months here!
 	const formatWeeks = (value: number) => `${value.toFixed(0)} Wo.`;
 
 	$effect(() => {
@@ -309,7 +310,7 @@
 			? fatherPaidMonths > 0 && !motherConsumesAllEa
 				? 'Karenz Vater: ea KBG³ 💰 + unbezahlte Karenz⁵'
 				: 'Karenz Vater: unbezahlte Karenz⁷'
-			: 'Karenz Vater'
+			: 'Karenz Vater: ea KBG³ 💰'
 	);
 
 	const fatherDisplay = $derived(
@@ -377,7 +378,8 @@
 					markerVariant: 'line'
 				},
 				{
-					label: extendedMutterschutz ? 'MS n. G.⁴' : 'MS n. G.⁴',
+					// avoid visual overlap
+					label: motherMonths < 9 ? 'MS n.G.⁴' : 'Mutterschutz n.G.⁴',
 					start: 0,
 					end: mutterschutzWeeks,
 					displayDuration: `${formatWeeks(mutterschutzWeeks)}, WGeld 💰`,
@@ -524,7 +526,7 @@
 
 			if (hasParentalPartTime) {
 				result.push({
-					label: 'Anspruch auf Eltern-Teilzeit (beide)⁸',
+					label: 'ggf. Anspruch auf Eltern-Teilzeit (beide)⁸',
 					start: lastKarenzEnd,
 					end: parentalPartTimeEnd,
 					rowGroup: 'c',
@@ -864,7 +866,7 @@
 
 <section class="content planner-page min-w-0">
 	<div class="page-header mt-10 min-w-0">
-		<h1 id="planner-title" class="planner-heading text-2xl font-semibold text-slate-900">
+		<h1 id="planner-title" class="planner-heading text-2xl text-slate-900">
 			ea KBG Planer für Paare
 		</h1>
 		<p class="subline">
@@ -885,22 +887,35 @@
 		</div>
 	</div>
 
+	<section>
+		<div class="example-presets min-w-0 mb-2">
+					<span>Beispiele:</span>
+
+					
+					<button type="button" on:click={() => applyExample(10, 2)} class="example-link"
+						>10 + 2</button
+					> |
+					<button type="button" on:click={() => applyExample(6, 6)} class="example-link"
+						>6 + 6</button
+					> |
+					<button type="button" on:click={() => applyExample(8, 4)} class="example-link"
+						>8 + 4</button
+					> |
+				
+					<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
+						>10 + 10 (Halbe Halbe mit unbezahlter Karenz)</button
+					>|
+				
+					<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
+						>10 + 12 (2 Jahre ausnutzen, unbezahlt)</button
+					>
+				</div>
+	</section>
+
 	<section aria-labelledby="planner-title" class="timeline-section min-w-0">
 		<div class="planner-panel min-w-0">
 			<div class="planner-controls flex min-w-0 flex-row flex-wrap">
-				<div class="example-presets min-w-0">
-					<span>Beispiele:</span>
-
-					<button type="button" on:click={() => applyExample(10, 10)} class="example-link"
-						>10 + 10 (Halbe Halbe)</button
-					>
-					<button type="button" on:click={() => applyExample(10, 2)} class="example-link"
-						>10 + 2</button
-					>
-					<button type="button" on:click={() => applyExample(6, 6)} class="example-link"
-						>6 + 6</button
-					>
-				</div>
+				
 				<div class="flex min-w-0 flex-row self-start">
 					<div class="control-group min-w-0">
 						<label for="mother-months">Karenz-Teil 1: Mutter</label>
@@ -981,7 +996,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="flex min-w-0 flex-col gap-4 self-start">
+				<div class="flex min-w-0 flex-col gap-4 self-start mt-2">
 					<label class="control-checkbox">
 						<input type="checkbox" bind:checked={extendedMutterschutz} />
 						<div class="control-checkbox__text">
@@ -996,7 +1011,7 @@
 						<div class="control-checkbox__text">
 							<span>Gemeinsamer Monat beim ersten Wechsel⁷</span>
 							{#if jointMonth}
-								<small>ea KBG wird um 1 Monat kürzer</small>
+								<small>ea KBG wird um 1 Monat kürzer (13 Monate)</small>
 							{:else}
 								<!-- quick hack to fix unecessary layout shift on height-->
 								<small>&nbsp;</small>
@@ -1004,15 +1019,19 @@
 						</div>
 					</label>
 				</div>
-			</div>
 
-			{#if fatherEaBlocked}
+				{#if fatherEaBlocked}
 				<div class="warning-banner" role="alert">
 					⚠️ Die Mutter nutzt den gesamten Anspruch auf einkommensabhängiges Kinderbetreuungsgeld.
 					Der Vater kann daher keinen ea KBG-Bezug mehr geltend machen, weil er mindestens 2 Monate
 					im Zeitraum der 14 Monate ab Geburt nehmen muss (12+2 Modell).
 				</div>
+
+				<!-- TODO: Add warning, when ein Teil unbezahlte Karenz ist und ea KBG überschritten-->
 			{/if}
+			</div>
+
+			
 
 			<div class="timeline-shell min-w-0">
 				<div
@@ -1585,7 +1604,7 @@
 	}
 
 	.warning-banner {
-		@apply mt-4 rounded-[10px] border border-amber-300 bg-amber-300/20 px-4 py-3 text-sm font-semibold text-amber-700;
+		@apply mt-0 rounded-[10px] border border-amber-300 bg-amber-300/20 px-4 py-3 text-sm font-semibold text-amber-700;
 	}
 
 	.planner-panel > .warning-banner {
