@@ -1398,6 +1398,57 @@
 		<TimelineSummary {segmentSummaries} bind:birthDateInput {formatSegmentRange} open={false} />
 	</section>
 
+	<section class="prose mt-10">
+		<h3>Mehr Informationen, Videos und Beratung</h3>
+		<ul>
+			<li>
+				<a
+					href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html"
+					class="underline"
+				>
+					Kinderbetreuungsgeld - arbeiterkammer.at
+				</a>
+			</li>
+			<li>
+				<a
+					href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.867463&portal=oegkportal"
+					class="underline">Kinderbetreuungsgeld - ÖGK</a
+				>
+			</li>
+			<li>
+				YouTube: Kinderbetreuungsgeld in Österreich | Antrag & Varianten - Arbeiterkammer
+				<a href="https://www.youtube.com/watch?v=JdoIhtTYxh8">
+					<img src="/ak_video_thumbnail_kbg_zwei_modelle.jpg" alt="" class="mt-1" />
+				</a>
+			</li>
+			<li>
+				<a
+					href="https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Teilung_der_Karenz.html"
+					>Teilung der Karenz - arbeiterkammer.at</a
+				>
+			</li>
+			<li>
+				YouTube-Video: Teilung Karenz und Kinderbetreuungsgeld in Österreich<a
+					href="https://www.youtube.com/watch?v=_68qceI3lLU"
+				>
+					<img src="/ak_video_thumbnail_karenzteilung.jpg" alt="" class="mt-1" />
+				</a>
+			</li>
+		</ul>
+		<p>
+			Deine Arbeiterkammer vor Ort bietet Beratung und teils auch Webinare / vor Ort
+			Infoveranstaltungen an:
+		</p>
+		<ul>
+			<li><a href="/ak-beratung">Beratung bei der Arbeiterkammer</a></li>
+		</ul>
+		<p>Siehe auch auf dieser Webseite:</p>
+		<ul>
+			<li><a href="/eakbg-anspruch">ea KBG Anspruch prüfen</a></li>
+			<li><a href="/infothek">Infothek</a></li>
+		</ul>
+	</section>
+
 	<!-- TODO: remove, not necessary anymore-->
 	<section id="auswertung" class="prose">
 		<div class="debug-panel" style="display:none">

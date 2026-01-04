@@ -196,7 +196,11 @@
 			>) dann im Detail korrekt ausfüllst.
 		</p>
 
-		<p>Einige Arbeiterkammern bieten auch Inforveranstaltungen vor Ort oder Webinare an.</p>
+		<p>
+			Einige Arbeiterkammern bieten auch Inforveranstaltungen vor Ort oder Webinare an. Hier eine
+			schnelle Liste - bitte prüfe die Webseite der Arbeiterkammer deines Bundeslandes, die
+			Informationen hier können ggf. veraltet sein / neue Angebote dazugekommen sein.
+		</p>
 
 		<ul>
 			{#each akList as ak}
