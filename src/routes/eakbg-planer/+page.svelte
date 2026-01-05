@@ -92,6 +92,7 @@
 		extendedMutterschutz = false;
 		motherMonths = clamp(motherPreset, motherMin, motherMax);
 		fatherMonths = clamp(fatherPreset, MIN_FATHER_MONTHS, MAX_FATHER_MONTHS);
+		thirdMonths = 0;
 	};
 
 	const formatWeeks = (value: number) => `${value.toFixed(0)} Wo.`;
@@ -1395,14 +1396,19 @@
 			<a href="/eakbg-anspruch" class="planner-link">ea KBG Anspruch prüfen</a>.
 		</p>
 		<p>
-			* ℹ️ Info für Neu-Eltern bzgl. 7+7 Monate Aufteilung, was ja eigentlich Halbe-Halbe wäre im
+			* ℹ️ Info für Neu-Eltern bzgl. 7+7 Monate Aufteilung, welche ja eigentlich Halbe-Halbe wäre im
 			Rahmen der 14 Monate ea KBG: Gerade beim ersten Kind können manche Mütter bzw. Paare einen
-			Wiedereinstieg nach 7 Monaten ggf. als herausfordernd empfinden – etwa in Bezug auf Stillen
-			(falls möglich / gewünscht), Abpumpen, Beikost-Einführung o.ä. Gleichzeitig kann dieses Modell
-			natürlich ggf. gut funktionieren, weil der Wechsel früher erfolgt. Wie gut ein Modell zu euch
-			passt, hängt maßgeblich von eurer individuellen Situation und euren Wünschen / Bedürfnissen
-			ab. Und nicht zuletzt hängt es natürlich ggf. von eurer finanziellen Situation ab. Alle Daumen
-			gedrückt!
+			Wiedereinstieg im Job nach 7 Monaten ggf. als herausfordernd empfinden – etwa in Bezug auf
+			Stillen und Abpumpen (falls möglich / gewünscht), Beikost-Einführung o.ä. Gleichzeitig kann
+			dieses Modell natürlich ggf. gut funktionieren für einige Familien. Jedes Kind entwickelt sich
+			zudem individuell. Wie gut ein Modell zu euch passt, hängt maßgeblich von eurer individuellen
+			Situation, finanziellen Rahmenbedingungen und euren Wünschen / Bedürfnissen ab. Alle Daumen
+			gedrückt für eine passende Planung!<br /><br />
+			Der Anspruch von "Halbe-Halbe" muss auch nicht zwangsläufig in die 14 Monate ea KBG "gequetscht"
+			werden: Mit der Eltern-Teilzeit können auch Väter bspw. nach Ende der Elternkarenz weitere Verantwortung
+			übernehmen, wenn bspw. beide Partner zeitweise 20h/Woche arbeiten und sich die Kinderbetreuung teilen.
+			Die große Frage der Karenzplanung ist eigentlich auch: Wie organisieren wir Arbeit, Familie und
+			Kinderbetreuung nach Ablauf der 14 Monate ea KBG?
 		</p>
 
 		<NoteGrid />
