@@ -12,7 +12,7 @@
 		<p>
 			In Österreich haben Väter tollerweise das Recht darauf, den ersten Lebensmonat ihres Kindes
 			daheim zu erleben und die Partnerin während des Wochenbetts, den Herausforderungen des
-			Stillens (falls es funktioniert) und allen weiteren, neuen und aufregenden Tätigkeiten
+			Stillens (falls möglich / gewünscht) und allen weiteren, neuen und aufregenden Tätigkeiten
 			intensiv unterstützen zu können. 💪
 		</p>
 		<p>

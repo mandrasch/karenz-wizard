@@ -937,15 +937,16 @@
 
 			<button type="button" on:click={() => applyExample(12, 2)} class="example-link">12 + 2</button
 			>
+			|<button type="button" on:click={() => applyExample(10, 4)} class="example-link"
+				>10 + 4</button
+			>
 			|
 			<button type="button" on:click={() => applyExample(8, 6)} class="example-link">8 + 6</button>
 			|
-			<button type="button" on:click={() => applyExample(10, 4)} class="example-link">10 + 4</button
-			>
+			<button type="button" on:click={() => applyExample(7, 7)} class="example-link">7 + 7*</button>
 			|
-
 			<button type="button" on:click={() => applyExample(12, 12)} class="example-link"
-				>12 + 12 (Halbe Halbe mit unbezahlter Karenz)</button
+				>12 + 12 (Halbe-Halbe mit unbezahlter Karenz)</button
 			>
 		</div>
 	</section>
@@ -1385,7 +1386,6 @@
 				</div>
 			</div>
 		</div>
-
 		<p class="planner-note">
 			❓ Unsicher, ob du oder dein/e Partner/in überhaupt Anspruch auf einkommensabhängiges
 			Kinderbetreuungsgeld hat? Wenn nur eine Person Anspruch hat, kann das andere Elternteil ggf. <a
@@ -1394,6 +1394,16 @@
 			beziehen. Achtung bei AMS-Zeiten o.ä. vor Geburt/Mutterschutz (182-Tage-Regel)! Siehe
 			<a href="/eakbg-anspruch" class="planner-link">ea KBG Anspruch prüfen</a>.
 		</p>
+		<p>
+			* ℹ️ Info für Neu-Eltern bzgl. 7+7 Monate Aufteilung, was ja eigentlich Halbe-Halbe wäre im
+			Rahmen der 14 Monate ea KBG: Gerade beim ersten Kind können manche Mütter bzw. Paare einen
+			Wiedereinstieg nach 7 Monaten ggf. als herausfordernd empfinden – etwa in Bezug auf Stillen
+			(falls möglich / gewünscht), Abpumpen, Beikost-Einführung o.ä. Gleichzeitig kann dieses Modell
+			natürlich ggf. gut funktionieren, weil der Wechsel früher erfolgt. Wie gut ein Modell zu euch
+			passt, hängt maßgeblich von eurer individuellen Situation und euren Wünschen / Bedürfnissen
+			ab.
+		</p>
+
 		<NoteGrid />
 		<TimelineSummary {segmentSummaries} bind:birthDateInput {formatSegmentRange} open={false} />
 	</section>
