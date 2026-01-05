@@ -95,8 +95,14 @@
 							Maximal bis 14 Monate nach Geburt, Vater muss davon mindestens 2 Monate (61 Tage) in
 							Karenz gehen<br /><br /><i>
 								siehe <a href="/eakbg-planer" class="underline">ea KBG Planer</a></i
-							></td
-						>
+							><br /><br /><small>
+								Hinweis: Hier stellt sich natürlich die Frage, was nach den 14 Monaten geschehen
+								soll. Bspw. ob Fremdbetreuung (Kindergarten / Tagesmutter) schon ein Thema ist bzw.
+								im jeweiligen Bundesland überhaupt verfügbar ist, beide Elternteile in
+								Eltern-Teilzeit (20h/Woche) gehen (Anspruch prüfen!) oder noch ein Elternteil eine
+								unbezahlte Karenzzeit angehängt (falls finanziell leistbar).</small
+							>
+						</td>
 					</tr>
 
 					<tr class="odd:bg-slate-50">
