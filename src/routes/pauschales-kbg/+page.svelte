@@ -243,20 +243,5 @@
 				bezahlt, aber das Wochengeld ist sowieso höher.</i
 			>
 		</p>
-
-		<!-- TODO: duplicated content, remove infos which are already in table-->
-
-		<p>
-			<i
-				>Hinweis bzgl. ea KBG und 14 Monate: Allerdings endet beim einkommensabhängigen KBG auch der
-				Anspruch mit maximal 14 Monaten nach Geburt früher als beim Pauschalen KBG-Konto, sodass man
-				sich daher spätestens nach 14 Monaten entscheiden muss, ob das Kind fremdbetreut wird, eine
-				Eltern-Teilzeit vereinbart wird oder – falls finanziell möglich – eine unbezahlte Karenzzeit
-				angehangen wird wenn man das Kind bis zum 2. Lebensjahr selbst betreuen möchte. Siehe <a
-					href="/eakbg-planer"
-					class="underline">ea KBG Planer</a
-				>.</i
-			>
-		</p>
 	</div>
 </section>
