@@ -457,7 +457,7 @@
 				label: 'Papamonat⁵',
 				start: papamonatStart,
 				end: papamonatEnd,
-				displayDuration: 'Ab Entlassung KH, ggf. FZB 💰',
+				displayDuration: 'ggf. FZB 💰',
 				isInactive: true,
 				overlayStart: papamonatStart,
 				overlayVariant: 'papamonat',
