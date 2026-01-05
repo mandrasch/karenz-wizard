@@ -1401,7 +1401,8 @@
 			(falls möglich / gewünscht), Abpumpen, Beikost-Einführung o.ä. Gleichzeitig kann dieses Modell
 			natürlich ggf. gut funktionieren, weil der Wechsel früher erfolgt. Wie gut ein Modell zu euch
 			passt, hängt maßgeblich von eurer individuellen Situation und euren Wünschen / Bedürfnissen
-			ab.
+			ab. Und nicht zuletzt hängt es natürlich ggf. von eurer finanziellen Situation ab. Alle Daumen
+			gedrückt!
 		</p>
 
 		<NoteGrid />
