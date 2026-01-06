@@ -13,7 +13,7 @@
 		</p>
 		<ul>
 			<li>Das <b>pauschale Kinderbetreuungsgeld-Konto (KBG Konto)</b></li>
-			<li>sowie das <b>einkommensabhängige Kinderbetreuungsgeld (ea KBG)</b></li>
+			<li>sowie das <b>einkommensabhängige Kinderbetreuungsgeld (eaKBG)</b></li>
 		</ul>
 
 		<p>
@@ -28,7 +28,7 @@
 			1. Daher lohnt es sich im ersten Schritt zu prüfen, ob einer - oder beide - Elternteile
 			überhaupt Anspruch auf einkommensabhängiges KBG (182-Tage-Regel) haben. Siehe <a
 				class="underline"
-				href="/eakbg-anspruch/">ea KBG Anspruch prüfen</a
+				href="/eakbg-anspruch/">eaKBG Anspruch prüfen</a
 			>.
 		</p>
 		<p>
@@ -42,7 +42,7 @@
 			für beide Elternteile.
 		</p>
 
-		<h4>Faustregel: Wenn man Anspruch auf ea KBG hat, dann bringt es meist mehr</h4>
+		<h4>Faustregel: Wenn man Anspruch auf eaKBG hat, dann bringt es meist mehr</h4>
 		<!-- TODO: Add link to unbezahlte karenz -->
 		<p>
 			Für Paare, bei denen vor der Geburt einer oder beide gearbeitet haben, lohnt sich in der Regel
@@ -79,7 +79,7 @@
 						<td class="border border-slate-200 px-4 py-3">
 							Nur bei Erwerbstätigkeit vor der Geburt / Mutterschutz (182-Tage-Regel) von mindestens
 							einem Elternteil<br /><br />
-							<i>siehe <a class="underline" href="/eakbg-anspruch/">ea KBG Anspruch prüfen</a></i>
+							<i>siehe <a class="underline" href="/eakbg-anspruch/">eaKBG Anspruch prüfen</a></i>
 						</td>
 					</tr>
 
@@ -94,7 +94,7 @@
 						<td class="border border-slate-200 px-4 py-3">
 							Maximal bis 14 Monate nach Geburt, Vater muss davon mindestens 2 Monate (61 Tage) in
 							Karenz gehen<br /><br /><i>
-								siehe <a href="/eakbg-planer" class="underline">ea KBG Planer</a></i
+								siehe <a href="/eakbg-planer" class="underline">eaKBG Planer</a></i
 							><br /><br /><small>
 								Hinweis: Hier stellt sich natürlich die Frage, was nach den 14 Monaten geschehen
 								soll. Bspw. ob Fremdbetreuung (Kindergarten / Tagesmutter) schon ein Thema ist bzw.
@@ -146,7 +146,7 @@
 								<li>
 									<a
 										href="https://services.bundeskanzleramt.gv.at/KBG-Rechner/index.html#eaKbg"
-										class="underline">ea KBG Rechner - bundeskanzleramt.gv.at</a
+										class="underline">eaKBG Rechner - bundeskanzleramt.gv.at</a
 									>
 								</li>
 							</ul>
@@ -174,7 +174,7 @@
 							<li>
 								<a
 									href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html#heading_Einkommensabhaengiges_Kinderbetreuungsgeld"
-									>ea KBG - arbeiterkammer.at</a
+									>eaKBG - arbeiterkammer.at</a
 								>
 							</li>
 							<li>

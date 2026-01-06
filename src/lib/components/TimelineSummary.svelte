@@ -80,7 +80,7 @@
 							<th scope="col">Abschnitt</th>
 							<th scope="col">Tage</th>
 							<th scope="col">Zeitraum</th>
-							<th scope="col">Förderung</th>
+							<th scope="col">Förderung (Tagessatz €, max. 80,12€/Tag)</th>
 							<th scope="col">Gesamt</th>
 						</tr>
 					</thead>
@@ -111,13 +111,25 @@
 					</tbody>
 				</table>
 			</div>
+			<p>
+				Es kommt auch noch Familienbehilfe sowie Wochengeld während des Mutterschutzes dazu,
+				außerdem gibt es bei 60:40 bis 50:50 den Partnerschaftsbonus. Auch für den Papamonat gibt es
+				noch den Familienzeitbonus (falls Anspruch besteht).
+			</p>
 			<p class="mt-4 text-center">
-				Berechne die genauen Beträge: <a
+				Berechne die genauen Beträge für das einkommensabhängige KBG hier: <a
 					class="underline"
 					href="https://services.bundeskanzleramt.gv.at/KBG-Rechner/index.html#willkommen"
 					>KBG-Rechner auf bundeskanzleramt.gv.at</a
 				>
 			</p>
+			<div class="mt-4 text-center text-xs">
+				<p class="planner-note">
+					⚠️ Alle Angaben ohne Gewähr, bitte alle Planungen bei der
+					<a href="/ak-beratung" class="planner-link">Arbeiterkammer kostenfrei überprüfen lassen</a
+					> vor Antragsstellung!
+				</p>
+			</div>
 		</div>
 	</details>
 {:else}

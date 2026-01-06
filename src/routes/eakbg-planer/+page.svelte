@@ -299,8 +299,8 @@
 
 	const motherLabel = $derived(
 		motherUnpaidMonths > 0.01
-			? 'Karenz Mutter: ea KBG³ 💰 + unbezahlte Karenz⁵'
-			: 'Karenz Mutter: ea KBG³ 💰'
+			? 'Karenz Mutter: eaKBG³ 💰 + unbezahlte Karenz⁵ ⚠️'
+			: 'Karenz Mutter: eaKBG³ 💰'
 	);
 
 	const motherConsumesAllEa = $derived(coverageAfterMother <= 0);
@@ -308,9 +308,9 @@
 	const fatherLabel = $derived(
 		fatherUnpaidMonths > 0.01
 			? fatherPaidMonths > 0 && !motherConsumesAllEa
-				? 'Karenz Vater: ea KBG³ 💰 + unbezahlte Karenz⁵'
-				: 'Karenz Vater: unbezahlte Karenz⁷'
-			: 'Karenz Vater: ea KBG³ 💰'
+				? 'Karenz Vater: eaKBG³ 💰 + unbezahlte Karenz⁵ ⚠️'
+				: 'Karenz Vater: unbezahlte Karenz⁷ ⚠️'
+			: 'Karenz Vater: eaKBG³ 💰'
 	);
 
 	const fatherDisplay = $derived(
@@ -693,7 +693,7 @@
 					if (hasPaid) {
 						pushSummary(
 							`${summaryKey}-${index}-paid`,
-							'Karenz Mutter: ea KBG³ 💰',
+							'Karenz Mutter: eaKBG³ 💰',
 							startWeeks,
 							paidEnd,
 							summaryKey,
@@ -737,7 +737,7 @@
 					if (hasPaid) {
 						pushSummary(
 							`${summaryKey}-${index}-paid`,
-							'Karenz Vater: ea KBG³ 💰',
+							'Karenz Vater: eaKBG³ 💰',
 							startWeeks,
 							paidEnd,
 							summaryKey,
@@ -917,11 +917,13 @@
 <section class="content planner-page min-w-0">
 	<div class="page-header mt-10 min-w-0">
 		<h1 id="planner-title" class="planner-heading text-2xl text-slate-900">
-			ea KBG Planer für Paare
+			eaKBG Planer für Paare
 		</h1>
 		<p class="subline">
-			Eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld und die Aufteilung
-			der Karenz.
+			Eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld (eaKBG) und die
+			Aufteilung der Karenz. Infos für Neu-Eltern finden sich unter dem Planungs-Tool.<!-- <br /> Bitte
+			prüft in Schritt 1, ob ihr überhaupt
+			<a href="/eakbg-anspruch" class="planner-link">eaKBG-Anspruch</a> habt. -->
 		</p>
 		<div class="planner-quick-info" role="note">
 			<p class="planner-note">
@@ -1050,7 +1052,7 @@
 						<div class="control-checkbox__text">
 							<span>Gemeinsamer Monat beim ersten Wechsel⁷</span>
 							{#if jointMonth}
-								<small>ea KBG Gesamt-Anspruch wird um 1 Monat kürzer</small>
+								<small>eaKBG Gesamt-Anspruch wird um 1 Monat kürzer</small>
 							{:else}
 								<!-- quick hack to fix unecessary layout shift on height-->
 								<small>&nbsp;</small>
@@ -1062,11 +1064,11 @@
 				{#if fatherEaBlocked}
 					<div class="warning-banner" role="alert">
 						⚠️ Die Mutter nutzt den gesamten Anspruch auf einkommensabhängiges Kinderbetreuungsgeld.
-						Der Vater kann daher keinen ea KBG-Bezug mehr geltend machen, weil er mindestens 2
-						Monate im Zeitraum der 14 Monate ab Geburt nehmen muss (12+2 Modell).
+						Der Vater kann daher keinen eaKBG-Bezug mehr geltend machen, weil er mindestens 2 Monate
+						im Zeitraum der 14 Monate ab Geburt nehmen muss (12+2 Modell).
 					</div>
 
-					<!-- TODO: Add warning, when ein Teil unbezahlte Karenz ist und ea KBG überschritten-->
+					<!-- TODO: Add warning, when ein Teil unbezahlte Karenz ist und eaKBG überschritten-->
 				{/if}
 			</div>
 
@@ -1387,58 +1389,198 @@
 				</div>
 			</div>
 		</div>
-		<p class="planner-note">
-			❓ Unsicher, ob du oder dein/e Partner/in überhaupt Anspruch auf einkommensabhängiges
-			Kinderbetreuungsgeld hat? Wenn nur eine Person Anspruch hat, kann das andere Elternteil ggf. <a
-				href="/faq#sonderleistung-1">Sonderleistung I</a
-			>
-			beziehen. Achtung bei AMS-Zeiten o.ä. vor Geburt/Mutterschutz (182-Tage-Regel)! Siehe
-			<a href="/eakbg-anspruch" class="planner-link">ea KBG Anspruch prüfen</a>.
-		</p>
-		<p>
-			* ℹ️ Info für Neu-Eltern bzgl. 7+7 Monate Aufteilung, welche ja eigentlich Halbe-Halbe wäre im
-			Rahmen der 14 Monate ea KBG: Gerade beim ersten Kind können manche Mütter bzw. Paare einen
-			Wiedereinstieg im Job nach 7 Monaten ggf. als herausfordernd empfinden – etwa in Bezug auf
-			Stillen und Abpumpen (falls möglich / gewünscht), Beikost-Einführung o.ä. Gleichzeitig kann
-			dieses Modell natürlich ggf. gut funktionieren für einige Familien. Jedes Kind entwickelt sich
-			zudem individuell. Wie gut ein Modell zu euch passt, hängt maßgeblich von eurer individuellen
-			Situation, finanziellen Rahmenbedingungen und euren Wünschen / Bedürfnissen ab. Alle Daumen
-			gedrückt für eine passende Planung!<br /><br />
-			Der Anspruch von "Halbe-Halbe" muss auch nicht zwangsläufig in die 14 Monate ea KBG "gequetscht"
-			werden: Mit der Eltern-Teilzeit können auch Väter bspw. nach Ende der Elternkarenz weitere Verantwortung
-			übernehmen, wenn bspw. beide Partner zeitweise 20h/Woche arbeiten und sich die Kinderbetreuung teilen.
-			Die große Frage der Karenzplanung ist eigentlich auch: Wie organisieren wir Arbeit, Familie und
-			Kinderbetreuung nach Ablauf der 14 Monate ea KBG?
+		<p class="planner-note text-sm">
+			❓ Unsicher, ob du oder dein Partner/deine Partnerin überhaupt Anspruch auf
+			einkommensabhängiges Kinderbetreuungsgeld hat? Achtung bei AMS-Zeiten o.ä. vor
+			Geburt/Mutterschutz (182-Tage-Regel). Wenn nur eine Person Anspruch hat, kann das andere
+			Elternteil <a href="/faq#sonderleistung-1">Sonderleistung I</a>
+			beziehen. Habt ihr beide jedoch keinen Anspruch, bleibt nur das
+			<a href="/pauschales-kbg/" class="planner-link">KBG-Konto</a>. Also Schritt. 1:
+			<a href="/eakbg-anspruch" class="planner-link">eaKBG Anspruch prüfen</a>!
 		</p>
 
 		<NoteGrid />
 		<TimelineSummary {segmentSummaries} bind:birthDateInput {formatSegmentRange} open={false} />
+
+		<!-- TODO: use own details / collapsible component -->
+		<div class="prose">
+			<h3 id="infos-fuer-neueltern">
+				* Infos für Neu-Eltern: Karenzplanung kann kompliziert sein!
+			</h3>
+			<img
+				class="mt-6 max-w-full border"
+				src="/meme_karenz_wizard_karenzplanung_erstes_und_zweites_lebensjahr.jpg"
+				alt="Meme mit zwei Seiten, erstes Lebensjahr - einfach, Frosch Kermit trinkt Kaffee entspannt. Zweites Jahr wild - Meme mit Person, die vor Notizen steht und durchdreht (Conspiracy Meme)"
+			/>
+
+			<p>
+				Wird Elternzeit im Sinne von „Ganze Männer machen Halbe-Halbe“ gedacht, wäre das bei maximal
+				14 Monaten eaKBG-Förderung eine <strong>7+7-Monate-Aufteilung</strong>.
+			</p>
+
+			<strong>Warum ist die 7+7 Aufteilung hier nicht im Planer voreingestellt als Standard?</strong
+			>
+			<p>
+				Gerade beim ersten Kind kann ein Wiedereinstieg in den Job nach sieben Monaten für manche
+				Mütter bzw. Paare als herausfordernd empfunden werden – etwa in Bezug auf Stillen und
+				Abpumpen (falls Stillen möglich und gewünscht ist), die Beikost-Einführung, etc. Für andere
+				Familien kann dieses Modell aber ggf. gut funktionieren.
+			</p>
+			<!-- <p>Die Challenge: Diese Entscheidungen liegen bei euch.</p>-->
+
+			<strong>Die meisten Eltern entscheiden sich aktuell für 12+2 Aufteilung</strong><br />
+
+			<p>
+				In Österreich entscheiden sich viele Eltern aktuell für die 12+2 Aufteilung, wenn beide in
+				Karenz gehen. Die Mutter verbringt die ersten 12 Monate in Karenz, der Vater nimmt die
+				verbleibenden 2 Monate (<em>Quelle ergänzen</em>).
+			</p>
+			<p class="text-sm italic">
+				Info am Rande: Die <a href="/blog/halbe-halbe-bei-karenz/"
+					>politischen Entscheider:innen überlegen aktuell, wie für Väter mehr Karenzmonate
+					ermöglicht werden können.</a
+				>
+				Die SPÖ hat
+				<a href="/blog/spo-startet-umfrage-vaeterkarenz-elternkarenz/">eine Umfrage gestartet</a>,
+				die AK Oberösterreich hat mit Eltern
+				<a href="/blog/spo-startet-umfrage-vaeterkarenz-elternkarenz/"
+					>auf Instagram diskutiert zur Väterkarenz</a
+				>.
+			</p>
+			<strong>Die eigentliche Millionen-Frage: Wie geht es nach den 14 Monaten eaKBG weiter?</strong
+			><br />
+
+			<p>Nach Ablauf der 14 Monate wird dann entweder ...</p>
+			<ul>
+				<li>
+					a) frembetreut, d.h. das Kind ist bei Tagesmutter/vater oder geht in den Kindergarten,
+					falls schon möglich im Bundesland unter 2 Lebensjahre und beide Eltern arbeiten wieder
+					(ggf. auch mit reduzierter Arbeitszeit),
+				</li>
+				<li>
+					b) Eltern-Teilzeit wird von beiden genutzt mit 20h/Woche, Eltern wechseln sich tageweise
+					oder tagsüber ab sodass keine Fremdbetreuung nötig ist,
+				</li>
+				<li>
+					c) ein Elternteil bleibt noch daheim in unbezahlter Karenz (finanzielle Frage, ein Gehalt
+					muss für Familie reichen!),
+				</li>
+				<li>d) Großeltern oder anderen Personen betreuen mit.</li>
+			</ul>
+			<p>
+				Weitere Misch-Modelle sind möglich, eine klare Vorgabe gibt es nicht für Neu-Eltern. Es
+				hängt natürlich (leider) stark von euren finanziellen Rahmenbedingungen ab.
+			</p>
+
+			<strong>a) Fremdbetreuung nach 14 Monaten - emotionale Entscheidung</strong>
+			<p>
+				Ab wann das Kind in den Kindergarten oder zu einer Tagesmutter/Tagesvater geht, ist eine
+				individuelle Entscheidung und wird teils sehr emotional diskutiert unter Eltern. Grund:
+				Kindergarten-Gruppen können für einige 14-monatige Babies Stress bedeuten, andere kommen
+				wohl gut damit klar bei guter individueller Betreuung. Und es ist auch abhängig davon, ab
+				welchem Alter Kinder überhaupt in den Kindergarten dürfen in eurem Bundesland. Auch das
+				Start-Datum des Kindergartenjahres kann relevant sein - sowie natürlich wie sich euer Kind
+				entwickelt. Jedes Kind ist anders.
+			</p>
+			<strong>b) Beide in Eltern-Teilzeit mit 20h/Woche als Option ohne Fremdbetreuung</strong><br
+			/>
+			<p>
+				Einige Eltern gehen nach Ablauf der 14 Monate eaKBG auch beide in Eltern-Teilzeit mit
+				20h/Woche, somit findet noch keine Fremdbetreuung statt. Sie wechseln sich tageweise oder
+				tagsüber ab mit der Kinderbetreuung. Die Eltern tun dies, bis das Kind 2 Jahre oder älter
+				ist und dann fremdbetreut wird (Kindergarten).
+			</p>
+
+			<strong>c) Zwei Jahre Elternzeit mit unbezahlter Karenz als weitere Option: 12 + 12</strong>
+			<p>
+				Eine weitere Option ist nach den 14 Monaten eaKBG noch eine unbezahlte Karenz anzuhängen, z.
+				B. könnte der Vater noch weitere 10 Monate in unbezahlter Karenz bleiben für 12+12
+				Aufteilung. Finanziell ist dies natürlich nur möglich, wenn das Gehalt eines Elternteils –
+				in diesem Beispiel der Mutter – für die 10 Monate ausreicht bzw. Ersparnisse vorhanden sind.
+				In der unbezahlten Karenzzeit erhält die kinderbetreuuende Person ja kein Einkommen, es
+				bleibt nur das Gehalt des arbeitenden Partners - sowie die allgemeine Familienbeihilfe.
+			</p>
+
+			<p class="text-sm italic">
+				Info am Rande: In den letzten Jahren wurde auch gerne die Bildungskarenz für ein Jahr nach
+				der Elternzeit genutzt, dies ist leider <a
+					href="/blog/bildungskarenz-bruecke-erwerbsleben-entfaellt/"
+					class="underline">seit 2026 nicht mehr möglich</a
+				>.
+			</p>
+
+			<strong>d) Großeltern oder anderen Personen betreuen mit</strong>
+			<p>
+				Die Einbindung von Großeltern oder anderen Bezugspersonen, falls verfügbar, ist natürlich
+				ebenso denkbar.
+			</p>
+
+			<strong>Job & Baby-Betreuung gleichberechtigt organisieren ist aktuell ein Kraftakt</strong
+			><br />
+
+			<p>
+				Es gibt kein „richtig“ oder „falsch“ – wichtig ist, dass die Aufteilung zu eurer Situation,
+				euren Bedürfnissen und euren finanziellen Rahmenbedingungen passt.
+			</p>
+			<p>
+				Die aktuelle Arbeitswelt kann euch natürlich auch ab und zu im Weg stehen, wenn ihr die
+				Sorge um eure Kind (Care-Arbeit) gleichberechtigt aufteilen wollt.
+			</p>
+			<blockquote>
+				„Wer sich die Familienarbeit fair aufteilen will, muss auch gegen ein ganzes System
+				arbeiten.“ -
+				<cite
+					>Patricia Cammarata (<a
+						href="https://www.derstandard.at/story/3000000212445/patricia-cammarata-wenn-die-beziehung-schlecht-ist-wollen-maenner-nicht-ueber-sorgearbeit-verhandeln"
+						>Standard-Interview</a
+					>)</cite
+				>
+			</blockquote>
+
+			<p>
+				Für meine Partnerin und mich war das erste Einlesen und Planen sehr zeit- und
+				nervenaufreibend. Ich hoffe die Informationen hier helfen euch ein wenig!
+			</p>
+
+			<p>
+				Was wir damals übersehen haben: Deine Arbeiterkammer vor Ort bietet ggf. teils auch Webinare
+				/ vor Ort Infoveranstaltungen an: <a href="/ak-beratung">Beratung bei der Arbeiterkammer</a
+				>. Hier lohnt sich ein gründlicher Blick!
+			</p>
+			<p>
+				Vielleicht gibt es ja zukünftig auch einen Online-Kurs oder ein gutes, praxisnahes Buch zum
+				Thema „Gleichberechtigung & Karenzplanung“.
+			</p>
+			<p>🍀 Alle Daumen gedrückt für eine Planung, die zu euch passt!</p>
+		</div>
 	</section>
 
 	<section class="prose mt-10">
 		<h3>Mehr Informationen, Videos und Beratung</h3>
 		<ul>
 			<li>
-				<a
+				Infoseite: <a
+					href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.867463&portal=oegkportal"
+					class="underline">Kinderbetreuungsgeld - ÖGK</a
+				>
+			</li>
+			<li>
+				Infoseite: <a
 					href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html"
 					class="underline"
 				>
 					Kinderbetreuungsgeld - arbeiterkammer.at
 				</a>
 			</li>
+
 			<li>
-				<a
-					href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.867463&portal=oegkportal"
-					class="underline">Kinderbetreuungsgeld - ÖGK</a
-				>
-			</li>
-			<li>
-				YouTube: Kinderbetreuungsgeld in Österreich | Antrag & Varianten - Arbeiterkammer
+				YouTube: Kinderbetreuungsgeld in Österreich | Antrag & Varianten
 				<a href="https://www.youtube.com/watch?v=JdoIhtTYxh8">
-					<img src="/ak_video_thumbnail_kbg_zwei_modelle.jpg" alt="" class="mt-1" />
+					<img src="/ak_video_thumbnail_kbg_zwei_modelle.jpg" alt="" class="mt-1 mb-0" />
 				</a>
 			</li>
 			<li>
+				Infoseite:
 				<a
 					href="https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Teilung_der_Karenz.html"
 					>Teilung der Karenz - arbeiterkammer.at</a
@@ -1448,7 +1590,7 @@
 				YouTube-Video: Teilung Karenz und Kinderbetreuungsgeld in Österreich<a
 					href="https://www.youtube.com/watch?v=_68qceI3lLU"
 				>
-					<img src="/ak_video_thumbnail_karenzteilung.jpg" alt="" class="mt-1" />
+					<img src="/ak_video_thumbnail_karenzteilung.jpg" alt="" class="mt-1 mb-0" />
 				</a>
 			</li>
 		</ul>
@@ -1459,9 +1601,9 @@
 		<ul>
 			<li><a href="/ak-beratung">Beratung bei der Arbeiterkammer</a></li>
 		</ul>
-		<p>Siehe auch auf dieser Webseite:</p>
+		<p>Siehe auch weitere Unterseiten auf dieser Webseite:</p>
 		<ul>
-			<li><a href="/eakbg-anspruch">ea KBG Anspruch prüfen</a></li>
+			<li><a href="/eakbg-anspruch">eaKBG Anspruch prüfen</a></li>
 			<li><a href="/infothek">Infothek</a></li>
 		</ul>
 	</section>
@@ -1471,8 +1613,8 @@
 		<div class="debug-panel" style="display:none">
 			<h3>Debug · EA-KBG Berechnung</h3>
 			<div class="debug-grid">
-				<div><strong>EA KBG Monate:</strong> {eaKbgMonths.toFixed(2)}</div>
-				<div><strong>EA KBG Wochen:</strong> {eaKbgWeeks.toFixed(1)}</div>
+				<div><strong>eaKBG Monate:</strong> {eaKbgMonths.toFixed(2)}</div>
+				<div><strong>eaKBG Wochen:</strong> {eaKbgWeeks.toFixed(1)}</div>
 				<div><strong>Mutter bezahlt:</strong> {motherPaidMonths.toFixed(2)}</div>
 				<div><strong>Vater bezahlt:</strong> {fatherPaidMonths.toFixed(2)}</div>
 				<div>

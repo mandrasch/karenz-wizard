@@ -70,7 +70,7 @@
 		{
 			id: 'eakbg',
 			sup: 3,
-			title: 'Einkommensabhängiges Kinderbetreuungsgeld (ea KBG)',
+			title: 'Einkommensabhängiges Kinderbetreuungsgeld (eaKBG)',
 			body: `
       Das einkommensabhängige Kinderbetreuungsgeld ersetzt rund 80 % des früheren Einkommens.  
       Es wird nach dem Mutterschutz ausbezahlt.
@@ -87,7 +87,7 @@
     `,
 			more: [
 				{
-					label: 'BKA: ea KBG – Voraussetzungen',
+					label: 'BKA: eaKBG – Voraussetzungen',
 					href: 'https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html',
 					underline: true
 				},
@@ -99,7 +99,7 @@
 			],
 			references: [
 				{
-					label: 'BKA: ea KBG – Voraussetzungen & Dauer',
+					label: 'BKA: eaKBG – Voraussetzungen & Dauer',
 					href: 'https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html'
 				},
 				{ label: 'AK: KBG – Varianten & Mindestblöcke', href: 'https://www.arbeiterkammer.at/kbg' }

@@ -26,16 +26,16 @@
 				'Kann man Einkommensabhängiges KBG und Pauschales KBG nutzen, wenn ein Elternteil nicht 6 Monate (182 Tage) gearbeitet hat?',
 			answer: [
 				`Kurz: <strong>Nein</strong> – „ein Kind, ein System“. Das Mischen von <em>einkommensabhängigem</em> KBG und <em>pauschalem</em> KBG für dasselbe Kind ist nicht vorgesehen.`,
-				`Wenn ein Elternteil die Voraussetzungen für das <em>ea KBG</em> (u. a. 182 Tage durchgehende vollversicherungspflichtige Erwerbstätigkeit vor Geburt) <strong>nicht</strong> erfüllt, gibt es im <em>ea-KBG-Modell</em> eine Alternative: die <a href="#sonderleistung-1">Sonderleistung&nbsp;I</a> mit fixem Tagsatz. Der andere Elternteil kann weiterhin regulär <em>ea KBG</em> beziehen.`
+				`Wenn ein Elternteil die Voraussetzungen für das <em>eaKBG</em> (u. a. 182 Tage durchgehende vollversicherungspflichtige Erwerbstätigkeit vor Geburt) <strong>nicht</strong> erfüllt, gibt es im <em>ea-KBG-Modell</em> eine Alternative: die <a href="#sonderleistung-1">Sonderleistung&nbsp;I</a> mit fixem Tagsatz. Der andere Elternteil kann weiterhin regulär <em>eaKBG</em> beziehen.`
 			]
 		},
 		{
 			id: 'sonderleistung-1',
-			question: 'Was ist Sonderleistung 1 beim ea KBG?',
+			question: 'Was ist Sonderleistung 1 beim eaKBG?',
 			answer: [
 				`<blockquote><p>Erfüllt ein Elternteil nicht das Erwerbstätigkeitserfordernis, so gebührt bei Erfüllung sämtlicher anderer Anspruchsvoraussetzungen auf Antrag ein einkommensabhängiges Kinderbetreuungsgeld in Höhe von 41,14 Euro täglich (Sonderleistung I).</p><cite><a href="https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html">Bundeskanzleramt</a></cite></blockquote>`,
-				`<blockquote><p>Was ist, wenn nur ein Elternteil die Voraussetzungen für das ea KBG erfüllt?
-Sie wollen das ea KBG nutzen, aber einer der beiden Elternteile erfüllt die Anspruchsvoraussetzungen nicht? Oder liegt der Tagsatz eines Elternteiles unter 41,14€ (2025)? Dann kann dieser Elternteil auf eine Sonderleistung umsteigen, die der Dauer des KBG entspricht. Der Tagsatz dafür beträgt 41,14€ (2025). Der andere Elternteil, der die Anspruchsvoraussetzungen erfüllt, kann trotzdem das ea KBG beziehen.</p><cite><a href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html">arbeiterkammer.at</a></cite></blockquote>`
+				`<blockquote><p>Was ist, wenn nur ein Elternteil die Voraussetzungen für das eaKBG erfüllt?
+Sie wollen das eaKBG nutzen, aber einer der beiden Elternteile erfüllt die Anspruchsvoraussetzungen nicht? Oder liegt der Tagsatz eines Elternteiles unter 41,14€ (2025)? Dann kann dieser Elternteil auf eine Sonderleistung umsteigen, die der Dauer des KBG entspricht. Der Tagsatz dafür beträgt 41,14€ (2025). Der andere Elternteil, der die Anspruchsvoraussetzungen erfüllt, kann trotzdem das eaKBG beziehen.</p><cite><a href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html">arbeiterkammer.at</a></cite></blockquote>`
 			]
 		},
 		{

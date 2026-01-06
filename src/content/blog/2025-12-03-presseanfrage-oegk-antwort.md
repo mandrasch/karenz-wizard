@@ -10,7 +10,7 @@ Gut Ding will - manchmal - Weile haben. Die ÖGK hat sich netterweise gestern be
 
 #### Für verheiratete Paare - alles easy bei der Mitversicherung
 
-Bei verheirateten Paaren ist in Österreich alles easy: Möchte ein Elternteil nach den 12+2 Monaten mit einkommensabhängigem Kinderbetreuungsgeld (ea KBG) noch in "unbezahlter Karenz" bleiben, so kann er/sie sich einfach bei seinem Partner/in in der Krankenversicherung mitversichern lassen. Rechtlichen Anspruch beim Arbeitgeber auf Karenz-Freistellung hat man nämlich bis zum 2. Lebensjahr des Kindes.
+Bei verheirateten Paaren ist in Österreich alles easy: Möchte ein Elternteil nach den 12+2 Monaten mit einkommensabhängigem Kinderbetreuungsgeld (eaKBG) noch in "unbezahlter Karenz" bleiben, so kann er/sie sich einfach bei seinem Partner/in in der Krankenversicherung mitversichern lassen. Rechtlichen Anspruch beim Arbeitgeber auf Karenz-Freistellung hat man nämlich bis zum 2. Lebensjahr des Kindes.
 
 #### Mitversicherung bei unverheirateten Paaren - Prüfung?
 
@@ -24,7 +24,7 @@ Dieser Unsicherheitsfaktor erschwert die finanzielle Planung natürlich immens, 
 
 #### Unbezahlte Karenz spielt für Väter eine Rolle, die für 2 Monate Karenz medial kritisiert werden
 
-Inbesondere für Väter wären ein paar Monate unbezahlte Karenz eine wichtige Option, falls die Mutter bspw. 12 Monate mit ea KBG Förderung in Karenz geht, der Vater die noch 2 verbleibenden ea KBG-Monate Karenz nimmt und er danach noch die unbezahlte Karenzmonate anhängen könnte. Gerade Väter werden in Österreich medial heftig kritisiert, dass sie nur 2 Monate Karenz nehmen.
+Inbesondere für Väter wären ein paar Monate unbezahlte Karenz eine wichtige Option, falls die Mutter bspw. 12 Monate mit eaKBG Förderung in Karenz geht, der Vater die noch 2 verbleibenden eaKBG-Monate Karenz nimmt und er danach noch die unbezahlte Karenzmonate anhängen könnte. Gerade Väter werden in Österreich medial heftig kritisiert, dass sie nur 2 Monate Karenz nehmen.
 
 #### Auch durch Wegfall der Bildungskarenz mehr Relevanz?
 

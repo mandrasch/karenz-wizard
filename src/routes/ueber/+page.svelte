@@ -2,7 +2,7 @@
 	<header class="mt-10 text-center">
 		<h1 class="text-3xl font-semibold text-slate-900">Über</h1>
 	</header>
-	<div class="prose prose-slate mt-6 mx-auto max-w-3xl">
+	<div class="mx-auto prose mt-6 max-w-3xl prose-slate">
 		<p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
 		<h3>Dieses Tool sollte die AK oder eine NGO betreiben!</h3>
 		<p>
@@ -120,7 +120,7 @@
 			Entscheidung der Eltern - die auch oft mit der Frage des Einkommens zusammenhängt. Jedes Kind
 			ist anders. <br /><br />Es gibt eine große Bandbreite an Modellen, wie Eltern die ersten Jahre
 			mit Baby und Erwerbsarbeit organisieren. Mir war nicht bewusst, dass diese Entscheidung mit 14
-			Monaten nach Ablauf des ea KBG ansteht - wenn man doch zuvor immmer von 2 Jahren Recht auf
+			Monaten nach Ablauf des eaKBG ansteht - wenn man doch zuvor immmer von 2 Jahren Recht auf
 			Karenz liest. Dies bezieht sich aber nur auf das Recht der Freistellung beim Arbeitgeber,
 			nicht die finanzielle Förderung durch den Sozialstaat. Was hier fehlt: Einfache
 			Beschreibungen, welche verschiedenen Wege Eltern gehen könnten.

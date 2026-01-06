@@ -50,7 +50,7 @@ const seoEntries: SeoEntry[] = [
 	{
 		match: '/eakbg-anspruch/',
 		meta: {
-			title: 'ea KBG Anspruch prüfen – Karenz Wizard',
+			title: 'eaKBG Anspruch prüfen – Karenz Wizard',
 			description:
 				'Checkliste für das einkommensabhängige Kinderbetreuungsgeld: Voraussetzungen, Fristen und Tipps für Mutter und Vater.'
 		}
@@ -58,7 +58,7 @@ const seoEntries: SeoEntry[] = [
 	{
 		match: '/eakbg-planer/',
 		meta: {
-			title: 'ea KBG Karenz-Planer – Karenz Wizard',
+			title: 'eaKBG Karenz-Planer – Karenz Wizard',
 			description:
 				'Plane euren Karenzverlauf Schritt für Schritt: Monate kombinieren, Papamonat berücksichtigen und Fristen im Blick behalten.'
 		}
@@ -140,7 +140,7 @@ const seoEntries: SeoEntry[] = [
 		meta: {
 			title: 'Unbezahlte Karenz planen – Karenz Wizard',
 			description:
-				'Infos zur Verlängerung nach ea KBG: Mitversicherung, finanzielle Planung und mögliche Stolperfallen.'
+				'Infos zur Verlängerung nach eaKBG: Mitversicherung, finanzielle Planung und mögliche Stolperfallen.'
 		}
 	},
 	// TODO: use description from markdown files?

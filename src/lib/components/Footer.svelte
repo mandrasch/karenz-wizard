@@ -58,7 +58,7 @@
 					<ul class="space-y-2 text-sm text-slate-600">
 						<li><a class="hover:text-slate-900" href="/ueber">Über diese Webseite</a></li>
 						<li><a class="hover:text-slate-900" href="/eakbg-planer">eaKBG-Planer</a></li>
-						<li><a class="hover:text-slate-900" href="/eakbg-anspruch">ea KBG Anspruch?</a></li>
+						<li><a class="hover:text-slate-900" href="/eakbg-anspruch">eaKBG Anspruch?</a></li>
 						<li><a class="hover:text-slate-900" href="/fzb-anspruch">FZB Anspruch?</a></li>
 						<li><a class="hover:text-slate-900" href="/pauschales-kbg">Pauschales KBG</a></li>
 						<li><a class="hover:text-slate-900" href="/ak-beratung">AK-Beratung</a></li>

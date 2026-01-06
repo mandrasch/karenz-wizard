@@ -100,7 +100,7 @@
 			<p>
 				Liegt es an uns Männern, der Wirtschaft, wie Erwerbsarbeit aktuell mit Vollzeit organisiert
 				ist, dem Karriere-Druck bei steigenden Lebens- und Mietkosten, den staatlichen
-				Förderungsregeln (max. 14 Monate ea KBG), fehlenden Kindergarten-Plätzen, den eingelernten
+				Förderungsregeln (max. 14 Monate eaKBG), fehlenden Kindergarten-Plätzen, den eingelernten
 				Mustern früherer Zeiten ... Oder reden wir generell teils aneinander vorbei, weil keiner die
 				genauen Regeln kennt, unterschiedliche Vorstellungen existieren wann Babys in den
 				Kindergarten sollen und die Option "unbezahlte Karenz" nicht bekannt ist?
@@ -217,7 +217,7 @@
 			<h2>Videos</h2>
 			<p>
 				Die Videos der Arbeiterkammer zeigen leider oft nur Beispiele, wo Männer die minimalen zwei
-				Monate Karenz beim ea KBG nehmen. Ich hoffe, dies ändert sich in Zukunft noch.
+				Monate Karenz beim eaKBG nehmen. Ich hoffe, dies ändert sich in Zukunft noch.
 			</p>
 			<ul>
 				<li>

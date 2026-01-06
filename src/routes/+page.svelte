@@ -6,35 +6,36 @@
 	// TODO: descriptions are just quick examples, re-work them
 	const cards = [
 		{
-			title: 'Habe ich und meine/e Partner/in Anspruch?',
-			subtitle: 'Prüft eure Voraussetzungen',
+			title: 'Hat mindestens einer von euch Anspruch auf eaKBG?',
+			subtitle: '1. Prüft euren Anspruch',
 			description: [
-				'Finde heraus, welche Karenzmodelle euch offenstehen und welche Fristen ihr unbedingt einhalten solltet.',
-				'Der Check erklärt verständlich, welche Voraussetzungen für ea KBG, Papamonat, FZB und unbezahlte Karenz gelten.'
+				'Um das einkommensabhängige Kinderbetreuungsgeld (eaKBG) zu beziehen, muss mindestens ein Elternteil die 182-Tage-Regel erfüllen und vor Geburt bzw. Mutterschutz ca. 6 Monate durchgehend gearbeitet haben. Arbeitslosengeld o.ä. darf bspw. nicht bezogen worden sein in dieser Zeit. ',
+				'Prüft hier euren Anspruch:'
 			],
 			href: '/eakbg-anspruch',
-			cta: 'ea KBG Anspruch prüfen'
+			cta: 'eaKBG-Anspruch prüfen'
 		},
 		// TODO: explain eakbg here briefly
 		{
-			title: 'ea KBG Karenz-Planer',
-			subtitle: 'Plant eure Karenzaufteilung',
+			title: 'Plant gemeinsam eure Karenzaufteilung',
+			subtitle: '2. eaKBG-Planer nutzen ',
 			description: [
-				'Stellt Monate für beide Elternteile zusammen, kombiniert ea KBG mit unbezahlter Karenz oder Eltern-Teilzeit.',
-				'Ihr seht sofort, wann ihr Arbeitgeber:in, ÖGK oder AK informieren müsst und wie viel Zeit wirklich bleibt.'
+				'Wenn ihr euren Anspruch geklärt habt, könnt ihr die Aufteilung der 14 Monate eaKBG planen. Außerdem könnt ihr - falls leistbar - eine unbezahlte Karenz anhängen oder sehen, ab wann ihr in Eltern-Teilzeit gehen könntet (falls ihr darauf Anspruch habt).',
+				'Schaut euch mit dem interaktiven Planungstool eure Möglichkeiten an und diskutiert sie gemeinsam, Infos für Neu-Eltern finden sich hier ebenfalls:'
 			],
 			href: '/eakbg-planer',
-			cta: 'Zum Karenz-Planer'
+			cta: 'Eure Karenz interaktiv planen'
 		},
 		{
-			title: 'Mehr Hintergründe',
-			subtitle: 'Weitere Ressourcen',
+			title: 'Lasst eure Planung bei der Arbeiterkammer prüfen',
+			subtitle: '3. Lasst euch beraten',
 			description: [
-				'Hier findet ihr Links zu offiziellen Infos, Beratungsstellen, Formularen und Tools – alles an einem Ort.',
-				'Vorlagen für Arbeitgeber-Schreiben, Kontaktstellen der AK sowie Tipps zur Finanzplanung helfen bei euren nächsten Schritten.'
+				'Im Dschungel der Fristen und Vorgaben übersieht man schnell etwas. Lasst eure Karenzplanung bei der Beratung eurer AK kostenfrei prüfen - bevor (!) ihr den Antrag auf Kinderbetreuungsgeld stellt.',
+				'Manche Bundesländer-Arbeiterkammern bieten auch Vor-Ort-Veranstaltungen, Webinare oder Willkommenspakete an.',
+				'Fragt euch am besten heute noch einen Termin zur ersten Beratung an:'
 			],
-			href: '/infothek',
-			cta: 'Infothek anschauen'
+			href: '/ak-beratung',
+			cta: 'AK-Beratung und Angebote'
 		}
 	];
 
@@ -47,7 +48,7 @@
 
 <section class="full-bleed">
 	<div class="relative w-full bg-white text-slate-900">
-		<div class="content py-16 sm:py-20">
+		<div class="content py-12 sm:py-12">
 			<div class="mx-auto flex max-w-5xl flex-col gap-12">
 				<div class="flex h-56 items-center justify-center sm:h-64 lg:h-72 xl:h-80">
 					<img
@@ -63,13 +64,32 @@
 					</h1>
 
 					<p class="text-base leading-relaxed text-slate-600">
-						Die Karenzplanung ist eine riesige Herausforderung: Warum hat man ein Recht auf zwei
-						Jahre Karenz (Freistellung) auf Arbeit, aber es werden nur 14 Monate beim
-						einkommensabhängigen Betreuungsgeld (ea KBG) bezahlt? Ebenso herausfordernd ist die
-						Frage der Kinderbetreuung nach der Karenz:
+						Warum hat man ein Recht auf zwei Jahre Karenz-Freistellung auf Arbeit, es werden aber
+						nur 14 Monate beim einkommensabhängigen Betreuungsgeld gut vom Staat gefördert (~ 80%
+						des Einkommens)? Was passiert danach, wie teilt man alles möglichst gleichberechtigt
+						auf, wie kommt man finanziell dabei aus, etc. etc.?
+					</p>
+					<p class="text-base leading-relaxed text-slate-600">
+						Als Neu-Eltern standen wir vor kurzem selber erst vor diesem Berg an Fragen. Die gute
+						Nachricht: Hat man erstmal einen groben Überblick, kann man sich bewusster entscheiden
+						und die Planung fällt immer leichter. Alles Gute für dein / euer Abenteuer mit Baby! 🍀
 					</p>
 
-					{#if expanded}
+					<!-- <p class="text-base leading-relaxed text-slate-600">
+						Als Neu-Eltern standen wir vor kurzem selber erst vor diesem Berg an Fragen - mit dem
+						Anspruch, alles möglichst 50:50 fair aufteilen.
+					</p>-->
+					<!-- <p class="text-base leading-relaxed text-slate-600">
+						Die schlechte Nachricht: Eine 50:50-Aufteilung beim eaKBG ist kompliziert. Die gute
+						Nachricht: Hat man erstmal einen groben Überblick, kann man sich bewusster entscheiden.
+						Allein ist man auch nicht dabei, die Arbeiterkammer steht dir bspw. zur Seite. Alles
+						Gute für dein/euer Abenteuer mit Baby! 🍀
+					</p> -->
+					<p class="text-center text-base leading-relaxed text-slate-600">
+						Diese Webseite soll helfen, schnell einen Überblick zu bekommen:
+					</p>
+					<p class="text-center text-base leading-relaxed text-slate-600"></p>
+					<!-- {#if expanded}
 						<div id={ctrlId} class="space-y-5">
 							<p class="text-base leading-relaxed text-slate-600">
 								Wann ist unser Kind bereit in eine Kindergarten-Gruppe zu gehen, wie viele Stunde
@@ -77,7 +97,7 @@
 								erst zu einer Tagesmutter, den Großeltern - oder beide Elternteile arbeiten
 								20h/Woche in Eltern-Teilzeit und teilen den Tag auf? <br /><br />Oder bleibt einer
 								von uns doch länger in Karenz? Wie organisiert man eine längere, unbezahlte Karenz
-								nach 14 Monaten ea KBG überhaupt? Können wir uns das leisten? Und wie schaut es hier
+								nach 14 Monaten eaKBG überhaupt? Können wir uns das leisten? Und wie schaut es hier
 								mit der Krankenversicherung aus?
 							</p>
 
@@ -124,13 +144,14 @@
 								{/if}
 							</svg>
 						</button>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
+<!-- TODO: decrease space ? -->
 <section class="content">
 	<div class="space-y-10">
 		<div class="max-w-3xl">
@@ -148,9 +169,9 @@
 						</p>
 						<h3 class="mt-3 text-lg font-semibold text-slate-900">{card.title}</h3>
 
-						<!-- {#each card.description as paragraph}
+						{#each card.description as paragraph}
 							<p class="mt-2 text-sm leading-relaxed text-slate-500">{paragraph}</p>
-						{/each} -->
+						{/each}
 					</div>
 
 					<div class="px-6 pb-6">
