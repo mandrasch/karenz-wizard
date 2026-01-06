@@ -9,18 +9,18 @@ type SeoEntry = {
 };
 
 const defaultMeta: SeoMeta = {
-	title: 'Karenz Wizard – Der Karenzplaner für Österreich',
+	title: 'Karenz Wizard – Der Elternzeitplaner für Österreich',
 	description:
-		'Tools und Infos rund um Karenzplanung, Familienzeitbonus, Kinderbetreuungsgeld und Beratungsstellen in Österreich. Für mehr Gleichberechtigung!'
+		'Tools und Infos rund um Karenzplanung, Familienzeitbonus, Kinderbetreuungsgeld und Beratungsstellen in Österreich. Für mehr Gleichberechtigung und Väterkarenz!'
 };
 
 const seoEntries: SeoEntry[] = [
 	{
 		match: '/',
 		meta: {
-			title: 'Karenz Wizard – Der Karenzplaner für Österreich',
+			title: 'Karenz Wizard – Der Elternzeitplaner für Österreich',
 			description:
-				'Überblick über Karenzmodelle, Papamonat und Familienzeitbonus. Erhalte verständliche Infos und Tools für eure Karenzplanung.'
+				'Tools und Infos rund um Karenzplanung, Familienzeitbonus, Kinderbetreuungsgeld und Beratungsstellen in Österreich. Für mehr Gleichberechtigung und Väterkarenz!'
 		}
 	},
 	{
@@ -28,7 +28,7 @@ const seoEntries: SeoEntry[] = [
 		meta: {
 			title: 'Blog – Karenz Wizard',
 			description:
-				'Aktuelle Hinweise zu Kinderbetreuungsgeld, Karenzplanung, Papamonat und neue Funktionen des Karenz Wizard.'
+				'Aktuelle Hinweise zu Kinderbetreuungsgeld, Karenzplanung, Papamonat und neuen Funktionen des Karenz Wizard.'
 		}
 	},
 	{
