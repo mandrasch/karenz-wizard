@@ -175,14 +175,13 @@
 	</header>
 
 	<div class="prose mt-6">
-		<p class="font-bold">🚧 Inhalte und Links in Arbeit 🚧</p>
 		<p>
-			Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz sowie
-			Sozialversicherungsfragen. Sie ist als Arbeitnehmer:innen-Vertretung <b>auf deiner Seite</b>.
+			Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz und
+			Kinderbetreuungsgeld. Sie ist als Arbeitnehmer:innen-Vertretung <b>auf deiner Seite</b>. 💪
 		</p>
-		<p class="font-semibold">
-			Tipp: Direkt einen Termin für die erste Beratung bei deiner AK vereinbaren. Je früher, desto
-			besser. 💪
+		<p>
+			<b>Tipp:</b> Direkt einen Termin für die erste Beratung vereinbaren oder schauen, ob es ein Webinar
+			oder eine Infoveranstaltung vor Ort gibt. Je früher informieren, desto besser!
 		</p>
 		<p>
 			Die Mitarbeiter:innen kennen alle gesetzlichen Regeln und können deine Planung überprüfen. So
@@ -193,12 +192,15 @@
 			>,
 			<a href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.879630&portal=oegkportal"
 				>ÖGK-Onlineformular</a
-			>) dann im Detail korrekt ausfüllst.
+			>) dann korrekt ausfüllst.
+		</p>
+		<p>
+			<b>Wichtig</b>: Lass dich vor der Antragsstellung beraten, Antrag noch nicht abschicken!
 		</p>
 
 		<p>
 			Einige Arbeiterkammern bieten auch Inforveranstaltungen vor Ort oder Webinare an. Hier eine
-			schnelle Liste - bitte prüfe die Webseite der Arbeiterkammer deines Bundeslandes, die
+			schnelle Liste - bitte prüfe die Webseite der Arbeiterkammer deines Bundeslandes. Die
 			Informationen hier können ggf. veraltet sein / neue Angebote dazugekommen sein.
 		</p>
 
@@ -239,15 +241,15 @@
 		<p>
 			Was die AK (leider) bisher nicht leistet soweit ich weiß: Eine feministische Beratung, wie man
 			die Karenzteile gleichberechtigt zwischen den Elternteilen aufteilt. Hier solltest du dich bei
-			anderen Stellen, Freunden und Bekannten oder im Netz zusätzlich informieren. Denn "ganze
-			Männer machen Halbe-Halbe". Siehe auch <a href="/infothek">Infothek</a> auf dieser Webseite.
+			anderen Stellen, Freunden und Bekannten oder im Netz zusätzlich informieren. Denn "Ganze
+			Männer machen Halbe-Halbe" (#EqualCare). Siehe auch <a href="/infothek">Infothek</a>.
 		</p>
 
 		<h3>Wie schaut es bei der Arbeiterkammer vor Ort aus?</h3>
 		<p>
 			Hier ein Foto aus dem Wartebereich der Arbeiterkammer in Wien Ottakring. Du meldest dich bei
-			dem / der freundlichen Mitarbeiter:in am Eingang an wenn du deinen Termin hast und erhältst
-			deine Wartenummer:
+			dem / der freundlichen Mitarbeiter:in am Eingang an, wenn du deinen Termin hast und erhältst
+			eine Wartenummer:
 		</p>
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<img
