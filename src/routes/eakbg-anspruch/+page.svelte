@@ -10,14 +10,14 @@
 
 		<p>
 			Um das einkommensabhängige Kinderbetreuungsgeld (eaKBG) beziehen zu können, müssen einige
-			Anspruchsvoraussetzungen (Bedingungen) erfüllt werden. <!-- Erfüllt man diese, erhält man während seiner Karenz-Monate
+			Anspruchsvoraussetzungen (= Bedingungen) erfüllt werden. <!-- Erfüllt man diese, erhält man während seiner Karenz-Monate
 			ungefähr 80% des letzten Einkommens. -->
 		</p>
 
 		<!-- TODO: Mehrere Sätze draus machen, Mutter / Vater in Tabelle darstellen mit 2 Spalte -->
 		<h3>1. Beide Elternteile müssen die allgemeinen Bedingungen erfüllen</h3>
 		<p>
-			<b>Beide Elternteile</b> müssen die <b>allgemeinen</b> Anspruchsvoraussetzungen erfüllen:
+			<b>Beide Elternteile</b> müssen die <b>allgemeinen Anspruchsvoraussetzungen</b> erfüllen:
 		</p>
 		<p>
 			Hierzu zählt u.a. gemeinsamer dauerhafter Haushalt mit dem Kind, Mittelpunkt der
