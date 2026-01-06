@@ -1,565 +1,240 @@
 <script lang="ts">
-	import { tick } from 'svelte';
-
-	/* Schrift (IBM Plex Sans Condensed) – bereits installiert */
-	import '@fontsource/ibm-plex-sans-condensed/400.css';
-	import '@fontsource/ibm-plex-sans-condensed/500.css';
-	import '@fontsource/ibm-plex-sans-condensed/600.css';
-	import '@fontsource/ibm-plex-sans-condensed/700.css';
-
-	type QuickPerson = 'mother' | 'father';
-	let quickPerson: QuickPerson = $state('mother');
-
-	let toolAvailable = true;
-
-	// Basisdaten
-	let dueDateStr = $state(''); // ET (errechneter Geburtstermin)
-	let actualBirthStr = $state(''); // Tatsächlicher Geburtstermin (nur wenn Vater-Basis "actual")
-	let fatherBirthBasis: 'et' | 'actual' = $state('et'); // Umschalter in der Vater-Box
-
-	// Mutter: Beginn Beschäftigungsverbot/Mutterschutz (bekannt?)
-	let motherBanKnownChoice: 'yes' | 'no' = $state('no');
-	let motherBanStartStr = $state('');
-
-	// Selbstauskunft
-	let mHasDV = $state(false);
-	let mNoALV = $state(false);
-	let fHasDV = $state(false);
-	let fNoALV = $state(false);
-
-	// Helpers / Derived
-	const addDays = (d: Date, days: number) => {
-		const x = new Date(d);
-		x.setDate(x.getDate() + days);
-		return x;
-	};
-	const isValidDate = (d: Date | null): d is Date =>
-		d instanceof Date && !Number.isNaN(d.getTime());
-	const asDate = (s: string) => (s ? new Date(`${s}T00:00:00`) : null);
-	const dateFmt = new Intl.DateTimeFormat('de-AT', {
-		day: '2-digit',
-		month: '2-digit',
-		year: 'numeric'
-	});
-
-	const et = $derived(() => asDate(dueDateStr));
-	const actualBirth = $derived(() => asDate(actualBirthStr));
-
-	const motherBanKnown = $derived(() => motherBanKnownChoice === 'yes');
-	const motherBanStart = $derived(() => asDate(motherBanStartStr));
-
-	// Mutter-Stichtag: Beginn Beschäftigungsverbots/Mutterschutz (falls unbekannt: ET − 56 Tage (8 Wochen))
-	const motherRefDate = $derived(() => {
-		if (motherBanKnown() && isValidDate(motherBanStart())) return motherBanStart();
-		const _et = et();
-		return isValidDate(_et) ? addDays(_et, -56) : null;
-	});
-
-	// Vater-Stichtag: Geburt (je nach Umschalter tatsächlich oder ET)
-	const fatherRefDate = $derived(() => {
-		const _et = et();
-		const _birth = actualBirth();
-		if (fatherBirthBasis === 'actual' && isValidDate(_birth)) return _birth;
-		return _et;
-	});
-
-	// Labels & 182 Tage-Fenster
-	const rangeLabel = (ref: Date | null) => {
-		if (!isValidDate(ref)) return '—';
-		const start = addDays(ref, -182);
-		const end = addDays(ref, -1);
-		return `${dateFmt.format(start)} – ${dateFmt.format(end)}`;
-	};
-	const mRangeLabel = $derived(() => rangeLabel(motherRefDate()));
-	const fRangeLabel = $derived(() => rangeLabel(fatherRefDate()));
-	const mStichtagLabel = $derived(() =>
-		isValidDate(motherRefDate()) ? dateFmt.format(motherRefDate()!) : '—'
-	);
-	const fStichtagLabel = $derived(() =>
-		isValidDate(fatherRefDate()) ? dateFmt.format(fatherRefDate()!) : '—'
-	);
-
-	// Eligibility (Selbstauskunft: beide Checkboxen = Ja)
-	const motherEligibleQuick = $derived(() => mHasDV && mNoALV);
-	const fatherEligibleQuick = $derived(() => fHasDV && fNoALV);
-
-	// UI
-	const badgeClass = (ok: boolean) =>
-		ok
-			? 'inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700'
-			: 'inline-flex items-center gap-2 rounded-full border border-rose-300 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700';
-
-	function switchPerson(p: QuickPerson) {
-		quickPerson = p;
-		tick().then(() =>
-			document.getElementById(p === 'mother' ? 'mother-title' : 'father-title')?.focus()
-		);
-	}
+	import EligibilityCalculatorEaKbg from '$lib/components/EligibilityCalculatorEaKbg.svelte';
+	import Header from '$lib/components/Header.svelte';
 </script>
 
-<!-- Wrapper mit eigener Font-Familie -->
-<section class="eakbg content">
-	<p class="mt-8 w-full text-center">
-		⚠️ Vorschau! Dieses Tool ist noch in Arbeit, noch nicht durchgeprüft! ⚠️
-	</p>
-
-	<!-- Kompakter Header -->
-	<header class="mt-8">
-		<div class="flex flex-wrap items-start justify-between gap-3">
+<div class="mx-auto prose mt-6 max-w-3xl">
+	<section class="content">
+		<!-- Kompakter Header -->
+		<header class="mt-2">
 			<h1 class="text-2xl leading-tight font-semibold text-slate-900">eaKBG – Anspruch prüfen</h1>
-			<span
-				class="inline-flex items-center gap-1 rounded-full border border-slate-300 bg-slate-50 px-2.5 py-1 text-[11px] font-semibold text-slate-700"
-			>
-				Vorab-Check · unverbindlich
-			</span>
-		</div>
+		</header>
 
-		<p class="mt-1 text-[13px] leading-snug text-slate-700">
-			Für das <strong>einkommensabhängige Kinderbetreuungsgeld</strong> (eaKBG) musst du in den
-			<strong>182 Kalendertagen vor einem bestimmten Stichtag</strong> erwerbstätig gewesen sein –
-			und in dieser Zeit
-			<strong>keine AMS-, Notstands- oder Weiterbildungsgeld-Leistungen</strong> erhalten haben. Bei
-			der <strong>Mutter</strong> ist der Stichtag der Mutterschutzbeginn (meist
-			<strong>56 Tage (8 Wochen)</strong>
-			vor ET), beim <strong>Vater</strong> die <strong>Geburt</strong>. Bitte
-			<strong>beide Elternteile prüfen</strong>
-			– wenn nur einer die Voraussetzungen erfüllt, kann der andere ggf. die
-			<a href="/faq#sonderleistung-1" class="text-indigo-700 underline hover:text-indigo-600"
-				>Sonderleistung 1</a
-			> erhalten.
+		<p>
+			Um das einkommensabhängige Kinderbetreuungsgeld (eaKBG) beziehen zu können, müssen einige
+			Anspruchsvoraussetzungen (Bedingungen) erfüllt werden. <!-- Erfüllt man diese, erhält man während seiner Karenz-Monate
+			ungefähr 80% des letzten Einkommens. -->
 		</p>
 
-		<!-- Quellen kompakt -->
-		<p class="mt-2 text-[11px] text-slate-500">
-			Quellen:
-			<a
-				class="underline hover:text-slate-700"
-				href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.880037"
-				target="_blank"
-				rel="noreferrer">ÖGK</a
-			>
-			·
-			<a
-				class="underline hover:text-slate-700"
-				href="https://www.sozialversicherung.at/cdscontent/load?contentid=10008.638104&version=1632292834"
-				target="_blank"
-				rel="noreferrer">Sozialversicherung</a
-			>
-			·
-			<a
-				class="underline hover:text-slate-700"
-				href="https://stmk.arbeiterkammer.at/service/broschuerenundratgeber/beruffamilie/20250108_Broschuere_Wenn_ein_Baby_kommt_2025.pdf"
-				target="_blank"
-				rel="noreferrer">AK</a
-			>
-			·
-			<a
-				class="underline hover:text-slate-700"
+		<!-- TODO: Mehrere Sätze draus machen, Mutter / Vater in Tabelle darstellen mit 2 Spalte -->
+		<h3>1. Beide Elternteile müssen die allgemeinen Bedingungen erfüllen</h3>
+		<p>
+			<b>Beide Elternteile</b> müssen die <b>allgemeinen</b> Anspruchsvoraussetzungen erfüllen:
+		</p>
+		<p>
+			Hierzu zählt u.a. gemeinsamer dauerhafter Haushalt mit dem Kind, Mittelpunkt der
+			Lebensinteressen in Österreich, Durchführung und Nachweis der Eltern-Kind-Pass-Untersuchungen,
+			Einhalten von Zuverdienst-Grenzen. Siehe <a
 				href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1/Seite.080614"
 				target="_blank"
-				rel="noreferrer">oesterreich.gv.at</a
-			>
+				class="underline">Anspruchsvoraussetzungen auf oesterreich.gv.at</a
+			>.
 		</p>
-	</header>
+		<h3>2. Mindestens ein Elternteil muss die 182-Tage Erwerbstätigkeit erfüllen</h3>
 
-	{#if toolAvailable}
-		<!-- Basisdaten -->
-		<section class="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-			<h2 class="text-base font-semibold text-slate-900">Basisdaten</h2>
-			<p class="mt-1 text-[13px] text-slate-600">
-				Zuerst den <strong>errechneten Geburtstermin (ET)</strong> eintragen. Bei der
-				<strong>Mutter</strong>
-				ist der Stichtag der Mutterschutzbeginn; wenn nicht bekannt, wird
-				<strong>ET − 56 Tage (8 Wochen)</strong>
-				verwendet. Beim <strong>Vater</strong> ist der Stichtag die <strong>Geburt</strong> (tatsächlich
-				oder – wenn nicht vorhanden – der ET).
-			</p>
+		<p>
+			Eine besondere Anspruchsvoraussetzung ist die <b
+				>Erwerbstätigkeit in den 182 Kalendertagen unmittelbar vor der Geburt bzw. vor
+				Mutterschutz-Beginn</b
+			>, die sogenannte <b>„Erwerbstätigkeitserfordernis“.</b> Wichtig: AMS-, Notstands- oder Weiterbildungsgeld-Leistungen
+			dürfen ebenfalls nicht bezogen worden sein in diesem Zeitraum!
+		</p>
 
-			<div class="mt-4 grid gap-4 md:grid-cols-2">
-				<!-- ET -->
-				<div>
-					<label class="text-[13px] font-semibold text-slate-900" for="due">
-						Errechneter Geburtstermin (ET) <span class="text-rose-600" aria-hidden="true">*</span>
-					</label>
-					<input
-						id="due"
-						type="date"
-						bind:value={dueDateStr}
-						required
-						aria-required="true"
-						class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px] text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-					/>
+		<p>
+			Diese Anspruchsvoraussetzung muss allerdings <b>nur von einem Elternteil</b> erfüllt werden:
+		</p>
+
+		<blockquote>
+			Erfüllt ein Elternteil nicht das Erwerbstätigkeitserfordernis, so gebührt bei Erfüllung
+			sämtlicher anderer Anspruchsvoraussetzungen auf Antrag ein einkommensabhängiges
+			Kinderbetreuungsgeld in Höhe von 41,14 Euro täglich (Sonderleistung I). - <cite
+				><a
+					href="https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html"
+					>bundeskanzleramt.gv.at</a
+				></cite
+			>
+		</blockquote>
+		<!-- <p>
+			Einer der größten Fallstricke ist hierbei <b>182-Tage-Regel</b>. Diese besagt, dass man ab ca.
+			6 Monaten (= 182 Tage) vor Mutterschutz-Beginn (Mutter) bzw. vor Geburt (Vater) durchgehend
+			gearbeitet haben muss:
+		</p>-->
+
+		<h4>Wie berechne ich den 182-Tage-Zeitraum?</h4>
+		<div class="mt-4 overflow-hidden rounded-lg border border-slate-200">
+			<div class="grid grid-cols-2 bg-slate-50 text-sm font-semibold text-slate-800">
+				<div class="border-r border-slate-200 px-4 py-2">Mutter</div>
+				<div class="px-4 py-2">Vater</div>
+			</div>
+
+			<div class="grid grid-cols-2 text-sm text-slate-700">
+				<div class="border-t border-r border-slate-200 px-4 py-3">
+					Stichtag für den 182-Tage-Zeitraum ist der <strong>Beginn des Mutterschutzes</strong>. Der
+					Mutterschutz beginnt in der Regel 8 Wochen (56 Tage) vor dem errechneten Geburtstermin.
+					<br /><br /><span class="text-xs"
+						>Ein Arzt/Ärztin kann jedoch auch schon einen vorzeitigen / früheren Mutterschutz ggf.
+						anordnen bei besonderen Risiken.</span
+					>
+				</div>
+				<div class="border-t border-slate-200 px-4 py-3">
+					Stichtag für den 182-Tage-Zeitraum ist die <strong>Geburt des Kindes</strong>. Man also
+					erstmal grob mit dem errechneten Geburtstermin den relevanten Zeitraum berechnen.<br /><br
+					/><span class="text-xs">
+						Bei einer früheren Geburt zählt aber natürlich das tatsächliche Geburtsdatum für den
+						eaKBG-Antrag.</span
+					>
 				</div>
 			</div>
+		</div>
+
+		<div class="grid gap-8 md:grid-cols-2">
+			<article>
+				<h4 class="mt-4 mb-4">Zeitraum für Mutter berechnen</h4>
+				<EligibilityCalculatorEaKbg type="mother" />
+			</article>
+
+			<article>
+				<h4 class="mt-4 mb-4">Zeitraum für Vater berechnen</h4>
+				<EligibilityCalculatorEaKbg type="father" />
+			</article>
+		</div>
+
+		<p>
+			Unterbrechungen von 14 Tagen im Beobachtungszeitraum (182 Tage) schaden allerdings nicht. Auch
+			Krankenstand oder Erholungsurlaub bei aufrechtem Dienstverhältnis mit Lohnfortzahlung gelten
+			nicht als Unterbrechung. Siehe <a
+				href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1/Seite.080614"
+				target="_blank"
+				class="underline">Anspruchsvoraussetzungen auf oesterreich.gv.at</a
+			>.
+		</p>
+		<p>
+			Wichtig: AMS-, Notstands- oder Weiterbildungsgeld-Leistungen dürfen <b>nicht</b> bezogen
+			worden sein in diesem Zeitraum! <!-- Unterbrechungen von 14 Tagen im Beobachtungszeitraum (182
+			Tage) schaden allerdings nicht. Auch Krankenstand oder Erholungsurlaub bei aufrechtem
+			Dienstverhältnis mit Lohnfortzahlung gelten <b>nicht</b> als Unterbrechung. -->
+		</p>
+
+		<h3>Was passiert, wenn nur einer - oder keiner Anspruch hat?</h3>
+
+		<div class="mt-6 overflow-hidden rounded-lg border border-slate-200">
+			<div class="grid grid-cols-3 bg-slate-50 text-sm font-semibold text-slate-800">
+				<div class="border-r border-slate-200 px-4 py-2 text-center">Beide haben Anspruch</div>
+				<div class="border-r border-slate-200 px-4 py-2 text-center">Nur einer hat Anspruch</div>
+				<div class="border-r border-slate-200 px-4 py-2 text-center">Wenn keiner Anspruch hat</div>
+			</div>
+
+			<div class="grid grid-cols-3 text-sm text-slate-700">
+				<div class="border-t border-r border-slate-200 px-4 py-3">
+					Super, beide können eaKBG-Förderung für ihre Karenzmonate beantragen und beziehen.<br
+					/><br />
+					<span class="text-xs"
+						>Die Höhe richtet sich nach dem Einkommen (~ 80% des Einkommens), die maximale Höhe ist
+						allerdings begrenzt. 2025 war der Tages-Höchssatz bei 80,12 €, das sind rund 2.400 €
+						monatlich maximal. Siehe <a
+							href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.880037"
+							class="underline">gesundheitskasse.at</a
+						> für mehr Infos.</span
+					>
+				</div>
+
+				<div class="border-t border-r border-slate-200 px-4 py-3">
+					Der anspruchsberechtigte Elternteil erhält das eaKBG für seine Karenzmonate.<br /><br />
+					Der andere Elternteil bekommt für seine Karenzmonate
+					<a
+						class="underline"
+						href="https://www.bundeskanzleramt.gv.at/agenda/familie/kinderbetreuungsgeld/basisinformationen-kinderbetreuungsgeld/einkommensabhaengiges-kinderbetreuungsgeld.html"
+						><strong>Sonderleistung I</strong></a
+					>
+					ausgezahlt - ein fixer Tagessatz, unabhängig vom Einkommen. 2025 lag dieser bei 41,14 € / Tag,
+					was rund 1.200 € pro Monat bedeutet.
+					<!-- Link zu Sonderleistung 1 ergänzen -->
+				</div>
+
+				<div class="border-t border-r border-slate-200 px-4 py-3">
+					Ein Bezug des eaKBG ist <b>nicht möglich</b>. ❌ <br /><br />In diesem Fall kann man aber
+					das
+					<a
+						href="https://www.arbeiterkammer.at/kbg#heading_Kinderbetreuungsgeldkonto"
+						class="underline">KBG-Konto (pauschales Kinderbetreuungsgeld)</a
+					> als Fördermodell nutzen.
+				</div>
+			</div>
+		</div>
+
+		<section class="mt-10">
+			<h3>Wichtig: Fristen für Antrag im Blick haben</h3>
+			<p>
+				Das Kinderbetreuungsgeld muss beantragt werden, es kommt nicht automatisch auf euer Konto.
+				Registriert euch am besten beim <a
+					href="https://elternkalender.arbeiterkammer.at/"
+					class="underline">interaktiven Elternkalender der Arbeiterkammer</a
+				>, mit welchem ihr alle kommenden Fristen im Blick habt.
+			</p>
+			<h3>Mehr Informationen und Beratung</h3>
+			<ul>
+				<li>
+					Infoseite: <a
+						class="underline"
+						href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1"
+					>
+						Einkommensabgängiges Kinderbetreuungsgeld - oesterreich.gv.at</a
+					>
+				</li>
+				<li>
+					Infoseite: <a
+						href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.879754&portal=oegkportal"
+						class="underline">Einkommensabhängiges Kinderbetreuungsgeld - ÖGK</a
+					>
+				</li>
+				<li>
+					Infoseite: <a
+						href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html#heading_Einkommensabhaengiges_Kinderbetreuungsgeld"
+						class="underline"
+					>
+						Einkommensabhängiges Kinderbetreuungsgeld - arbeiterkammer.at
+					</a>
+				</li>
+			</ul>
+			<p>
+				Deine Arbeiterkammer vor Ort bietet Beratung und teils auch Webinare / vor Ort
+				Infoveranstaltungen an:
+			</p>
+			<ul>
+				<li><a href="/ak-beratung">Beratung bei der Arbeiterkammer</a></li>
+			</ul>
+			<p>Sie können bei Unklarheiten auch helfen herauszufinden, ob du wirklich Anspruch hast.</p>
 		</section>
 
-		<!-- Platzhalter wenn ET fehlt -->
-		{#if !isValidDate(et())}
-			<div class="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-center shadow-sm">
-				<p class="text-[13px] font-medium text-slate-700">
-					Bitte zuerst den <strong>errechneten Geburtstermin (ET)</strong> eingeben, um die Prüfung zu
-					starten.
-				</p>
-			</div>
-		{/if}
+		<h3>Nächster Schritt: Karenz-Aufteilung planen</h3>
+		<p>
+			Jetzt geht es ans Eingemachte. Plant die ersten Jahre mit eurem Baby, falls ihr Anspruch auf
+			einkommensabhängiges Kinderbetreuungsgeld (eaKBG) habt:
+		</p>
+		<p class="text-center">&raquo;<a href="/eakbg-planer" class="underline">Zum eaKBG-Planer</a></p>
 
-		{#if isValidDate(et())}
-			<!-- Hinweis: beide prüfen -->
-			<section
-				class="mt-4 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 text-[13px] text-indigo-900"
+		<p>Falls ihr keinen Anspruch habt, könnt ihr euch nun zum KBG Konto informieren:</p>
+		<p>
+			<i
+				>„Das pauschale Kinderbetreuungsgeld (KBG) steht Ihnen offen, egal ob Sie vor der Geburt
+				Ihres Kindes gearbeitet haben oder nicht.“</i
 			>
-				<p class="font-medium">Bitte beide Elternteile prüfen.</p>
-				<p class="mt-1">
-					Wenn ein Elternteil den eaKBG-Anspruch erfüllt, kann der
-					<a href="/faq#sonderleistung-1" class="underline"
-						>andere Elternteil ggf. die Sonderleistung 1</a
-					> beziehen (sofern die Voraussetzungen erfüllt sind).
-				</p>
-			</section>
-
-			<!-- Tabs -->
-			<div
-				class="mt-5 inline-flex overflow-hidden rounded-lg border border-slate-300"
-				role="tablist"
-				aria-label="Elternteil wählen"
-			>
-				<button
-					type="button"
-					role="tab"
-					aria-selected={quickPerson === 'mother'}
-					class={'px-4 py-2 text-[13px] ' +
-						(quickPerson === 'mother'
-							? 'bg-indigo-600 text-white'
-							: 'bg-white text-slate-800 hover:bg-slate-50')}
-					onclick={() => switchPerson('mother')}
+		</p>
+		<ul>
+			<li>
+				Infoseite:
+				<a href="https://www.arbeiterkammer.at/kbg#heading_Kinderbetreuungsgeldkonto"
+					>Kinderbetreuungsgeld Konto - arbeiterkammer.at</a
 				>
-					Mutter
-				</button>
-				<button
-					type="button"
-					role="tab"
-					aria-selected={quickPerson === 'father'}
-					class={'px-4 py-2 text-[13px] ' +
-						(quickPerson === 'father'
-							? 'bg-indigo-600 text-white'
-							: 'bg-white text-slate-800 hover:bg-slate-50')}
-					onclick={() => switchPerson('father')}
+			</li>
+			<li>
+				Infoseite:
+				<a
+					href="https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Teilung_der_Karenz.html"
+					>Teilung der Karenz - arbeiterkammer.at</a
 				>
-					Vater
-				</button>
-			</div>
-
-			<!-- Mutter -->
-			<section
-				class="mt-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-				aria-labelledby="mother-title"
-				hidden={quickPerson !== 'mother'}
-			>
-				<h2 id="mother-title" tabindex="-1" class="text-base font-semibold text-slate-900">
-					Mutter – Stichtag: <span class="font-normal">{mStichtagLabel()}</span>
-				</h2>
-				<p class="mt-1 text-[12px] text-slate-600">
-					Stichtag ist der <strong>Beginn des Beschäftigungsverbots/Mutterschutzes</strong> (falls
-					bekannt), sonst <strong>ET − 56 Tage (8 Wochen)</strong>. Der Prüfzeitraum sind die
-					<strong>182 Kalendertage vor dem Stichtag</strong>.
-				</p>
-
-				<div class="mt-3 grid gap-3">
-					<fieldset class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-						<legend class="text-[12px] font-semibold text-slate-900"
-							>Beginn Beschäftigungsverbots/Mutterschutz</legend
-						>
-						<div class="mt-1 flex flex-wrap gap-6">
-							<label class="inline-flex items-center gap-2 text-[13px]">
-								<input
-									type="radio"
-									name="m-ban-known"
-									value="yes"
-									bind:group={motherBanKnownChoice}
-									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-								/>
-								Ich kenne das Datum
-							</label>
-							<label class="inline-flex items-center gap-2 text-[13px]">
-								<input
-									type="radio"
-									name="m-ban-known"
-									value="no"
-									bind:group={motherBanKnownChoice}
-									class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-								/>
-								Ich kenne es nicht (Standard: ET − 56 Tage (8 Wochen))
-							</label>
-						</div>
-						{#if motherBanKnown()}
-							<div class="mt-2">
-								<label class="text-[12px] font-medium text-slate-900" for="m-ban">Datum</label>
-								<input
-									id="m-ban"
-									type="date"
-									bind:value={motherBanStartStr}
-									class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-1.5 text-[13px] text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-								/>
-							</div>
-						{:else}
-							<p class="mt-2 text-[12px] text-slate-600">
-								Es wird <strong>ET − 56 Tage (8 Wochen)</strong> verwendet.
-							</p>
-						{/if}
-					</fieldset>
-
-					<label class="flex items-center gap-2 text-[13px] text-slate-700">
-						<input
-							type="checkbox"
-							bind:checked={mHasDV}
-							class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-						/>
-						Ich habe ein aufrechtes Arbeitsverhältnis (oder gleichgestellte Zeiten).
-					</label>
-
-					<label class="flex items-start gap-2 text-[13px] text-slate-700">
-						<input
-							type="checkbox"
-							bind:checked={mNoALV}
-							disabled={!mHasDV}
-							class="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-60"
-						/>
-						<span>
-							Keine AMS-/Notstands-/Weiterbildungsgeld-Leistungen im Zeitraum <strong
-								>{mRangeLabel()}</strong
-							>.<br />
-							<span class="text-[11px] text-slate-500">
-								Gilt nur, wenn das Dienstverhältnis (oder gleichgestellte Zeiten) im Zeitraum
-								aufrecht war; kurze Unterbrechungen bis 14 Tage sind unschädlich. ({mStichtagLabel()}
-								− 182 Tage)
-							</span>
-						</span>
-					</label>
-				</div>
-
-				<div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-					<div class={badgeClass(motherEligibleQuick())}>
-						{motherEligibleQuick()
-							? 'Ja – voraussichtlich Anspruch'
-							: 'Nein – voraussichtlich kein Anspruch'}
-					</div>
-					{#if !motherEligibleQuick()}
-						<p class="mt-1 text-[12px]">
-							Wenn der andere Elternteil eaKBG erfüllt, ist ggf. die
-							<a class="text-indigo-700 underline" href="/faq#sonderleistung-1">Sonderleistung 1</a>
-							möglich.
-						</p>
-					{/if}
-				</div>
-			</section>
-
-			<!-- Vater -->
-			<section
-				class="mt-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-				aria-labelledby="father-title"
-				hidden={quickPerson !== 'father'}
-			>
-				<h2 id="father-title" tabindex="-1" class="text-base font-semibold text-slate-900">
-					Vater – Stichtag: <span class="font-normal">{fStichtagLabel()}</span>
-				</h2>
-				<p class="mt-1 text-[12px] text-slate-600">
-					<strong>Stichtag ist die Geburt</strong> (tatsächlich, wenn ausgewählt und bekannt, sonst
-					ET).<br />
-					Der Prüfzeitraum umfasst die <strong>182 Kalendertage vor dem Stichtag</strong> (<span
-						class="whitespace-nowrap">{fStichtagLabel()}</span
-					>).
-				</p>
-
-				<!-- Vater – Grundlage für den Stichtag -->
-				<fieldset class="mt-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
-					<legend class="text-[12px] font-semibold text-slate-900"
-						>Vater – Grundlage für den Stichtag</legend
-					>
-					<div class="mt-1 flex flex-wrap items-center gap-6">
-						<label class="inline-flex items-center gap-2 text-[13px]">
-							<input
-								type="radio"
-								name="father-basis"
-								value="et"
-								bind:group={fatherBirthBasis}
-								class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-							/>
-							Errechneter Geburtstermin (ET)
-						</label>
-						<label class="inline-flex items-center gap-2 text-[13px]">
-							<input
-								type="radio"
-								name="father-basis"
-								value="actual"
-								bind:group={fatherBirthBasis}
-								class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
-							/>
-							Tatsächlicher Geburtstermin
-						</label>
-					</div>
-
-					{#if fatherBirthBasis === 'actual'}
-						<div class="mt-3">
-							<label class="text-[13px] font-semibold text-slate-900" for="birth">
-								Tatsächlicher Geburtstermin <span class="text-rose-600" aria-hidden="true">*</span>
-							</label>
-							<input
-								id="birth"
-								type="date"
-								bind:value={actualBirthStr}
-								required
-								aria-required="true"
-								class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px] text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-							/>
-							<p class="mt-1 text-[12px] text-slate-500">
-								Dieses Datum gilt nur für den <strong>Vater</strong> als Stichtag. Bei der
-								<strong>Mutter</strong>
-								bleibt der Stichtag der Mutterschutzbeginn (ist dieser nicht bekannt, wird
-								<strong>ET − 56 Tage (8 Wochen)</strong> verwendet).
-							</p>
-						</div>
-					{/if}
-				</fieldset>
-
-				<div class="mt-3 grid gap-3">
-					<label class="flex items-center gap-2 text-[13px] text-slate-700">
-						<input
-							type="checkbox"
-							bind:checked={fHasDV}
-							class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-						/>
-						Ich habe ein aufrechtes Arbeitsverhältnis (oder gleichgestellte Zeiten).
-					</label>
-
-					<label class="flex items-start gap-2 text-[13px] text-slate-700">
-						<input
-							type="checkbox"
-							bind:checked={fNoALV}
-							disabled={!fHasDV}
-							class="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-60"
-						/>
-						<span>
-							Keine AMS-/Notstands-/Weiterbildungsgeld-Leistungen im Zeitraum <strong
-								>{fRangeLabel()}</strong
-							>.<br />
-							<span class="text-[11px] text-slate-500">
-								Gilt nur, wenn das Dienstverhältnis (oder gleichgestellte Zeiten) im Zeitraum
-								aufrecht war; kurze Unterbrechungen bis 14 Tage sind unschädlich. ({fStichtagLabel()}
-								− 182 Tage)
-							</span>
-						</span>
-					</label>
-				</div>
-
-				<div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-					<div class={badgeClass(fatherEligibleQuick())}>
-						{fatherEligibleQuick()
-							? 'Ja – voraussichtlich Anspruch'
-							: 'Nein – voraussichtlich kein Anspruch'}
-					</div>
-					{#if !fatherEligibleQuick()}
-						<p class="mt-1 text-[12px]">
-							Wenn der andere Elternteil eaKBG erfüllt, ist ggf.
-							<a class="text-indigo-700 underline" href="/faq#sonderleistung-1">Sonderleistung 1</a>
-							möglich.
-						</p>
-					{/if}
-				</div>
-			</section>
-
-			<!-- WICHTIGE HINWEISE -->
-			<section
-				class="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-[13px] text-amber-900 shadow-sm"
-			>
-				<h2 class="text-[14px] font-semibold text-amber-900">Wichtige Hinweise</h2>
-				<ul class="mt-2 list-disc space-y-1 pl-5">
-					<li>
-						<strong>Vorab-/Planungs-Check:</strong> Dieses Tool vereinfacht die Prüfung auf Basis
-						deiner Angaben (aufrechtes Dienstverhältnis & keine Leistungen im 182-Tage-Zeitraum).
-						Die <strong>endgültige Beurteilung</strong> erfolgt durch die zuständige Krankenkasse.
-					</li>
-					<li>
-						<strong>Stichtage:</strong> Mutter: Mutterschutzbeginn (falls unbekannt:
-						<strong>ET − 56 Tage (8 Wochen)</strong>). Vater: <strong>Geburt</strong> (je nach
-						Auswahl tatsächlicher Termin oder ET). Der Prüfzeitraum umfasst jeweils die
-						<strong>182 Kalendertage davor</strong>.
-					</li>
-					<li>
-						<strong>Kurze Unterbrechungen bis 14 Tage:</strong> Unterbrechungen bis zu
-						<strong>14 Kalendertagen</strong>
-						im 182-Tage-Fenster sind unschädlich (z. B. Arbeitgeberwechsel). Details:
-						<a
-							class="underline"
-							href="https://www.sozialversicherung.at/cdscontent/load?contentid=10008.638104&version=1632292834"
-							target="_blank"
-							rel="noreferrer">Sozialversicherung – Voraussetzungen</a
-						>.
-					</li>
-					<li>
-						<strong>Gleichgestellte Zeiten:</strong> Bestimmte Zeiten (z. B. Mutterschutz, Karenz
-						bis max. 2. Geburtstag bei aufrechtem DV) können berücksichtigt werden. Siehe
-						<a
-							class="underline"
-							href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.880037"
-							target="_blank"
-							rel="noreferrer">ÖGK-Informationen</a
-						>.
-					</li>
-					<li>
-						<strong>Geltungsbereich:</strong> Primär für
-						<strong>unselbständig Beschäftigte</strong>. Für Selbständige/freie DN gelten teils
-						andere Regeln – bitte offizielle Infos beachten.
-					</li>
-					<li>
-						<strong>Sonderfälle:</strong> Z. B. weiteres Kind während Karenz → abweichende Regeln
-						möglich. Beratung:
-						<a
-							class="underline"
-							href="https://www.arbeiterkammer.at/kbg"
-							target="_blank"
-							rel="noreferrer">Arbeiterkammer</a
-						>.
-					</li>
-					<li>
-						<strong>Antrag & Fristen:</strong> Antrag ab Geburt; rückwirkend max.
-						<strong>182 Tage</strong>. Quelle:
-						<a
-							class="underline"
-							href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1/Seite.080614"
-							target="_blank"
-							rel="noreferrer">oesterreich.gv.at</a
-						>.
-					</li>
-					<li>
-						<strong>Sonderleistung 1:</strong> Erfüllt <em>ein</em> Elternteil den eaKBG-Anspruch
-						nicht, kann der andere Elternteil ggf. die
-						<a class="underline" href="/faq#sonderleistung-1">Sonderleistung 1</a> beziehen (sofern die
-						Voraussetzungen erfüllt sind).
-					</li>
-				</ul>
-			</section>
-		{/if}
-	{:else}
-		<p class="mt-8 font-semibold">🚧 Tool ist noch in Entwicklung 🚧</p>
-	{/if}
-</section>
-
-<style>
-	/* Nur im Tool-Bereich aktivieren, um andere Seiten nicht zu beeinflussen */
-	.eakbg {
-		font-family:
-			'IBM Plex Sans Condensed',
-			ui-sans-serif,
-			system-ui,
-			-apple-system,
-			Segoe UI,
-			Roboto,
-			Helvetica,
-			Arial,
-			'Apple Color Emoji',
-			'Segoe UI Emoji';
-	}
-	[hidden] {
-		display: none;
-	}
-</style>
+			</li>
+		</ul>
+		<!-- TODO: support this in planner as well? -->
+	</section>
+</div>
