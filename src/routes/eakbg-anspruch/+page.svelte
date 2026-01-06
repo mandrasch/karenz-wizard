@@ -175,7 +175,7 @@
 						class="underline"
 						href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1"
 					>
-						Einkommensabgängiges Kinderbetreuungsgeld - oesterreich.gv.at</a
+						Einkommensabhängiges Kinderbetreuungsgeld - oesterreich.gv.at</a
 					>
 				</li>
 				<li>
