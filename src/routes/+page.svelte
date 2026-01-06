@@ -62,19 +62,26 @@
 					<h1 class="text-center text-3xl leading-snug font-bold text-slate-900 sm:text-4xl">
 						Euch brummt der Kopf von der Karenzplanung?
 					</h1>
+					<p class="text-base leading-relaxed text-slate-600">
+						Als werdender Vater stand ich vor kurzem mit meiner Partnerin vor einem großen Berg an
+						Fragen: <!-- Insbesondere
+						auch, weil ich die Karenz eigentlich fair aufteilen wollte ("Ganze Männer machen Halbe
+						Halbe"). -->
+					</p>
 
 					<p class="text-base leading-relaxed text-slate-600">
 						Warum hat man ein Recht auf zwei Jahre Karenz auf Arbeit - es werden aber nur 14 Monate
-						beim einkommensabhängigen Kinderbetreuungsgeld gut vom Staat gefördert (~ 80% des
-						monatlichen Einkommens)? Was passiert nach den 14 Monaten, wie teilt man alles möglichst
-						gleichberechtigt auf, ab wann ist Fremdbetreuung sinnvoll, wie kommt man finanziell
-						dabei aus, etc. etc.?
+						beim einkommensabhängigen Kinderbetreuungsgeld gut vom Staat gefördert (mit ca. 80% des
+						monatlichen Einkommens)? Was passiert nach den 14 Monaten - wie organisiert man dann
+						Arbeit und Baby-Betreuung? Ab wann ist eine Fremdbetreuung sinnvoll, wie kommt man
+						finanziell dabei aus - ... und wie teilt man das alles möglichst gleichberechtigt auf im
+						Sinne von "Ganze Männer machen Halbe Halbe!" und #EqualCare?
 					</p>
-					<p class="text-base leading-relaxed text-slate-600">
-						Als Neu-Vater stand ich vor kurzem selber erst mit meiner Partnerin vor diesem Berg an
-						Fragen - und es hat mich viel mehr Zeit und Nerven gekostet als gedacht. Insbesondere
-						auch, weil ich die Karenz fair aufteilen wollte ("Ganze Männer machen Halbe Halbe").
+					<p>
+						Herauszufinden, welche Modelle für uns möglich sind, hat mich viel mehr Zeit und Nerven
+						gekostet als ursprünglich gedacht.
 					</p>
+
 					<!-- <p>
 						Die gute Nachricht: Hat man erstmal einen groben Überblick, wird es mit der Zeit
 						leichter zu planen. Alles Gute für euer Baby-Abenteuer! 🍀
@@ -91,8 +98,8 @@
 						Gute für dein/euer Abenteuer mit Baby! 🍀
 					</p> -->
 					<p class="text-center text-base leading-relaxed text-slate-600">
-						Diese Webseite und der interaktive Planer hilft nun hoffentlich euch, schneller als ich
-						einen Überblick zu bekommen:<!-- Alles Gute
+						Diese Webseite mit interaktivem Planer hilft nun hoffentlich euch, schneller einen
+						Überblick zu bekommen:<!-- Alles Gute
 						für dein/euer Abenteuer mit Baby! 🍀-->
 					</p>
 					<p class="text-center text-base leading-relaxed text-slate-600"></p>
