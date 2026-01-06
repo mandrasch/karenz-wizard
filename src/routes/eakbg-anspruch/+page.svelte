@@ -4,10 +4,9 @@
 
 <div class="mx-auto prose mt-6 max-w-3xl">
 	<section class="content">
-		<header class="mt-2">
-			<h1 class="text-2xl leading-tight font-semibold text-slate-900">eaKBG – Anspruch prüfen</h1>
+		<header class="mt-10 space-y-6">
+			<h1 class="text-3xl font-semibold text-slate-900">eaKBG – Anspruch prüfen</h1>
 		</header>
-
 		<p>
 			Um das einkommensabhängige Kinderbetreuungsgeld (eaKBG) beziehen zu können, müssen einige
 			Anspruchsvoraussetzungen (= Bedingungen) erfüllt werden. <!-- Erfüllt man diese, erhält man während seiner Karenz-Monate
