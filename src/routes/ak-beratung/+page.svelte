@@ -167,101 +167,106 @@
 	];
 </script>
 
-<section class="content">
-	<header class="mt-10 space-y-6">
-		<h1 class="text-3xl font-semibold text-slate-900">
-			Kostenfreie Beratung bei der Arbeiterkammer
-		</h1>
-	</header>
+<div class="mx-auto prose mt-6 max-w-3xl">
+	<section class="content">
+		<header class="mt-10 space-y-6">
+			<h1 class="text-3xl font-semibold text-slate-900">
+				Kostenfreie Beratung bei der Arbeiterkammer
+			</h1>
+		</header>
 
-	<div class="prose mt-6">
-		<p>
-			Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz und
-			Kinderbetreuungsgeld. Sie ist als Arbeitnehmer:innen-Vertretung <b>auf deiner Seite</b>. 💪
-		</p>
-		<p>
-			<b>Tipp:</b> Direkt einen Termin für die erste Beratung vereinbaren oder schauen, ob es ein Webinar
-			oder eine Infoveranstaltung vor Ort gibt. Je früher informieren, desto besser!
-		</p>
-		<p>
-			Die Mitarbeiter:innen kennen alle gesetzlichen Regeln und können deine Planung überprüfen. So
-			bist du auf der sicheren Seite, dass dir kein Geld verloren geht oder du etwas übersiehst. Sie
-			beantworten auch Fragen dazu, wie du den KBG-Antrag (<a
-				href="https://www.sozialversicherung.at/cdscontent/load?contentid=10008.638102&version=1577958680"
-				>PDF</a
-			>,
-			<a href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.879630&portal=oegkportal"
-				>ÖGK-Onlineformular</a
-			>) dann korrekt ausfüllst.
-		</p>
-		<p>
-			<b>Wichtig</b>: Lass dich vor der Antragsstellung beraten, Antrag noch nicht abschicken!
-		</p>
-
-		<p>
-			Einige Arbeiterkammern bieten auch Inforveranstaltungen vor Ort oder Webinare an. Hier eine
-			schnelle Liste - bitte prüfe die Webseite der Arbeiterkammer deines Bundeslandes. Die
-			Informationen hier können ggf. veraltet sein / neue Angebote dazugekommen sein.
-		</p>
-
-		<ul>
-			{#each akList as ak}
-				<li class="my-3">
-					<strong>{ak.name}</strong>
-
-					{#if ak.links.length > 0}
-						<ul class="ml-4">
-							{#each ak.links as link}
-								<li>
-									<a href={link.url} target="_blank" rel="noopener">{link.title}</a>
-								</li>
-							{/each}
-						</ul>
-					{:else}
-						<ul class="ml-4">
-							<li class="text-slate-500 italic">Links folgen</li>
-						</ul>
-					{/if}
-				</li>
-			{/each}
-		</ul>
-
-		<h3>ÖGK</h3>
-		<ul>
-			<li>
+		<div class="mt-6">
+			<p>
+				Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz und
+				Kinderbetreuungs&shy;geld. Sie ist als Arbeitnehmer:innen-Vertretung <b>auf deiner Seite</b
+				>. 💪
+			</p>
+			<p>
+				<b>Tipp:</b> Direkt einen Termin für die erste Beratung vereinbaren oder schauen, ob es ein Webinar
+				oder eine Infoveranstaltung vor Ort gibt. Je früher informieren, desto besser!
+			</p>
+			<p>
+				Die Mitarbeiter:innen kennen alle gesetzlichen Regeln und können deine Planung überprüfen.
+				So bist du auf der sicheren Seite, dass dir kein Geld verloren geht oder du etwas
+				übersiehst. Sie beantworten auch Fragen dazu, wie du den KBG-Antrag (<a
+					href="https://www.sozialversicherung.at/cdscontent/load?contentid=10008.638102&version=1577958680"
+					>PDF</a
+				>,
 				<a
-					href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.882921&portal=oegkportal"
-					>Kunden­service Wien Kinder­betreuungs­geld</a
-				>
-			</li>
-		</ul>
+					href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.879630&portal=oegkportal"
+					>ÖGK-Onlineformular</a
+				>) dann korrekt ausfüllst.
+			</p>
+			<p>
+				<b>Wichtig</b>: Lass dich vor der Antragsstellung beraten, Antrag noch <u>nicht</u> abschicken!
+			</p>
 
-		<h3>Feministische Beratung / Einführungskurs?</h3>
+			<p>
+				Einige Arbeiterkammern bieten auch Inforveranstaltungen vor Ort oder Webinare an. Hier eine
+				schnelle Liste - bitte prüfe die Webseite deiner AK. Die Informationen hier können ggf.
+				veraltet sein.
+			</p>
 
-		<p>
-			Was die AK (leider) bisher nicht leistet soweit ich weiß: Eine feministische Beratung, wie man
-			die Karenzteile gleichberechtigt zwischen den Elternteilen aufteilt. Hier solltest du dich bei
-			anderen Stellen, Freunden und Bekannten oder im Netz zusätzlich informieren. Denn "Ganze
-			Männer machen Halbe-Halbe" (#EqualCare). Siehe auch <a href="/infothek">Infothek</a>.
-		</p>
+			<ul>
+				{#each akList as ak}
+					<li class="my-3">
+						<strong>{ak.name}</strong>
 
-		<h3>Wie schaut es bei der Arbeiterkammer vor Ort aus?</h3>
-		<p>
-			Hier ein Foto aus dem Wartebereich der Arbeiterkammer in Wien Ottakring. Du meldest dich bei
-			dem / der freundlichen Mitarbeiter:in am Eingang an, wenn du deinen Termin hast und erhältst
-			eine Wartenummer:
-		</p>
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-			<img
-				src="/ak_wien_ottakring_außengebauede.jpg"
-				alt="Außenansicht der Arbeiterkammer Wien in Ottakring"
-				class="w-full rounded-2xl object-cover shadow-md"
-			/>
-			<img
-				src="/ak_wien_ottakring_wartebereich.jpg"
-				alt="Wartebereich in der Arbeiterkammer Wien"
-				class="w-full rounded-2xl object-cover shadow-md"
-			/>
+						{#if ak.links.length > 0}
+							<ul class="ml-4">
+								{#each ak.links as link}
+									<li>
+										<a href={link.url} target="_blank" rel="noopener">{link.title}</a>
+									</li>
+								{/each}
+							</ul>
+						{:else}
+							<ul class="ml-4">
+								<li class="text-slate-500 italic">Links folgen</li>
+							</ul>
+						{/if}
+					</li>
+				{/each}
+			</ul>
+
+			<h3>Wie schaut es bei der Arbeiterkammer vor Ort aus?</h3>
+			<p>
+				Hier ein Foto aus dem Wartebereich der Arbeiterkammer in Wien Ottakring. Du meldest dich bei
+				dem / der freundlichen Mitarbeiter:in am Eingang an, wenn du deinen Termin hast und erhälst
+				eine Wartenummer:
+			</p>
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+				<img
+					src="/ak_wien_ottakring_außengebauede.jpg"
+					alt="Außenansicht der Arbeiterkammer Wien in Ottakring"
+					class="w-full rounded-2xl object-cover shadow-md"
+				/>
+				<img
+					src="/ak_wien_ottakring_wartebereich.jpg"
+					alt="Wartebereich in der Arbeiterkammer Wien"
+					class="w-full rounded-2xl object-cover shadow-md"
+				/>
+			</div>
+			<hr />
+
+			<h3>ÖGK</h3>
+			<ul>
+				<li>
+					<a
+						href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.882921&portal=oegkportal"
+						>Kunden­service Wien Kinder­betreuungs­geld</a
+					>
+				</li>
+			</ul>
+
+			<h3>Feministische Beratung / Einführungskurs?</h3>
+
+			<p>
+				Was die AK (leider) bisher nicht leistet soweit ich weiß: Eine feministische Beratung, wie
+				man die Karenzteile gleichberechtigt zwischen den Elternteilen aufteilt. Hier solltest du
+				dich bei anderen Stellen, Freunden und Bekannten oder im Netz zusätzlich informieren. Denn
+				"Ganze Männer machen Halbe-Halbe" (#EqualCare). Siehe auch <a href="/infothek">Infothek</a>.
+			</p>
 		</div>
-	</div>
-</section>
+	</section>
+</div>

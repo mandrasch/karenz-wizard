@@ -1,11 +1,9 @@
 <script lang="ts">
 	import EligibilityCalculatorEaKbg from '$lib/components/EligibilityCalculatorEaKbg.svelte';
-	import Header from '$lib/components/Header.svelte';
 </script>
 
 <div class="mx-auto prose mt-6 max-w-3xl">
 	<section class="content">
-		<!-- Kompakter Header -->
 		<header class="mt-2">
 			<h1 class="text-2xl leading-tight font-semibold text-slate-900">eaKBG – Anspruch prüfen</h1>
 		</header>
