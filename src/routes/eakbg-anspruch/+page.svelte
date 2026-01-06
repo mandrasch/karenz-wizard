@@ -169,7 +169,7 @@
 					class="underline">interaktiven Elternkalender der Arbeiterkammer</a
 				>, mit welchem ihr alle kommenden Fristen im Blick habt.
 			</p>
-			<h3>Mehr Informationen und Beratung</h3>
+			<!-- <h3>Mehr Informationen und Beratung</h3>
 			<ul>
 				<li>
 					Infoseite: <a
@@ -202,37 +202,40 @@
 				<li><a href="/ak-beratung">Beratung bei der Arbeiterkammer</a></li>
 			</ul>
 			<p>Sie können bei Unklarheiten auch helfen herauszufinden, ob du wirklich Anspruch hast.</p>
+		</section> -->
+
+			<h3>Nächster Schritt: Karenz-Aufteilung planen</h3>
+			<p>
+				Jetzt geht es ans Eingemachte. Plant die ersten Jahre mit eurem Baby, falls ihr Anspruch auf
+				einkommensabhängiges Kinderbetreuungsgeld (eaKBG) habt:
+			</p>
+			<p class="text-center">
+				&raquo;<a href="/eakbg-planer" class="underline">Zum eaKBG-Planer</a>
+			</p>
+
+			<p>Falls ihr keinen Anspruch habt, könnt ihr euch nun zum KBG Konto informieren:</p>
+			<p>
+				<i
+					>„Das pauschale Kinderbetreuungsgeld (KBG) steht Ihnen offen, egal ob Sie vor der Geburt
+					Ihres Kindes gearbeitet haben oder nicht.“</i
+				>
+			</p>
+			<ul>
+				<li>
+					Infoseite:
+					<a href="https://www.arbeiterkammer.at/kbg#heading_Kinderbetreuungsgeldkonto"
+						>Kinderbetreuungsgeld Konto - arbeiterkammer.at</a
+					>
+				</li>
+				<li>
+					Infoseite:
+					<a
+						href="https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Teilung_der_Karenz.html"
+						>Teilung der Karenz - arbeiterkammer.at</a
+					>
+				</li>
+			</ul>
+			<!-- TODO: support this in planner as well? -->
 		</section>
-
-		<h3>Nächster Schritt: Karenz-Aufteilung planen</h3>
-		<p>
-			Jetzt geht es ans Eingemachte. Plant die ersten Jahre mit eurem Baby, falls ihr Anspruch auf
-			einkommensabhängiges Kinderbetreuungsgeld (eaKBG) habt:
-		</p>
-		<p class="text-center">&raquo;<a href="/eakbg-planer" class="underline">Zum eaKBG-Planer</a></p>
-
-		<p>Falls ihr keinen Anspruch habt, könnt ihr euch nun zum KBG Konto informieren:</p>
-		<p>
-			<i
-				>„Das pauschale Kinderbetreuungsgeld (KBG) steht Ihnen offen, egal ob Sie vor der Geburt
-				Ihres Kindes gearbeitet haben oder nicht.“</i
-			>
-		</p>
-		<ul>
-			<li>
-				Infoseite:
-				<a href="https://www.arbeiterkammer.at/kbg#heading_Kinderbetreuungsgeldkonto"
-					>Kinderbetreuungsgeld Konto - arbeiterkammer.at</a
-				>
-			</li>
-			<li>
-				Infoseite:
-				<a
-					href="https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Teilung_der_Karenz.html"
-					>Teilung der Karenz - arbeiterkammer.at</a
-				>
-			</li>
-		</ul>
-		<!-- TODO: support this in planner as well? -->
 	</section>
 </div>
