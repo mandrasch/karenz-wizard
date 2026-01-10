@@ -1,8 +1,25 @@
 <IfModule mod_headers.c>
-  # Disable caching for HTML
+
+  # HTML
+  # Cache: 0s (always revalidate)
+  # Reason: entry point (.html files) changes on every deploy
   <FilesMatch "\.(html)$">
-    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
-    Header set Pragma "no-cache"
-    Header set Expires "0"
+    Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
+
+  # JS / CSS (hashed)
+  # Cache: 24h
+  # Reason: good performance, low failure risk (SvelteKit is
+  # using hashed file names which differ on every build / deploy)
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+
+  # Images / fonts
+  # Cache: 7d
+  # Reason: rarely change, safe moderate TTL
+  <FilesMatch "\.(png|jpg|jpeg|svg|webp|woff2)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+
 </IfModule>
