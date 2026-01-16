@@ -1,5 +1,5 @@
 ---
-title: "AK OÖ: Warum sollten mehr Papas in Karenz gehen?"
+title: 'AK OÖ: Warum sollten mehr Papas in Karenz gehen?'
 pubDate: 2025-12-21
 slug: ak-oberoesterreich-frage-der-woche-vaeterkarenz
 ---
@@ -12,11 +12,11 @@ Die AK Oberösterreich stellte kürzlich auf Instagram die Frage:
 
 Die AK OÖ hat hierzu auch großartigerweise einige Väter beim Papa-Frühstück interviewt:
 
-<a href="https://www.instagram.com/reel/DR9RaZTDnXO/"> 
+<a href="https://www.instagram.com/p/DR9RaZTDnXO/?hl=de"> 
 <img src="/blog-images/ak_ooe_vaeterkarenz_frage_der_woche.jpg" alt="Interview mit Vater - Screenshot Instagram" />
 </a>
 
-Reel: <a href="https://www.instagram.com/reel/DR9RaZTDnXO/">https://www.instagram.com/reel/DR9RaZTDnXO/</a>
+Reel: <a href="https://www.instagram.com/p/DR9RaZTDnXO/?hl=de">https://www.instagram.com/p/DR9RaZTDnXO/?hl=de</a>
 
 Im Kommentarbereich finden sich - neben viel Zuspruch zur Väterkarenz - auch kritische Reaktionen, insbesondere zur schwierigen Finanzierbarkeit des zweiten Jahres:
 
@@ -32,9 +32,9 @@ Auch bzgl. der Problematik der nur 14-monatigen Förderung (mit 80% des Einkomme
 
 > Optimal wäre es wenn das einkommensabhängige Kinderbetreuungsgeld 24 Monate ausbezahlt wird + es egal ist für den Staat wer in Karenz geht. Das wäre einmal eine ECHTE Wahlfreiheit.
 
-Offen bleibt leider etwas, für welche Modelle die Arbeiterkammer(n) sich in Zukunft engagieren werden als Arbeitnehmer:innen-Vertretung. 
+Offen bleibt leider etwas, für welche Modelle die Arbeiterkammer(n) sich in Zukunft engagieren werden als Arbeitnehmer:innen-Vertretung.
 
-Mitdiskutieren ist weiterhin <a href="https://www.instagram.com/reel/DR9RaZTDnXO/">auf Instagram</a> möglich.
+Mitdiskutieren ist weiterhin <a href="https://www.instagram.com/p/DR9RaZTDnXO/?hl=de">auf Instagram</a> möglich.
 
 <hr>
 
