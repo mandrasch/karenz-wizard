@@ -19,7 +19,18 @@
 				aria-label="Footer Navigation"
 			>
 				<section class="space-y-3" aria-labelledby="footer-about">
-					<h2 id="footer-about" class="text-sm font-semibold text-slate-900">Credits</h2>
+					<h2 id="footer-social-media" class="text-sm font-semibold text-slate-900">
+						Social Media
+					</h2>
+					<ul class="mb-5 space-y-2 text-sm text-slate-600">
+						<li>
+							<a
+								class="font-semibold text-indigo-700 underline underline-offset-4"
+								href="https://www.instagram.com/karenz_wizard/">Instagram</a
+							>
+						</li>
+					</ul>
+					<h2 id="footer-about" class="text-sm font-semibold text-slate-900">Über das Projekt</h2>
 					<p class="text-sm leading-relaxed text-slate-600">
 						Mit ❤️ für das Land der Berge entwickelt von <a
 							class="underline"
