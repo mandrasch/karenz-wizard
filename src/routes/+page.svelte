@@ -48,7 +48,7 @@
 
 <section class="full-bleed">
 	<div class="relative w-full bg-white text-slate-900">
-		<div class="content pt-12 sm:pt-12">
+		<div class="content px-6 pt-12 sm:pt-12">
 			<div class="mx-auto flex max-w-5xl flex-col gap-12">
 				<div class="flex h-56 items-center justify-center sm:h-64 lg:h-72 xl:h-80">
 					<img
