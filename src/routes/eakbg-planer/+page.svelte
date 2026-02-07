@@ -1404,19 +1404,42 @@
 		<NoteGrid />
 		<TimelineSummary {segmentSummaries} bind:birthDateInput {formatSegmentRange} open={false} />
 
-		<!-- TODO: use own details / collapsible component -->
-		<div class="prose">
-			<h3 id="infos-fuer-neueltern">
-				* Infos für Neu-Eltern: Karenzplanung kann kompliziert sein!
-			</h3>
+		<details class="group rounded-2xl border border-neutral-200/70 bg-white shadow-sm" open>
+			<summary
+				class="flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl px-4 py-3 text-slate-800/90 outline-none select-none
+				       focus-visible:ring-2 focus-visible:ring-indigo-600/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white md:px-5 md:py-4"
+				aria-label="Infos für Neu-Eltern ein- und ausklappen"
+			>
+				<div class="flex items-center gap-3">
+					<span class="text-base font-semibold text-slate-900 sm:text-lg" id="infos-fuer-neueltern">
+						* Infos für Neu-Eltern: Karenzplanung kann kompliziert sein!
+					</span>
+				</div>
+				<svg
+					class="h-5 w-5 shrink-0 transition-transform duration-200 group-open:rotate-180"
+					viewBox="0 0 24 24"
+					fill="none"
+					aria-hidden="true"
+				>
+					<path
+						d="M6 9l6 6 6-6"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+			</summary>
+
+			<div class="prose max-w-none rounded-b-2xl border-t border-neutral-200/70 bg-neutral-50 p-4 shadow-sm md:p-6 md:columns-2 md:gap-8">
 			<img
-				class="mt-6 max-w-full border"
+				class="mt-6 max-w-full border md:mt-0"
 				src="/meme_karenz_wizard_karenzplanung_erstes_und_zweites_lebensjahr.jpg"
 				alt="Meme mit zwei Seiten, erstes Lebensjahr - einfach, Frosch Kermit trinkt Kaffee entspannt. Zweites Jahr wild - Meme mit Person, die vor Notizen steht und durchdreht (Conspiracy Meme)"
 			/>
 
 			<p>
-				Wird Elternzeit im Sinne von „Ganze Männer machen Halbe-Halbe“ gedacht, wäre das bei maximal
+				Wird Elternzeit im Sinne von „Ganze Männer machen Halbe-Halbe" gedacht, wäre das bei maximal
 				14 Monaten eaKBG-Förderung eine <strong>7+7-Monate-Aufteilung</strong>.
 			</p>
 
@@ -1480,70 +1503,80 @@
 				hängt natürlich (leider) stark von euren finanziellen Rahmenbedingungen ab.
 			</p>
 
-			<strong>a) Fremdbetreuung nach 14 Monaten - emotionale Entscheidung</strong>
-			<p>
-				Ab wann das Kind in den Kindergarten oder zu einer Tagesmutter/Tagesvater geht, ist eine
-				individuelle Entscheidung und wird teils sehr emotional diskutiert unter Eltern. Grund:
-				Kindergarten-Gruppen können für einige 14-monatige Babies Stress bedeuten, andere kommen
-				wohl gut damit klar bei guter individueller Betreuung. Und es ist auch abhängig davon, ab
-				welchem Alter Kinder überhaupt in den Kindergarten dürfen in eurem Bundesland. Auch das
-				Start-Datum des Kindergartenjahres kann relevant sein - sowie natürlich wie sich euer Kind
-				entwickelt. Jedes Kind ist anders.
-			</p>
-			<strong>b) Beide in Eltern-Teilzeit mit 20h/Woche als Option ohne Fremdbetreuung</strong><br
-			/>
-			<p>
-				Einige Eltern gehen nach Ablauf der 14 Monate eaKBG auch beide in Eltern-Teilzeit mit
-				20h/Woche, somit findet noch keine Fremdbetreuung statt. Sie wechseln sich tageweise oder
-				tagsüber ab mit der Kinderbetreuung. Die Eltern tun dies, bis das Kind 2 Jahre oder älter
-				ist und dann fremdbetreut wird (Kindergarten).
-			</p>
+			<div>
+				<strong>a) Fremdbetreuung nach 14 Monaten - emotionale Entscheidung</strong>
+				<p>
+					Ab wann das Kind in den Kindergarten oder zu einer Tagesmutter/Tagesvater geht, ist eine
+					individuelle Entscheidung und wird teils sehr emotional diskutiert unter Eltern. Grund:
+					Kindergarten-Gruppen können für einige 14-monatige Babies Stress bedeuten, andere kommen
+					wohl gut damit klar bei guter individueller Betreuung. Und es ist auch abhängig davon, ab
+					welchem Alter Kinder überhaupt in den Kindergarten dürfen in eurem Bundesland. Auch das
+					Start-Datum des Kindergartenjahres kann relevant sein - sowie natürlich wie sich euer Kind
+					entwickelt. Jedes Kind ist anders.
+				</p>
+			</div>
+			<div>
+				<strong>b) Beide in Eltern-Teilzeit mit 20h/Woche als Option ohne Fremdbetreuung</strong><br
+				/>
+				<p>
+					Einige Eltern gehen nach Ablauf der 14 Monate eaKBG auch beide in Eltern-Teilzeit mit
+					20h/Woche, somit findet noch keine Fremdbetreuung statt. Sie wechseln sich tageweise oder
+					tagsüber ab mit der Kinderbetreuung. Die Eltern tun dies, bis das Kind 2 Jahre oder älter
+					ist und dann fremdbetreut wird (Kindergarten).
+				</p>
+			</div>
 
-			<strong>c) Zwei Jahre Elternzeit mit unbezahlter Karenz als weitere Option: 12 + 12</strong>
-			<p>
-				Eine weitere Option ist nach den 14 Monaten eaKBG noch eine unbezahlte Karenz anzuhängen, z.
-				B. könnte der Vater noch weitere 10 Monate in unbezahlter Karenz bleiben für 12+12
-				Aufteilung. Finanziell ist dies natürlich nur möglich, wenn das Gehalt eines Elternteils –
-				in diesem Beispiel der Mutter – für die 10 Monate ausreicht bzw. Ersparnisse vorhanden sind.
-				In der unbezahlten Karenzzeit erhält die kinderbetreuuende Person ja kein Einkommen, es
-				bleibt nur das Gehalt des arbeitenden Partners - sowie die allgemeine Familienbeihilfe.
-			</p>
+			<div>
+				<strong>c) Zwei Jahre Elternzeit mit unbezahlter Karenz als weitere Option: 12 + 12</strong>
+				<p>
+					Eine weitere Option ist nach den 14 Monaten eaKBG noch eine unbezahlte Karenz anzuhängen, z.
+					B. könnte der Vater noch weitere 10 Monate in unbezahlter Karenz bleiben für 12+12
+					Aufteilung. Finanziell ist dies natürlich nur möglich, wenn das Gehalt eines Elternteils –
+					in diesem Beispiel der Mutter – für die 10 Monate ausreicht bzw. Ersparnisse vorhanden sind.
+					In der unbezahlten Karenzzeit erhält die kinderbetreuuende Person ja kein Einkommen, es
+					bleibt nur das Gehalt des arbeitenden Partners - sowie die allgemeine Familienbeihilfe.
+				</p>
 
-			<p class="text-sm italic">
-				Info am Rande: In den letzten Jahren wurde auch gerne die Bildungskarenz für ein Jahr nach
-				der Elternzeit genutzt, dies ist leider <a
-					href="/blog/bildungskarenz-bruecke-erwerbsleben-entfaellt/"
-					class="underline">seit 2026 nicht mehr möglich</a
-				>.
-			</p>
+				<p class="text-sm italic">
+					Info am Rande: In den letzten Jahren wurde auch gerne die Bildungskarenz für ein Jahr nach
+					der Elternzeit genutzt, dies ist leider <a
+						href="/blog/bildungskarenz-bruecke-erwerbsleben-entfaellt/"
+						class="underline">seit 2026 nicht mehr möglich</a
+					>.
+				</p>
+			</div>
 
-			<strong>d) Großeltern oder anderen Personen betreuen mit</strong>
-			<p>
-				Die Einbindung von Großeltern oder anderen Bezugspersonen, falls verfügbar, ist natürlich
-				ebenso denkbar.
-			</p>
+			<div>
+				<strong>d) Großeltern oder anderen Personen betreuen mit</strong>
+				<p>
+					Die Einbindung von Großeltern oder anderen Bezugspersonen, falls verfügbar, ist natürlich
+					ebenso denkbar.
+				</p>
+			</div>
 
-			<strong>Job & Baby-Betreuung gleichberechtigt organisieren ist aktuell ein Kraftakt</strong
-			><br />
+			<div>
+				<strong>Job & Baby-Betreuung gleichberechtigt organisieren ist aktuell ein Kraftakt</strong
+				><br />
 
-			<p>
-				Es gibt kein „richtig“ oder „falsch“ – wichtig ist, dass die Aufteilung zu eurer Situation,
-				euren Bedürfnissen und euren finanziellen Rahmenbedingungen passt.
-			</p>
-			<p>
-				Die aktuelle Arbeitswelt kann euch natürlich auch ab und zu im Weg stehen, wenn ihr die
-				Sorge um eure Kind (Care-Arbeit) gleichberechtigt aufteilen wollt.
-			</p>
-			<blockquote>
-				„Wer sich die Familienarbeit fair aufteilen will, muss auch gegen ein ganzes System
-				arbeiten.“ -
-				<cite
-					>Patricia Cammarata (<a
-						href="https://www.derstandard.at/story/3000000212445/patricia-cammarata-wenn-die-beziehung-schlecht-ist-wollen-maenner-nicht-ueber-sorgearbeit-verhandeln"
-						>Standard-Interview</a
-					>)</cite
-				>
-			</blockquote>
+				<p>
+					Es gibt kein „richtig" oder „falsch" – wichtig ist, dass die Aufteilung zu eurer Situation,
+					euren Bedürfnissen und euren finanziellen Rahmenbedingungen passt.
+				</p>
+				<p>
+					Die aktuelle Arbeitswelt kann euch natürlich auch ab und zu im Weg stehen, wenn ihr die
+					Sorge um eure Kind (Care-Arbeit) gleichberechtigt aufteilen wollt.
+				</p>
+				<blockquote>
+					„Wer sich die Familienarbeit fair aufteilen will, muss auch gegen ein ganzes System
+					arbeiten." -
+					<cite
+						>Patricia Cammarata (<a
+							href="https://www.derstandard.at/story/3000000212445/patricia-cammarata-wenn-die-beziehung-schlecht-ist-wollen-maenner-nicht-ueber-sorgearbeit-verhandeln"
+							>Standard-Interview</a
+						>)</cite
+					>
+				</blockquote>
+			</div>
 
 			<p>
 				Für meine Partnerin und mich war das erste Einlesen und Planen sehr zeit- und
@@ -1561,67 +1594,97 @@
 			</p>
 			<p>🍀 Alle Daumen gedrückt für eine Planung, die zu euch passt!</p>
 		</div>
+		</details>
 	</section>
 
-	<section class="prose mt-10">
-		<h3>Mehr Informationen, Videos und Beratung</h3>
-		<ul>
-			<li>
-				Infoseite: <a
-					class="underline"
-					href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1"
+	<section class="mt-10">
+		<details class="group rounded-2xl border border-neutral-200/70 bg-white shadow-sm" open>
+			<summary
+				class="flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl px-4 py-3 text-slate-800/90 outline-none select-none
+				       focus-visible:ring-2 focus-visible:ring-indigo-600/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white md:px-5 md:py-4"
+				aria-label="Mehr Informationen, Videos und Beratung ein- und ausklappen"
+			>
+				<div class="flex items-center gap-3">
+					<span class="text-base font-semibold text-slate-900 sm:text-lg">
+						Mehr Informationen, Videos und Beratung
+					</span>
+				</div>
+				<svg
+					class="h-5 w-5 shrink-0 transition-transform duration-200 group-open:rotate-180"
+					viewBox="0 0 24 24"
+					fill="none"
+					aria-hidden="true"
 				>
-					Einkommensabhängiges Kinderbetreuungsgeld - oesterreich.gv.at</a
-				>
-			</li>
-			<li>
-				Infoseite: <a
-					href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.867463&portal=oegkportal"
-					class="underline">Kinderbetreuungsgeld - ÖGK</a
-				>
-			</li>
-			<li>
-				Infoseite: <a
-					href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html"
-					class="underline"
-				>
-					Kinderbetreuungsgeld - arbeiterkammer.at
-				</a>
-			</li>
+					<path
+						d="M6 9l6 6 6-6"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+			</summary>
 
-			<li>
-				YouTube: Kinderbetreuungsgeld in Österreich | Antrag & Varianten
-				<a href="https://www.youtube.com/watch?v=JdoIhtTYxh8">
-					<img src="/ak_video_thumbnail_kbg_zwei_modelle.jpg" alt="" class="mt-1 mb-0" />
-				</a>
-			</li>
-			<li>
-				Infoseite:
-				<a
-					href="https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Teilung_der_Karenz.html"
-					>Teilung der Karenz - arbeiterkammer.at</a
-				>
-			</li>
-			<li>
-				YouTube-Video: Teilung Karenz und Kinderbetreuungsgeld in Österreich<a
-					href="https://www.youtube.com/watch?v=_68qceI3lLU"
-				>
-					<img src="/ak_video_thumbnail_karenzteilung.jpg" alt="" class="mt-1 mb-0" />
-				</a>
-			</li>
-		</ul>
-		<p>
-			Deine Arbeiterkammer vor Ort bietet Beratung und teils auch Webinare / vor Ort
-			Infoveranstaltungen an:
-		</p>
-		<ul>
-			<li><a href="/ak-beratung">Beratung bei der Arbeiterkammer</a></li>
-		</ul>
-		<p>Siehe auch weitere Unterseiten auf dieser Webseite:</p>
-		<ul>
-			<li><a href="/eakbg-anspruch">eaKBG Anspruch prüfen</a></li>
-			<li><a href="/infothek">Infothek</a></li>
-		</ul>
+			<div class="prose max-w-none rounded-b-2xl border-t border-neutral-200/70 bg-neutral-50 p-4 shadow-sm md:p-6 md:columns-2 md:gap-8">
+				<ul>
+					<li>
+						Infoseite: <a
+							class="underline"
+							href="https://www.oesterreich.gv.at/de/themen/familie_und_partnerschaft/finanzielle-unterstuetzungen/3/2/1"
+						>
+							Einkommensabhängiges Kinderbetreuungsgeld - oesterreich.gv.at</a
+						>
+					</li>
+					<li>
+						Infoseite: <a
+							href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.867463&portal=oegkportal"
+							class="underline">Kinderbetreuungsgeld - ÖGK</a
+						>
+					</li>
+					<li>
+						Infoseite: <a
+							href="https://www.arbeiterkammer.at/beratung/berufundfamilie/kinderbetreungsgeld/Kinderbetreuungsgeld.html"
+							class="underline"
+						>
+							Kinderbetreuungsgeld - arbeiterkammer.at
+						</a>
+					</li>
+
+					<li>
+						YouTube: Kinderbetreuungsgeld in Österreich | Antrag & Varianten
+						<a href="https://www.youtube.com/watch?v=JdoIhtTYxh8">
+							<img src="/ak_video_thumbnail_kbg_zwei_modelle.jpg" alt="" class="mt-1 mb-0" />
+						</a>
+					</li>
+					<li>
+						Infoseite:
+						<a
+							href="https://www.arbeiterkammer.at/beratung/berufundfamilie/Karenz/Teilung_der_Karenz.html"
+							>Teilung der Karenz - arbeiterkammer.at</a
+						>
+					</li>
+					<li>
+						YouTube-Video: Teilung Karenz und Kinderbetreuungsgeld in Österreich<a
+							href="https://www.youtube.com/watch?v=_68qceI3lLU"
+						>
+							<img src="/ak_video_thumbnail_karenzteilung.jpg" alt="" class="mt-1 mb-0" />
+						</a>
+					</li>
+				</ul>
+				<p>
+					Deine Arbeiterkammer vor Ort bietet Beratung und teils auch Webinare / vor Ort
+					Infoveranstaltungen an:
+				</p>
+				<ul>
+					<li><a href="/ak-beratung">Beratung bei der Arbeiterkammer</a></li>
+				</ul>
+				<p>Siehe auch weitere Unterseiten auf dieser Webseite:</p>
+				<ul>
+					<li><a href="/eakbg-anspruch">eaKBG Anspruch prüfen</a></li>
+					<li><a href="/infothek">Infothek</a></li>
+				</ul>
+			</div>
+		</details>
 	</section>
 
 	<!-- TODO: remove, not necessary anymore-->
@@ -1665,6 +1728,19 @@
 	/* TODO: convert to tailwind inline styles */
 
 	@reference "../../app.css";
+
+	/* hide native triangle for details/summary accordion */
+	details > summary::-webkit-details-marker {
+		display: none;
+	}
+	details > summary {
+		list-style: none;
+	}
+
+	/* prevent column breaks inside content blocks in the two-column info section */
+	.md\:columns-2 > * {
+		break-inside: avoid;
+	}
 
 	:global(:root) {
 		--planner-font:
