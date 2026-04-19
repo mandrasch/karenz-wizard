@@ -178,28 +178,30 @@ Copy from `/tmp/astrowind-template/` into repo root (excluding `.git`, `node_mod
 
 ## Phase 4 — Port global layout + a11y contract from AGENTS.md
 
-**Status:** 🟡 in progress (2026-04-19)
+**Status:** ✅ done (commit `b788966`, 2026-04-19) — 6 files / +706 / −32. Build green; built HTML shows `<html lang="de-AT">`, skip link, `<main data-layout="home">` on `/`, `data-layout="subpages"` elsewhere, and umami. Full verify (single-h1, nav click-through) deferred to Phase 5 pages.
 
 **Problem:** AstroWind's default `Layout.astro` / `Header.astro` / `Footer.astro` conflict with `AGENTS.md` rules (no `data-layout`, own dark-mode toggle, own skip-link wording).
 
 **Steps:**
 
-- [ ] **Edit `src/layouts/Layout.astro`:**
-  - [ ] Add `<a class="skip-link" href="#main">Zum Inhalt springen</a>` first in tab order.
-  - [ ] Wrap children in `<main id="main" tabindex="-1" data-layout={layoutVariant}><div class="page-grid">…</div></main>`.
-  - [ ] Compute `layoutVariant` from `Astro.url.pathname` (`/` → `home`, else `subpages`). Mirror logic from `src/routes/+layout.ts:9`.
-  - [ ] Inject umami analytics snippet (from `src/app.html:7`) in `<head>`.
-  - [ ] Set `<html lang="de-AT">`.
+- [x] **Edit `src/layouts/Layout.astro`:**
+  - [x] Add `<a class="skip-link" href="#main">Zum Inhalt springen</a>` first in tab order.
+  - [x] Wrap children in `<main id="main" tabindex="-1" data-layout={layoutVariant}><div class="page-grid">…</div></main>`.
+  - [x] Compute `layoutVariant` from `Astro.url.pathname` (`/` → `home`, else `subpages`).
+  - [x] Inject umami analytics snippet (from pre-migration `src/app.html`) in `<head>`.
+  - [x] Set `<html lang="de-AT">`.
+  - [x] Dropped `ClientRouter` (view transitions) — violates AGENTS.md "no container swaps on navigation".
+  - [x] Dropped imports of `Metadata`/`Analytics`/`CustomStyles` (AstroWind helpers using `@astrolib/*` + `@fontsource-variable/inter`). Title/description now from `seo.ts`, font from `@fontsource/ibm-plex-sans-condensed` global import.
 
-- [ ] **Create `src/components/widgets/HeaderKW.astro`** — port DOM from `src/lib/components/Header.svelte`. Hamburger menu uses vanilla `<script>` island toggling `aria-expanded`. Preview-banner close button same treatment.
+- [x] **Create `src/components/widgets/HeaderKW.astro`** — port DOM from `src/lib/components/Header.svelte`. Hamburger menu uses vanilla module `<script>` toggling `aria-expanded`; Escape closes; body scroll lock via `html.overflow-hidden`. Preview-banner close same vanilla treatment.
 
-- [ ] **Create `src/components/widgets/FooterKW.astro`** — port `Footer.svelte` 1:1 (pure markup). Update "Made with SvelteKit" → "Made with Astro / AstroWind".
+- [x] **Create `src/components/widgets/FooterKW.astro`** — port `Footer.svelte` 1:1 (pure markup). "Made with SvelteKit" → "Made with Astro / AstroWind".
 
-- [ ] **Unused:** leave AstroWind's default `Header.astro`/`Footer.astro` in place but don't import them.
+- [x] **Unused:** `src/components/widgets/Header.astro` / `Footer.astro` (AstroWind defaults) left on disk but not imported from our `Layout.astro`. Still referenced by AstroWind demo pages via `PageLayout.astro` — removed alongside demo pages in Phase 5.
 
-- [ ] **Global CSS:** create `src/assets/styles/kw.css` with `@layer components { .page-grid, .content, .full-bleed, .skip-link }` + `:root { --content-w, --content-px, --section-gap }` from `src/app.css:13-63`. Import from `Layout.astro` **after** AstroWind's CSS so tokens win.
+- [x] **Global CSS:** created `src/assets/styles/kw.css` with `:root { --content-w, --content-px, --section-gap }` + `.page-grid`, `.content`, `.full-bleed`, `.skip-link`. Plain CSS (no `@layer` directives) — Vite processes each CSS import through Tailwind independently, so `@layer base` there crashes the build. Imported from `Layout.astro` after `tailwind.css`.
 
-- [ ] **SEO:** port `src/lib/seo.ts` → `src/utils/seo.ts` as-is (pure TS). Use in `Layout.astro` via `getSeoMeta(Astro.url.pathname)` for `<title>` / `<meta name="description">`.
+- [x] **SEO:** ported `src/lib/seo.ts` → `src/utils/seo.ts` as-is. `Layout.astro` calls `getSeoMeta(Astro.url.pathname)`; page-supplied `metadata.title`/`.description` override. Our slug-based matches only kick in once Phase 5 replaces demo pages.
 
 **Verify checklist:**
 
@@ -216,7 +218,7 @@ Copy from `/tmp/astrowind-template/` into repo root (excluding `.git`, `node_mod
 
 ## Phase 5 — Port static pages (Svelte routes → `.astro`)
 
-**Status:** ☐ not started
+**Status:** 🟡 in progress (2026-04-19)
 
 Per-route checklist — tick each route as its `.astro` port is committed:
 
