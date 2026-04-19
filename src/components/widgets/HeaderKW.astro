@@ -40,6 +40,7 @@ const navItems: NavItem[] = [
     label: 'Ersten Jahre nach Geburt planen',
     id: 'planner',
     children: [
+      { label: 'Intro', href: '/intro/', matchPath: '/intro' },
       { label: 'eaKBG Anspruch?', href: '/eakbg-anspruch/', matchPath: '/eakbg-anspruch' },
       { label: 'eaKBG Planer', href: '/eakbg-planer/', matchPath: '/eakbg-planer' },
       {
@@ -52,13 +53,11 @@ const navItems: NavItem[] = [
         href: '/unbezahlte-karenz/',
         matchPath: '/unbezahlte-karenz',
       },
-    ],
-  },
-  {
-    label: 'Papamonat',
-    id: 'papamonat',
-    children: [
-      { label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch/', matchPath: '/fzb-anspruch' },
+      {
+        label: 'Papamonat & Anspruch auf FZB-Förderung',
+        href: '/fzb-anspruch/',
+        matchPath: '/fzb-anspruch',
+      },
     ],
   },
   {
@@ -164,7 +163,7 @@ const mobileLinkClasses = (item: NavLink) =>
   </div>
 
   <!-- MAIN NAV WRAPPER -->
-  <div class="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-4 py-4 sm:px-6">
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
     <a
       href="/"
       class="group flex items-center gap-2 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
