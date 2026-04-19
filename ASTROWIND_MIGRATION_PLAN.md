@@ -226,13 +226,13 @@ Per-route checklist — tick each route as its `.astro` port is committed:
 - [ ] `/ak-beratung` → `src/pages/ak-beratung.astro`
 - [ ] `/eakbg-anspruch` → `src/pages/eakbg-anspruch.astro`
 - [ ] `/eakbg-planer` → `src/pages/eakbg-planer.astro` + Svelte island
-- [ ] `/faq` → `src/pages/faq.astro`
+- [x] `/faq` → `src/pages/faq.astro` (commit `b78dd95`; faqs array in frontmatter, `{@html}` → `<Fragment set:html>`)
 - [x] `/fzb-anspruch` → `src/pages/fzb-anspruch.astro` (commit `3afb505`; uses `EligibiltyDateCalculator.svelte` as client:load island)
 - [x] `/impressum-datenschutz` → `src/pages/impressum-datenschutz.astro` (commit `3afb505`)
 - [ ] `/infothek` → `src/pages/infothek.astro`
 - [ ] `/pauschales-kbg` → `src/pages/pauschales-kbg.astro`
 - [x] `/reaktionen-und-feedback` → `src/pages/reaktionen-und-feedback.astro` (commit `3afb505`)
-- [ ] `/ueber` → `src/pages/ueber.astro`
+- [x] `/ueber` → `src/pages/ueber.astro` (commit `b78dd95`)
 - [x] `/unbezahlte-karenz` → `src/pages/unbezahlte-karenz.astro` (commit `3afb505`)
 - [ ] `/buecher-broschueren`, `/tools`, `/videos` → `redirects:` in `astro.config.ts` (pulled forward: `trailingSlash: 'always'` + `build.format: 'directory'` already set in commit `3afb505`)
 
