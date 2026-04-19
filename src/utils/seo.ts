@@ -50,7 +50,7 @@ const seoEntries: SeoEntry[] = [
 	{
 		match: '/intro/',
 		meta: {
-			title: 'Intro – Hilfe zur Selbsthilfe – Karenz Wizard',
+			title: 'Die Schritte im Überblick – Karenz Wizard',
 			description:
 				'Einstieg in die Karenzplanung für werdende Eltern in Österreich — Papamonat, eaKBG, Karenzaufteilung, Eltern-Teilzeit, unbezahlte Karenz und Fremdbetreuung auf einen Blick.'
 		}

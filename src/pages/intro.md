@@ -1,10 +1,10 @@
 ---
 layout: ~/layouts/MarkdownLayout.astro
-title: Intro – Hilfe zur Selbsthilfe – Karenz Wizard
+title: Die Schritte im Überblick – Karenz Wizard
 description: Einstieg in die Karenzplanung für werdende Eltern in Österreich — Papamonat, eaKBG, Karenzaufteilung, Eltern-Teilzeit, unbezahlte Karenz und Fremdbetreuung auf einen Blick.
 ---
 
-# Intro
+# Die Schritte im Überblick
 
 Als werdender Vater stand ich selbst vor einem riesigen Berg an Fragen. Diese Seite ist ein privates Hobby-Projekt und soll euch als **„Hilfe zur Selbsthilfe"** dienen.
 
