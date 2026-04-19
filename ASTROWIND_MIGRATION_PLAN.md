@@ -541,7 +541,7 @@ Task: fetch the pre-migration canonical sitemap from the live site and diff its 
 
 ## Phase 11 — Menu re-structure (added 2026-04-19, user request)
 
-**Status:** ☐ not started
+**Status:** ✅ done (commit `7d1c513`, 2026-04-19) — nav renamed + 3 new dropdowns, Eltern-Teilzeit page created, footer Menü synced. Build: 25 pages. Check: 0/0/0.
 
 Second nav refactor on top of Phase 7's dropdowns. Regroups two more top-level items into new dropdown categories so the desktop nav stays compact as more content lands.
 
