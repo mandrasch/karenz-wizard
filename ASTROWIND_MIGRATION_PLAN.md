@@ -218,7 +218,7 @@ Copy from `/tmp/astrowind-template/` into repo root (excluding `.git`, `node_mod
 
 ## Phase 5 — Port static pages (Svelte routes → `.astro`)
 
-**Status:** 🟡 in progress (2026-04-19)
+**Status:** 🟡 in progress (2026-04-19) — 11/12 routes + redirects + Phase 5 cleanup done in commit `5438f54`; only the `eakbg-planer` Svelte island remains (deferred to its own session).
 
 Per-route checklist — tick each route as its `.astro` port is committed:
 
