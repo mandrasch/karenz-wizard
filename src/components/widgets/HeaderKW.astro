@@ -13,6 +13,12 @@
 // dropdown open/close + outside-click).
 import logo from '~/lib/assets/logo.png';
 
+// Dev-only features. import.meta.env.DEV is true during `astro dev`,
+// false during `astro build`. Feature stays accessible by URL (page is
+// always built) but the nav entry + CTA stay hidden in production until
+// the feature is promoted.
+const showOnlineBerater = import.meta.env.DEV;
+
 type NavLink = {
   label: string;
   href: string;
@@ -41,12 +47,12 @@ const navItems: NavItem[] = [
         href: '/elternteilzeit-20-20/',
         matchPath: '/elternteilzeit-20-20',
       },
+      {
+        label: 'Unbezahlte Karenz',
+        href: '/unbezahlte-karenz/',
+        matchPath: '/unbezahlte-karenz',
+      },
     ],
-  },
-  {
-    label: 'Unbezahlte Karenz',
-    href: '/unbezahlte-karenz/',
-    matchPath: '/unbezahlte-karenz',
   },
   {
     label: 'Papamonat',
@@ -244,6 +250,18 @@ const mobileLinkClasses = (item: NavLink) =>
     >
       eaKGB-Planer
     </a>
+
+    {
+      showOnlineBerater && (
+        <a
+          href="/online-berater/"
+          class="hidden items-center justify-center whitespace-nowrap rounded-full bg-[#2f5444] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f3a2e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2f5444] md:inline-flex"
+          title="Dev-only (nicht öffentlich)"
+        >
+          Online-Berater
+        </a>
+      )
+    }
 
     <!-- Mobile menu button -->
     <button

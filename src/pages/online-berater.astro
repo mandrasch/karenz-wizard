@@ -1,0 +1,31 @@
+---
+// Online-Berater — interactive decision-tree wizard.
+// Integrated from the scratch project _wizard-app/ (Svelte 5 runes).
+// Gated to dev mode via the CTA / nav visibility in HeaderKW.astro.
+// The page itself always builds (URL stays valid once feature ships),
+// but is not linked from the public nav until it's production-ready.
+import Layout from '~/layouts/Layout.astro';
+import Wizard from '~/lib/components/wizard/Wizard.svelte';
+import wizardData from '~/lib/components/wizard/mutterschutz-karenz.json';
+import type { Wizard as WizardType } from '~/lib/components/wizard/wizard-types';
+
+const wizard = wizardData as WizardType;
+---
+
+<Layout>
+  <section class="content">
+    <header class="mt-10 space-y-2 text-center">
+      <h1 class="text-3xl font-semibold text-slate-900">Online-Berater</h1>
+      <p class="text-base text-slate-600">
+        Ein interaktiver Schritt-für-Schritt-Assistent durch Mutterschutz und Karenz.
+      </p>
+      <p class="text-xs font-semibold uppercase tracking-wide text-rose-700">
+        🚧 Beta — nur lokal testbar, noch nicht produktiv freigegeben. 🚧
+      </p>
+    </header>
+
+    <div class="mt-8">
+      <Wizard wizard={wizard} client:load />
+    </div>
+  </section>
+</Layout>

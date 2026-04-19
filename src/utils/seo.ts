@@ -80,6 +80,14 @@ const seoEntries: SeoEntry[] = [
 		}
 	},
 	{
+		match: '/online-berater/',
+		meta: {
+			title: 'Online-Berater (Beta) – Karenz Wizard',
+			description:
+				'Interaktiver Schritt-für-Schritt-Assistent durch Mutterschutz und Karenz. Beta-Version, noch nicht öffentlich freigegeben.'
+		}
+	},
+	{
 		match: '/faq/',
 		meta: {
 			title: 'FAQ zu Papamonat & Karenz – Karenz Wizard',

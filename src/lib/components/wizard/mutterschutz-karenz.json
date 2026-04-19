@@ -1,0 +1,230 @@
+{
+  "start": "et",
+  "nodes": [
+    {
+      "id": "et",
+      "kind": "date",
+      "text": "Wann ist der errechnete Geburtstermin?",
+      "help": "Laut Mutter-Kind-Pass. Alle folgenden Fristen beziehen sich auf dieses Datum.",
+      "storeAs": "edd",
+      "next": "meldung-ag",
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Entbindungstermin berechnen" }
+    },
+    {
+      "id": "meldung-ag",
+      "kind": "info",
+      "title": "Mitteilung an den Arbeitgeber",
+      "body": "Sobald Sie von Ihrer Schwangerschaft erfahren, sollten Sie diese – gemeinsam mit dem voraussichtlichen Geburtstermin – laut Gesetz Ihrem Arbeitgeber mitteilen.",
+      "next": "papamonat-meldung",
+      "sources": [
+        { "label": "AK: Schwangerschaft am Arbeitsplatz", "url": "https://www.arbeiterkammer.at/" }
+      ],
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Wann den Arbeitgeber informieren?" }
+    },
+    {
+      "id": "papamonat-meldung",
+      "kind": "info",
+      "title": "Papamonat – Meldung & Förderung",
+      "body": "Die Vorankündigung an den Arbeitgeber muss spätestens 3 Monate vor dem errechneten Geburtstermin erfolgen. Der Papamonat als unbezahlte Freistellung ist ein gesetzliches Recht des Vaters – Voraussetzung ist lediglich ein gemeinsamer Haushalt mit dem Kind. Eine Mindestbeschäftigungsdauer oder Betriebsgröße ist nicht erforderlich. Für den Familienzeitbonus (die finanzielle Leistung während des Papamonats) gilt zusätzlich die 182-Tage-Regel: durchgehende Erwerbstätigkeit und Pflichtversicherung in den letzten 6 Monaten vor Antritt. Der Antrag auf Familienzeitbonus wird bei der zuständigen Krankenkasse (ÖGK) gestellt.",
+      "callout": {
+        "label": "Kündigungs- und Entlassungsschutz",
+        "body": "Beginnt mit der Vorankündigung, frühestens 4 Monate vor dem errechneten Geburtstermin, und endet 4 Wochen nach dem Ende des Papamonats."
+      },
+      "next": "mutterschutz-beginn",
+      "sources": [
+        { "label": "AK: Papamonat", "url": "https://www.arbeiterkammer.at/" },
+        { "label": "AK: Familienzeitbonus", "url": "https://www.arbeiterkammer.at/" }
+      ],
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Papamonat & Familienzeitbonus" }
+    },
+    {
+      "id": "mutterschutz-beginn",
+      "kind": "info",
+      "title": "Mutterschutz – spätester Beginn",
+      "body": "In Österreich beginnt der Mutterschutz 8 Wochen vor dem errechneten Geburtstermin. In dieser Zeit besteht ein absolutes Beschäftigungsverbot – Arbeiten ist nicht erlaubt. Als finanzieller Ausgleich zahlt die ÖGK das Wochengeld (orientiert am Nettoeinkommen). Nach der Geburt dauert die Schutzfrist weitere 8 Wochen (bei Früh-, Mehrlings- oder Kaiserschnittgeburten 12 Wochen).",
+      "computed": "mutterschutzStart",
+      "computedLabel": "Spätester Beginn Mutterschutz",
+      "next": "geburt",
+      "sources": [
+        { "label": "AK: Mutterschutz", "url": "https://www.arbeiterkammer.at/" },
+        { "label": "ÖGK: Wochengeld", "url": "https://www.gesundheitskasse.at/" }
+      ],
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Mutterschutz & Wochengeld" }
+    },
+    {
+      "id": "geburt",
+      "kind": "info",
+      "title": "Glückwunsch zur Geburt!",
+      "body": "Herzliche Gratulation zum neuen Familienmitglied. Nehmt euch die Zeit, die ihr braucht – die nächsten Schritte warten auch noch ein paar Tage.",
+      "next": "nach-geburt",
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Die ersten Tage" }
+    },
+    {
+      "id": "nach-geburt",
+      "kind": "info",
+      "title": "Von der Geburt zum Papamonat",
+      "body": "Der Papamonat beginnt grundsätzlich mit der Entlassung von Mutter und Kind aus dem Krankenhaus (Ausnahme: Hausgeburt). Für die Tage zwischen Geburt und Krankenhausentlassung kann Urlaub genommen werden – manche Kollektivverträge sehen zusätzlich Sonderurlaub vor. Lohnt sich zu prüfen.",
+      "next": "mutter-zuerst-q",
+      "sources": [
+        { "label": "AK: Sonderurlaub & Kollektivvertrag", "url": "https://www.arbeiterkammer.at/" }
+      ],
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Urlaub, Sonderurlaub, Papamonat" }
+    },
+    {
+      "id": "mutter-zuerst-q",
+      "kind": "question",
+      "text": "Nimmt die Mutter zuerst Karenz?",
+      "help": "Davon hängt ab, wer welche Meldefristen gegenüber dem Arbeitgeber einhalten muss.",
+      "next": {
+        "yes": "meldefrist-mutter",
+        "maybe": "meldefrist-mutter",
+        "no": "meldefrist-vater"
+      }
+    },
+    {
+      "id": "meldefrist-mutter",
+      "kind": "info",
+      "title": "Meldefrist – Mutter zuerst",
+      "body": "Nehmen Sie als Mutter zuerst die Karenz in Anspruch, müssen Sie Ihren Arbeitgeber oder Ihre Arbeitgeberin spätestens am letzten Tag der Schutzfrist (8 bzw. 12, maximal 16 Wochen nach der Geburt) darüber informieren, ob bzw. wie lange Sie Karenz in Anspruch nehmen möchten.",
+      "next": "karenz-laenge-q",
+      "sources": [
+        { "label": "AK: Karenz – Meldung", "url": "https://www.arbeiterkammer.at/" }
+      ],
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Karenz melden als Mutter" }
+    },
+    {
+      "id": "meldefrist-vater",
+      "kind": "info",
+      "title": "Meldefrist – Vater zuerst",
+      "body": "Nehmen Sie als Vater zuerst die Karenz in Anspruch, müssen Sie Ihren Arbeitgeber oder Ihre Arbeitgeberin spätestens 8 Wochen nach der Geburt über Beginn und Dauer der Karenz informieren.",
+      "callout": {
+        "label": "Achtung: Kündigungsschutz",
+        "body": "Melden Sie den Karenzwunsch frühestens ab dem Tag der Geburt – erst ab diesem Zeitpunkt besteht Kündigungsschutz."
+      },
+      "next": "karenz-laenge-q",
+      "sources": [
+        { "label": "AK: Karenz für Väter", "url": "https://www.arbeiterkammer.at/" }
+      ],
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Karenz melden als Vater" }
+    },
+    {
+      "id": "karenz-laenge-q",
+      "kind": "question",
+      "text": "Habt ihr euch schon über die Länge eurer Karenz Gedanken gemacht?",
+      "help": "Das gesetzliche Recht auf Freistellung (Karenz) besteht 2 Jahre, bis zum 2. Geburtstag des Kindes. Die Förderung (eaKBG) ist kürzer – daraus kann sich eine finanzielle Lücke ergeben.",
+      "next": {
+        "yes": "eakbg-anspruch-q",
+        "maybe": "eakbg-anspruch-q",
+        "no": "eakbg-anspruch-q"
+      },
+      "sources": [
+        { "label": "AK: Karenzdauer", "url": "https://www.arbeiterkammer.at/" }
+      ]
+    },
+    {
+      "id": "eakbg-anspruch-q",
+      "kind": "question",
+      "text": "Hat einer von euch Anspruch auf einkommensabhängiges KBG (eaKBG)?",
+      "help": "Voraussetzung u.a.: 182 Tage durchgehende Erwerbstätigkeit und Pflichtversicherung unmittelbar vor der Geburt.",
+      "next": {
+        "yes": "gemeinsamer-monat-q",
+        "maybe": "gemeinsamer-monat-q",
+        "no": "pauschales-kbg-info"
+      },
+      "sources": [
+        { "label": "AK: Kinderbetreuungsgeld", "url": "https://www.arbeiterkammer.at/" }
+      ]
+    },
+    {
+      "id": "pauschales-kbg-info",
+      "kind": "info",
+      "title": "Pauschales KBG (Konto-Modell)",
+      "body": "Ohne Anspruch auf eaKBG bleibt das pauschale KBG. Die Bezugsdauer ist flexibel zwischen 365 und 851 Tagen wählbar – mit umgekehrtem Verhältnis von Dauer zu Tagesbetrag.",
+      "next": "eltern-teilzeit-q",
+      "sources": [
+        { "label": "AK: Pauschales KBG (Konto)", "url": "https://www.arbeiterkammer.at/" }
+      ],
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Pauschales KBG erklärt" }
+    },
+    {
+      "id": "gemeinsamer-monat-q",
+      "kind": "question",
+      "text": "Wollt ihr einen gemeinsamen Monat einlegen?",
+      "help": "Beim erstmaligen Wechsel können beide Eltern bis zu 31 Tage gleichzeitig KBG beziehen. Diese Zeit wird von der Gesamtbezugsdauer abgezogen – für viele trotzdem wertvoll als Übergang.",
+      "next": {
+        "yes": "aufteilung-q",
+        "maybe": "aufteilung-q",
+        "no": "aufteilung-q"
+      },
+      "sources": [
+        { "label": "AK: Partnerschaftsbonus & gemeinsamer Monat", "url": "https://www.arbeiterkammer.at/" }
+      ]
+    },
+    {
+      "id": "aufteilung-q",
+      "kind": "choice",
+      "text": "Wie wollt ihr das eaKBG aufteilen?",
+      "help": "Der Vater-Anteil (mindestens 2 Monate) muss rechtzeitig geplant werden. Für die Detailplanung empfehlen wir den eaKBG-Planer auf karenz-wizard.at.",
+      "options": [
+        { "value": "12-2", "label": "12 + 2 Monate",    "next": "eltern-teilzeit-q" },
+        { "value": "7-7",  "label": "7 + 7 Monate",     "next": "eltern-teilzeit-q" },
+        { "value": "8-4",  "label": "8 + 4 Monate",     "next": "eltern-teilzeit-q" },
+        { "value": "offen", "label": "Überlegen wir noch", "next": "eltern-teilzeit-q" }
+      ],
+      "sources": [
+        { "label": "eaKBG-Planer", "url": "https://karenz-wizard.at/eakbg-planer/" },
+        { "label": "AK: KBG-Aufteilung", "url": "https://www.arbeiterkammer.at/" }
+      ],
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Erfahrungsbericht: KBG aufteilen" }
+    },
+    {
+      "id": "eltern-teilzeit-q",
+      "kind": "question",
+      "text": "Kennt ihr das 20/20-Modell der Elternteilzeit?",
+      "help": "Nach 14 Monaten eaKBG können beide Elternteile gleichzeitig in Teilzeit arbeiten (je 20h) – eine beliebte Variante für den sanften Wiedereinstieg. Ein Rechtsanspruch auf Elternteilzeit besteht aber nur unter bestimmten Voraussetzungen (u.a. mindestens 3 Jahre ununterbrochene Betriebszugehörigkeit, Betrieb mit mehr als 20 Mitarbeiter:innen).",
+      "next": {
+        "yes": "kindergarten-q",
+        "maybe": "kindergarten-q",
+        "no": "kindergarten-q"
+      },
+      "sources": [
+        { "label": "AK: Elternteilzeit", "url": "https://www.arbeiterkammer.at/" }
+      ],
+      "video": { "youtubeId": "XXXXXXXXXXX", "title": "Elternteilzeit: das 20/20-Modell" }
+    },
+    {
+      "id": "kindergarten-q",
+      "kind": "question",
+      "text": "Wisst ihr schon, ab wann euer Kind in die Betreuung soll?",
+      "help": "Ab wann Kinderkrippe bzw. Kindergarten möglich ist, hängt vom Bundesland ab. Alternativen: Tagesmutter, Großeltern.",
+      "next": {
+        "yes": "unbezahlte-karenz-q",
+        "maybe": "unbezahlte-karenz-q",
+        "no": "unbezahlte-karenz-q"
+      },
+      "sources": [
+        { "label": "AK: Kinderbetreuung", "url": "https://www.arbeiterkammer.at/" }
+      ]
+    },
+    {
+      "id": "unbezahlte-karenz-q",
+      "kind": "question",
+      "text": "Könnt und wollt ihr euch einige Monate unbezahlte Karenz leisten?",
+      "help": "Der arbeitsrechtliche Karenzanspruch reicht bis zum 2. Geburtstag (24 Monate). Das eaKBG gibt es aber nur für maximal 14 Monate – dazwischen klafft eine finanzielle Lücke.",
+      "next": {
+        "yes": "zusammenfassung",
+        "maybe": "zusammenfassung",
+        "no": "zusammenfassung"
+      },
+      "sources": [
+        { "label": "AK: Karenz vs. KBG", "url": "https://www.arbeiterkammer.at/" }
+      ]
+    },
+    {
+      "id": "zusammenfassung",
+      "kind": "result",
+      "title": "Euer Fahrplan",
+      "body": "Eine Übersicht über eure Antworten und die wichtigsten Meilensteine. Bitte drucken oder als PDF speichern. Hinweis: Dies ist keine Rechtsberatung – für verbindliche Auskünfte wendet euch an Arbeiterkammer, Personalbüro oder ÖGB."
+    }
+  ]
+}
