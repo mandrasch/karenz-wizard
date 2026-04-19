@@ -56,6 +56,14 @@ const seoEntries: SeoEntry[] = [
 		}
 	},
 	{
+		match: '/oegk-beratung/',
+		meta: {
+			title: 'ÖGK-Beratung – Karenz Wizard',
+			description:
+				'Kontaktstellen und Informationen der Österreichischen Gesundheitskasse (ÖGK) zu Kinderbetreuungsgeld, Krankenversicherung und Mitversicherung während der Karenz.'
+		}
+	},
+	{
 		match: '/eakbg-planer/',
 		meta: {
 			title: 'eaKBG Karenz-Planer – Karenz Wizard',

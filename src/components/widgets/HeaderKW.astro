@@ -1,53 +1,101 @@
 ---
 // HeaderKW.astro — Karenz Wizard header + mobile menu.
 // Ported from src/lib/components/Header.svelte (Svelte 5 runes) to Astro.
+// Phase 7 nav refactor:
+//   - Nested navItems: top-level links OR dropdown groups with children.
+//   - Desktop: click-to-open dropdowns (aria-expanded + hidden toggled via
+//     module script). Outside-click and Escape both close.
+//   - Mobile fullscreen menu: same structure rendered with <details>/<summary>
+//     so dropdowns expand natively, no extra JS.
+//   - Right-side CTA pill linking to /eakbg-planer/.
 // Interactivity is a small vanilla module script at the bottom of the file
-// (hamburger toggle, preview-banner dismiss, Escape-to-close, scroll lock).
+// (hamburger toggle, preview-banner dismiss, Escape-to-close, scroll lock,
+// dropdown open/close + outside-click).
 import logo from '~/lib/assets/logo.png';
 
-type NavItem = {
+type NavLink = {
   label: string;
   href: string;
   matchPath?: string;
-  mobileOnly?: boolean;
 };
 
+type NavGroup = {
+  label: string;
+  id: string; // used for aria-controls / submenu id
+  children: NavLink[];
+};
+
+type NavItem = NavLink | NavGroup;
+
+const isGroup = (item: NavItem): item is NavGroup => 'children' in item;
+
 const navItems: NavItem[] = [
-  { label: '1. eaKBG Anspruch?', href: '/eakbg-anspruch/', matchPath: '/eakbg-anspruch' },
-  { label: '2. eaKBG Planer', href: '/eakbg-planer/', matchPath: '/eakbg-planer' },
-  { label: '3. AK-Beratung', href: '/ak-beratung/' },
+  {
+    label: 'Karenz Schritt für Schritt planen',
+    id: 'planner',
+    children: [
+      { label: 'eaKBG Anspruch?', href: '/eakbg-anspruch/', matchPath: '/eakbg-anspruch' },
+      { label: 'eaKBG Planer', href: '/eakbg-planer/', matchPath: '/eakbg-planer' },
+    ],
+  },
+  {
+    label: 'Beratungen',
+    id: 'beratungen',
+    children: [
+      { label: 'AK-Beratung', href: '/ak-beratung/', matchPath: '/ak-beratung' },
+      { label: 'ÖGK-Beratung', href: '/oegk-beratung/', matchPath: '/oegk-beratung' },
+    ],
+  },
   { label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch/', matchPath: '/fzb-anspruch' },
   { label: 'Pauschales KBG', href: '/pauschales-kbg/', matchPath: '/pauschales-kbg' },
   { label: 'Infothek', href: '/infothek/' },
-  { label: 'FAQ', href: '/faq/', mobileOnly: true },
   { label: 'Blog', href: '/blog/' },
-  { label: 'Über', href: '/ueber/', mobileOnly: true },
-  { label: 'AK-Beratung', href: '/ak-beratung/', mobileOnly: true },
-  { label: 'Reaktionen & Feedback', href: '/reaktionen-und-feedback/', mobileOnly: true },
-  { label: 'Impressum & Datenschutz', href: '/impressum-datenschutz/', mobileOnly: true },
+];
+
+// Items that only appear in the mobile fullscreen menu (not desktop nav).
+const mobileOnlyItems: NavLink[] = [
+  { label: 'FAQ', href: '/faq/' },
+  { label: 'Über', href: '/ueber/' },
+  { label: 'Reaktionen & Feedback', href: '/reaktionen-und-feedback/' },
+  { label: 'Impressum & Datenschutz', href: '/impressum-datenschutz/' },
 ];
 
 const pathname = Astro.url.pathname;
 
-const isActive = (item: NavItem) => {
+const linkIsActive = (item: NavLink) => {
   if (item.href === '#') return false;
   const target = (item.matchPath ?? item.href).replace(/\/$/, '') || '/';
   const current = pathname.replace(/\/$/, '') || '/';
   return current === target || (target !== '/' && current.startsWith(target));
 };
 
-const navLinkClasses = (item: NavItem) =>
-  `text-lg md:text-sm font-semibold transition-colors ${
-    isActive(item)
+const groupIsActive = (group: NavGroup) => group.children.some(linkIsActive);
+
+const linkClasses = (item: NavLink) =>
+  `text-sm font-semibold transition-colors ${
+    linkIsActive(item)
       ? 'text-slate-900 underline decoration-2 underline-offset-4'
       : 'text-slate-600 hover:text-slate-900'
   }`;
 
-const desktopItems = navItems.filter((item) => !item.mobileOnly);
+const groupTriggerClasses = (group: NavGroup) =>
+  `inline-flex items-center gap-1 text-sm font-semibold transition-colors ${
+    groupIsActive(group)
+      ? 'text-slate-900 underline decoration-2 underline-offset-4'
+      : 'text-slate-600 hover:text-slate-900'
+  }`;
+
+// Mobile nav uses bigger type — same rules otherwise.
+const mobileLinkClasses = (item: NavLink) =>
+  `block rounded-lg px-3 py-3 text-lg font-semibold transition-colors ${
+    linkIsActive(item)
+      ? 'text-slate-900 underline decoration-2 underline-offset-4'
+      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+  }`;
 ---
 
 <header
-  class="z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80"
+  class="relative z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80"
   role="banner"
 >
   <!-- Preview banner -->
@@ -88,7 +136,7 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
   </div>
 
   <!-- MAIN NAV WRAPPER -->
-  <div class="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
+  <div class="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-4 py-4 sm:px-6">
     <div class="flex items-center gap-2">
       <img
         alt="Logo: Ein Baby mit Magierhut und Zauberstab, gezeichnet"
@@ -99,6 +147,77 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
       />
       <a class="text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard</a>
     </div>
+
+    <!-- DESKTOP NAV (center) -->
+    <nav aria-label="Hauptnavigation" class="hidden flex-1 justify-center md:flex">
+      <ul class="flex items-center gap-6">
+        {
+          navItems.map((item) =>
+            isGroup(item) ? (
+              <li class="relative" data-dropdown>
+                <button
+                  type="button"
+                  class={groupTriggerClasses(item)}
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-controls={`dropdown-${item.id}`}
+                  data-dropdown-trigger
+                >
+                  {item.label}
+                  <svg
+                    aria-hidden="true"
+                    class="h-4 w-4 transition-transform"
+                    data-dropdown-chevron
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.24 4.5a.75.75 0 01-1.08 0l-4.24-4.5a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <ul
+                  id={`dropdown-${item.id}`}
+                  hidden
+                  class="absolute left-0 top-full z-50 mt-2 min-w-[16rem] rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
+                >
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class={`block rounded-md px-3 py-2 text-sm font-medium ${
+                          linkIsActive(child)
+                            ? 'bg-slate-100 text-slate-900 underline decoration-2 underline-offset-4'
+                            : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                        }`}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ) : (
+              <li>
+                <a href={item.href} class={linkClasses(item)}>
+                  {item.label}
+                </a>
+              </li>
+            )
+          )
+        }
+      </ul>
+    </nav>
+
+    <!-- Right-side CTA (Task C) -->
+    <a
+      href="/eakbg-planer/"
+      class="hidden items-center justify-center rounded-full bg-[#C94D54] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#b64048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54] md:inline-flex"
+    >
+      Planer starten
+    </a>
 
     <!-- Mobile menu button -->
     <button
@@ -125,32 +244,20 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
         ></span>
       </div>
     </button>
-
-    <!-- DESKTOP NAV -->
-    <nav aria-label="Hauptnavigation" class="hidden md:flex md:items-center md:gap-6">
-      <ul class="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
-        {
-          desktopItems.map((item) => (
-            <li>
-              <a href={item.href} class={navLinkClasses(item)}>
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
   </div>
 </header>
 
-<!-- MOBILE FULLSCREEN MENU -->
+<!-- MOBILE FULLSCREEN MENU.
+     Note: can't rely on the `hidden` HTML attribute here because the
+     `flex` Tailwind class has equal specificity and later source order,
+     so .flex wins and the menu would always show. Start with the
+     `hidden` class instead (display:none). JS swaps hidden<->flex. -->
 <div
   id="mobile-menu"
   role="dialog"
   aria-modal="true"
   aria-label="Hauptnavigation"
-  hidden
-  class="fixed inset-0 z-[60] flex h-dvh w-dvw flex-col bg-white md:hidden"
+  class="fixed inset-0 z-[60] hidden h-dvh w-dvw flex-col bg-white md:hidden"
 >
   <div class="flex items-center justify-between border-b border-slate-200 px-4 py-4 sm:px-6">
     <a class="text-lg font-bold tracking-tight text-slate-950" href="/" data-close-menu>
@@ -174,15 +281,66 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
   </div>
 
   <nav aria-label="Hauptnavigation" class="flex-1 overflow-y-auto px-6 py-6">
-    <ul class="grid gap-4">
+    <ul class="grid gap-2">
       {
-        navItems.map((item) => (
+        navItems.map((item) =>
+          isGroup(item) ? (
+            <li>
+              <details open={groupIsActive(item)} class="rounded-lg">
+                <summary
+                  class={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-3 text-lg font-semibold transition-colors hover:bg-slate-50 ${
+                    groupIsActive(item) ? 'text-slate-900' : 'text-slate-600'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  <svg
+                    aria-hidden="true"
+                    class="h-5 w-5 transition-transform"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.24 4.5a.75.75 0 01-1.08 0l-4.24-4.5a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </summary>
+                <ul class="ml-3 mt-1 grid gap-1 border-l border-slate-200 pl-3">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={child.href} class={mobileLinkClasses(child)} data-close-menu>
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ) : (
+            <li>
+              <a href={item.href} class={mobileLinkClasses(item)} data-close-menu>
+                {item.label}
+              </a>
+            </li>
+          )
+        )
+      }
+
+      <li class="mt-2 border-t border-slate-200 pt-2">
+        <a
+          href="/eakbg-planer/"
+          class="mx-3 inline-flex items-center justify-center rounded-full bg-[#C94D54] px-5 py-3 text-base font-semibold text-white transition hover:bg-[#b64048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54]"
+          data-close-menu
+        >
+          Planer starten
+        </a>
+      </li>
+
+      {
+        mobileOnlyItems.map((item) => (
           <li>
-            <a
-              href={item.href}
-              class={`block rounded-lg px-3 py-3 ${navLinkClasses(item)} hover:bg-slate-50`}
-              data-close-menu
-            >
+            <a href={item.href} class={mobileLinkClasses(item)} data-close-menu>
               {item.label}
             </a>
           </li>
@@ -193,9 +351,10 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
 </div>
 
 <script>
-  // Header interactivity — vanilla, no framework needed.
+  // Header interactivity — vanilla module script.
   // 1) Preview banner dismiss
   // 2) Mobile menu toggle (+ aria-expanded, scroll lock, Escape)
+  // 3) Desktop dropdown open/close (click-to-open, outside-click + Escape close)
 
   const banner = document.getElementById('preview-banner-wrapper');
   const bannerClose = document.getElementById('preview-banner-close');
@@ -203,22 +362,24 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
     banner?.setAttribute('hidden', '');
   });
 
+  // --- Mobile menu ---
   const toggle = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-menu');
   const menuClose = document.getElementById('mobile-menu-close');
 
-  const setOpen = (open: boolean) => {
+  const setMenuOpen = (open: boolean) => {
     if (!toggle || !menu) return;
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('title', open ? 'Menü schließen' : 'Menü öffnen');
     if (open) {
-      menu.removeAttribute('hidden');
+      menu.classList.remove('hidden');
+      menu.classList.add('flex');
       document.documentElement.classList.add('overflow-hidden');
     } else {
-      menu.setAttribute('hidden', '');
+      menu.classList.remove('flex');
+      menu.classList.add('hidden');
       document.documentElement.classList.remove('overflow-hidden');
     }
-    // animate hamburger bars
     const top = toggle.querySelector<HTMLElement>('[data-bar="top"]');
     const mid = toggle.querySelector<HTMLElement>('[data-bar="middle"]');
     const bot = toggle.querySelector<HTMLElement>('[data-bar="bottom"]');
@@ -234,19 +395,66 @@ const desktopItems = navItems.filter((item) => !item.mobileOnly);
 
   toggle?.addEventListener('click', () => {
     const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    setOpen(!isOpen);
+    setMenuOpen(!isOpen);
   });
-  menuClose?.addEventListener('click', () => setOpen(false));
-
-  // Close when any internal link is clicked
+  menuClose?.addEventListener('click', () => setMenuOpen(false));
   menu?.querySelectorAll<HTMLElement>('[data-close-menu]').forEach((el) => {
-    el.addEventListener('click', () => setOpen(false));
+    el.addEventListener('click', () => setMenuOpen(false));
   });
 
-  // Escape key closes
+  // --- Desktop dropdowns ---
+  const dropdowns = Array.from(document.querySelectorAll<HTMLElement>('[data-dropdown]'));
+
+  const closeDropdown = (wrapper: HTMLElement) => {
+    const trigger = wrapper.querySelector<HTMLElement>('[data-dropdown-trigger]');
+    const panel = wrapper.querySelector<HTMLElement>('[id^="dropdown-"]');
+    const chevron = wrapper.querySelector<HTMLElement>('[data-dropdown-chevron]');
+    trigger?.setAttribute('aria-expanded', 'false');
+    panel?.setAttribute('hidden', '');
+    chevron?.classList.remove('rotate-180');
+  };
+
+  const openDropdown = (wrapper: HTMLElement) => {
+    // Close siblings first — only one dropdown open at a time.
+    dropdowns.forEach((other) => {
+      if (other !== wrapper) closeDropdown(other);
+    });
+    const trigger = wrapper.querySelector<HTMLElement>('[data-dropdown-trigger]');
+    const panel = wrapper.querySelector<HTMLElement>('[id^="dropdown-"]');
+    const chevron = wrapper.querySelector<HTMLElement>('[data-dropdown-chevron]');
+    trigger?.setAttribute('aria-expanded', 'true');
+    panel?.removeAttribute('hidden');
+    chevron?.classList.add('rotate-180');
+  };
+
+  dropdowns.forEach((wrapper) => {
+    const trigger = wrapper.querySelector<HTMLElement>('[data-dropdown-trigger]');
+    trigger?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        closeDropdown(wrapper);
+      } else {
+        openDropdown(wrapper);
+      }
+    });
+  });
+
+  // Outside click closes all dropdowns.
+  document.addEventListener('click', (e) => {
+    const target = e.target as Node;
+    dropdowns.forEach((wrapper) => {
+      if (!wrapper.contains(target)) closeDropdown(wrapper);
+    });
+  });
+
+  // Escape closes mobile menu AND any open desktop dropdown.
   document.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
-      setOpen(false);
+    if (e.key !== 'Escape') return;
+    if (toggle?.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false);
+      return;
     }
+    dropdowns.forEach(closeDropdown);
   });
 </script>
