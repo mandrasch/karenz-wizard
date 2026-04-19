@@ -139,35 +139,46 @@ Inspect `/tmp/astrowind-template/package.json` to lock versions:
 
 ## Phase 3 — Land AstroWind + new `package.json`
 
-**Status:** 🟡 in progress (2026-04-19)
+**Status:** ✅ done (commit `d56c54d`, 2026-04-19) — 129 files / +21,015 / −5,915. `npm run build` succeeds: 36 pages + sitemap. Unplanned additions noted below under "Temporary deps" and "Image domains".
 
 Copy from `/tmp/astrowind-template/` into repo root (excluding `.git`, `node_modules`, `package-lock.json`, template `README.md`/`LICENSE.md`):
 
-- [ ] `src/`, `public/`, `vendor/`, `astro.config.ts`, `tailwind.config.js`, `tsconfig.json`, `.vscode/`, `.editorconfig`
+- [x] `src/` (merged with preserved `src/lib/` + `src/content/blog/`), `public/`, `vendor/`, `astro.config.ts`, `tailwind.config.js`, `tsconfig.json`, `.vscode/`, `.editorconfig`
 
 **Rewrite `package.json`:**
 
-- [ ] Keep: `name: "karenz-wizard"`, `version: "0.0.1"`, `private: true`, `type: "module"`
-- [ ] Base deps: AstroWind's baseline
-- [ ] **Add:** `@fontsource/ibm-plex-sans-condensed`, `@astrojs/svelte`, `svelte@^5` (for eakbg-planer island)
-- [ ] **Drop:** `@sveltejs/*`, `@inlang/*`, `@playwright/*`, `mdsvex`, `svelte-check`, `svelte-sitemap`, `wx-svelte-gantt`, `eslint-plugin-svelte`, `prettier-plugin-svelte`
-- [ ] **Scripts:** AstroWind defaults (`dev`, `build`, `preview`, `check` → `astro check`)
-- [ ] **Drop:** `postbuild` calling `svelte-sitemap` (replaced by `@astrojs/sitemap` in Phase 8)
+- [x] Keep: `name: "karenz-wizard"`, `version: "0.0.1"`, `private: true`, `type: "module"`
+- [x] Base deps: AstroWind's baseline
+- [x] **Add:** `@fontsource/ibm-plex-sans-condensed`, `@astrojs/svelte`, `svelte@^5` (for eakbg-planer island)
+- [x] **Drop:** `@sveltejs/*`, `@inlang/*`, `@playwright/*`, `mdsvex`, `svelte-check`, `svelte-sitemap`, `wx-svelte-gantt`, `eslint-plugin-svelte`, `prettier-plugin-svelte`, `sass-embedded`, `vite`, `@tailwindcss/vite` (v4)
+- [x] **Scripts:** AstroWind defaults (`dev`, `build`, `preview`, `check` → `astro check`)
+- [x] **Drop:** `postbuild` calling `svelte-sitemap` (replaced by `@astrojs/sitemap` in Phase 8)
 
-- [ ] **Update `.gitignore`:** drop `.svelte-kit`, `src/lib/paraglide`; add `.astro/`, `dist/`.
-- [ ] **Add `@astrojs/svelte` to `astro.config.ts` integrations** for the eakbg-planer island.
+- [x] **Update `.gitignore`:** dropped `.svelte-kit`, `src/lib/paraglide`; added `.astro`, `/dist`, `.claude/settings.local.json`.
+- [x] **Add `@astrojs/svelte` to `astro.config.ts` integrations** for the eakbg-planer island.
 
-**Commit:** `chore: scaffold AstroWind base`
+**Temporary deps kept until Phase 4/5** (AstroWind demo components import them; drop when those components are replaced):
+
+- `@astrolib/analytics` — used by `src/components/common/Analytics.astro`
+- `@astrolib/seo` — used by `src/components/common/Metadata.astro` + `src/utils/images.ts`
+- `@fontsource-variable/inter` — used by `src/components/CustomStyles.astro`
+- `@astrojs/rss` — used by `src/pages/rss.xml.ts` (keep if blog RSS wanted)
+
+**Image domains extended** in `astro.config.ts` for the AstroWind demo posts (prune in Phase 7):
+
+- `images.unsplash.com`, `plus.unsplash.com`
+
+**Commit:** `chore: scaffold AstroWind base` (d56c54d)
 
 **Verify:**
 
-- [ ] `npm install && npm run dev` boots AstroWind demo.
+- [x] `npm install && npm run build` succeeds — 36 pages built, sitemap generated. Dev server not separately tested; build is the stronger check.
 
 ---
 
 ## Phase 4 — Port global layout + a11y contract from AGENTS.md
 
-**Status:** ☐ not started
+**Status:** 🟡 in progress (2026-04-19)
 
 **Problem:** AstroWind's default `Layout.astro` / `Header.astro` / `Footer.astro` conflict with `AGENTS.md` rules (no `data-layout`, own dark-mode toggle, own skip-link wording).
 

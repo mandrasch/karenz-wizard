@@ -1,0 +1,251 @@
+---
+// HeaderKW.astro — Karenz Wizard header + mobile menu.
+// Ported from src/lib/components/Header.svelte (Svelte 5 runes) to Astro.
+// Interactivity is a small vanilla <script> island at the bottom.
+import logo from '~/lib/assets/logo.png';
+
+type NavItem = {
+  label: string;
+  href: string;
+  matchPath?: string;
+  mobileOnly?: boolean;
+};
+
+const navItems: NavItem[] = [
+  { label: '1. eaKBG Anspruch?', href: '/eakbg-anspruch/', matchPath: '/eakbg-anspruch' },
+  { label: '2. eaKBG Planer', href: '/eakbg-planer/', matchPath: '/eakbg-planer' },
+  { label: '3. AK-Beratung', href: '/ak-beratung/' },
+  { label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch/', matchPath: '/fzb-anspruch' },
+  { label: 'Pauschales KBG', href: '/pauschales-kbg/', matchPath: '/pauschales-kbg' },
+  { label: 'Infothek', href: '/infothek/' },
+  { label: 'FAQ', href: '/faq/', mobileOnly: true },
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Über', href: '/ueber/', mobileOnly: true },
+  { label: 'AK-Beratung', href: '/ak-beratung/', mobileOnly: true },
+  { label: 'Reaktionen & Feedback', href: '/reaktionen-und-feedback/', mobileOnly: true },
+  { label: 'Impressum & Datenschutz', href: '/impressum-datenschutz/', mobileOnly: true },
+];
+
+const pathname = Astro.url.pathname;
+
+const isActive = (item: NavItem) => {
+  if (item.href === '#') return false;
+  const target = (item.matchPath ?? item.href).replace(/\/$/, '') || '/';
+  const current = pathname.replace(/\/$/, '') || '/';
+  return current === target || (target !== '/' && current.startsWith(target));
+};
+
+const navLinkClasses = (item: NavItem) =>
+  `text-lg md:text-sm font-semibold transition-colors ${
+    isActive(item)
+      ? 'text-slate-900 underline decoration-2 underline-offset-4'
+      : 'text-slate-600 hover:text-slate-900'
+  }`;
+
+const desktopItems = navItems.filter((item) => !item.mobileOnly);
+---
+
+<header
+  class="z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80"
+  role="banner"
+>
+  <!-- Preview banner -->
+  <div
+    id="preview-banner-wrapper"
+    class="prose-body relative border-b border-amber-200 bg-red-100 text-red-800"
+  >
+    <button
+      type="button"
+      id="preview-banner-close"
+      class="absolute top-2 right-2 rounded-md p-1.5 text-red-800/60 transition hover:bg-red-200 hover:text-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+      aria-label="Hinweis ausblenden"
+      aria-controls="preview-banner-wrapper"
+    >
+      <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path
+          d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+        ></path>
+      </svg>
+    </button>
+    <div
+      class="mx-auto flex max-w-prose flex-col items-center gap-3 px-6 py-5 text-center text-xs font-medium sm:text-sm"
+      aria-live="polite"
+      id="preview-banner"
+    >
+      <p>
+        Diese Webseite ist ein Hobby-Projekt – alle Angaben ohne Gewähr! Die Inhalte wurden noch
+        nicht von Expert:innen geprüft.
+      </p>
+      <div class="space-y-3">
+        <p>
+          ⚠️ Bitte unbedingt
+          <a class="underline" href="/ak-beratung/">kostenfrei bei der Arbeiterkammer</a>
+          beraten lassen! ⚠️
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAV WRAPPER -->
+  <div class="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
+    <div class="flex items-center gap-2">
+      <img
+        alt="Logo: Ein Baby mit Magierhut und Zauberstab, gezeichnet"
+        src={logo.src}
+        width={logo.width}
+        height={logo.height}
+        class="h-12.5 w-12.5"
+      />
+      <a class="text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard</a>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      type="button"
+      id="mobile-menu-toggle"
+      class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      title="Menü öffnen"
+    >
+      <span class="sr-only">Hauptnavigation öffnen</span>
+      <div class="relative block h-5 w-6" aria-hidden="true">
+        <span
+          data-bar="top"
+          class="absolute top-1/2 left-0 block h-0.5 w-6 -translate-y-1/2 -translate-y-2 rounded-full bg-slate-800 transition-transform duration-200"
+        ></span>
+        <span
+          data-bar="middle"
+          class="absolute top-1/2 left-0 block h-0.5 w-6 -translate-y-1/2 rounded-full bg-slate-800 opacity-100 transition-opacity duration-200"
+        ></span>
+        <span
+          data-bar="bottom"
+          class="absolute top-1/2 left-0 block h-0.5 w-6 -translate-y-1/2 translate-y-2 rounded-full bg-slate-800 transition-transform duration-200"
+        ></span>
+      </div>
+    </button>
+
+    <!-- DESKTOP NAV -->
+    <nav aria-label="Hauptnavigation" class="hidden md:flex md:items-center md:gap-6">
+      <ul class="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
+        {
+          desktopItems.map((item) => (
+            <li>
+              <a href={item.href} class={navLinkClasses(item)}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- MOBILE FULLSCREEN MENU -->
+<div
+  id="mobile-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Hauptnavigation"
+  hidden
+  class="fixed inset-0 z-[60] flex h-dvh w-dvw flex-col bg-white md:hidden"
+>
+  <div class="flex items-center justify-between border-b border-slate-200 px-4 py-4 sm:px-6">
+    <a class="text-lg font-bold tracking-tight text-slate-950" href="/" data-close-menu>
+      Karenz Wizard 🪄
+    </a>
+    <button
+      type="button"
+      id="mobile-menu-close"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+      aria-label="Menü schließen"
+    >
+      <span class="relative block h-5 w-5" aria-hidden="true">
+        <span
+          class="absolute top-1/2 left-0 block h-0.5 w-5 -translate-y-1/2 rotate-45 rounded-full bg-slate-800"
+        ></span>
+        <span
+          class="absolute top-1/2 left-0 block h-0.5 w-5 -translate-y-1/2 -rotate-45 rounded-full bg-slate-800"
+        ></span>
+      </span>
+    </button>
+  </div>
+
+  <nav aria-label="Hauptnavigation" class="flex-1 overflow-y-auto px-6 py-6">
+    <ul class="grid gap-4">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class={`block rounded-lg px-3 py-3 ${navLinkClasses(item)} hover:bg-slate-50`}
+              data-close-menu
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+<script>
+  // Header interactivity — vanilla, no framework needed.
+  // 1) Preview banner dismiss
+  // 2) Mobile menu toggle (+ aria-expanded, scroll lock, Escape)
+
+  const banner = document.getElementById('preview-banner-wrapper');
+  const bannerClose = document.getElementById('preview-banner-close');
+  bannerClose?.addEventListener('click', () => {
+    banner?.setAttribute('hidden', '');
+  });
+
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const menuClose = document.getElementById('mobile-menu-close');
+
+  const setOpen = (open: boolean) => {
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('title', open ? 'Menü schließen' : 'Menü öffnen');
+    if (open) {
+      menu.removeAttribute('hidden');
+      document.documentElement.classList.add('overflow-hidden');
+    } else {
+      menu.setAttribute('hidden', '');
+      document.documentElement.classList.remove('overflow-hidden');
+    }
+    // animate hamburger bars
+    const top = toggle.querySelector<HTMLElement>('[data-bar="top"]');
+    const mid = toggle.querySelector<HTMLElement>('[data-bar="middle"]');
+    const bot = toggle.querySelector<HTMLElement>('[data-bar="bottom"]');
+    if (top && mid && bot) {
+      top.classList.toggle('-translate-y-2', !open);
+      top.classList.toggle('rotate-45', open);
+      mid.classList.toggle('opacity-0', open);
+      mid.classList.toggle('opacity-100', !open);
+      bot.classList.toggle('translate-y-2', !open);
+      bot.classList.toggle('-rotate-45', open);
+    }
+  };
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    setOpen(!isOpen);
+  });
+  menuClose?.addEventListener('click', () => setOpen(false));
+
+  // Close when any internal link is clicked
+  menu?.querySelectorAll<HTMLElement>('[data-close-menu]').forEach((el) => {
+    el.addEventListener('click', () => setOpen(false));
+  });
+
+  // Escape key closes
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+    }
+  });
+</script>
