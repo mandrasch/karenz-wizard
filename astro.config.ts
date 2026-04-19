@@ -29,6 +29,15 @@ export default defineConfig({
     format: 'directory',
   },
 
+  // Legacy short URLs -> anchor sections on /infothek/.
+  // Ported from SvelteKit 308 redirects in buecher-broschueren/+page.ts,
+  // tools/+page.ts, videos/+page.ts. Astro emits <meta http-equiv="refresh">.
+  redirects: {
+    '/buecher-broschueren': '/infothek/#literatur',
+    '/tools': '/infothek/#tools',
+    '/videos': '/infothek/#videos',
+  },
+
   integrations: [
     tailwind({
       applyBaseStyles: false,

@@ -223,14 +223,14 @@ Copy from `/tmp/astrowind-template/` into repo root (excluding `.git`, `node_mod
 Per-route checklist — tick each route as its `.astro` port is committed:
 
 - [ ] `/` → `src/pages/index.astro`
-- [ ] `/ak-beratung` → `src/pages/ak-beratung.astro`
-- [ ] `/eakbg-anspruch` → `src/pages/eakbg-anspruch.astro`
+- [x] `/ak-beratung` → `src/pages/ak-beratung.astro` (commit `d5c7136`; akList in frontmatter)
+- [x] `/eakbg-anspruch` → `src/pages/eakbg-anspruch.astro` (commit `d5c7136`; 2× EligibilityCalculatorEaKbg islands)
 - [ ] `/eakbg-planer` → `src/pages/eakbg-planer.astro` + Svelte island
 - [x] `/faq` → `src/pages/faq.astro` (commit `b78dd95`; faqs array in frontmatter, `{@html}` → `<Fragment set:html>`)
 - [x] `/fzb-anspruch` → `src/pages/fzb-anspruch.astro` (commit `3afb505`; uses `EligibiltyDateCalculator.svelte` as client:load island)
 - [x] `/impressum-datenschutz` → `src/pages/impressum-datenschutz.astro` (commit `3afb505`)
-- [ ] `/infothek` → `src/pages/infothek.astro`
-- [ ] `/pauschales-kbg` → `src/pages/pauschales-kbg.astro`
+- [x] `/infothek` → `src/pages/infothek.astro` (commit `d5c7136`; section ids preserved for redirects)
+- [x] `/pauschales-kbg` → `src/pages/pauschales-kbg.astro` (commit `d5c7136`)
 - [x] `/reaktionen-und-feedback` → `src/pages/reaktionen-und-feedback.astro` (commit `3afb505`)
 - [x] `/ueber` → `src/pages/ueber.astro` (commit `b78dd95`)
 - [x] `/unbezahlte-karenz` → `src/pages/unbezahlte-karenz.astro` (commit `3afb505`)
