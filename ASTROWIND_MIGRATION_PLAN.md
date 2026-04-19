@@ -227,14 +227,14 @@ Per-route checklist — tick each route as its `.astro` port is committed:
 - [ ] `/eakbg-anspruch` → `src/pages/eakbg-anspruch.astro`
 - [ ] `/eakbg-planer` → `src/pages/eakbg-planer.astro` + Svelte island
 - [ ] `/faq` → `src/pages/faq.astro`
-- [ ] `/fzb-anspruch` → `src/pages/fzb-anspruch.astro`
-- [ ] `/impressum-datenschutz` → `src/pages/impressum-datenschutz.astro`
+- [x] `/fzb-anspruch` → `src/pages/fzb-anspruch.astro` (commit `3afb505`; uses `EligibiltyDateCalculator.svelte` as client:load island)
+- [x] `/impressum-datenschutz` → `src/pages/impressum-datenschutz.astro` (commit `3afb505`)
 - [ ] `/infothek` → `src/pages/infothek.astro`
 - [ ] `/pauschales-kbg` → `src/pages/pauschales-kbg.astro`
-- [ ] `/reaktionen-und-feedback` → `src/pages/reaktionen-und-feedback.astro`
+- [x] `/reaktionen-und-feedback` → `src/pages/reaktionen-und-feedback.astro` (commit `3afb505`)
 - [ ] `/ueber` → `src/pages/ueber.astro`
-- [ ] `/unbezahlte-karenz` → `src/pages/unbezahlte-karenz.astro`
-- [ ] `/buecher-broschueren`, `/tools`, `/videos` → `redirects:` in `astro.config.ts` (Phase 8 consolidation OK)
+- [x] `/unbezahlte-karenz` → `src/pages/unbezahlte-karenz.astro` (commit `3afb505`)
+- [ ] `/buecher-broschueren`, `/tools`, `/videos` → `redirects:` in `astro.config.ts` (pulled forward: `trailingSlash: 'always'` + `build.format: 'directory'` already set in commit `3afb505`)
 
 | URL                        | Svelte source              | New Astro file                                            | Complexity                                                                   |
 | -------------------------- | -------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------- |
