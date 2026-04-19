@@ -1,16 +1,15 @@
 {
-	"useTabs": true,
+	"useTabs": false,
 	"singleQuote": true,
-	"trailingComma": "none",
+	"trailingComma": "es5",
 	"printWidth": 100,
-	"plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
+	"plugins": ["prettier-plugin-astro"],
 	"overrides": [
 		{
-			"files": "*.svelte",
+			"files": "*.astro",
 			"options": {
-				"parser": "svelte"
+				"parser": "astro"
 			}
 		}
-	],
-	"tailwindStylesheet": "./src/app.css"
+	]
 }

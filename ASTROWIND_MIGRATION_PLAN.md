@@ -426,11 +426,12 @@ Scope for this sub-phase:
 
 ## Phase 8 — Sitemap + redirects + build config
 
-**Status:** ☐ not started
+**Status:** ✅ done (partially via Phases 3/5, completed commit `8cb85ce`, 2026-04-19) — `@astrojs/sitemap` already wired in Phase 3, `trailingSlash` + `build.format` landed Phase 5, redirects landed Phase 5. Only the `site:` URL + config.yaml vendor sync remained.
 
-- [ ] Add `@astrojs/sitemap` integration
-- [ ] Set `trailingSlash: 'always'` + `build.format: 'directory'`
-- [ ] Declare `redirects:` for `/buecher-broschueren`, `/tools`, `/videos`
+- [x] `@astrojs/sitemap` integration (shipped with AstroWind scaffold in Phase 3).
+- [x] `trailingSlash: 'always'` + `build.format: 'directory'` (Phase 5 commit `3afb505`; config.yaml sync in Phase 7 commit `a665fde`).
+- [x] `redirects:` for `/buecher-broschueren`, `/tools`, `/videos` (Phase 5 commit `65834a7`).
+- [x] `site: 'https://karenz-wizard.at'` in both `astro.config.ts` and `src/config.yaml` (vendor override pattern — same as trailingSlash).
 
 ```ts
 // astro.config.ts
