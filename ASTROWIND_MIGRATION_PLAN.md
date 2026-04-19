@@ -218,14 +218,14 @@ Copy from `/tmp/astrowind-template/` into repo root (excluding `.git`, `node_mod
 
 ## Phase 5 — Port static pages (Svelte routes → `.astro`)
 
-**Status:** 🟡 in progress (2026-04-19) — 11/12 routes + redirects + Phase 5 cleanup done in commit `5438f54`; only the `eakbg-planer` Svelte island remains (deferred to its own session).
+**Status:** ✅ done (commits `3afb505`, `b78dd95`, `d5c7136`, `65834a7`, `5438f54`, `70b28f2`; 2026-04-19) — all 12 routes + 3 redirects + cleanup + eakbg-planer island. Build green (13 pages), `astro check` clean (0/0/0).
 
 Per-route checklist — tick each route as its `.astro` port is committed:
 
 - [x] `/` → `src/pages/index.astro` (commit `65834a7`; overwrites AstroWind demo; blog latest-posts section deferred to Phase 6)
 - [x] `/ak-beratung` → `src/pages/ak-beratung.astro` (commit `d5c7136`; akList in frontmatter)
 - [x] `/eakbg-anspruch` → `src/pages/eakbg-anspruch.astro` (commit `d5c7136`; 2× EligibilityCalculatorEaKbg islands)
-- [ ] `/eakbg-planer` → `src/pages/eakbg-planer.astro` + Svelte island
+- [x] `/eakbg-planer` → `src/pages/eakbg-planer.astro` + `src/lib/components/EaKbgPlaner.svelte` (commit `70b28f2`; mounted with `client:load`, verbatim port of 2270-LOC Svelte 5 runes page)
 - [x] `/faq` → `src/pages/faq.astro` (commit `b78dd95`; faqs array in frontmatter, `{@html}` → `<Fragment set:html>`)
 - [x] `/fzb-anspruch` → `src/pages/fzb-anspruch.astro` (commit `3afb505`; uses `EligibiltyDateCalculator.svelte` as client:load island)
 - [x] `/impressum-datenschutz` → `src/pages/impressum-datenschutz.astro` (commit `3afb505`)
@@ -258,10 +258,10 @@ Per-route checklist — tick each route as its `.astro` port is committed:
 
 **`eakbg-planer` island:**
 
-- [ ] Copy `src/routes/eakbg-planer/+page.svelte` → `src/components/eakbg/EaKbgPlaner.svelte`
-- [ ] Copy `NoteGrid.svelte`, `TimelineSummary.svelte`, `EligibilityPanel.svelte`, `EligibilityCalculatorEaKbg.svelte`, `EligibiltyDateCalculator.svelte` into `src/components/eakbg/`
-- [ ] `src/pages/eakbg-planer.astro` renders `<EaKbgPlaner client:load />`
-- [ ] Re-import `@fontsource/ibm-plex-sans-condensed` globally or inside the island
+- [x] Copy `src/routes/eakbg-planer/+page.svelte` → `src/lib/components/EaKbgPlaner.svelte` (landed in `src/lib/components/` instead of `src/components/eakbg/` — kept alongside other preserved Svelte components)
+- [x] `NoteGrid.svelte`, `TimelineSummary.svelte`, `EligibilityPanel.svelte`, `EligibilityCalculatorEaKbg.svelte`, `EligibiltyDateCalculator.svelte` — already in `src/lib/components/` from Phase 2 preservation
+- [x] `src/pages/eakbg-planer.astro` renders `<EaKbgPlaner client:load />`
+- [x] `@fontsource/ibm-plex-sans-condensed` loaded globally from `Layout.astro`
 
 **Mechanical conversion rules:**
 
