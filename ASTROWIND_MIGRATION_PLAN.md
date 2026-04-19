@@ -349,16 +349,7 @@ Per-route checklist — tick each route as its `.astro` port is committed:
 - [ ] Render all 9 posts' URLs (`/blog/<slug>/`) resolve
 - [ ] Cross-post link `/blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/` resolves
 
-**Trailing-slash verification (added 2026-04-19):**
-
-Dev server showed a `trailingSlash` overlay for `/ak-beratung/` — cause was a stale dev process still holding pre-Phase-5 config (default `'ignore'`, which Astro's dev overlay surfaces as "never" when mismatched). Our `astro.config.ts` has had `trailingSlash: 'always'` + `build.format: 'directory'` since commit `3afb505`. Validate end-to-end now that more URL-emitting code (blog) exists:
-
-- [ ] Restart dev server (`npm run dev`) after any `astro.config.ts` change — config is read once at startup, not watched.
-- [ ] Dev: `http://localhost:PORT/blog/` and `http://localhost:PORT/blog/<slug>/` resolve without the trailingSlash overlay.
-- [ ] Build: every `dist/<route>/index.html` exists (no bare `dist/<route>.html`).
-- [ ] Internal links in ported pages all include the trailing `/` (spot-checked during Phase 5; re-verify after blog is wired).
-- [ ] Sitemap entries end with `/`.
-- [ ] The 3 redirects (`/buecher-broschueren`, `/tools`, `/videos`) still resolve to `/infothek/#…` anchors.
+**URL preservation note:** trailing-slash verification moved to Phase 7 (see below) — user still sees the dev overlay after dev-server restart, so it's a real bug not just stale state, and deserves its own investigation.
 
 **Commit:** `feat: migrate blog to Astro Content Collections`
 
@@ -368,11 +359,28 @@ Dev server showed a `trailingSlash` overlay for `/ak-beratung/` — cause was a 
 
 **Status:** ☐ not started
 
+**Known-broken at entry:** `http://localhost:*/hero_karenz_wizard.jpg` 404s (home hero image). Ported pages also reference `/ak_*.jpg`, `/ak_wien_ottakring_*.jpg`, `/ak_video_thumbnail_*.jpg`, `/infothek/*.jpg`, `/meme_*.jpg` from the old `static/` dir. All fixed once `static/*` → `public/` move below completes.
+
 **Assets:**
 
 - [ ] Move `static/*` → `public/`: keep `.htaccess`, `robots.txt`, `.nojekyll`, `hero_karenz_wizard.jpg`, `blog-images/`, `infothek/`, `ak_*.jpg`, `meme_*.jpg`.
 - [ ] Delete unused AstroWind placeholder images in `public/`.
 - [ ] Move `src/lib/assets/logo.png` + `favicon.ico` → `public/` (or `src/assets/` for Astro image optimization).
+- [ ] Verify each image reference in ported `.astro` pages resolves (grep for `src="/` and visit in dev).
+
+**Trailing-slash bug investigation (carried over from Phase 6):**
+
+After Phase 5's `trailingSlash: 'always'` landed (commit `3afb505`), user reports the dev overlay "Your site is configured with trailingSlash set to never" **still appears after a dev-server restart**, when visiting `/ak-beratung/` (with slash). This rules out stale dev process as the cause. Investigate:
+
+- [ ] Confirm `astro.config.ts` has `trailingSlash: 'always'` + `build.format: 'directory'` and that no other config file shadows it (no `astro.config.mjs`, no `astro.config.js`).
+- [ ] Check if `vendor/integration/` (astrowind's integration) injects a conflicting `trailingSlash` via the config builder — `vendor/integration/utils/configBuilder.ts` may merge an AstroWind default.
+- [ ] Check `.astro/` cache dir for stale types — delete and rebuild.
+- [ ] Try reproducing with a minimal config (temporarily remove the astrowind vendor integration and see if overlay goes away).
+- [ ] Verify via built output: `dist/ak-beratung/index.html` exists (not `dist/ak-beratung.html`) — if build is correct, the dev server mismatch is purely a dev-mode diagnostic.
+- [ ] Dev: `http://localhost:PORT/blog/` and `http://localhost:PORT/blog/<slug>/` resolve without overlay.
+- [ ] Internal links spot-check: all nav + footer links use trailing `/`.
+- [ ] Sitemap entries end with `/`.
+- [ ] The 3 redirects still resolve to `/infothek/#…`.
 
 **Tailwind 3 downgrade:**
 
