@@ -633,7 +633,7 @@ Reference: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-
 
 ## Phase 13 — Svelte 5 runes-syntax cleanup (mini follow-up, added 2026-04-19)
 
-**Status:** ☐ not started
+**Status:** ✅ done (commit `b5868ba`, 2026-04-19) — 22 Svelte compile warnings → 0. Planner interactivity verified (preset `8 + 6` → mother=8, father=6).
 
 Surface: the Svelte compiler emits 11+ warnings when compiling `src/lib/components/EaKbgPlaner.svelte`. All non-blocking, all carried over from the verbatim copy of the pre-migration `src/routes/eakbg-planer/+page.svelte`. Cleaning them up gets the dev-server log quiet and modernizes the syntax to pure Svelte 5.
 
