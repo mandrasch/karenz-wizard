@@ -72,6 +72,14 @@ const seoEntries: SeoEntry[] = [
 		}
 	},
 	{
+		match: '/elternteilzeit-20-20/',
+		meta: {
+			title: 'Eltern-Teilzeit 20h/20h Woche – Karenz Wizard',
+			description:
+				'Aufteilung nach den 14 Monaten eaKBG: beide Elternteile in Eltern-Teilzeit mit je ca. 20 Stunden pro Woche. Voraussetzungen, Anspruch und AK-Beratung.'
+		}
+	},
+	{
 		match: '/faq/',
 		meta: {
 			title: 'FAQ zu Papamonat & Karenz – Karenz Wizard',

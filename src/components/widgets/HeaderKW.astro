@@ -31,11 +31,23 @@ const isGroup = (item: NavItem): item is NavGroup => 'children' in item;
 
 const navItems: NavItem[] = [
   {
-    label: 'Karenz Schritt für Schritt planen',
+    label: 'Erste Jahre nach Geburt planen',
     id: 'planner',
     children: [
       { label: 'eaKBG Anspruch?', href: '/eakbg-anspruch/', matchPath: '/eakbg-anspruch' },
       { label: 'eaKBG Planer', href: '/eakbg-planer/', matchPath: '/eakbg-planer' },
+      {
+        label: 'Eltern-Teilzeit 20h/20h Woche',
+        href: '/elternteilzeit-20-20/',
+        matchPath: '/elternteilzeit-20-20',
+      },
+    ],
+  },
+  {
+    label: 'Papamonat',
+    id: 'papamonat',
+    children: [
+      { label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch/', matchPath: '/fzb-anspruch' },
     ],
   },
   {
@@ -46,9 +58,14 @@ const navItems: NavItem[] = [
       { label: 'ÖGK-Beratung', href: '/oegk-beratung/', matchPath: '/oegk-beratung' },
     ],
   },
-  { label: 'FZB Anspruch? (Papamonat)', href: '/fzb-anspruch/', matchPath: '/fzb-anspruch' },
-  { label: 'Pauschales KBG', href: '/pauschales-kbg/', matchPath: '/pauschales-kbg' },
-  { label: 'Infothek', href: '/infothek/' },
+  {
+    label: 'Weitere Infos',
+    id: 'weitere',
+    children: [
+      { label: 'Infothek', href: '/infothek/', matchPath: '/infothek' },
+      { label: 'Pauschales KBG', href: '/pauschales-kbg/', matchPath: '/pauschales-kbg' },
+    ],
+  },
   { label: 'Blog', href: '/blog/' },
 ];
 

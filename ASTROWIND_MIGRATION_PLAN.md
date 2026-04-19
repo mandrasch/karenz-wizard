@@ -494,7 +494,7 @@ export default defineConfig({
 
 ## Phase 10 — Quality assurance (added 2026-04-19, user request)
 
-**Status:** ☐ not started
+**Status:** ✅ done (commit `fc5f340`, 2026-04-19) — audit clean, logo wrapped in home link, favicon restored to pre-migration wizard baby, sitemap diff against live confirms all URLs accounted for.
 
 Post-migration QA sweep. Surfaces lingering compatibility gaps and URL-preservation regressions that might be lurking after Phases 2–9.
 
