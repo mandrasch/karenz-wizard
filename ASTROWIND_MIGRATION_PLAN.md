@@ -491,6 +491,113 @@ export default defineConfig({
 
 ---
 
+## Phase 10 — Quality assurance (added 2026-04-19, user request)
+
+**Status:** ☐ not started
+
+Post-migration QA sweep. Surfaces lingering compatibility gaps and URL-preservation regressions that might be lurking after Phases 2–9.
+
+### 1. Tailwind v3 vs v4 syntax audit
+
+Our pre-migration site ran Tailwind v4, which accepts class syntax v3 doesn't. One example already caught: `h-12.5 w-12.5` in HeaderKW (commit `a665fde`). Systematically scan for other cases:
+
+- [ ] Search `src/` + `src/lib/components/*.svelte` + ported pages for fractional class names (regex: `\b[hwmpgxy]-\d+\.\d+`). These are Tailwind v4 native — in v3 they need arbitrary-value form `h-[…]`.
+- [ ] Search for v4-only modifiers/variants: `starting:`, `not-*`, `nth-*`, advanced color-mix utilities (`bg-red-500/25`-style works in both, but `color-mix(...)` as a utility does not).
+- [ ] Search for `@layer` / `@apply` used inside component `<style>` blocks imported as modules — Phase 4 already hit this crash, but Svelte island styles may still use it.
+- [ ] Spot-check a built HTML for each route: any visible class that renders with no CSS is a v3 miss. Candidate regex on `dist/*.html`: `class="([^"]*(\b[hwmpgxy]-\d+\.\d+)[^"]*)"`.
+- [ ] Inspect the eakbg-planer Svelte island's computed styles in Chrome DevTools after hydration — that's the largest LOC surface and most likely to carry v4 patterns.
+
+### 2. Header logo → home link
+
+Task: wrap the header logo `<img>` in an `<a href="/">` so clicking it navigates home. Currently only the "Karenz Wizard" text is a link; the logo sits beside it as a bare image.
+
+- [ ] Edit `src/components/widgets/HeaderKW.astro`: combine the logo + text into a single `<a href="/">` wrapping both, or give the logo its own `<a href="/" aria-label="Startseite">`. Keep the existing alt text on the `<img>`.
+- [ ] Verify: click logo from any subpage → lands on `/`.
+
+### 3. Sitemap URL audit against legacy
+
+Task: fetch the pre-migration canonical sitemap from the live site and diff its URL list against what Astro generates now, so we catch any dropped routes before DNS cutover.
+
+- [ ] `curl https://karenz-wizard.at/sitemap.xml` (or `sitemap-index.xml`) → extract all `<loc>` URLs.
+- [ ] Run `npm run build` locally, extract `<loc>`s from `dist/sitemap-*.xml`.
+- [ ] Diff the two lists. For any URL in the live sitemap but not ours: either add the route, add a redirect in `astro.config.ts`, or explicitly mark as intentionally removed.
+- [ ] Common suspects to check: `/blog/feed.xml` (RSS — we dropped `@astrojs/rss` in Phase 5 cleanup), older blog-post slugs, any tag/category routes the SvelteKit blog loader may have emitted.
+
+**Commit suggestion:** one commit per numbered section (`fix: arbitrary Tailwind values for v3 compatibility`, `feat: home link on header logo`, `chore: reconcile sitemap with legacy URL list`).
+
+---
+
+## Phase 11 — Menu re-structure (added 2026-04-19, user request)
+
+**Status:** ☐ not started
+
+Second nav refactor on top of Phase 7's dropdowns. Regroups two more top-level items into new dropdown categories so the desktop nav stays compact as more content lands.
+
+### 1. "Papamonat" group
+
+- [ ] New top-level dropdown `Papamonat` containing: `FZB Anspruch? (Papamonat)` (move out of top-level).
+- [ ] Note: currently a single-child dropdown. If more Papamonat content lands later (a dedicated FAQ, info page, etc.), it goes here. Alternatively, keep as flat top-level link and revisit when there's 2+ children.
+
+### 2. "Weitere Infos" group
+
+- [ ] New top-level dropdown `Weitere Infos` containing: `Infothek` + `Pauschales KBG` (move both out of top-level).
+
+**Resulting top-level nav** (after all regroupings from Phase 7 + 11):
+
+1. `Karenz Schritt für Schritt planen` ▾ (eaKBG Anspruch? / eaKBG Planer)
+2. `Papamonat` ▾ (FZB Anspruch?)
+3. `Beratungen` ▾ (AK-Beratung / ÖGK-Beratung)
+4. `Weitere Infos` ▾ (Infothek / Pauschales KBG)
+5. `Blog`
+6. CTA button: `Planer starten` → `/eakbg-planer/`
+
+Mobile-only items stay the same (FAQ, Über, Reaktionen & Feedback, Impressum & Datenschutz).
+
+- [ ] Update `src/components/widgets/HeaderKW.astro` `navItems` array.
+- [ ] Update `src/components/widgets/FooterKW.astro` "Menü" list if changed.
+- [ ] Build + verify active-state propagation (`groupIsActive` still underlines the correct group when visiting a child page).
+
+**Commit:** `feat: regroup nav with Papamonat and Weitere Infos dropdowns`
+
+---
+
+## Phase 12 — Visual re-design toward AstroWind demo (added 2026-04-19, user request)
+
+**Status:** ☐ not started
+
+Explore a visual refresh using AstroWind's default typography + blog layout + footer styling. AstroWind demo: https://astrowind.vercel.app.
+
+### 1. Typography (drop IBM Plex Sans Condensed)
+
+- [ ] Remove `@fontsource/ibm-plex-sans-condensed` import from `Layout.astro`.
+- [ ] Drop the dep from `package.json` once no component references it (double-check `src/lib/components/EaKbgPlaner.svelte` and other preserved Svelte components — remove any `font-ibm-plex-sans-condensed` or similar class references).
+- [ ] Add AstroWind's default font setup. AstroWind ships `@fontsource-variable/inter` (we dropped it in Phase 5 cleanup) — re-add it, or read `src/config.yaml` (AstroWind may configure fonts via `ui.fonts.*`). Verify via the `CustomStyles.astro` equivalent (we deleted that — may need to restore a minimal variant or inline the `@font-face` / CSS variable setup in `Layout.astro`).
+- [ ] Verify system font stack fallback in `tailwind.config.js` matches AstroWind's `theme.extend.fontFamily` (Inter variable + sans fallback).
+
+### 2. Blog post layout
+
+Reference: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
+
+- [ ] Compare AstroWind's `SinglePost.astro` markup (deleted in Phase 5; recover via `git show d56c54d:src/components/blog/SinglePost.astro`) to our `src/pages/blog/[...slug].astro`. Adopt: heading sizes, line-height, paragraph spacing, image styling, date/metadata placement.
+- [ ] Consider porting AstroWind's `prose prose-slate prose-lg` modifier stack — currently we use `prose prose-slate` without a size modifier.
+- [ ] Hero image support: AstroWind blog posts have a top-of-post hero image from frontmatter. Decide whether our `blog` schema should add an optional `image` field for this (out of scope if keeping posts text-only).
+
+### 3. Footer styling
+
+- [ ] Compare AstroWind's `Footer.astro` (deleted; recover via `git show d56c54d:src/components/widgets/Footer.astro`) to our `FooterKW.astro`. Adopt: font sizes, column spacing, link hover styles, copyright line.
+- [ ] Keep our existing content (Social Media, Menü, Diversity, Kontakt & Feedback sections) — only the styling moves.
+- [ ] Check responsive behavior: AstroWind uses a 4-column grid → single column on mobile; we already do similar.
+
+**Risks to flag before starting:**
+
+- Blog prose styles cascade through ALL blog posts — changing the prose variant may shift long-form content unexpectedly. Preview each post.
+- Swapping fonts changes line-length and vertical rhythm across every route. Expect regressions on the `eakbg-planer` page where dates + timeline are laid out at specific widths — may need per-component overrides.
+- The `AGENTS.md` typography/CLS rules (preload fonts or `font-display: swap`, no animations on route change) still apply. Re-read before committing.
+
+**Commit suggestion:** one per section (`chore: swap IBM Plex for Inter variable`, `feat: AstroWind-style blog post layout`, `feat: AstroWind-style footer`).
+
+---
+
 ## Critical files for reference during implementation
 
 - `/home/user/karenz-wizard/package.json`
