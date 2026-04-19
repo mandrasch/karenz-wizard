@@ -71,6 +71,16 @@ const steps: Step[] = [
   {
     number: '3.1',
     kicker: 'Option zu Schritt 3',
+    title: 'Unbezahlte Karenz: Länger daheim bleiben',
+    description: [
+      'Eine unbezahlte Karenz ist ebenso möglich um die Karenz zu verlängern, bis zum 2. Lebensjahr des Kindes habt ihr ja rechtlichen Anspruch auf Karenz (= unbezahlte Freistellung). Den Lebensunterhalt müsst ihr dann natürlich aus Ersparnissen oder über das Einkommen des/der Partner/in finanzieren in diesen Monaten.',
+    ],
+    cta: { label: 'Alles zur unbezahlten Karenz', href: '/unbezahlte-karenz/' },
+    variant: 'sub',
+  },
+  {
+    number: '3.2',
+    kicker: 'Option zu Schritt 3',
     title: 'Das 20h/20h-Modell: Gemeinsam anpacken mit Eltern-Teilzeit',
     description: [
       'Echte Partnerschaft und Equal Care kann man auch so gestalten, dass beide Elternteile früh wieder in den Job einsteigen — aber mit reduzierter Stundenanzahl. Dieses Modell wird leider auch in Medienberichten rund um die Aufteilung der Karenz oft nicht beleuchtet, denn auch hier können Väter echte Verantwortung tragen.',
@@ -86,16 +96,6 @@ const steps: Step[] = [
       title: 'Elternteilzeit in Österreich (AK/YouTube)',
       directUrl: 'https://www.youtube.com/watch?v=sepdrZagF98',
     },
-    variant: 'sub',
-  },
-  {
-    number: '3.2',
-    kicker: 'Option zu Schritt 3',
-    title: 'Unbezahlte Karenz: Länger daheim bleiben',
-    description: [
-      'Eine unbezahlte Karenz ist ebenso möglich um die Karenz zu verlängern, bis zum 2. Lebensjahr des Kindes habt ihr ja rechtlichen Anspruch auf Karenz (= unbezahlte Freistellung). Den Lebensunterhalt müsst ihr dann natürlich aber aus Ersparnissen oder über das Einkommen des/der Partner/in getragen werden — und die Krankenversicherung (Mitversicherung) sollte vorab geklärt werden.',
-    ],
-    cta: { label: 'Alles zur unbezahlten Karenz', href: '/unbezahlte-karenz/' },
     variant: 'sub',
   },
   {
@@ -137,9 +137,13 @@ const steps: Step[] = [
                   : 'border-slate-200/60')
               }
             >
-              <div class="flex items-baseline gap-4">
+              <div class="flex items-start gap-4">
                 <span
                   class={
+                    // items-start on the row + leading-none on the numeral means
+                    // its top edge aligns with the top of the kicker, instead of
+                    // baseline-matching a huge number to a tiny kicker (which
+                    // visually lifted the numeral ~20px above the label).
                     'shrink-0 font-heading font-bold leading-none tabular-nums ' +
                     (step.variant === 'sub'
                       ? 'text-xl text-slate-400'
