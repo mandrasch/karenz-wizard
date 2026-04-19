@@ -310,7 +310,7 @@ Per-route checklist — tick each route as its `.astro` port is committed:
    ```astro
    ---
    import { getCollection, render } from 'astro:content';
-   import Layout from '~/layouts/PageLayout.astro';
+   import Layout from '~/layouts/Layout.astro';  // PageLayout.astro was deleted in Phase 5 cleanup
 
    export async function getStaticPaths() {
      const posts = await getCollection('blog');
@@ -348,6 +348,17 @@ Per-route checklist — tick each route as its `.astro` port is committed:
 
 - [ ] Render all 9 posts' URLs (`/blog/<slug>/`) resolve
 - [ ] Cross-post link `/blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/` resolves
+
+**Trailing-slash verification (added 2026-04-19):**
+
+Dev server showed a `trailingSlash` overlay for `/ak-beratung/` — cause was a stale dev process still holding pre-Phase-5 config (default `'ignore'`, which Astro's dev overlay surfaces as "never" when mismatched). Our `astro.config.ts` has had `trailingSlash: 'always'` + `build.format: 'directory'` since commit `3afb505`. Validate end-to-end now that more URL-emitting code (blog) exists:
+
+- [ ] Restart dev server (`npm run dev`) after any `astro.config.ts` change — config is read once at startup, not watched.
+- [ ] Dev: `http://localhost:PORT/blog/` and `http://localhost:PORT/blog/<slug>/` resolve without the trailingSlash overlay.
+- [ ] Build: every `dist/<route>/index.html` exists (no bare `dist/<route>.html`).
+- [ ] Internal links in ported pages all include the trailing `/` (spot-checked during Phase 5; re-verify after blog is wired).
+- [ ] Sitemap entries end with `/`.
+- [ ] The 3 redirects (`/buecher-broschueren`, `/tools`, `/videos`) still resolve to `/infothek/#…` anchors.
 
 **Commit:** `feat: migrate blog to Astro Content Collections`
 
