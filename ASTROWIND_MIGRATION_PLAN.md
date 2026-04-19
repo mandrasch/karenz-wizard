@@ -1,0 +1,449 @@
+# AstroWind Migration Plan
+
+**Source:** SvelteKit v5 + adapter-static + Paraglide i18n + mdsvex + Playwright
+**Target:** Fresh AstroWind (Astro 5.12 + Tailwind 3.4) + Astro Content Collections for blog
+**Branch:** `refactor/astrowind-migration`
+**Safety tag:** `git tag pre-astrowind-migration` on pre-migration tip for rollback
+
+## Progress tracking
+
+Each phase below has a **Status:** line. Checkbox items (`- [ ]` → `- [x]`) inside a phase track substeps.
+
+_Status legend:_ ☐ not started · 🟡 in progress · ✅ done (commit `sha`, YYYY-MM-DD) · ⏭️ skipped
+
+## Confirmed decisions
+
+- **Tailwind 3** (downgrade from repo's current v4; AstroWind still ships v3). Revisit v4 later.
+- **Remove i18n (Paraglide)** entirely — site becomes German-only (`lang="de-AT"`).
+- **Remove Playwright** entirely (`e2e/`, `playwright.config.ts`, deps).
+- **`eakbg-planer` stays as Svelte island** via `@astrojs/svelte` (zero rewrite of 2270 LOC runes).
+- **Fix date typo** `2028-01-28` → `2026-01-28` in `src/content/blog/2026-01-28-mutter-startet-volksbegehren.md`.
+
+## Key findings from repo survey
+
+- `wx-svelte-gantt` is **dead code** — only imported by `src/lib/components/GanttMinimalDemo.svelte`, which is not referenced by any route. Drop the dep.
+- Blog `.md` files use plain markdown + inline HTML (`<a>`, `<img>`, `<details>`, `<cite>`, `<p>`), **no Svelte components** — plain `.md` in Content Collections works, no `.mdx` needed.
+- Blog frontmatter: `title`, `pubDate` (date), `slug`. **Slug comes from frontmatter, not filename** — must be preserved in `getStaticPaths`.
+- Paraglide has no actual `m()` translation calls in components — only wired in `hooks.ts`, `hooks.server.ts`, `app.html` (`%paraglide.lang%`), `vite.config.ts`. Clean removal.
+- Interactive pages using Svelte 5 runes: `eakbg-planer` (heavy), home `+page.svelte` (accordion), `+layout`, `Header` (mobile menu). Others appear static.
+- `buecher-broschueren`, `tools`, `videos` are just 308 redirects → `/infothek#…`. Use static `redirects:` in `astro.config.mjs`.
+- `@fontsource/ibm-plex-sans-condensed` used in `eakbg-planer` — must survive.
+- umami analytics script in `src/app.html` — preserve into Astro layout head.
+- `.htaccess` in `static/` sets Apache cache headers — copy into `public/`.
+- Cross-post link: `2025-11-01-presseanfrage-oegk.md` links to `/blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/` — confirm that slug exists in `2025-12-03-presseanfrage-oegk-antwort.md` frontmatter.
+- Current trailing-slash policy: `'always'` → Astro equivalent: `trailingSlash: 'always'` + `build.format: 'directory'`.
+- AstroWind uses Astro 5 Content Collections with `glob()` loader (posts at `src/data/post/`). Keep `src/content/blog/` for clarity; override the loader's base path.
+- AstroWind schema uses `publishDate`; repo uses `pubDate` — either align frontmatter or customize the schema. Aligning frontmatter is cleaner.
+
+---
+
+## Phase 0 — Branch sanity check + safety tag
+
+**Status:** ✅ done (tag-only, no commit, 2026-04-19) — branch `refactor/astrowind-migration` now tracks `origin/refactor/astrowind-migration`; tag `pre-astrowind-migration` created locally on `230bfca`.
+
+```bash
+git fetch && git status -sb
+git tag pre-astrowind-migration   # rollback point
+```
+
+**Verify:**
+
+- [x] Branch tracks remote (`origin/refactor/astrowind-migration`)
+- [x] Tree clean (only untracked: `.claude/`, `ASTROWIND_MIGRATION_PLAN.md` — both intentional)
+
+---
+
+## Phase 1 — Stage fresh AstroWind outside the repo
+
+**Status:** ✅ done (no commit, 2026-04-19) — clone at `/tmp/astrowind-template` (HEAD `59b7e37` "Fix format").
+
+Do **not** `npm create astro` inside the non-empty repo. Instead:
+
+```bash
+git clone --depth 1 https://github.com/onwidget/astrowind /tmp/astrowind-template
+```
+
+Inspect `/tmp/astrowind-template/package.json` to lock versions:
+
+- [x] `astro@^5.12.9` ✓ matches
+- [x] `tailwindcss@^3.4.17` + `@astrojs/tailwind@^5.1.5` ✓ matches
+- [x] `@astrojs/sitemap@^3.4.2`, `@astrojs/mdx@^4.3.3`, `astro-icon@^1.1.5`, `astro-compress@2.3.8`, `astrowind` vendor integration at `vendor/integration/` (imported in `astro.config.ts:14`) ✓ all present
+
+**Additional deps observed (decide in Phase 3):**
+
+- Drop: `@astrolib/analytics`, `@astrolib/seo`, `@fontsource-variable/inter` (we have our own seo.ts, umami, and use IBM Plex)
+- Keep baseline: `astro-embed`, `limax`, `lodash.merge`, `unpic`, `sharp`, `reading-time`, `mdast-util-to-string`, `@astrojs/partytown`
+- Reconsider later: `@astrojs/rss` (blog RSS feed — not in current plan)
+
+**Conflict map (resolve explicitly):**
+
+| Path                   | Current                   | AstroWind       | Resolution                  |
+| ---------------------- | ------------------------- | --------------- | --------------------------- |
+| `package.json`         | SvelteKit                 | AstroWind       | Replace wholesale (Phase 3) |
+| `tsconfig.json`        | `extends .svelte-kit/...` | AstroWind's     | Replace                     |
+| `vite.config.ts`       | paraglide+sveltekit       | N/A             | Delete                      |
+| `svelte.config.js`     | mdsvex+kit                | N/A             | Delete                      |
+| `eslint.config.js`     | svelte-flavoured          | AstroWind's     | Replace (or drop)           |
+| `src/`                 | SvelteKit routes          | AstroWind pages | Handled Phase 3             |
+| `static/` vs `public/` | static/                   | public/         | Phase 7                     |
+| `.prettierrc`          | custom                    | AstroWind's     | Keep current                |
+
+---
+
+## Phase 2 — Remove SvelteKit / Paraglide / Playwright / mdsvex
+
+**Status:** ✅ done (commit `92fc613`, 2026-04-19) — 43 files / 5300 deletions. umami snippet and `app.css` tokens recoverable via `git show pre-astrowind-migration:src/app.html` and `git show pre-astrowind-migration:src/app.css` when needed in Phase 4.
+
+**Delete top-level dirs:**
+
+- [x] `e2e/`
+- [x] `messages/`
+- [x] `project.inlang/` (incl. `cache/`)
+- [x] `.svelte-kit/` (generated)
+
+**Delete top-level files:**
+
+- [x] `svelte.config.js`
+- [x] `vite.config.ts`
+- [x] `playwright.config.ts`
+- [x] `tsconfig.json` (replaced Phase 3)
+- [x] `eslint.config.js`
+
+**Delete inside `src/` BEFORE copying AstroWind src on top:**
+
+- [x] `src/routes/` (all routes — content ported manually in Phase 5/6; reference via `git show pre-astrowind-migration:…`)
+- [x] `src/hooks.ts`, `src/hooks.server.ts`
+- [x] `src/app.html` (replaced by Astro Layout; **preserve umami snippet** for Phase 4 — recover via `git show pre-astrowind-migration:src/app.html`)
+- [x] `src/app.css` (parts preserved as `src/assets/styles/kw.css` in Phase 4 — recover via `git show pre-astrowind-migration:src/app.css`)
+- [x] `src/app.d.ts`
+- [x] `src/lib/paraglide/` (gitignored but may exist locally)
+
+**Keep temporarily** (ported in later phases) — confirmed still present:
+
+- [x] `src/lib/assets/` (logo, favicon)
+- [x] `src/lib/components/*.svelte` — kept for Svelte island port of `eakbg-planer`
+- [x] `src/lib/seo.ts` → port to `src/utils/seo.ts`
+- [x] `src/lib/types.ts` (referenced by EligibilityPanel)
+- [x] `src/content/blog/` (ported to collection in Phase 6)
+
+**Delete unconditionally (dead code):**
+
+- [x] `src/lib/components/GanttMinimalDemo.svelte` (only consumer of `wx-svelte-gantt`)
+- [x] `src/lib/components/demo.svelte`
+- [x] `src/lib/server/blog.ts` (replaced by Content Collection query)
+- [x] `src/routes/eakbg-anspruch/page.backup.svelte`
+
+**Commit:** `chore: remove sveltekit, paraglide, playwright, mdsvex scaffolding`
+
+---
+
+## Phase 3 — Land AstroWind + new `package.json`
+
+**Status:** 🟡 in progress (2026-04-19)
+
+Copy from `/tmp/astrowind-template/` into repo root (excluding `.git`, `node_modules`, `package-lock.json`, template `README.md`/`LICENSE.md`):
+
+- [ ] `src/`, `public/`, `vendor/`, `astro.config.ts`, `tailwind.config.js`, `tsconfig.json`, `.vscode/`, `.editorconfig`
+
+**Rewrite `package.json`:**
+
+- [ ] Keep: `name: "karenz-wizard"`, `version: "0.0.1"`, `private: true`, `type: "module"`
+- [ ] Base deps: AstroWind's baseline
+- [ ] **Add:** `@fontsource/ibm-plex-sans-condensed`, `@astrojs/svelte`, `svelte@^5` (for eakbg-planer island)
+- [ ] **Drop:** `@sveltejs/*`, `@inlang/*`, `@playwright/*`, `mdsvex`, `svelte-check`, `svelte-sitemap`, `wx-svelte-gantt`, `eslint-plugin-svelte`, `prettier-plugin-svelte`
+- [ ] **Scripts:** AstroWind defaults (`dev`, `build`, `preview`, `check` → `astro check`)
+- [ ] **Drop:** `postbuild` calling `svelte-sitemap` (replaced by `@astrojs/sitemap` in Phase 8)
+
+- [ ] **Update `.gitignore`:** drop `.svelte-kit`, `src/lib/paraglide`; add `.astro/`, `dist/`.
+- [ ] **Add `@astrojs/svelte` to `astro.config.ts` integrations** for the eakbg-planer island.
+
+**Commit:** `chore: scaffold AstroWind base`
+
+**Verify:**
+
+- [ ] `npm install && npm run dev` boots AstroWind demo.
+
+---
+
+## Phase 4 — Port global layout + a11y contract from AGENTS.md
+
+**Status:** ☐ not started
+
+**Problem:** AstroWind's default `Layout.astro` / `Header.astro` / `Footer.astro` conflict with `AGENTS.md` rules (no `data-layout`, own dark-mode toggle, own skip-link wording).
+
+**Steps:**
+
+- [ ] **Edit `src/layouts/Layout.astro`:**
+  - [ ] Add `<a class="skip-link" href="#main">Zum Inhalt springen</a>` first in tab order.
+  - [ ] Wrap children in `<main id="main" tabindex="-1" data-layout={layoutVariant}><div class="page-grid">…</div></main>`.
+  - [ ] Compute `layoutVariant` from `Astro.url.pathname` (`/` → `home`, else `subpages`). Mirror logic from `src/routes/+layout.ts:9`.
+  - [ ] Inject umami analytics snippet (from `src/app.html:7`) in `<head>`.
+  - [ ] Set `<html lang="de-AT">`.
+
+- [ ] **Create `src/components/widgets/HeaderKW.astro`** — port DOM from `src/lib/components/Header.svelte`. Hamburger menu uses vanilla `<script>` island toggling `aria-expanded`. Preview-banner close button same treatment.
+
+- [ ] **Create `src/components/widgets/FooterKW.astro`** — port `Footer.svelte` 1:1 (pure markup). Update "Made with SvelteKit" → "Made with Astro / AstroWind".
+
+- [ ] **Unused:** leave AstroWind's default `Header.astro`/`Footer.astro` in place but don't import them.
+
+- [ ] **Global CSS:** create `src/assets/styles/kw.css` with `@layer components { .page-grid, .content, .full-bleed, .skip-link }` + `:root { --content-w, --content-px, --section-gap }` from `src/app.css:13-63`. Import from `Layout.astro` **after** AstroWind's CSS so tokens win.
+
+- [ ] **SEO:** port `src/lib/seo.ts` → `src/utils/seo.ts` as-is (pure TS). Use in `Layout.astro` via `getSeoMeta(Astro.url.pathname)` for `<title>` / `<meta name="description">`.
+
+**Verify checklist:**
+
+- [ ] Nav works desktop + mobile
+- [ ] Skip link visible on focus, lands on `<main>`
+- [ ] `data-layout="home"` on `/`, `"subpages"` elsewhere
+- [ ] No horizontal scroll on full-bleed sections
+- [ ] One visible `<h1>` per page
+- [ ] DOM shape identical between routes
+
+**Commit:** `feat: port layout/header/footer with a11y contract`
+
+---
+
+## Phase 5 — Port static pages (Svelte routes → `.astro`)
+
+**Status:** ☐ not started
+
+Per-route checklist — tick each route as its `.astro` port is committed:
+
+- [ ] `/` → `src/pages/index.astro`
+- [ ] `/ak-beratung` → `src/pages/ak-beratung.astro`
+- [ ] `/eakbg-anspruch` → `src/pages/eakbg-anspruch.astro`
+- [ ] `/eakbg-planer` → `src/pages/eakbg-planer.astro` + Svelte island
+- [ ] `/faq` → `src/pages/faq.astro`
+- [ ] `/fzb-anspruch` → `src/pages/fzb-anspruch.astro`
+- [ ] `/impressum-datenschutz` → `src/pages/impressum-datenschutz.astro`
+- [ ] `/infothek` → `src/pages/infothek.astro`
+- [ ] `/pauschales-kbg` → `src/pages/pauschales-kbg.astro`
+- [ ] `/reaktionen-und-feedback` → `src/pages/reaktionen-und-feedback.astro`
+- [ ] `/ueber` → `src/pages/ueber.astro`
+- [ ] `/unbezahlte-karenz` → `src/pages/unbezahlte-karenz.astro`
+- [ ] `/buecher-broschueren`, `/tools`, `/videos` → `redirects:` in `astro.config.ts` (Phase 8 consolidation OK)
+
+| URL                        | Svelte source              | New Astro file                                            | Complexity                                                                   |
+| -------------------------- | -------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `/`                        | `src/routes/+page.svelte`  | `src/pages/index.astro`                                   | Home accordion uses `$state` (mostly commented) — vanilla `<script>` or drop |
+| `/ak-beratung`             | `ak-beratung/+page.svelte` | `src/pages/ak-beratung.astro`                             | Static                                                                       |
+| `/blog`                    | _see Phase 6_              | `src/pages/blog/index.astro`                              | Collection                                                                   |
+| `/blog/[slug]`             | _see Phase 6_              | `src/pages/blog/[...slug].astro`                          | Collection                                                                   |
+| `/buecher-broschueren`     | `+page.ts` redirect        | `redirects:` in `astro.config.ts` → `/infothek#literatur` |
+| `/eakbg-anspruch`          | `+page.svelte`             | `src/pages/eakbg-anspruch.astro`                          | Static                                                                       |
+| `/eakbg-planer`            | `+page.svelte` (2270 LOC)  | `src/pages/eakbg-planer.astro` + Svelte island            | **Island** — see below                                                       |
+| `/faq`                     | `+page.svelte`             | `src/pages/faq.astro`                                     | Mostly static; `<details>` stays inline                                      |
+| `/fzb-anspruch`            | `+page.svelte`             | `src/pages/fzb-anspruch.astro`                            | Static                                                                       |
+| `/impressum-datenschutz`   | `+page.svelte`             | `src/pages/impressum-datenschutz.astro`                   | Static                                                                       |
+| `/infothek`                | `+page.svelte`             | `src/pages/infothek.astro`                                | Static (anchor sections)                                                     |
+| `/pauschales-kbg`          | `+page.svelte`             | `src/pages/pauschales-kbg.astro`                          | Static                                                                       |
+| `/reaktionen-und-feedback` | `+page.svelte`             | `src/pages/reaktionen-und-feedback.astro`                 | Static                                                                       |
+| `/tools`                   | redirect                   | `redirects:` → `/infothek#tools`                          |
+| `/ueber`                   | `+page.svelte`             | `src/pages/ueber.astro`                                   | Static                                                                       |
+| `/unbezahlte-karenz`       | `+page.svelte`             | `src/pages/unbezahlte-karenz.astro`                       | Static                                                                       |
+| `/videos`                  | redirect                   | `redirects:` → `/infothek#videos`                         |
+
+**`eakbg-planer` island:**
+
+- [ ] Copy `src/routes/eakbg-planer/+page.svelte` → `src/components/eakbg/EaKbgPlaner.svelte`
+- [ ] Copy `NoteGrid.svelte`, `TimelineSummary.svelte`, `EligibilityPanel.svelte`, `EligibilityCalculatorEaKbg.svelte`, `EligibiltyDateCalculator.svelte` into `src/components/eakbg/`
+- [ ] `src/pages/eakbg-planer.astro` renders `<EaKbgPlaner client:load />`
+- [ ] Re-import `@fontsource/ibm-plex-sans-condensed` globally or inside the island
+
+**Mechanical conversion rules:**
+
+- `$props()` / `export let data` → `Astro.props` or inline constants
+- `{#each}` → `{items.map(...)}`
+- `{#if}` → `{cond && (...)}` or ternary
+- `onclick={}` / `bind:` → inline `<script>` islands or `client:*` directives
+- `<svelte:head>` → pass `title`/`description` as props to `<Layout>`
+- `class:foo={bar}` → template literal in `class=`
+- `$lib/...` → `~/...` (AstroWind alias) or relative
+
+**Trailing slash:** set `trailingSlash: 'always'` + `build.format: 'directory'` in `astro.config.ts` so URLs like `/blog/` still emit `blog/index.html`.
+
+**Commit suggestion:** one commit per 2–3 pages (`feat: port static info pages`, `feat: port home and planer`).
+
+---
+
+## Phase 6 — Migrate blog to Astro Content Collections
+
+**Status:** ☐ not started
+
+- [ ] **`src/content.config.ts`** (Astro 5):
+
+   ```ts
+   import { defineCollection, z } from 'astro:content';
+   import { glob } from 'astro/loaders';
+
+   const blog = defineCollection({
+     loader: glob({ pattern: '**/*.md', base: 'src/content/blog' }),
+     schema: z.object({
+       title: z.string(),
+       pubDate: z.coerce.date(),
+       slug: z.string(),            // frontmatter slug preserved for URL stability
+       description: z.string().optional(),
+     }),
+   });
+
+   export const collections = { blog };
+   ```
+
+- [ ] **Keep** `src/content/blog/*.md` in place — no body edits needed (plain markdown + HTML).
+  - [ ] **Fix date typo** in `2026-01-28-mutter-startet-volksbegehren.md`: `pubDate: 2028-01-28` → `2026-01-28`.
+
+- [ ] **Dynamic route** `src/pages/blog/[...slug].astro` — slug must come from frontmatter, not filename:
+
+   ```astro
+   ---
+   import { getCollection, render } from 'astro:content';
+   import Layout from '~/layouts/PageLayout.astro';
+
+   export async function getStaticPaths() {
+     const posts = await getCollection('blog');
+     return posts.map((post) => ({
+       params: { slug: post.data.slug },
+       props: { post },
+     }));
+   }
+   const { post } = Astro.props;
+   const { Content } = await render(post);
+   ---
+   <Layout metadata={{ title: post.data.title, description: post.data.description }}>
+     <article class="prose prose-slate mx-auto max-w-3xl">
+       <h1>{post.data.title}</h1>
+       <time datetime={post.data.pubDate.toISOString()}>
+         {post.data.pubDate.toLocaleDateString('de-AT')}
+       </time>
+       <Content />
+     </article>
+   </Layout>
+   ```
+
+- [ ] **Index** `src/pages/blog/index.astro` — port markup from `src/routes/blog/+page.svelte`:
+
+   ```ts
+   const posts = (await getCollection('blog'))
+     .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+   ```
+
+- [ ] **Port `PostCard` + `PostGrid`** as `.astro` components in `src/components/blog/`.
+- [ ] **Teaser generation:** replace SvelteKit's `toTeaser()` with `post.body.slice(0, 100)` helper, or use a remark excerpt plugin. Document the choice.
+- [ ] **Home page latest posts:** mirror `.slice(0, 9)` logic in `index.astro` frontmatter.
+
+**URL preservation check:**
+
+- [ ] Render all 9 posts' URLs (`/blog/<slug>/`) resolve
+- [ ] Cross-post link `/blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/` resolves
+
+**Commit:** `feat: migrate blog to Astro Content Collections`
+
+---
+
+## Phase 7 — Assets, styles, Tailwind reconciliation
+
+**Status:** ☐ not started
+
+**Assets:**
+
+- [ ] Move `static/*` → `public/`: keep `.htaccess`, `robots.txt`, `.nojekyll`, `hero_karenz_wizard.jpg`, `blog-images/`, `infothek/`, `ak_*.jpg`, `meme_*.jpg`.
+- [ ] Delete unused AstroWind placeholder images in `public/`.
+- [ ] Move `src/lib/assets/logo.png` + `favicon.ico` → `public/` (or `src/assets/` for Astro image optimization).
+
+**Tailwind 3 downgrade:**
+
+- [ ] Convert `@import "tailwindcss"` in CSS → `@tailwind base; @tailwind components; @tailwind utilities;`
+- [ ] Convert `@plugin '@tailwindcss/forms'` / `@plugin '@tailwindcss/typography'` → `plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')]` in `tailwind.config.js`
+- [ ] `:root` custom props stay as plain CSS (fine with Tailwind 3).
+
+**Font:**
+
+- [ ] `@fontsource/ibm-plex-sans-condensed` — move `@import` lines from `eakbg-planer/+page.svelte:4-5` to global CSS.
+
+**Commit:** `chore: port assets and reconcile tailwind to v3`
+
+---
+
+## Phase 8 — Sitemap + redirects + build config
+
+**Status:** ☐ not started
+
+- [ ] Add `@astrojs/sitemap` integration
+- [ ] Set `trailingSlash: 'always'` + `build.format: 'directory'`
+- [ ] Declare `redirects:` for `/buecher-broschueren`, `/tools`, `/videos`
+
+```ts
+// astro.config.ts
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
+
+export default defineConfig({
+  site: 'https://karenz-wizard.at',
+  trailingSlash: 'always',
+  build: { format: 'directory' },
+  integrations: [sitemap(), /* ...AstroWind existing */],
+  redirects: {
+    '/buecher-broschueren': '/infothek#literatur',
+    '/tools': '/infothek#tools',
+    '/videos': '/infothek#videos',
+  },
+});
+```
+
+**Commit:** `chore: replace svelte-sitemap with @astrojs/sitemap integration`
+
+**Verify:**
+
+- [ ] `dist/sitemap-index.xml` + `dist/sitemap-0.xml` exist after build.
+
+---
+
+## Phase 9 — Cleanup, typecheck, smoke test
+
+**Status:** ☐ not started
+
+- [ ] Delete Svelte-specific config leftovers (`.prettierrc` svelte plugin entry, `.prettierignore` svelte paths, stale `.vscode/` Svelte extension recs).
+- [ ] **Update `AGENTS.md`:**
+  - [ ] "Svelte v5 + adapter-static site" → "Astro + AstroWind static site (German-only)"
+  - [ ] Replace "Svelte 5 Conventions" → Astro equivalents
+  - [ ] **Keep all a11y + layout rules** (still binding)
+- [ ] Update `README.md` with new dev commands + Astro/AstroWind references.
+- [ ] `.htaccess` comment mentions SvelteKit hashing — update to mention Astro.
+- [ ] Run: `npm install && npx astro check && npm run build && npm run preview`
+
+**Manual smoke checklist:**
+
+- [ ] `/` renders, hero image loads, CTA cards link correctly
+- [ ] All 14 top-level routes reachable, each 200 and shows one `<h1>`
+- [ ] Blog index lists 9 posts in desc date order
+- [ ] Each blog post renders at its preserved slug
+- [ ] `/buecher-broschueren/`, `/tools/`, `/videos/` redirect to `/infothek#…`
+- [ ] Skip link visible on tab, focus lands on `<main>`
+- [ ] Mobile menu open/close + body scroll lock
+- [ ] Umami script present in `<head>`
+- [ ] `/sitemap-index.xml` valid
+- [ ] No horizontal overflow on pages with full-bleed sections
+- [ ] `data-layout="home"` only on `/`, `"subpages"` elsewhere
+- [ ] `<html lang="de-AT">` everywhere
+- [ ] `eakbg-planer` island hydrates and works (date calculations, timeline)
+
+**Commit:** `chore: finalize astrowind migration, update docs`
+
+---
+
+## Critical files for reference during implementation
+
+- `/home/user/karenz-wizard/package.json`
+- `/home/user/karenz-wizard/astro.config.ts` (new, from AstroWind)
+- `/home/user/karenz-wizard/src/layouts/Layout.astro` (edit for `data-layout`/skip link/umami)
+- `/home/user/karenz-wizard/src/content.config.ts` (new — collection schema)
+- `/home/user/karenz-wizard/src/pages/blog/[...slug].astro` (new — uses frontmatter slug)
+- `/home/user/karenz-wizard/AGENTS.md` (update in Phase 9 but **keep a11y rules**)
+
+## Risks recap
+
+- **Tailwind v4 → v3 downgrade** = confirmed trade-off
+- **`eakbg-planer` island** adds a Svelte runtime to one page (~30KB gzipped) — acceptable
+- **Static redirects** use `<meta http-equiv="refresh">` — SEO-friendly but not 308; hash fragments pass through
+- **URL preservation** hinges on `trailingSlash: 'always'` + `build.format: 'directory'` + frontmatter-slug in `getStaticPaths`
+- **Dead code confirmed:** `wx-svelte-gantt`, `GanttMinimalDemo.svelte`, `demo.svelte`, `eakbg-anspruch/page.backup.svelte`, `src/lib/server/blog.ts`
