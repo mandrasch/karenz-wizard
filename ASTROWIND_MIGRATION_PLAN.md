@@ -396,6 +396,35 @@ After Phase 5's `trailingSlash: 'always'` landed (commit `3afb505`), user report
 
 ---
 
+**Header/nav redesign (added 2026-04-19, user request):**
+
+Our ported HeaderKW.astro is functional but flat (single-level nav). User wants AstroWind-demo-style dropdowns + CTA button, plus a structural regrouping of the menu. Reference: AstroWind's deleted `src/components/widgets/Header.astro` had multi-level nav with dropdowns + a right-side CTA button — we can recover that structure from the pre-migration `/tmp/astrowind-template/` clone OR from git via `git show d56c54d:src/components/widgets/Header.astro`.
+
+Scope for this sub-phase:
+
+- [ ] **A. Group "Karenz Schritt für Schritt planen" dropdown.** Combine the current top-level items `1. eaKBG Anspruch?`, `2. eaKBG Planer`, `3. AK-Beratung` into a single dropdown under the label `Karenz Schritt für Schritt planen`. Keep the numbered children as sub-items. Uses AstroWind's dropdown pattern (`hover + focus-within` on desktop, click-to-expand on mobile).
+
+- [ ] **B. Fix header layout bug.** Logo is not next to site title — investigate why. Current HeaderKW.astro wraps logo `<img>` and site-title `<a>` in the same flex container (`<div class="flex items-center gap-2">`), so something in Phase 7's asset-move or Tailwind reconciliation likely broke it. May be a size/margin issue, or the logo source path (`~/lib/assets/logo.png`) not resolving after the logo moves to `public/` or `src/assets/`. Verify fix after the asset move.
+
+- [ ] **C. Add right-side CTA button.** AstroWind demo header had a pill-style button on the right edge (after the nav). Add one labelled `eaKBG-Planer` (or similar wording, TBD), linking to `/eakbg-planer/`. Style: rounded-full, brand color `#C94D54` (same as the home page "Weiterlesen" CTAs) or the AstroWind default — user to choose.
+
+- [ ] **D. New `/oegk-beratung/` page + "Beratungen" dropdown.**
+  - [ ] Create `src/pages/oegk-beratung.astro` — ÖGK beratung/contact info (content TBD, placeholder OK with "🚧 Inhalt in Arbeit 🚧" like the existing pages).
+  - [ ] Add `/oegk-beratung/` entry to `seo.ts`.
+  - [ ] Replace current top-level `3. AK-Beratung` item (now inside "Karenz Schritt für Schritt planen" from task A) with a new top-level `Beratungen` dropdown containing: `AK-Beratung` (`/ak-beratung/`) and `ÖGK-Beratung` (`/oegk-beratung/`).
+  - [ ] Update Footer "Menü" list too.
+
+**Implementation notes:**
+
+- Port AstroWind's dropdown JS/CSS — it's in the deleted `src/components/widgets/Header.astro` + `src/components/common/ToggleMenu.astro`. Recover via `git show d56c54d:...`. These work with Tailwind utility classes (`group-hover:` etc.), no extra JS needed for the hover state.
+- Mobile menu currently renders as fullscreen dialog — dropdowns nest inside that; use `<details>`/`<summary>` for the expandable groups on small screens so everything stays keyboard-accessible without custom JS.
+- Keep the `aria-expanded` state on dropdown triggers + `aria-controls` pointing at the submenu list. AGENTS.md a11y rules still apply.
+- Update `seo.ts` with the new route, update the Footer's "Menü" list to match.
+
+**Commit suggestion:** one commit per task (`feat: group planner steps under dropdown`, `fix: restore logo alignment`, `feat: add planner CTA button to header`, `feat: add oegk-beratung page and Beratungen dropdown`).
+
+---
+
 ## Phase 8 — Sitemap + redirects + build config
 
 **Status:** ☐ not started
