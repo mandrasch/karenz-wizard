@@ -281,7 +281,7 @@ Per-route checklist — tick each route as its `.astro` port is committed:
 
 ## Phase 6 — Migrate blog to Astro Content Collections
 
-**Status:** ☐ not started
+**Status:** 🟡 in progress (2026-04-19)
 
 - [ ] **`src/content.config.ts`** (Astro 5):
 

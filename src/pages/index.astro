@@ -2,9 +2,22 @@
 // Ported from src/routes/+page.svelte (home).
 // - cards array moved to frontmatter; {#each} -> .map().
 // - Commented-out accordion from Svelte source ({#if expanded}) omitted.
-// - Blog-preview section deferred: wired up in Phase 6 when Content
-//   Collection for /blog is in place.
+// - Blog-preview section wired up in Phase 6.
 import Layout from '~/layouts/Layout.astro';
+import PostCard from '~/components/blog/PostCard.astro';
+import PostGrid from '~/components/blog/PostGrid.astro';
+import { getCollection } from 'astro:content';
+import { toTeaser } from '~/utils/teaser';
+
+const latestPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 9)
+  .map((post) => ({
+    title: post.data.title,
+    slug: post.data.slug,
+    pubDate: post.data.pubDate,
+    teaser: toTeaser(post.body ?? ''),
+  }));
 
 type Card = {
   title: string;
@@ -127,5 +140,31 @@ const cards: Card[] = [
     </div>
   </section>
 
-  {/* Blog latest-posts section wired up in Phase 6 once the blog Content Collection lands. */}
+  {
+    latestPosts.length > 0 && (
+      <section class="content">
+        <div class="space-y-8">
+          <div class="max-w-3xl">
+            <p class="text-sm font-semibold tracking-wide text-slate-500 uppercase">Blog</p>
+            <h2 class="text-2xl font-semibold text-slate-900 sm:text-3xl">Aktuelle Beiträge</h2>
+          </div>
+
+          <PostGrid>
+            {latestPosts.map((post) => (
+              <PostCard post={post} />
+            ))}
+          </PostGrid>
+
+          <div class="text-center">
+            <a
+              class="inline-flex items-center justify-center rounded-full border border-[#C94D54] px-6 py-3.5 text-base font-semibold text-[#C94D54] transition hover:bg-[#C94D54]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54]"
+              href="/blog/"
+            >
+              Alle Beiträge anzeigen
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
 </Layout>

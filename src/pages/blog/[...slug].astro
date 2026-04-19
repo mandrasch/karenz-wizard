@@ -1,0 +1,66 @@
+---
+// Dynamic blog post route. Ported from src/routes/blog/[slug]/+page.svelte.
+// CRITICAL: slug comes from post.data.slug (frontmatter), NOT post.id
+// (filename). That's how the old SvelteKit route worked and preserves
+// URL stability across filename renames.
+import Layout from '~/layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+type Props = { post: CollectionEntry<'blog'> };
+const { post } = Astro.props as Props;
+const { Content } = await render(post);
+
+const dateFormatter = new Intl.DateTimeFormat('de-AT', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+const formattedDate = dateFormatter.format(post.data.pubDate);
+
+const metadata = {
+  title: `${post.data.title} – Karenz Wizard Blog`,
+  description: post.data.description ?? 'Aktueller Beitrag auf dem Karenz Wizard Blog.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="content max-w-3xl">
+    <header class="mt-10 space-y-4">
+      <a
+        href="/blog/"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 underline decoration-dotted underline-offset-4 transition hover:text-slate-900"
+      >
+        <span aria-hidden="true">←</span> Zurück zur Übersicht
+      </a>
+
+      <div class="space-y-2">
+        <p class="text-sm font-semibold tracking-wide text-slate-500 uppercase">Blog</p>
+        <p class="text-sm text-slate-500">{formattedDate}</p>
+      </div>
+
+      <div class="space-y-4">
+        <h1 class="text-3xl font-semibold text-slate-900 sm:text-3xl">{post.data.title}</h1>
+        {
+          post.data.description && (
+            <p class="max-w-2xl text-base leading-relaxed text-slate-600">
+              {post.data.description}
+            </p>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="mx-auto prose mt-8 max-w-3xl prose-slate">
+      <Content />
+    </div>
+  </section>
+</Layout>
