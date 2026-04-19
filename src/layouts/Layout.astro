@@ -7,7 +7,7 @@
 // - SEO title/description from ~/utils/seo.ts, overridable via metadata prop
 import '~/assets/styles/tailwind.css';
 import '~/assets/styles/kw.css';
-import '@fontsource/ibm-plex-sans-condensed';
+import '@fontsource-variable/inter';
 
 import CommonMeta from '~/components/common/CommonMeta.astro';
 import Favicons from '~/components/Favicons.astro';
@@ -48,6 +48,30 @@ const layoutVariant = pathname === '/' ? 'home' : 'subpages';
       defer
       src="https://cloud.umami.is/script.js"
       data-website-id="ad87adb8-6ab0-406a-a478-ba5c64683193"></script>
+
+    <!-- AstroWind font + color tokens (ported from the deleted CustomStyles.astro,
+         d56c54d:src/components/CustomStyles.astro).
+         These are the CSS vars that tailwind.config.js references for font-sans/
+         font-serif/font-heading and that tailwind.css `@layer utilities` references
+         for .bg-page, .text-default, .text-muted, .text-heading. -->
+    <style is:inline>
+      :root {
+        --aw-font-sans: 'Inter Variable';
+        --aw-font-serif: 'Inter Variable';
+        --aw-font-heading: 'Inter Variable';
+
+        --aw-color-primary: rgb(1 97 239);
+        --aw-color-secondary: rgb(1 84 207);
+        --aw-color-accent: rgb(109 40 217);
+
+        --aw-color-text-heading: rgb(0 0 0);
+        --aw-color-text-default: rgb(16 16 16);
+        --aw-color-text-muted: rgb(16 16 16 / 66%);
+        --aw-color-text-page: rgb(16 16 16);
+        --aw-color-bg-page: rgb(255 255 255);
+        --aw-color-bg-page-dark: rgb(3 6 32);
+      }
+    </style>
   </head>
 
   <body class="antialiased text-default bg-page tracking-tight">

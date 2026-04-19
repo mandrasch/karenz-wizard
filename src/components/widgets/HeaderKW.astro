@@ -72,14 +72,14 @@ const linkIsActive = (item: NavLink) => {
 const groupIsActive = (group: NavGroup) => group.children.some(linkIsActive);
 
 const linkClasses = (item: NavLink) =>
-  `text-sm font-semibold transition-colors ${
+  `whitespace-nowrap text-sm font-semibold transition-colors ${
     linkIsActive(item)
       ? 'text-slate-900 underline decoration-2 underline-offset-4'
       : 'text-slate-600 hover:text-slate-900'
   }`;
 
 const groupTriggerClasses = (group: NavGroup) =>
-  `inline-flex items-center gap-1 text-sm font-semibold transition-colors ${
+  `inline-flex items-center gap-1 whitespace-nowrap text-sm font-semibold transition-colors ${
     groupIsActive(group)
       ? 'text-slate-900 underline decoration-2 underline-offset-4'
       : 'text-slate-600 hover:text-slate-900'
@@ -145,7 +145,7 @@ const mobileLinkClasses = (item: NavLink) =>
         height={logo.height}
         class="h-[3.125rem] w-[3.125rem]"
       />
-      <a class="text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard</a>
+      <a class="whitespace-nowrap text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard</a>
     </div>
 
     <!-- DESKTOP NAV (center) -->
@@ -214,7 +214,7 @@ const mobileLinkClasses = (item: NavLink) =>
     <!-- Right-side CTA (Task C) -->
     <a
       href="/eakbg-planer/"
-      class="hidden items-center justify-center rounded-full bg-[#C94D54] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#b64048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54] md:inline-flex"
+      class="hidden items-center justify-center whitespace-nowrap rounded-full bg-[#C94D54] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#b64048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54] md:inline-flex"
     >
       Planer starten
     </a>

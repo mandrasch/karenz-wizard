@@ -1,7 +1,7 @@
 <script lang="ts">
 	import NoteGrid from './NoteGrid.svelte';
 	import TimelineSummary from './TimelineSummary.svelte';
-	// @fontsource/ibm-plex-sans-condensed is imported globally from Layout.astro
+	// Global font (Inter Variable as of Phase 12) comes from Layout.astro.
 
 	type Interval = {
 		label: string;
@@ -1742,10 +1742,13 @@
 	}
 
 	:global(:root) {
+		/* Font stack inherits from the global --aw-font-sans set in Layout.astro
+		   (Inter Variable as of Phase 12). Kept as its own var so the planner
+		   can be dropped into a different host site without relying on globals. */
 		--planner-font:
-			'IBM Plex Sans Condensed', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-			sans-serif;
-		--planner-font-condensed: 'IBM Plex Sans Condensed', var(--planner-font);
+			var(--aw-font-sans, 'Inter Variable'), system-ui, -apple-system, BlinkMacSystemFont,
+			'Segoe UI', sans-serif;
+		--planner-font-condensed: var(--planner-font);
 		--timeline-label-font: var(--planner-font-condensed);
 		--timeline-color-rights: #475467;
 		--timeline-color-ea: #0f9eb8;
