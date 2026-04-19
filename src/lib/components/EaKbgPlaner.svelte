@@ -941,19 +941,19 @@
 		<div class="example-presets mb-2 min-w-0">
 			<span>Beispiele:</span>
 
-			<button type="button" on:click={() => applyExample(12, 2)} class="example-link">12 + 2</button
+			<button type="button" onclick={() => applyExample(12, 2)} class="example-link">12 + 2</button
 			>
-			|<button type="button" on:click={() => applyExample(10, 4)} class="example-link"
+			|<button type="button" onclick={() => applyExample(10, 4)} class="example-link"
 				>10 + 4</button
 			>
 			|
-			<button type="button" on:click={() => applyExample(8, 6)} class="example-link">8 + 6</button>
+			<button type="button" onclick={() => applyExample(8, 6)} class="example-link">8 + 6</button>
 			|
-			<button type="button" on:click={() => applyExample(7, 7)} class="example-link"
+			<button type="button" onclick={() => applyExample(7, 7)} class="example-link"
 				>7 + 7* (Hinweise beachten)</button
 			>
 			|
-			<button type="button" on:click={() => applyExample(12, 12)} class="example-link"
+			<button type="button" onclick={() => applyExample(12, 12)} class="example-link"
 				>12 + 12 (Halbe-Halbe mit unbezahlter Karenz)</button
 			>
 		</div>
@@ -968,7 +968,7 @@
 						<div class="stepper min-w-0">
 							<button
 								type="button"
-								on:click={() => adjustMotherMonths(-1)}
+								onclick={() => adjustMotherMonths(-1)}
 								aria-label="Monat verringern"
 							>
 								-
@@ -982,7 +982,7 @@
 							/>
 							<button
 								type="button"
-								on:click={() => adjustMotherMonths(1)}
+								onclick={() => adjustMotherMonths(1)}
 								aria-label="Monat erhoehen"
 							>
 								+
@@ -994,7 +994,7 @@
 						<div class="stepper min-w-0">
 							<button
 								type="button"
-								on:click={() => adjustFatherMonths(-1)}
+								onclick={() => adjustFatherMonths(-1)}
 								aria-label="Monat verringern"
 							>
 								-
@@ -1008,7 +1008,7 @@
 							/>
 							<button
 								type="button"
-								on:click={() => adjustFatherMonths(1)}
+								onclick={() => adjustFatherMonths(1)}
 								aria-label="Monat erhoehen"
 							>
 								+
@@ -1020,7 +1020,7 @@
 						<div class="stepper min-w-0">
 							<button
 								type="button"
-								on:click={() => adjustThirdMonths(-1)}
+								onclick={() => adjustThirdMonths(-1)}
 								aria-label="Monat verringern"
 							>
 								-
@@ -1034,7 +1034,7 @@
 							/>
 							<button
 								type="button"
-								on:click={() => adjustThirdMonths(1)}
+								onclick={() => adjustThirdMonths(1)}
 								aria-label="Monat erhoehen"
 							>
 								+
@@ -1372,7 +1372,7 @@
 					<button
 						type="button"
 						class="zoom-button"
-						on:click={zoomOut}
+						onclick={zoomOut}
 						disabled={!canZoomOut}
 						aria-label="Ansicht verkleinern"
 					>
@@ -1381,13 +1381,13 @@
 					<button
 						type="button"
 						class="zoom-button"
-						on:click={zoomIn}
+						onclick={zoomIn}
 						disabled={!canZoomIn}
 						aria-label="Ansicht vergrößern"
 					>
 						+
 					</button>
-					<button type="button" class="zoom-reset" on:click={resetZoom} disabled={zoomLevel === 1}>
+					<button type="button" class="zoom-reset" onclick={resetZoom} disabled={zoomLevel === 1}>
 						Reset
 					</button>
 					<span class="zoom-status" aria-live="polite">{zoomPercent}%</span>
@@ -1902,14 +1902,6 @@
 		@apply grid gap-2 rounded-xl border border-slate-200 bg-slate-100 px-5 py-4 text-sm text-slate-900;
 	}
 
-	.note-box .footnote {
-		@apply m-0 text-xs leading-5 text-slate-600;
-	}
-
-	.note-box a {
-		@apply text-indigo-600 underline;
-	}
-
 	.footnote-link {
 		@apply font-semibold text-indigo-600 no-underline hover:underline;
 	}
@@ -1952,10 +1944,6 @@
 
 	.warning-banner {
 		@apply mt-0 rounded-[10px] border border-amber-300 bg-amber-300/20 px-4 py-3 text-sm font-semibold text-amber-700;
-	}
-
-	.planner-panel > .warning-banner {
-		@apply mx-4;
 	}
 
 	svg {
@@ -2238,32 +2226,12 @@
 		@apply grid gap-1 text-sm;
 	}
 
-	.timeline-summary__birthdate label {
-		@apply flex flex-col gap-1;
-	}
-
-	.timeline-summary__birthdate span {
-		@apply text-xs font-semibold tracking-wide text-slate-600 uppercase;
-	}
-
 	.timeline-summary__table-wrapper {
 		@apply overflow-x-auto;
 	}
 
 	.timeline-summary__table {
 		@apply min-w-full border-collapse;
-	}
-
-	.timeline-summary__table th {
-		@apply border-b border-slate-200 bg-slate-50 px-3 py-2 text-left text-xs font-semibold tracking-wide text-slate-700 uppercase;
-	}
-
-	.timeline-summary__table td {
-		@apply px-3 py-2 align-middle text-sm text-slate-800;
-	}
-
-	.timeline-summary__table th[scope='row'] {
-		@apply text-sm font-semibold text-slate-900;
 	}
 
 	.timeline-summary__input {

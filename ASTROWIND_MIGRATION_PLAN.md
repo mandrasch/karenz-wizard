@@ -631,6 +631,52 @@ Reference: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-
 
 ---
 
+## Phase 13 — Svelte 5 runes-syntax cleanup (mini follow-up, added 2026-04-19)
+
+**Status:** ☐ not started
+
+Surface: the Svelte compiler emits 11+ warnings when compiling `src/lib/components/EaKbgPlaner.svelte`. All non-blocking, all carried over from the verbatim copy of the pre-migration `src/routes/eakbg-planer/+page.svelte`. Cleaning them up gets the dev-server log quiet and modernizes the syntax to pure Svelte 5.
+
+Already fixed by commit `2b09111` as part of the hydration bug fix:
+- `state_referenced_locally` on line 67 — the `$state(jointMonth)` pattern was causing the runtime `effect_orphan` error.
+
+### 1. `on:click` → `onclick` (14 instances)
+
+Svelte 4 event-directive syntax. Still works in Svelte 5 but deprecated. Compiler error ref: https://svelte.dev/e/event_directive_deprecated
+
+Occurrences (line numbers from current source):
+- `EaKbgPlaner.svelte:940, 942, 946, 948, 952, 967, 981, 993, 1007, 1019, 1033, 1371, 1380, 1386`
+
+- [ ] Replace each `on:click={handler}` with `onclick={handler}`.
+- [ ] Spot-check event modifiers (`on:click|preventDefault={...}`) if any — those need conversion to `onclick={(e) => { e.preventDefault(); handler(e); }}` since Svelte 5 dropped the `|modifier` syntax.
+
+### 2. Unused CSS selectors (7 instances)
+
+Compiler removes orphan CSS rules and warns. Usually harmless but signals stale styles.
+
+Occurrences:
+- `.note-box .footnote` (line 1901)
+- `.note-box a` (line 1905)
+- `.planner-panel > .warning-banner` (line 1953)
+- `.timeline-summary__birthdate label` (line 2237)
+- `.timeline-summary__birthdate span` (line 2241)
+- `.timeline-summary__table th` (line 2253)
+- `.timeline-summary__table td` (line 2257)
+- `.timeline-summary__table th[scope='row']` (line 2261)
+
+- [ ] Either delete each unused rule, or adjust the markup if the rule was intended to apply (some may have been class-renamed during the Svelte 4→5 conversion before our Phase 5 copy).
+- [ ] Verify no visual regression after removal.
+
+### 3. Final verification
+
+- [ ] Dev-server log after restart shows 0 Svelte warnings for `EaKbgPlaner.svelte`.
+- [ ] `npm run check` still 0/0/0.
+- [ ] Planner interactivity intact (preset `10 + 4` → mother=10, father=4; `+` / `-` mutate state; warning banners toggle).
+
+**Commit:** `chore(phase 13): modernize EaKbgPlaner Svelte 5 syntax (on:click + stale CSS)`
+
+---
+
 ## Critical files for reference during implementation
 
 - `/home/user/karenz-wizard/package.json`
