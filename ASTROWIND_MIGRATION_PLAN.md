@@ -461,7 +461,7 @@ export default defineConfig({
 
 ## Phase 9 — Cleanup, typecheck, smoke test
 
-**Status:** ☐ not started
+**Status:** ✅ done (commit `60fe3e6`, 2026-04-19) — AGENTS.md, README.md, .prettierrc, .prettierignore updated. Build + check clean.
 
 - [ ] Delete Svelte-specific config leftovers (`.prettierrc` svelte plugin entry, `.prettierignore` svelte paths, stale `.vscode/` Svelte extension recs).
 - [ ] **Update `AGENTS.md`:**

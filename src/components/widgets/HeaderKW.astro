@@ -137,16 +137,20 @@ const mobileLinkClasses = (item: NavLink) =>
 
   <!-- MAIN NAV WRAPPER -->
   <div class="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-4 py-4 sm:px-6">
-    <div class="flex items-center gap-2">
+    <a
+      href="/"
+      class="group flex items-center gap-2 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+      aria-label="Karenz Wizard – zur Startseite"
+    >
       <img
-        alt="Logo: Ein Baby mit Magierhut und Zauberstab, gezeichnet"
+        alt=""
         src={logo.src}
         width={logo.width}
         height={logo.height}
         class="h-[3.125rem] w-[3.125rem]"
       />
-      <a class="whitespace-nowrap text-lg font-bold tracking-tight text-slate-950" href="/">Karenz Wizard</a>
-    </div>
+      <span class="whitespace-nowrap text-lg font-bold tracking-tight text-slate-950">Karenz Wizard</span>
+    </a>
 
     <!-- DESKTOP NAV (center) -->
     <nav aria-label="Hauptnavigation" class="hidden flex-1 justify-center md:flex">
