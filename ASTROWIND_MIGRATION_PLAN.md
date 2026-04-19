@@ -514,7 +514,18 @@ Task: wrap the header logo `<img>` in an `<a href="/">` so clicking it navigates
 - [ ] Edit `src/components/widgets/HeaderKW.astro`: combine the logo + text into a single `<a href="/">` wrapping both, or give the logo its own `<a href="/" aria-label="Startseite">`. Keep the existing alt text on the `<img>`.
 - [ ] Verify: click logo from any subpage → lands on `/`.
 
-### 3. Sitemap URL audit against legacy
+### 3. Favicon check
+
+- [ ] Inspect which favicon the site actually serves at `/favicon.ico` + `<link rel="icon">` tags. Repo has at least three candidates on disk:
+      - `public/` (no explicit favicon we moved there; would 404)
+      - `src/assets/favicons/favicon.{ico,svg}` + `apple-touch-icon.png` (from AstroWind scaffold; referenced by `src/components/Favicons.astro`)
+      - `src/lib/assets/favicon.ico` (preserved from pre-migration SvelteKit site — our actual brand favicon with the wizard baby logo)
+- [ ] Goal: the pre-migration `src/lib/assets/favicon.ico` (wizard baby) is what should render in the browser tab, not AstroWind's default favicon.
+- [ ] Either move the preserved favicon to `public/favicon.ico` + `public/apple-touch-icon.png` (derived from `logo.png`), or update `src/components/Favicons.astro` to import from `~/lib/assets/favicon.ico`.
+- [ ] Delete the AstroWind placeholder favicons at `src/assets/favicons/` once the replacement is live.
+- [ ] Verify in browser: devtools → Network tab → check the 200 on favicon.ico matches the wizard baby graphic.
+
+### 4. Sitemap URL audit against legacy
 
 Task: fetch the pre-migration canonical sitemap from the live site and diff its URL list against what Astro generates now, so we catch any dropped routes before DNS cutover.
 
@@ -533,18 +544,26 @@ Task: fetch the pre-migration canonical sitemap from the live site and diff its 
 
 Second nav refactor on top of Phase 7's dropdowns. Regroups two more top-level items into new dropdown categories so the desktop nav stays compact as more content lands.
 
-### 1. "Papamonat" group
+### 1. Rename + extend "Karenz Schritt für Schritt planen"
+
+- [ ] Rename the dropdown label from `Karenz Schritt für Schritt planen` to `Erste Jahre nach Geburt planen` (shorter + clearer).
+- [ ] Add a third child: `Eltern-Teilzeit 20h/20h Woche`, linking to a new page `/elternteilzeit-20-20/`.
+- [ ] Create `src/pages/elternteilzeit-20-20.astro` (placeholder minimum: 3-sentence intro explaining how both parents going to 20h/week works as a split-parenting option after the 14-month eaKBG window, followed by embedded `https://www.youtube.com/watch?v=sepdrZagF98`). Skeleton copy OK, user can flesh out later.
+- [ ] Add `/elternteilzeit-20-20/` entry to `src/utils/seo.ts`.
+- [ ] Resulting children of the group: `eaKBG Anspruch?`, `eaKBG Planer`, `Eltern-Teilzeit 20h/20h Woche`.
+
+### 2. "Papamonat" group
 
 - [ ] New top-level dropdown `Papamonat` containing: `FZB Anspruch? (Papamonat)` (move out of top-level).
 - [ ] Note: currently a single-child dropdown. If more Papamonat content lands later (a dedicated FAQ, info page, etc.), it goes here. Alternatively, keep as flat top-level link and revisit when there's 2+ children.
 
-### 2. "Weitere Infos" group
+### 3. "Weitere Infos" group
 
 - [ ] New top-level dropdown `Weitere Infos` containing: `Infothek` + `Pauschales KBG` (move both out of top-level).
 
 **Resulting top-level nav** (after all regroupings from Phase 7 + 11):
 
-1. `Karenz Schritt für Schritt planen` ▾ (eaKBG Anspruch? / eaKBG Planer)
+1. `Erste Jahre nach Geburt planen` ▾ (eaKBG Anspruch? / eaKBG Planer / Eltern-Teilzeit 20h/20h Woche)
 2. `Papamonat` ▾ (FZB Anspruch?)
 3. `Beratungen` ▾ (AK-Beratung / ÖGK-Beratung)
 4. `Weitere Infos` ▾ (Infothek / Pauschales KBG)
