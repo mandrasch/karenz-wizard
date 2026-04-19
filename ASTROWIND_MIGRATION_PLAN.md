@@ -222,7 +222,7 @@ Copy from `/tmp/astrowind-template/` into repo root (excluding `.git`, `node_mod
 
 Per-route checklist — tick each route as its `.astro` port is committed:
 
-- [ ] `/` → `src/pages/index.astro`
+- [x] `/` → `src/pages/index.astro` (commit `65834a7`; overwrites AstroWind demo; blog latest-posts section deferred to Phase 6)
 - [x] `/ak-beratung` → `src/pages/ak-beratung.astro` (commit `d5c7136`; akList in frontmatter)
 - [x] `/eakbg-anspruch` → `src/pages/eakbg-anspruch.astro` (commit `d5c7136`; 2× EligibilityCalculatorEaKbg islands)
 - [ ] `/eakbg-planer` → `src/pages/eakbg-planer.astro` + Svelte island
@@ -234,7 +234,7 @@ Per-route checklist — tick each route as its `.astro` port is committed:
 - [x] `/reaktionen-und-feedback` → `src/pages/reaktionen-und-feedback.astro` (commit `3afb505`)
 - [x] `/ueber` → `src/pages/ueber.astro` (commit `b78dd95`)
 - [x] `/unbezahlte-karenz` → `src/pages/unbezahlte-karenz.astro` (commit `3afb505`)
-- [ ] `/buecher-broschueren`, `/tools`, `/videos` → `redirects:` in `astro.config.ts` (pulled forward: `trailingSlash: 'always'` + `build.format: 'directory'` already set in commit `3afb505`)
+- [x] `/buecher-broschueren`, `/tools`, `/videos` → `redirects:` in `astro.config.ts` (commit `65834a7`, emits meta-refresh to `/infothek/#...`; `trailingSlash: 'always'` + `build.format: 'directory'` already set in commit `3afb505`)
 
 | URL                        | Svelte source              | New Astro file                                            | Complexity                                                                   |
 | -------------------------- | -------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------- |

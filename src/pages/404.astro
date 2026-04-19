@@ -1,24 +1,25 @@
 ---
+// Minimal 404 using our Layout. Replaces AstroWind's demo 404.
 import Layout from '~/layouts/Layout.astro';
-import { getHomePermalink } from '~/utils/permalinks';
-
-const title = `Error 404`;
 ---
 
-<Layout metadata={{ title }}>
-  <section class="flex items-center h-full p-16">
-    <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
-      <div class="max-w-md text-center">
-        <h2 class="mb-8 font-bold text-9xl">
-          <span class="sr-only">Error</span>
-          <span class="text-primary">404</span>
-        </h2>
-        <p class="text-3xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-        <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400">
-          But dont worry, you can find plenty of other things on our homepage.
-        </p>
-        <a rel="noopener noreferrer" href={getHomePermalink()} class="btn ml-4">Back to homepage</a>
-      </div>
+<Layout metadata={{ title: 'Seite nicht gefunden – Karenz Wizard' }}>
+  <section class="content">
+    <header class="mt-10 text-center">
+      <h1 class="text-3xl font-semibold text-slate-900">Seite nicht gefunden</h1>
+    </header>
+    <div class="mx-auto prose mt-6 max-w-3xl text-center">
+      <p>
+        Diese Seite gibt es (noch) nicht. Vielleicht hilft dir einer dieser Einstiege weiter:
+      </p>
+      <ul class="list-none">
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/eakbg-anspruch/">eaKBG Anspruch prüfen</a></li>
+        <li><a href="/eakbg-planer/">eaKBG Planer</a></li>
+        <li><a href="/ak-beratung/">AK-Beratung</a></li>
+        <li><a href="/infothek/">Infothek</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
     </div>
   </section>
 </Layout>
