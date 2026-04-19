@@ -1,6 +1,6 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: Karenz Wizard
+  site: 'https://karenz-wizard.at'  # vendor/integration/index.ts overrides the top-level astro.config.ts `site:` with this value (same pattern as trailingSlash — keep in sync).
   base: '/'
   trailingSlash: true  # vendor/integration/index.ts maps true -> 'always'. Must agree with top-level astro.config.ts `trailingSlash: 'always'` — otherwise the vendor's updateConfig() silently overrides to 'never' and dev shows the "set to never" overlay.
 
