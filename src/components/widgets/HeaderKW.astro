@@ -40,7 +40,7 @@ const navItems: NavItem[] = [
     label: 'Ersten Jahre nach Geburt planen',
     id: 'planner',
     children: [
-      { label: 'Die Schritte im Überblick', href: '/intro/', matchPath: '/intro' },
+      { label: 'Die Schritte im Überblick', href: '/schritte-im-ueberblick/', matchPath: '/schritte-im-ueberblick' },
       { label: 'eaKBG Anspruch?', href: '/eakbg-anspruch/', matchPath: '/eakbg-anspruch' },
       { label: 'eaKBG Planer', href: '/eakbg-planer/', matchPath: '/eakbg-planer' },
       {
@@ -176,7 +176,10 @@ const mobileLinkClasses = (item: NavLink) =>
         height={logo.height}
         class="h-[3.125rem] w-[3.125rem]"
       />
-      <span class="whitespace-nowrap text-lg font-bold tracking-tight text-slate-950">Karenz Wizard</span>
+      <span class="flex flex-col whitespace-nowrap leading-tight">
+        <span class="text-lg font-bold tracking-tight text-slate-950">Karenz Wizard</span>
+        <span class="text-xs font-medium tracking-tight text-slate-500">Für mehr Väterkarenz!</span>
+      </span>
     </a>
 
     <!-- DESKTOP NAV (center) -->

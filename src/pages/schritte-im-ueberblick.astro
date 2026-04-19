@@ -1,0 +1,168 @@
+---
+// /schritte-im-ueberblick/ — "Die Schritte im Überblick"
+// Linear vertical stack of numbered step cards (Option C from the
+// CTA streamlining discussion). Top-level steps 1–4, with 3.1 / 3.2
+// indented under step 3 to preserve the parent/variant relationship.
+//
+// SEO title comes from seo.ts via pathname lookup.
+import Layout from '~/layouts/Layout.astro';
+
+type StepCta = {
+  label: string;
+  href: string;
+};
+
+type Step = {
+  number: string; // "1", "2", "3", "3.1", "3.2", "4"
+  kicker?: string; // e.g. "Schritt 1" — displayed above title
+  title: string;
+  description: string[];
+  cta: StepCta;
+  variant?: 'primary' | 'sub'; // 'sub' = indented sub-step (3.1/3.2)
+};
+
+const steps: Step[] = [
+  {
+    number: '1',
+    kicker: 'Schritt 1',
+    title: 'Der (Papa-)Monat nach Geburt steht dir immer zu',
+    description: [
+      'Du hast in Österreich großartigerweise das Recht auf Freistellung ab der Entlassung aus dem Krankenhaus. So kannst du den ersten Monat daheim verbringen und im Wochenbett voll unterstützen.',
+      'Anspruch auf die staatliche Förderung (Familienzeitbonus) hast du dadurch allerdings nicht automatisch — das ist an die 182-Tage-Regel geknüpft. Der Papamonat selbst bleibt eine unbezahlte Freistellung.',
+    ],
+    cta: { label: 'Familienzeitbonus-Anspruch prüfen', href: '/fzb-anspruch/' },
+  },
+  {
+    number: '2',
+    kicker: 'Schritt 2',
+    title: 'Die Basis: Welchen Anspruch auf Förderung habt ihr?',
+    description: [
+      'Bevor ihr in die Detailplanung geht, müsst ihr das finanzielle Fundament klären. Hat mindestens einer von euch Anspruch auf das einkommensabhängige Kinderbetreuungsgeld (eaKBG)?',
+      'Der Check: Erfüllt ihr die 182-Tage-Regel (durchgehende Beschäftigung vor der Geburt)? Hat nur einer Anspruch, bekommt der andere in seiner Karenzzeit Sonderleistung 1. Falls gar kein Anspruch auf das eaKBG besteht, gibt es das pauschale Modell.',
+    ],
+    cta: { label: 'Anspruch jetzt prüfen', href: '/eakbg-anspruch/' },
+  },
+  {
+    number: '3',
+    kicker: 'Schritt 3',
+    title: 'Die Zeit: Wie lange wollt ihr zu Hause bleiben?',
+    description: [
+      'Geld und Recht sind zwei verschiedene Paar Schuhe. In Österreich habt ihr gegenüber dem Arbeitgeber meist Anspruch auf zwei Jahre Karenz, auch wenn das gute Geld (eaKBG, 80% vom Einkommen) nur maximal 14 Monate lang fließt.',
+      'Nutzt unser Planungstool, um die Monate zwischen euch aufzuteilen.',
+    ],
+    cta: { label: 'Eure Karenz interaktiv planen', href: '/eakbg-planer/' },
+  },
+  {
+    number: '3.1',
+    kicker: 'Option zu Schritt 3',
+    title: 'Das 20h/20h-Modell: Gemeinsam anpacken mit Eltern-Teilzeit',
+    description: [
+      'Echte Partnerschaft und Equal Care kann man auch so gestalten, dass beide Elternteile früh wieder in den Job einsteigen — aber mit reduzierter Stundenanzahl. Wie sieht eure Woche aus, wenn beide Teilzeit arbeiten und sich die Betreuung fair teilen? Erfahrt hier, ob ihr in Elternteilzeit gehen könnt.',
+    ],
+    cta: { label: 'Mehr über Elternteilzeit erfahren', href: '/elternteilzeit-20-20/' },
+    variant: 'sub',
+  },
+  {
+    number: '3.2',
+    kicker: 'Option zu Schritt 3',
+    title: 'Unbezahlte Karenz: Länger daheim bleiben',
+    description: [
+      'Wie überbrückt man die Zeit nach dem 14. Monat finanziell? Eine unbezahlte Karenz ist möglich (bis zum 2. Lebensjahr des Kindes), muss aber aus Ersparnissen oder über das Einkommen des/der Partner/in getragen werden — und die Krankenversicherung sollte vorab geklärt werden.',
+    ],
+    cta: { label: 'Alles zur unbezahlten Karenz', href: '/unbezahlte-karenz/' },
+    variant: 'sub',
+  },
+  {
+    number: '4',
+    kicker: 'Schritt 4',
+    title: 'Die (eigentlich) große Entscheidung: Ab wann Fremdbetreuung?',
+    description: [
+      'Wann ist der richtige Zeitpunkt für den Kindergarten oder eine Tagesmutter? Das ist eine sehr emotionale Frage und zudem in jedem Bundesland völlig unterschiedlich geregelt.',
+      'Wir haben Infos gesammelt, welche Möglichkeiten es gibt und was ihr bei der Anmeldung beachten solltet.',
+    ],
+    cta: { label: 'Infos zur Fremdbetreuung finden', href: '/infothek/' },
+  },
+];
+---
+
+<Layout>
+  <section class="content">
+    <header class="mx-auto mt-10 max-w-3xl space-y-3 text-center">
+      <h1 class="font-heading text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl">
+        Die Schritte im Überblick
+      </h1>
+      <p class="text-base leading-relaxed text-slate-600">
+        Diese Seite ist <strong>„Hilfe zur Selbsthilfe"</strong>. Spielt hier unverbindlich
+        verschiedene Szenarien durch und bekommt ein Gefühl für eure Möglichkeiten, bevor ihr die
+        offiziellen Schritte angeht.
+      </p>
+    </header>
+
+    <ol class="mx-auto mt-10 max-w-3xl list-none space-y-6 p-0" aria-label="Planungsschritte">
+      {
+        steps.map((step) => (
+          <li class={step.variant === 'sub' ? 'ml-6 sm:ml-12' : ''}>
+            <article
+              class={
+                'flex flex-col gap-4 overflow-hidden rounded-3xl border bg-white px-6 py-6 shadow-sm transition-shadow duration-200 focus-within:shadow-lg hover:shadow-lg sm:px-8 sm:py-7 ' +
+                (step.variant === 'sub'
+                  ? 'border-slate-200/80'
+                  : 'border-slate-200/60')
+              }
+            >
+              <div class="flex items-baseline gap-4">
+                <span
+                  class={
+                    'shrink-0 font-heading font-bold leading-none tabular-nums ' +
+                    (step.variant === 'sub'
+                      ? 'text-xl text-slate-400'
+                      : 'text-3xl text-[#C94D54] sm:text-4xl')
+                  }
+                  aria-hidden="true"
+                >
+                  {step.number}
+                </span>
+                <div class="flex-1">
+                  {step.kicker && (
+                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      {step.kicker}
+                    </p>
+                  )}
+                  <h2
+                    class={
+                      'mt-1 font-heading font-bold leading-tight text-slate-900 ' +
+                      (step.variant === 'sub' ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl')
+                    }
+                  >
+                    {step.title}
+                  </h2>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                {step.description.map((paragraph) => (
+                  <p class="text-sm leading-relaxed text-slate-600 sm:text-base">{paragraph}</p>
+                ))}
+              </div>
+
+              <div>
+                <a
+                  href={step.cta.href}
+                  class={
+                    'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition sm:text-base ' +
+                    (step.variant === 'sub'
+                      ? 'border border-[#C94D54] text-[#C94D54] hover:bg-[#C94D54]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54]'
+                      : 'bg-[#C94D54] text-white hover:bg-[#b64048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54]')
+                  }
+                >
+                  {step.cta.label}
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </article>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Layout>

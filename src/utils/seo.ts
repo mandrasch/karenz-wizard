@@ -48,7 +48,7 @@ const seoEntries: SeoEntry[] = [
 		}
 	},
 	{
-		match: '/intro/',
+		match: '/schritte-im-ueberblick/',
 		meta: {
 			title: 'Die Schritte im Überblick – Karenz Wizard',
 			description:
