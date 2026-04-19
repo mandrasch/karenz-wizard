@@ -563,30 +563,43 @@ Mobile-only items stay the same (FAQ, Über, Reaktionen & Feedback, Impressum & 
 
 ## Phase 12 — Visual re-design toward AstroWind demo (added 2026-04-19, user request)
 
-**Status:** ☐ not started
+**Status:** ✅ done (commits `ac47876`, `f63a3da`, `9f33f4d`, 2026-04-19) — user moved this phase up and started with it; all three subsections shipped. Build green (24 pages), `astro check` clean.
 
 Explore a visual refresh using AstroWind's default typography + blog layout + footer styling. AstroWind demo: https://astrowind.vercel.app.
 
 ### 1. Typography (drop IBM Plex Sans Condensed)
 
-- [ ] Remove `@fontsource/ibm-plex-sans-condensed` import from `Layout.astro`.
-- [ ] Drop the dep from `package.json` once no component references it (double-check `src/lib/components/EaKbgPlaner.svelte` and other preserved Svelte components — remove any `font-ibm-plex-sans-condensed` or similar class references).
-- [ ] Add AstroWind's default font setup. AstroWind ships `@fontsource-variable/inter` (we dropped it in Phase 5 cleanup) — re-add it, or read `src/config.yaml` (AstroWind may configure fonts via `ui.fonts.*`). Verify via the `CustomStyles.astro` equivalent (we deleted that — may need to restore a minimal variant or inline the `@font-face` / CSS variable setup in `Layout.astro`).
-- [ ] Verify system font stack fallback in `tailwind.config.js` matches AstroWind's `theme.extend.fontFamily` (Inter variable + sans fallback).
+- [x] Removed `@fontsource/ibm-plex-sans-condensed` import from `Layout.astro`; uninstalled the dep.
+- [x] Installed `@fontsource-variable/inter` (re-added — was dropped in Phase 5 cleanup); imported globally in `Layout.astro`.
+- [x] Inline `<style is:inline>` in `Layout.astro` restores AstroWind's CSS vars (`--aw-font-sans/serif/heading` = `'Inter Variable'`, plus the color tokens `--aw-color-primary/secondary/accent` and `--aw-color-text-default/muted/bg-page`). Ported from `git show d56c54d:src/components/CustomStyles.astro`.
+- [x] `tailwind.config.js` already had `fontFamily.sans/serif/heading` reading from those vars + `theme.extend.colors` mapping `primary`/`muted`/etc. to the CSS vars — no config change needed.
+- [x] `src/lib/components/EaKbgPlaner.svelte`: `--planner-font` now reads from `var(--aw-font-sans, 'Inter Variable')`; dropped the separate `--planner-font-condensed`.
+- [x] `HeaderKW.astro`: added `whitespace-nowrap` on nav labels + title + CTA — Inter is wider than the condensed font and was forcing two-line wrap. Tactical; Phase 11 regroup removes the need.
 
 ### 2. Blog post layout
 
 Reference: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
 
-- [ ] Compare AstroWind's `SinglePost.astro` markup (deleted in Phase 5; recover via `git show d56c54d:src/components/blog/SinglePost.astro`) to our `src/pages/blog/[...slug].astro`. Adopt: heading sizes, line-height, paragraph spacing, image styling, date/metadata placement.
-- [ ] Consider porting AstroWind's `prose prose-slate prose-lg` modifier stack — currently we use `prose prose-slate` without a size modifier.
-- [ ] Hero image support: AstroWind blog posts have a top-of-post hero image from frontmatter. Decide whether our `blog` schema should add an optional `image` field for this (out of scope if keeping posts text-only).
+- [x] `src/pages/blog/[...slug].astro` re-styled after `git show d56c54d:src/components/blog/SinglePost.astro`:
+  - Wrapper `<section class="mx-auto py-8 sm:py-16 lg:py-20">`.
+  - Meta row: back link "Zurück zur Übersicht" left, date with inline clock SVG right.
+  - H1: `font-heading text-4xl md:text-5xl font-bold leading-tight tracking-tight`.
+  - Description: `text-xl md:text-2xl text-muted`.
+  - Horizontal rule divider between header and body.
+  - Prose stack: `prose prose-slate prose-lg prose-headings:font-heading prose-headings:font-bold prose-headings:leading-tight prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-md prose-img:shadow-lg prose-headings:scroll-mt-[80px] prose-li:my-0`.
+- [x] Dropped AstroWind features not in our schema: tags, social share, hero image, reading time, author, category. Dark-mode variants skipped (we're light-only).
+- Hero image on posts stays out of scope — schema has no image field yet; add later if/when a post actually needs one.
 
 ### 3. Footer styling
 
-- [ ] Compare AstroWind's `Footer.astro` (deleted; recover via `git show d56c54d:src/components/widgets/Footer.astro`) to our `FooterKW.astro`. Adopt: font sizes, column spacing, link hover styles, copyright line.
-- [ ] Keep our existing content (Social Media, Menü, Diversity, Kontakt & Feedback sections) — only the styling moves.
-- [ ] Check responsive behavior: AstroWind uses a 4-column grid → single column on mobile; we already do similar.
+- [x] `src/components/widgets/FooterKW.astro` re-styled after `git show d56c54d:src/components/widgets/Footer.astro`. Content preserved (Social Media / Über das Projekt / Open Source, Menü, Diversity + Barrierefreiheit + Solidarität, Kontakt & Feedback + Disclaimer, plus the pre-grid ⚠️ disclaimer card).
+- [x] Container `max-w-7xl mx-auto` + 12-col grid; brand column `col-span-4/lg`, content columns `col-span-3` or `col-span-2/3`. Single column on narrow screens.
+- [x] Adopted `not-prose` wrapper + `border-t border-gray-200` top border; vertical `py-8 md:py-12`.
+- [x] Column titles: `font-medium mb-2` (was `text-sm font-semibold text-slate-900`).
+- [x] Body text: `text-sm text-muted` for paragraphs, `text-xs text-muted` for the smaller disclaimers; `text-sm` for link lists.
+- [x] Link hover chain: `text-muted transition duration-150 ease-in-out hover:text-gray-700 hover:underline`; primary links switched from `text-indigo-700` to `text-primary` (picks up `--aw-color-primary`).
+- [x] Added "Karenz Wizard" brand link at the top of the left column (AstroWind convention).
+- [x] Merged "Impressum" + "Datenschutz" footer menu items into one entry (same target).
 
 **Risks to flag before starting:**
 
