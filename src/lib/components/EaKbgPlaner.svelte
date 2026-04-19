@@ -64,7 +64,11 @@
 	let thirdMonths = $state(0);
 	let jointMonth = $state(false);
 	let extendedMutterschutz = $state(false);
-	let previousJointMonth = $state(jointMonth);
+	// Don't pass a reactive reference (`$state(jointMonth)`) — Svelte 5 warns
+	// `state_referenced_locally` and the implicit read-tracking can become an
+	// orphaned effect during Astro's client:load hydration path
+	// (https://svelte.dev/e/effect_orphan). Initialize with a plain value.
+	let previousJointMonth = $state(false);
 	let motherJointCompensation = $state(0);
 
 	const motherMin = $derived(jointMonth ? Math.max(0, MIN_MOTHER_MONTHS - 1) : MIN_MOTHER_MONTHS);
