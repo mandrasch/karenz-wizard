@@ -9,8 +9,8 @@
 
   # JS / CSS (hashed)
   # Cache: 24h
-  # Reason: good performance, low failure risk (SvelteKit is
-  # using hashed file names which differ on every build / deploy)
+  # Reason: good performance, low failure risk (Astro emits
+  # hashed file names under /_astro/ on every build / deploy)
   <FilesMatch "\.(js|css)$">
     Header set Cache-Control "public, max-age=86400"
   </FilesMatch>

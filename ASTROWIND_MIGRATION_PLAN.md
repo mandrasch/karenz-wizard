@@ -357,7 +357,7 @@ Per-route checklist — tick each route as its `.astro` port is committed:
 
 ## Phase 7 — Assets, styles, Tailwind reconciliation
 
-**Status:** ☐ not started
+**Status:** 🟡 in progress (2026-04-19)
 
 **Known-broken at entry:** `http://localhost:*/hero_karenz_wizard.jpg` 404s (home hero image). Ported pages also reference `/ak_*.jpg`, `/ak_wien_ottakring_*.jpg`, `/ak_video_thumbnail_*.jpg`, `/infothek/*.jpg`, `/meme_*.jpg` from the old `static/` dir. All fixed once `static/*` → `public/` move below completes.
 

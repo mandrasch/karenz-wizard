@@ -2,7 +2,7 @@ site:
   name: AstroWind
   site: 'https://astrowind.vercel.app'
   base: '/'
-  trailingSlash: false
+  trailingSlash: true  # vendor/integration/index.ts maps true -> 'always'. Must agree with top-level astro.config.ts `trailingSlash: 'always'` — otherwise the vendor's updateConfig() silently overrides to 'never' and dev shows the "set to never" overlay.
 
   googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
 
