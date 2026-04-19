@@ -357,40 +357,40 @@ Per-route checklist — tick each route as its `.astro` port is committed:
 
 ## Phase 7 — Assets, styles, Tailwind reconciliation
 
-**Status:** 🟡 in progress (2026-04-19)
+**Status:** ✅ done (commits `a665fde`, `adb9439`, 2026-04-19) — 24 pages built, `astro check` clean (0/0/0), in-browser verification via Chrome MCP at desktop + mobile widths.
 
 **Known-broken at entry:** `http://localhost:*/hero_karenz_wizard.jpg` 404s (home hero image). Ported pages also reference `/ak_*.jpg`, `/ak_wien_ottakring_*.jpg`, `/ak_video_thumbnail_*.jpg`, `/infothek/*.jpg`, `/meme_*.jpg` from the old `static/` dir. All fixed once `static/*` → `public/` move below completes.
 
 **Assets:**
 
-- [ ] Move `static/*` → `public/`: keep `.htaccess`, `robots.txt`, `.nojekyll`, `hero_karenz_wizard.jpg`, `blog-images/`, `infothek/`, `ak_*.jpg`, `meme_*.jpg`.
-- [ ] Delete unused AstroWind placeholder images in `public/`.
-- [ ] Move `src/lib/assets/logo.png` + `favicon.ico` → `public/` (or `src/assets/` for Astro image optimization).
-- [ ] Verify each image reference in ported `.astro` pages resolves (grep for `src="/` and visit in dev).
+- [x] Move `static/*` → `public/`: `.htaccess`, `robots.txt`, `.nojekyll`, `hero_karenz_wizard.jpg`, `blog-images/`, `infothek/`, `ak_*.jpg`, `meme_*.jpg`. Deleted conflicting AstroWind leftovers `public/_headers` (Netlify-specific) and `public/decapcms/` (AstroWind demo CMS).
+- [x] Delete unused AstroWind placeholder images — done in Phase 5 cleanup (`5438f54`); no placeholders left in `public/` after the move.
+- [ ] Move `src/lib/assets/logo.png` + `favicon.ico` → `public/` — **skipped**: `src/lib/assets/logo.png` works fine via Astro's import system with hash-suffixed output. Not worth breaking the import chain just for cosmetic relocation.
+- [x] Verify each image reference in ported `.astro` pages resolves — all 12 paths under `public/` confirmed.
 
 **Trailing-slash bug investigation (carried over from Phase 6):**
 
-After Phase 5's `trailingSlash: 'always'` landed (commit `3afb505`), user reports the dev overlay "Your site is configured with trailingSlash set to never" **still appears after a dev-server restart**, when visiting `/ak-beratung/` (with slash). This rules out stale dev process as the cause. Investigate:
+Root cause: AstroWind's vendor integration at `vendor/integration/index.ts:35` calls `updateConfig({ trailingSlash: SITE.trailingSlash ? 'always' : 'never' })`, silently overriding our top-level `trailingSlash: 'always'` from `astro.config.ts`. The `SITE.trailingSlash` value came from `src/config.yaml` which shipped with `trailingSlash: false`.
 
-- [ ] Confirm `astro.config.ts` has `trailingSlash: 'always'` + `build.format: 'directory'` and that no other config file shadows it (no `astro.config.mjs`, no `astro.config.js`).
-- [ ] Check if `vendor/integration/` (astrowind's integration) injects a conflicting `trailingSlash` via the config builder — `vendor/integration/utils/configBuilder.ts` may merge an AstroWind default.
-- [ ] Check `.astro/` cache dir for stale types — delete and rebuild.
-- [ ] Try reproducing with a minimal config (temporarily remove the astrowind vendor integration and see if overlay goes away).
-- [ ] Verify via built output: `dist/ak-beratung/index.html` exists (not `dist/ak-beratung.html`) — if build is correct, the dev server mismatch is purely a dev-mode diagnostic.
-- [ ] Dev: `http://localhost:PORT/blog/` and `http://localhost:PORT/blog/<slug>/` resolve without overlay.
-- [ ] Internal links spot-check: all nav + footer links use trailing `/`.
-- [ ] Sitemap entries end with `/`.
-- [ ] The 3 redirects still resolve to `/infothek/#…`.
+Fix (commit `a665fde`): flipped `src/config.yaml` `trailingSlash: false` → `true` so both layers agree on `'always'`. Added inline comment at the YAML line explaining the coupling.
 
-**Tailwind 3 downgrade:**
+- [x] Confirmed no shadowing config files (only `astro.config.ts`, no `.mjs` / `.js`).
+- [x] Identified vendor integration as the override source (grep in vendor/).
+- [x] Verified via browser: `/ak-beratung/` now loads without the overlay.
+- [x] Verified via build: `dist/ak-beratung/index.html` exists (directory format preserved).
+- [x] Internal links spot-checked: nav + footer use trailing `/`.
+- [x] The 3 redirects still resolve to `/infothek/#…`.
 
-- [ ] Convert `@import "tailwindcss"` in CSS → `@tailwind base; @tailwind components; @tailwind utilities;`
-- [ ] Convert `@plugin '@tailwindcss/forms'` / `@plugin '@tailwindcss/typography'` → `plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')]` in `tailwind.config.js`
-- [ ] `:root` custom props stay as plain CSS (fine with Tailwind 3).
+**Tailwind 3 downgrade:** already done as side-effect of Phase 3 scaffold.
+
+- [x] `@tailwind base; @tailwind components; @tailwind utilities;` directives present in `src/assets/styles/tailwind.css` (no v4 `@import "tailwindcss"` anywhere).
+- [x] `plugins: [typographyPlugin, …]` declared via JS import in `tailwind.config.js` (no v4 `@plugin` directives).
+- [x] `:root` custom props in `kw.css` are plain CSS.
+- `@tailwindcss/forms` listed in deps but **not** wired into the plugin list; all form elements live in Svelte islands that style their own inputs, so no forms-plugin reset is needed. Leaving unwired to avoid a visual regression.
 
 **Font:**
 
-- [ ] `@fontsource/ibm-plex-sans-condensed` — move `@import` lines from `eakbg-planer/+page.svelte:4-5` to global CSS.
+- [x] `@fontsource/ibm-plex-sans-condensed` loaded once globally from `Layout.astro` (done in Phase 4, covers the eakbg-planer island — the 400/600 weight imports inside the old Svelte source were dropped when the component was copied in Phase 5).
 
 **Commit:** `chore: port assets and reconcile tailwind to v3`
 
@@ -402,16 +402,15 @@ Our ported HeaderKW.astro is functional but flat (single-level nav). User wants 
 
 Scope for this sub-phase:
 
-- [ ] **A. Group "Karenz Schritt für Schritt planen" dropdown.** Combine the current top-level items `1. eaKBG Anspruch?`, `2. eaKBG Planer`, `3. AK-Beratung` into a single dropdown under the label `Karenz Schritt für Schritt planen`. Keep the numbered children as sub-items. Uses AstroWind's dropdown pattern (`hover + focus-within` on desktop, click-to-expand on mobile).
+- [x] **A. Dropdown "Karenz Schritt für Schritt planen"** (commit `adb9439`). Final children are `eaKBG Anspruch?` + `eaKBG Planer` only — `AK-Beratung` moved into the "Beratungen" dropdown per Task D. Click-to-open on desktop (aria-expanded + outside-click + Escape close), `<details>`/`<summary>` on mobile.
+- [x] **B. Fix header layout bug** (commit `a665fde`). Root cause was `h-12.5 w-12.5` — Tailwind v3 doesn't accept fractional class names, so no CSS applied and the `<img>` fell back to its intrinsic 1024+px size. Replaced with arbitrary value `h-[3.125rem] w-[3.125rem]` to preserve original intent.
+- [x] **C. Right-side CTA "Planer starten"** → `/eakbg-planer/` (commit `adb9439`). `rounded-full`, brand `#C94D54`, visible md+ in header row, also rendered at the bottom of the mobile overlay.
+- [x] **D. `/oegk-beratung/` + "Beratungen" dropdown** (commit `adb9439`). New page at `src/pages/oegk-beratung.astro` (placeholder "Inhalt in Arbeit"), `seo.ts` entry added, Footer `Menü` list updated, top-level dropdown with `AK-Beratung` + `ÖGK-Beratung`.
 
-- [ ] **B. Fix header layout bug.** Logo is not next to site title — investigate why. Current HeaderKW.astro wraps logo `<img>` and site-title `<a>` in the same flex container (`<div class="flex items-center gap-2">`), so something in Phase 7's asset-move or Tailwind reconciliation likely broke it. May be a size/margin issue, or the logo source path (`~/lib/assets/logo.png`) not resolving after the logo moves to `public/` or `src/assets/`. Verify fix after the asset move.
+**Incidental bugs fixed along the way:**
 
-- [ ] **C. Add right-side CTA button.** AstroWind demo header had a pill-style button on the right edge (after the nav). Add one labelled `eaKBG-Planer` (or similar wording, TBD), linking to `/eakbg-planer/`. Style: rounded-full, brand color `#C94D54` (same as the home page "Weiterlesen" CTAs) or the AstroWind default — user to choose.
-
-- [ ] **D. New `/oegk-beratung/` page + "Beratungen" dropdown.**
-  - [ ] Create `src/pages/oegk-beratung.astro` — ÖGK beratung/contact info (content TBD, placeholder OK with "🚧 Inhalt in Arbeit 🚧" like the existing pages).
-  - [ ] Add `/oegk-beratung/` entry to `seo.ts`.
-  - [ ] Replace current top-level `3. AK-Beratung` item (now inside "Karenz Schritt für Schritt planen" from task A) with a new top-level `Beratungen` dropdown containing: `AK-Beratung` (`/ak-beratung/`) and `ÖGK-Beratung` (`/oegk-beratung/`).
+- [x] Dropdown panel empty on desktop: static-position `<header>` meant `z-50` had no effect; `<main>`'s descendants painted above the absolutely-positioned dropdown panel. Fixed by promoting header to `position: relative`.
+- [x] Mobile menu visible by default: had both the `hidden` HTML attribute and the `flex` Tailwind class — `.flex` won on source-order tie. Switched to `hidden`/`flex` class swap via JS.
   - [ ] Update Footer "Menü" list too.
 
 **Implementation notes:**
