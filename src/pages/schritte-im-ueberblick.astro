@@ -6,10 +6,18 @@
 //
 // SEO title comes from seo.ts via pathname lookup.
 import Layout from '~/layouts/Layout.astro';
+import PrivacyEmbed from '~/components/blog/PrivacyEmbed.astro';
 
 type StepCta = {
   label: string;
   href: string;
+};
+
+type StepEmbed = {
+  provider: 'youtube' | 'twitter' | 'mastodon' | 'vimeo' | 'other';
+  embedUrl: string;
+  title: string;
+  directUrl: string;
 };
 
 type Step = {
@@ -19,6 +27,7 @@ type Step = {
   description: string[];
   cta: StepCta;
   variant?: 'primary' | 'sub'; // 'sub' = indented sub-step (3.1/3.2)
+  embed?: StepEmbed;
 };
 
 const steps: Step[] = [
@@ -31,6 +40,14 @@ const steps: Step[] = [
       'Anspruch auf die staatliche Förderung (Familienzeitbonus) hast du dadurch allerdings nicht automatisch — das ist an die 182-Tage-Regel geknüpft. Der Papamonat selbst bleibt eine unbezahlte Freistellung.',
     ],
     cta: { label: 'Familienzeitbonus-Anspruch prüfen', href: '/fzb-anspruch/' },
+    embed: {
+      provider: 'youtube',
+      // youtube-nocookie is slightly more privacy-preserving than youtube.com
+      // (doesn't set tracking cookies until the video is played).
+      embedUrl: 'https://www.youtube-nocookie.com/embed/IMUBAZGAER8',
+      title: 'Papamonat in Österreich | Meldung, Antrag & Geld (AK/YouTube)',
+      directUrl: 'https://www.youtube.com/watch?v=IMUBAZGAER8',
+    },
   },
   {
     number: '2',
@@ -144,6 +161,15 @@ const steps: Step[] = [
                   <p class="text-sm leading-relaxed text-slate-600 sm:text-base">{paragraph}</p>
                 ))}
               </div>
+
+              {step.embed && (
+                <PrivacyEmbed
+                  provider={step.embed.provider}
+                  embedUrl={step.embed.embedUrl}
+                  title={step.embed.title}
+                  directUrl={step.embed.directUrl}
+                />
+              )}
 
               <div>
                 <a
