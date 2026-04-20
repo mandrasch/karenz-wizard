@@ -33,8 +33,8 @@ type Step = {
 const steps: Step[] = [
   {
     number: '1',
-    kicker: 'Schritt 1',
-    title: 'Der (Papa-)Monat nach Geburt steht dir immer zu',
+    kicker: 'Schritt 1: Der erste Monat gehört euch',
+    title: 'Der erste (Papa-)Monat nach Geburt steht dir immer zu',
     description: [
       'Die gute Nachricht: Du hast in Österreich - großartigerweise! -  das Recht auf (unbezahlte) Freistellung im ersten Monat nach der Geburt. So kannst du den ersten Monat daheim verbringen und im Wochenbett voll unterstützen.',
       'Tipp: Die Papamonat-Freistellung gilt erst ab Entlassung von Mutter und Kind aus dem Krankenhaus, heb dir also ein paar Urlaubstage für die Krankenhauszeit noch auf.',
@@ -54,9 +54,16 @@ const steps: Step[] = [
     title: 'Welchen Kinderbetreuungsgeld-Anspruch habt ihr?',
     description: [
       'Bevor ihr in die Detailplanung geht, müsst ihr das finanzielle Fundament klären. Hat mindestens einer von euch Anspruch auf das einkommensabhängige Kinderbetreuungsgeld (eaKBG)?',
-      'Der Check: Erfüllt mindestens einer oder ihr beide die 182-Tage-Regel (durchgehende Beschäftigung vor der Geburt)? Hat nur einer Anspruch, bekommt der andere in seiner Karenzzeit Sonderleistung 1. Falls gar kein Anspruch auf das eaKBG besteht, gibt es das pauschale Modell.',
+      'Faustregel: Wenn ihr eaKBG-Anspruch habt, dann bekommt ihr in den meisten Fällen mehr Geld beim einkommensabhängigen Kinderbetreuungsgeld raus - im Gegensatz zum pauschalen Kinderbetreuungsgeld, welches allen offen steht. Das kommt aber auf eure individuelle Situation an, lasst euch hier abschließend unbedingt kostenfrei beraten.',
+      'Der Check: Erfüllt mindestens einer oder ihr beide die 182-Tage-Regel = durchgehende Beschäftigung? Hat nur einer Anspruch, bekommt der andere in seiner Karenzzeit den Basisatz Sonderleistung 1. Falls gar kein Anspruch besteht, gibt es das pauschale Kinderbetreungsgeld.',
     ],
     cta: { label: 'eaKBG-Anspruch jetzt prüfen', href: '/eakbg-anspruch/' },
+    embed: {
+      provider: 'youtube',
+      embedUrl: 'https://www.youtube-nocookie.com/embed/JdoIhtTYxh8',
+      title: 'Kinderbetreuungsgeld in Österreich | Zwei Modelle erklärt',
+      directUrl: 'https://www.youtube.com/watch?v=JdoIhtTYxh8',
+    },
   },
   {
     number: '3',
@@ -67,6 +74,12 @@ const steps: Step[] = [
       'Nutzt unser Planungstool, um die Monate zwischen euch aufzuteilen - falls einer von euch Anspruch auf eaKBG hat:',
     ],
     cta: { label: 'Eure eaKBG-Karenz interaktiv planen', href: '/eakbg-planer/' },
+       embed: {
+      provider: 'youtube',
+      embedUrl: 'https://www.youtube-nocookie.com/embed/_68qceI3lLU',
+      title: 'Teilung Karenz und Kinderbetreuungsgeld in Österreich',
+      directUrl: 'https://www.youtube.com/watch?v=_68qceI3lLU',
+    },
   },
   {
     number: '3.1',
@@ -108,6 +121,18 @@ const steps: Step[] = [
       'Ich habe ein paar Links gesammelt, die Entscheidung trefft ihr jedoch ganz allein - und jedes Kind ist individuell und anders entwickelt:',
     ],
     cta: { label: 'Links zur Frage der Fremdbetreuung', href: '/faq/#empfohlene-fremdbetreuung/' },
+  },
+  // TODO: add second cta rendering (ÖGK beratung)
+  {
+    number: '5',
+    kicker: 'Schritt 5: Eure Planung absichern',
+    title: 'Eure Planung kostenfrei überprüfen lassen',
+    description: [
+      'Ihr habt die grobe Planung gemacht? Oder wollt euch zu Beginn informieren?',
+      'Die Arbeiterkammer wie auch ÖGK bieten kostenfreie Beratungen an. Nutzt diese unbedingt bevor ihr einen Antrag abschickt, sodass euch kein Geld verloren geht.',
+      'Die Arbeiterkammern der jeweiligen Bundesländer bieten ebenso oft regelmäßig Informationsveranstaltungen an. Falls ihr nichts auf Anhieb findet, fragt am besten einfach kurz bei eurer Arbeiterkammer nach.'
+    ],
+    cta: { label: 'Arbeiterkammer-Beratung', href: '/ak-beratung/' },
   },
 ];
 ---
