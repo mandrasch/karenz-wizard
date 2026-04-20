@@ -1,0 +1,507 @@
+---
+// HeaderKW.astro — Karenz Wizard header + mobile menu.
+// Ported from src/lib/components/Header.svelte (Svelte 5 runes) to Astro.
+// Phase 7 nav refactor:
+//   - Nested navItems: top-level links OR dropdown groups with children.
+//   - Desktop: click-to-open dropdowns (aria-expanded + hidden toggled via
+//     module script). Outside-click and Escape both close.
+//   - Mobile fullscreen menu: same structure rendered with <details>/<summary>
+//     so dropdowns expand natively, no extra JS.
+//   - Right-side CTA pill linking to /eakbg-planer/.
+// Interactivity is a small vanilla module script at the bottom of the file
+// (hamburger toggle, preview-banner dismiss, Escape-to-close, scroll lock,
+// dropdown open/close + outside-click).
+import logo from '~/lib/assets/logo.png';
+
+// Dev-only features. import.meta.env.DEV is true during `astro dev`,
+// false during `astro build`. Feature stays accessible by URL (page is
+// always built) but the nav entry + CTA stay hidden in production until
+// the feature is promoted.
+const showOnlineBerater = import.meta.env.DEV;
+
+type NavLink = {
+  label: string;
+  href: string;
+  matchPath?: string;
+};
+
+type NavGroup = {
+  label: string;
+  id: string; // used for aria-controls / submenu id
+  children: NavLink[];
+};
+
+type NavItem = NavLink | NavGroup;
+
+const isGroup = (item: NavItem): item is NavGroup => 'children' in item;
+
+const navItems: NavItem[] = [
+  {
+    label: 'Ersten Jahre nach Geburt planen',
+    id: 'planner',
+    children: [
+      { label: 'Die Schritte im Überblick', href: '/schritte-im-ueberblick/', matchPath: '/schritte-im-ueberblick' },
+      {
+        label: '1. Papamonat & Geld-Anspruch',
+        href: '/fzb-anspruch/',
+        matchPath: '/fzb-anspruch',
+      },
+      { label: '2. eaKBG Anspruch prüfen', href: '/eakbg-anspruch/', matchPath: '/eakbg-anspruch' },
+      { label: '3. eaKBG Planer', href: '/eakbg-planer/', matchPath: '/eakbg-planer' },
+      {
+        label: '3.1 Unbezahlte Karenz',
+        href: '/unbezahlte-karenz/',
+        matchPath: '/unbezahlte-karenz',
+      },
+      {
+        label: '3.2 Eltern-Teilzeit mit 20h/20h',
+        href: '/elternteilzeit-20-20/',
+        matchPath: '/elternteilzeit-20-20',
+      },
+
+    ],
+  },
+  {
+    label: 'Beratungen',
+    id: 'beratungen',
+    children: [
+      { label: 'AK-Beratung', href: '/ak-beratung/', matchPath: '/ak-beratung' },
+      { label: 'ÖGK-Beratung', href: '/oegk-beratung/', matchPath: '/oegk-beratung' },
+    ],
+  },
+  {
+    label: 'Weitere Infos',
+    id: 'weitere',
+    children: [
+      { label: 'Infothek', href: '/infothek/', matchPath: '/infothek' },
+      { label: 'Pauschales KBG', href: '/pauschales-kbg/', matchPath: '/pauschales-kbg' },
+    ],
+  },
+  { label: 'Blog', href: '/blog/' },
+];
+
+// Items that only appear in the mobile fullscreen menu (not desktop nav).
+const mobileOnlyItems: NavLink[] = [
+  { label: 'FAQ', href: '/faq/' },
+  { label: 'Über', href: '/ueber/' },
+  { label: 'Reaktionen & Feedback', href: '/reaktionen-und-feedback/' },
+  { label: 'Impressum & Datenschutz', href: '/impressum-datenschutz/' },
+];
+
+const pathname = Astro.url.pathname;
+
+const linkIsActive = (item: NavLink) => {
+  if (item.href === '#') return false;
+  const target = (item.matchPath ?? item.href).replace(/\/$/, '') || '/';
+  const current = pathname.replace(/\/$/, '') || '/';
+  return current === target || (target !== '/' && current.startsWith(target));
+};
+
+const groupIsActive = (group: NavGroup) => group.children.some(linkIsActive);
+
+const linkClasses = (item: NavLink) =>
+  `whitespace-nowrap text-sm font-semibold transition-colors ${
+    linkIsActive(item)
+      ? 'text-slate-900 underline decoration-2 underline-offset-4'
+      : 'text-slate-600 hover:text-slate-900'
+  }`;
+
+const groupTriggerClasses = (group: NavGroup) =>
+  `inline-flex items-center gap-1 whitespace-nowrap text-sm font-semibold transition-colors ${
+    groupIsActive(group)
+      ? 'text-slate-900 underline decoration-2 underline-offset-4'
+      : 'text-slate-600 hover:text-slate-900'
+  }`;
+
+// Mobile nav uses bigger type — same rules otherwise.
+const mobileLinkClasses = (item: NavLink) =>
+  `block rounded-lg px-3 py-3 text-lg font-semibold transition-colors ${
+    linkIsActive(item)
+      ? 'text-slate-900 underline decoration-2 underline-offset-4'
+      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+  }`;
+---
+
+<header
+  class="relative z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80"
+  role="banner"
+>
+  <!-- Preview banner -->
+  <div
+    id="preview-banner-wrapper"
+    class="prose-body relative border-b border-amber-200 bg-red-100 text-red-800"
+  >
+    <button
+      type="button"
+      id="preview-banner-close"
+      class="absolute top-2 right-2 rounded-md p-1.5 text-red-800/60 transition hover:bg-red-200 hover:text-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+      aria-label="Hinweis ausblenden"
+      aria-controls="preview-banner-wrapper"
+    >
+      <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path
+          d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+        ></path>
+      </svg>
+    </button>
+    <div
+      class="mx-auto flex max-w-prose flex-col items-center gap-3 px-6 py-5 text-center text-xs font-medium sm:text-sm"
+      aria-live="polite"
+      id="preview-banner"
+    >
+      <p>
+        Diese Webseite ist ein Hobby-Projekt – alle Angaben ohne Gewähr! Die Inhalte wurden noch
+        nicht von Expert:innen geprüft.
+      </p>
+      <div class="space-y-3">
+        <p>
+          ⚠️ Bitte unbedingt
+          <a class="underline" href="/ak-beratung/">kostenfrei bei der Arbeiterkammer</a>
+          beraten lassen! ⚠️
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAV WRAPPER -->
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+    <a
+      href="/"
+      class="group flex items-center gap-2 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+      aria-label="Karenz Wizard – zur Startseite"
+    >
+      <img
+        alt=""
+        src={logo.src}
+        width={logo.width}
+        height={logo.height}
+        class="h-[3.125rem] w-[3.125rem]"
+      />
+      <span class="flex flex-col whitespace-nowrap leading-tight">
+        <span class="text-lg font-bold tracking-tight text-slate-950">Karenz Wizard</span>
+        <span class="text-xs font-medium tracking-tight text-slate-500">Für mehr Väterbeteiligung!</span>
+      </span>
+    </a>
+
+    <!-- DESKTOP NAV (center) -->
+    <nav aria-label="Hauptnavigation" class="hidden flex-1 justify-center md:flex">
+      <ul class="flex items-center gap-6">
+        {
+          navItems.map((item) =>
+            isGroup(item) ? (
+              <li class="relative" data-dropdown>
+                <button
+                  type="button"
+                  class={groupTriggerClasses(item)}
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-controls={`dropdown-${item.id}`}
+                  data-dropdown-trigger
+                >
+                  {item.label}
+                  <svg
+                    aria-hidden="true"
+                    class="h-4 w-4 transition-transform"
+                    data-dropdown-chevron
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.24 4.5a.75.75 0 01-1.08 0l-4.24-4.5a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <ul
+                  id={`dropdown-${item.id}`}
+                  hidden
+                  class="absolute left-0 top-full z-50 mt-2 min-w-[16rem] rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
+                >
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class={`block rounded-md px-3 py-2 text-sm font-medium ${
+                          linkIsActive(child)
+                            ? 'bg-slate-100 text-slate-900 underline decoration-2 underline-offset-4'
+                            : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                        }`}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ) : (
+              <li>
+                <a href={item.href} class={linkClasses(item)}>
+                  {item.label}
+                </a>
+              </li>
+            )
+          )
+        }
+      </ul>
+    </nav>
+
+    <!-- Right-side CTA (Task C) -->
+    <a
+      href="/eakbg-planer/"
+      class="hidden items-center justify-center whitespace-nowrap rounded-full bg-[#C94D54] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#b64048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54] md:inline-flex"
+    >
+      eaKGB-Planer
+    </a>
+
+    {
+      showOnlineBerater && (
+        <a
+          href="/online-berater/"
+          class="hidden items-center justify-center whitespace-nowrap rounded-full bg-[#2f5444] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1f3a2e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2f5444] md:inline-flex"
+          title="Dev-only (nicht öffentlich)"
+        >
+          Online-Berater
+        </a>
+      )
+    }
+
+    <!-- Mobile menu button -->
+    <button
+      type="button"
+      id="mobile-menu-toggle"
+      class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 md:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      title="Menü öffnen"
+    >
+      <span class="sr-only">Hauptnavigation öffnen</span>
+      <div class="relative block h-5 w-6" aria-hidden="true">
+        <span
+          data-bar="top"
+          class="absolute top-1/2 left-0 block h-0.5 w-6 -translate-y-1/2 -translate-y-2 rounded-full bg-slate-800 transition-transform duration-200"
+        ></span>
+        <span
+          data-bar="middle"
+          class="absolute top-1/2 left-0 block h-0.5 w-6 -translate-y-1/2 rounded-full bg-slate-800 opacity-100 transition-opacity duration-200"
+        ></span>
+        <span
+          data-bar="bottom"
+          class="absolute top-1/2 left-0 block h-0.5 w-6 -translate-y-1/2 translate-y-2 rounded-full bg-slate-800 transition-transform duration-200"
+        ></span>
+      </div>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE FULLSCREEN MENU.
+     Note: can't rely on the `hidden` HTML attribute here because the
+     `flex` Tailwind class has equal specificity and later source order,
+     so .flex wins and the menu would always show. Start with the
+     `hidden` class instead (display:none). JS swaps hidden<->flex. -->
+<div
+  id="mobile-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Hauptnavigation"
+  class="fixed inset-0 z-[60] hidden h-dvh w-dvw flex-col bg-white md:hidden"
+>
+  <div class="flex items-center justify-between border-b border-slate-200 px-4 py-4 sm:px-6">
+    <a class="text-lg font-bold tracking-tight text-slate-950" href="/" data-close-menu>
+      Karenz Wizard 🪄
+    </a>
+    <button
+      type="button"
+      id="mobile-menu-close"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-700 transition hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+      aria-label="Menü schließen"
+    >
+      <span class="relative block h-5 w-5" aria-hidden="true">
+        <span
+          class="absolute top-1/2 left-0 block h-0.5 w-5 -translate-y-1/2 rotate-45 rounded-full bg-slate-800"
+        ></span>
+        <span
+          class="absolute top-1/2 left-0 block h-0.5 w-5 -translate-y-1/2 -rotate-45 rounded-full bg-slate-800"
+        ></span>
+      </span>
+    </button>
+  </div>
+
+  <nav aria-label="Hauptnavigation" class="flex-1 overflow-y-auto px-6 py-6">
+    <ul class="grid gap-2">
+      {
+        navItems.map((item) =>
+          isGroup(item) ? (
+            <li>
+              <details open={groupIsActive(item)} class="rounded-lg">
+                <summary
+                  class={`flex cursor-pointer items-center justify-between rounded-lg px-3 py-3 text-lg font-semibold transition-colors hover:bg-slate-50 ${
+                    groupIsActive(item) ? 'text-slate-900' : 'text-slate-600'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  <svg
+                    aria-hidden="true"
+                    class="h-5 w-5 transition-transform"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.24 4.5a.75.75 0 01-1.08 0l-4.24-4.5a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </summary>
+                <ul class="ml-3 mt-1 grid gap-1 border-l border-slate-200 pl-3">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={child.href} class={mobileLinkClasses(child)} data-close-menu>
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ) : (
+            <li>
+              <a href={item.href} class={mobileLinkClasses(item)} data-close-menu>
+                {item.label}
+              </a>
+            </li>
+          )
+        )
+      }
+
+      <li class="mt-2 border-t border-slate-200 pt-2">
+        <a
+          href="/eakbg-planer/"
+          class="mx-3 inline-flex items-center justify-center rounded-full bg-[#C94D54] px-5 py-3 text-base font-semibold text-white transition hover:bg-[#b64048] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54]"
+          data-close-menu
+        >
+          Planer starten
+        </a>
+      </li>
+
+      {
+        mobileOnlyItems.map((item) => (
+          <li>
+            <a href={item.href} class={mobileLinkClasses(item)} data-close-menu>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+<script>
+  // Header interactivity — vanilla module script.
+  // 1) Preview banner dismiss
+  // 2) Mobile menu toggle (+ aria-expanded, scroll lock, Escape)
+  // 3) Desktop dropdown open/close (click-to-open, outside-click + Escape close)
+
+  const banner = document.getElementById('preview-banner-wrapper');
+  const bannerClose = document.getElementById('preview-banner-close');
+  bannerClose?.addEventListener('click', () => {
+    banner?.setAttribute('hidden', '');
+  });
+
+  // --- Mobile menu ---
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const menuClose = document.getElementById('mobile-menu-close');
+
+  const setMenuOpen = (open: boolean) => {
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('title', open ? 'Menü schließen' : 'Menü öffnen');
+    if (open) {
+      menu.classList.remove('hidden');
+      menu.classList.add('flex');
+      document.documentElement.classList.add('overflow-hidden');
+    } else {
+      menu.classList.remove('flex');
+      menu.classList.add('hidden');
+      document.documentElement.classList.remove('overflow-hidden');
+    }
+    const top = toggle.querySelector<HTMLElement>('[data-bar="top"]');
+    const mid = toggle.querySelector<HTMLElement>('[data-bar="middle"]');
+    const bot = toggle.querySelector<HTMLElement>('[data-bar="bottom"]');
+    if (top && mid && bot) {
+      top.classList.toggle('-translate-y-2', !open);
+      top.classList.toggle('rotate-45', open);
+      mid.classList.toggle('opacity-0', open);
+      mid.classList.toggle('opacity-100', !open);
+      bot.classList.toggle('translate-y-2', !open);
+      bot.classList.toggle('-rotate-45', open);
+    }
+  };
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    setMenuOpen(!isOpen);
+  });
+  menuClose?.addEventListener('click', () => setMenuOpen(false));
+  menu?.querySelectorAll<HTMLElement>('[data-close-menu]').forEach((el) => {
+    el.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  // --- Desktop dropdowns ---
+  const dropdowns = Array.from(document.querySelectorAll<HTMLElement>('[data-dropdown]'));
+
+  const closeDropdown = (wrapper: HTMLElement) => {
+    const trigger = wrapper.querySelector<HTMLElement>('[data-dropdown-trigger]');
+    const panel = wrapper.querySelector<HTMLElement>('[id^="dropdown-"]');
+    const chevron = wrapper.querySelector<HTMLElement>('[data-dropdown-chevron]');
+    trigger?.setAttribute('aria-expanded', 'false');
+    panel?.setAttribute('hidden', '');
+    chevron?.classList.remove('rotate-180');
+  };
+
+  const openDropdown = (wrapper: HTMLElement) => {
+    // Close siblings first — only one dropdown open at a time.
+    dropdowns.forEach((other) => {
+      if (other !== wrapper) closeDropdown(other);
+    });
+    const trigger = wrapper.querySelector<HTMLElement>('[data-dropdown-trigger]');
+    const panel = wrapper.querySelector<HTMLElement>('[id^="dropdown-"]');
+    const chevron = wrapper.querySelector<HTMLElement>('[data-dropdown-chevron]');
+    trigger?.setAttribute('aria-expanded', 'true');
+    panel?.removeAttribute('hidden');
+    chevron?.classList.add('rotate-180');
+  };
+
+  dropdowns.forEach((wrapper) => {
+    const trigger = wrapper.querySelector<HTMLElement>('[data-dropdown-trigger]');
+    trigger?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        closeDropdown(wrapper);
+      } else {
+        openDropdown(wrapper);
+      }
+    });
+  });
+
+  // Outside click closes all dropdowns.
+  document.addEventListener('click', (e) => {
+    const target = e.target as Node;
+    dropdowns.forEach((wrapper) => {
+      if (!wrapper.contains(target)) closeDropdown(wrapper);
+    });
+  });
+
+  // Escape closes mobile menu AND any open desktop dropdown.
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key !== 'Escape') return;
+    if (toggle?.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false);
+      return;
+    }
+    dropdowns.forEach(closeDropdown);
+  });
+</script>

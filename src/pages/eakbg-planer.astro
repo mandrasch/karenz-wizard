@@ -1,0 +1,14 @@
+---
+// Phase 5 finale: eakbg-planer as a hydrated Svelte island.
+// The entire page is rendered by EaKbgPlaner.svelte (2270 LOC of Svelte 5
+// runes) — mounted with client:load since the page is useless without
+// its interactivity.
+import Layout from '~/layouts/Layout.astro';
+import EaKbgPlaner from '~/lib/components/EaKbgPlaner.svelte';
+---
+
+<Layout>
+  <section class="content">
+    <EaKbgPlaner client:load />
+  </section>
+</Layout>

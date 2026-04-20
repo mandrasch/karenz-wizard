@@ -1,0 +1,25 @@
+---
+// Minimal 404 using our Layout. Replaces AstroWind's demo 404.
+import Layout from '~/layouts/Layout.astro';
+---
+
+<Layout metadata={{ title: 'Seite nicht gefunden – Karenz Wizard' }}>
+  <section class="content">
+    <header class="mt-10 text-center">
+      <h1 class="text-3xl font-semibold text-slate-900">Seite nicht gefunden</h1>
+    </header>
+    <div class="mx-auto prose mt-6 max-w-3xl text-center">
+      <p>
+        Diese Seite gibt es (noch) nicht. Vielleicht hilft dir einer dieser Einstiege weiter:
+      </p>
+      <ul class="list-none">
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/eakbg-anspruch/">eaKBG Anspruch prüfen</a></li>
+        <li><a href="/eakbg-planer/">eaKBG Planer</a></li>
+        <li><a href="/ak-beratung/">AK-Beratung</a></li>
+        <li><a href="/infothek/">Infothek</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>

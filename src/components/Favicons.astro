@@ -1,0 +1,10 @@
+---
+// Favicon is the pre-migration "wizard baby" icon (restored in Phase 10
+// from src/lib/assets/favicon.ico). AstroWind's placeholder favicon.svg
+// and apple-touch-icon.png were deleted — add them back if/when we
+// generate brand variants.
+import favIcon from '~/assets/favicons/favicon.ico';
+---
+
+<link rel="shortcut icon" href={favIcon} />
+<link rel="icon" type="image/x-icon" href={favIcon} />

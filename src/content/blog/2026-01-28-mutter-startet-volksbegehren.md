@@ -1,6 +1,6 @@
 ---
 title: "Mutter startet Volksbegehren: Karenzbegehren braucht 9'000 Unterstützungserklärungen"
-pubDate: 2028-01-28
+pubDate: 2026-01-28
 slug: mutter-startet-volksbegehren
 ---
 

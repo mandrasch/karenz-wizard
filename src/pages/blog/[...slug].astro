@@ -1,0 +1,98 @@
+---
+// Dynamic blog post route. Ported from src/routes/blog/[slug]/+page.svelte,
+// re-styled in Phase 12.2 after AstroWind's SinglePost.astro
+// (git show d56c54d:src/components/blog/SinglePost.astro).
+//
+// CRITICAL: slug comes from post.data.slug (frontmatter), NOT post.id
+// (filename). Preserves URL stability across filename renames.
+import Layout from '~/layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+type Props = { post: CollectionEntry<'blog'> };
+const { post } = Astro.props as Props;
+const { Content } = await render(post);
+
+const dateFormatter = new Intl.DateTimeFormat('de-AT', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+const formattedDate = dateFormatter.format(post.data.pubDate);
+
+const metadata = {
+  title: `${post.data.title} – Karenz Wizard Blog`,
+  description: post.data.description ?? 'Aktueller Beitrag auf dem Karenz Wizard Blog.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="mx-auto py-8 sm:py-16 lg:py-20">
+    <article>
+      <header>
+        <!-- Back link + date meta row -->
+        <div class="mx-auto mb-2 flex max-w-3xl flex-col justify-between px-4 sm:flex-row sm:items-center sm:px-6">
+          <a
+            href="/blog/"
+            class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 underline decoration-dotted underline-offset-4 transition hover:text-slate-900"
+          >
+            <span aria-hidden="true">←</span> Zurück zur Übersicht
+          </a>
+          <p class="mt-2 text-sm text-muted sm:mt-0">
+            <svg
+              aria-hidden="true"
+              class="-mt-0.5 inline-block h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="9"></circle>
+              <polyline points="12 7 12 12 15 15"></polyline>
+            </svg>
+            <time datetime={post.data.pubDate.toISOString()} class="inline-block">
+              {formattedDate}
+            </time>
+          </p>
+        </div>
+
+        <!-- AstroWind-style large tight heading -->
+        <h1
+          class="mx-auto max-w-3xl px-4 font-heading text-4xl font-bold leading-tight tracking-tight sm:px-6 md:text-5xl"
+        >
+          {post.data.title}
+        </h1>
+
+        {
+          post.data.description && (
+            <p class="mx-auto mb-8 mt-4 max-w-3xl px-4 text-xl leading-relaxed text-muted sm:px-6 md:text-2xl">
+              {post.data.description}
+            </p>
+          )
+        }
+
+        <!-- Divider above body -->
+        <div class="mx-auto max-w-3xl px-4 sm:px-6">
+          <div class="border-t border-slate-200"></div>
+        </div>
+      </header>
+
+      <!-- AstroWind-style prose stack -->
+      <div
+        class="prose prose-slate prose-lg mx-auto mt-8 max-w-3xl px-4 sm:px-6 prose-headings:scroll-mt-[80px] prose-headings:font-heading prose-headings:font-bold prose-headings:leading-tight prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-md prose-img:shadow-lg prose-li:my-0"
+      >
+        <Content />
+      </div>
+    </article>
+  </section>
+</Layout>

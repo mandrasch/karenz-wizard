@@ -1,0 +1,32 @@
+---
+// MarkdownLayout.astro — wraps .md pages in our standard page layout
+// plus a prose wrapper that matches the blog-post typography from
+// Phase 12 (AstroWind-style heading scale + line-height).
+//
+// Used via frontmatter in Markdown pages:
+//   ---
+//   layout: ~/layouts/MarkdownLayout.astro
+//   title: Optional override for seo.ts fallback
+//   ---
+import Layout from './Layout.astro';
+
+type Props = {
+  frontmatter?: { title?: string; description?: string };
+};
+
+const { frontmatter } = Astro.props as Props;
+const metadata =
+  frontmatter?.title || frontmatter?.description
+    ? { title: frontmatter.title, description: frontmatter.description }
+    : undefined;
+---
+
+<Layout metadata={metadata}>
+  <section class="content">
+    <div
+      class="prose prose-slate prose-lg mx-auto mt-10 max-w-3xl px-4 sm:px-6 prose-headings:font-heading prose-headings:font-bold prose-headings:leading-tight prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-md prose-img:shadow-lg prose-li:my-0"
+    >
+      <slot />
+    </div>
+  </section>
+</Layout>
