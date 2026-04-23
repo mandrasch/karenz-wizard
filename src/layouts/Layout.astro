@@ -24,7 +24,9 @@ const OG_IMAGE_DEFAULT = '/karenz-wizard-og.jpg';
 import type { MetaData as MetaDataType } from '~/types';
 
 export interface Props {
-  metadata?: MetaDataType;
+  // `image` is a per-page og:image path override (e.g. '/blog/og/my-slug.png').
+  // Blog posts set this from [...slug].astro to point at their generated card.
+  metadata?: MetaDataType & { image?: string };
 }
 
 const { metadata = {} } = Astro.props;
@@ -35,8 +37,9 @@ const pageTitle = metadata.title ?? seo.title;
 const pageDescription = metadata.description ?? seo.description;
 
 // Canonical + absolute og:image URL. Astro.site is set in astro.config.ts.
+// Fallback chain: per-page override → route-lookup → global default.
 const canonicalUrl = new URL(pathname, Astro.site).toString();
-const ogImagePath = seo.image ?? OG_IMAGE_DEFAULT;
+const ogImagePath = metadata.image ?? seo.image ?? OG_IMAGE_DEFAULT;
 const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
 
 const layoutVariant = pathname === '/' ? 'home' : 'subpages';
@@ -59,7 +62,7 @@ const layoutVariant = pathname === '/' ? 'home' : 'subpages';
     <meta property="og:description" content={pageDescription} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="628" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
