@@ -1,6 +1,8 @@
 export type SeoMeta = {
 	title: string;
 	description: string;
+	/** Optional per-route og:image path, relative to the site root (e.g. '/my-og.png'). Falls back to default. */
+	image?: string;
 };
 
 type SeoEntry = {

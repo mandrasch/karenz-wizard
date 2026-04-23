@@ -1,8 +1,14 @@
 import slugify from 'limax';
 
-import { SITE, APP_BLOG } from 'astrowind:config';
-
 import { trim } from '~/utils/utils';
+
+// Site config (previously from src/config.yaml via astrowind:config).
+// Must agree with astro.config.ts `site` + `trailingSlash`.
+const SITE = {
+  site: 'https://karenz-wizard.at',
+  base: '/',
+  trailingSlash: true,
+} as const;
 
 export const trimSlash = (s: string) => trim(trim(s, '/'));
 const createPath = (...params: string[]) => {
@@ -21,11 +27,12 @@ export const cleanSlug = (text = '') =>
     .map((slug) => slugify(slug))
     .join('/');
 
-export const BLOG_BASE = cleanSlug(APP_BLOG?.list?.pathname);
-export const CATEGORY_BASE = cleanSlug(APP_BLOG?.category?.pathname);
-export const TAG_BASE = cleanSlug(APP_BLOG?.tag?.pathname) || 'tag';
+export const BLOG_BASE = cleanSlug('blog');
+export const CATEGORY_BASE = cleanSlug('category');
+export const TAG_BASE = cleanSlug('tag') || 'tag';
 
-export const POST_PERMALINK_PATTERN = trimSlash(APP_BLOG?.post?.permalink || `${BLOG_BASE}/%slug%`);
+// config.yaml had post.permalink = '/%slug%' (blog posts live at site root, not /blog/slug).
+export const POST_PERMALINK_PATTERN = trimSlash('/%slug%');
 
 /** */
 export const getCanonical = (path = ''): string | URL => {

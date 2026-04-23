@@ -17,6 +17,10 @@ import HeaderKW from '~/components/widgets/HeaderKW.astro';
 import FooterKW from '~/components/widgets/FooterKW.astro';
 import { getSeoMeta } from '~/utils/seo';
 
+// Default og:image lives in public/ (stable URL for social-platform caches).
+// See discussion: hashed /_astro/ URLs break historical social previews when the hash changes.
+const OG_IMAGE_DEFAULT = '/karenz-wizard-og.jpg';
+
 import type { MetaData as MetaDataType } from '~/types';
 
 export interface Props {
@@ -30,6 +34,11 @@ const seo = getSeoMeta(pathname);
 const pageTitle = metadata.title ?? seo.title;
 const pageDescription = metadata.description ?? seo.description;
 
+// Canonical + absolute og:image URL. Astro.site is set in astro.config.ts.
+const canonicalUrl = new URL(pathname, Astro.site).toString();
+const ogImagePath = seo.image ?? OG_IMAGE_DEFAULT;
+const ogImageUrl = new URL(ogImagePath, Astro.site).toString();
+
 const layoutVariant = pathname === '/' ? 'home' : 'subpages';
 ---
 
@@ -39,6 +48,25 @@ const layoutVariant = pathname === '/' ? 'home' : 'subpages';
     <CommonMeta />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Karenz Wizard" />
+    <meta property="og:locale" content="de_AT" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="628" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
     <Favicons />
     <SiteVerification />
 

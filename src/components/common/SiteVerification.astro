@@ -1,5 +1,7 @@
 ---
-import { SITE } from 'astrowind:config';
+// Google Search Console verification token.
+// Previously read from src/config.yaml via astrowind:config.
+const GOOGLE_SITE_VERIFICATION_ID = 'orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M';
 ---
 
-{SITE.googleSiteVerificationId && <meta name="google-site-verification" content={SITE.googleSiteVerificationId} />}
+{GOOGLE_SITE_VERIFICATION_ID && <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION_ID} />}
