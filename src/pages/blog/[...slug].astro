@@ -38,11 +38,11 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <section class="mx-auto py-8 sm:py-16 lg:py-20">
+  <section class="mx-auto py-12 sm:py-20 lg:py-24">
     <article>
       <header>
         <!-- Back link + date meta row -->
-        <div class="mx-auto mb-2 flex max-w-3xl flex-col justify-between px-4 sm:flex-row sm:items-center sm:px-6">
+        <div class="mx-auto mb-8 flex max-w-3xl flex-col justify-between px-4 sm:flex-row sm:items-center sm:px-6">
           <a
             href="/blog/"
             class="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 underline decoration-dotted underline-offset-4 transition hover:text-slate-900"
@@ -71,28 +71,24 @@ const metadata = {
 
         <!-- AstroWind-style large tight heading -->
         <h1
-          class="mx-auto max-w-3xl px-4 font-heading text-4xl font-bold leading-tight tracking-tight sm:px-6 md:text-5xl"
+          class="mx-auto max-w-3xl px-4 font-heading text-4xl font-bold leading-[1.15] tracking-tight sm:px-6 md:text-5xl"
         >
           {post.data.title}
         </h1>
 
         {
           post.data.description && (
-            <p class="mx-auto mb-8 mt-4 max-w-3xl px-4 text-xl leading-relaxed text-muted sm:px-6 md:text-2xl">
+            <p class="mx-auto mb-12 mt-6 max-w-3xl px-4 text-xl leading-relaxed text-muted sm:px-6 md:text-2xl">
               {post.data.description}
             </p>
           )
         }
 
-        <!-- Divider above body -->
-        <div class="mx-auto max-w-3xl px-4 sm:px-6">
-          <div class="border-t border-slate-200"></div>
-        </div>
       </header>
 
       <!-- AstroWind-style prose stack -->
       <div
-        class="prose prose-slate prose-lg mx-auto mt-8 max-w-3xl px-4 sm:px-6 prose-headings:scroll-mt-[80px] prose-headings:font-heading prose-headings:font-bold prose-headings:leading-tight prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-md prose-img:shadow-lg prose-li:my-0"
+        class="prose prose-slate prose-lg mx-auto mt-10 max-w-3xl px-4 sm:px-6 prose-headings:scroll-mt-[80px] prose-headings:font-heading prose-headings:font-bold prose-headings:leading-tight prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-md prose-img:shadow-lg prose-li:my-0"
       >
         <Content />
       </div>
