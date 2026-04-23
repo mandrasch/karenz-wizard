@@ -177,6 +177,22 @@ const seoEntries: SeoEntry[] = [
 				'Infos zur Verlängerung nach eaKBG: Mitversicherung, finanzielle Planung und mögliche Stolperfallen.'
 		}
 	},
+	{
+		match: '/antrag-stellen/',
+		meta: {
+			title: 'Antrag stellen – Karenz Wizard',
+			description:
+				'Schritt-für-Schritt: Welche Anträge ihr für Karenz und Kinderbetreuungsgeld stellen müsst.'
+		}
+	},
+	{
+		match: '/pensionssplitting/',
+		meta: {
+			title: 'Pensionssplitting – Karenz Wizard',
+			description:
+				'Pensionssplitting während der Karenz: Was es ist und wie ihr es als Paar angehen könnt.'
+		}
+	},
 	// TODO: use description from markdown files?
 	{
 		match: '/blog/*',

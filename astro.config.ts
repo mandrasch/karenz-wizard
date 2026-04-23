@@ -23,7 +23,6 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   site: 'https://karenz-wizard.at',
   output: 'static',
-  trailingSlash: 'always',
   build: {
     format: 'directory',
   },
