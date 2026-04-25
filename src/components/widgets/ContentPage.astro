@@ -9,15 +9,20 @@
 // - align="left" (default) / "center": header text alignment.
 // - prose=false: drop the `prose` class (use for non-article body, e.g. the
 //   step overview list on /schritte-im-ueberblick/).
+// - step: when provided, renders a small breadcrumb above the h1 linking
+//   back to /schritte-im-ueberblick/.
+import StepBreadcrumb from '~/components/widgets/StepBreadcrumb.astro';
+
 type Props = {
   title: string;
   subtitle?: string;
   width?: 'default' | 'full';
   align?: 'left' | 'center';
   prose?: boolean;
+  step?: { number: string; total?: number };
 };
 
-const { title, subtitle, width = 'default', align = 'left', prose = true } = Astro.props;
+const { title, subtitle, width = 'default', align = 'left', prose = true, step } = Astro.props;
 
 const headerClasses = ['mt-10', 'space-y-4', align === 'center' ? 'text-center' : ''].filter(Boolean).join(' ');
 const containerClasses = [
@@ -32,6 +37,7 @@ const containerClasses = [
   {width === 'full' ? (
     <>
       <header class={headerClasses}>
+        {step && <StepBreadcrumb number={step.number} total={step.total} />}
         <h1 class="text-3xl font-semibold text-slate-900">
           {title}
         </h1>
@@ -43,6 +49,7 @@ const containerClasses = [
   ) : (
     <div class={containerClasses}>
       <header class={headerClasses}>
+        {step && <StepBreadcrumb number={step.number} total={step.total} />}
         <h1 class="text-3xl font-semibold text-slate-900">
           {title}
         </h1>
