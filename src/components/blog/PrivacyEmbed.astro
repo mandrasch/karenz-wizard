@@ -80,12 +80,7 @@ const storageKey = `embed-consent-${provider}`;
 
       {
         directUrl && (
-          <a
-            href={directUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="privacy-direct-link"
-          >
+          <a href={directUrl} target="_blank" rel="noopener noreferrer" class="privacy-direct-link">
             Direkt auf {providerName} öffnen →
           </a>
         )
@@ -117,24 +112,41 @@ const storageKey = `embed-consent-${provider}`;
     overlay: HTMLElement;
     container: HTMLElement;
     loadBtn: HTMLButtonElement;
+    loaded = false;
 
     init() {
-      // Check if user has already consented
-      const consent = localStorage.getItem(this.storageKey);
-      if (consent === 'always') {
+      // Check if user has already consented in this session
+      const consent = sessionStorage.getItem(this.storageKey);
+      if (consent === 'granted') {
         this.loadEmbed();
         return;
       }
 
       // Set up event listeners
       this.loadBtn.addEventListener('click', () => this.handleLoad());
+
+      // Listen for sibling instances on the same page granting consent,
+      // so accepting one embed reveals all embeds of the same provider.
+      document.addEventListener('privacy-embed-consent', (event) => {
+        const detail = (event as CustomEvent<{ provider: string }>).detail;
+        if (detail?.provider === this.provider && !this.loaded) {
+          this.loadEmbed();
+        }
+      });
     }
 
     handleLoad() {
+      sessionStorage.setItem(this.storageKey, 'granted');
+      document.dispatchEvent(
+        new CustomEvent('privacy-embed-consent', { detail: { provider: this.provider } })
+      );
       this.loadEmbed();
     }
 
     loadEmbed() {
+      if (this.loaded) return;
+      this.loaded = true;
+
       // Hide overlay
       this.overlay.style.display = 'none';
 
@@ -170,9 +182,7 @@ const storageKey = `embed-consent-${provider}`;
   // Initialize all privacy embeds that haven't been set up yet.
   // Uses a data attribute to guard against double-init.
   function initPrivacyEmbeds() {
-    const embeds = document.querySelectorAll<HTMLElement>(
-      '.privacy-embed:not([data-initialized])'
-    );
+    const embeds = document.querySelectorAll<HTMLElement>('.privacy-embed:not([data-initialized])');
     embeds.forEach((embed) => {
       embed.dataset.initialized = 'true';
       new PrivacyEmbed(embed);
