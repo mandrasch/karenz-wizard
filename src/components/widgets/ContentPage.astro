@@ -1,0 +1,55 @@
+---
+// Shared page wrapper for all content subpages.
+// Standardizes the H1 / sub-line / container width that previously drifted
+// across pages (some had centered headers, some left-aligned, one used
+// max-w-4xl, etc.).
+//
+// - width="default" (default): wraps header + slot in a max-w-3xl prose container.
+// - width="full": no wrapper — the page controls its own layout (e.g. eakbg-planer).
+// - align="left" (default) / "center": header text alignment.
+// - prose=false: drop the `prose` class (use for non-article body, e.g. the
+//   step overview list on /schritte-im-ueberblick/).
+type Props = {
+  title: string;
+  subtitle?: string;
+  width?: 'default' | 'full';
+  align?: 'left' | 'center';
+  prose?: boolean;
+};
+
+const { title, subtitle, width = 'default', align = 'left', prose = true } = Astro.props;
+
+const headerClasses = ['mt-10', 'space-y-4', align === 'center' ? 'text-center' : ''].filter(Boolean).join(' ');
+const containerClasses = [
+  'mx-auto',
+  'mt-6',
+  'max-w-3xl',
+  prose ? 'prose' : '',
+].filter(Boolean).join(' ');
+---
+
+<section class="content">
+  {width === 'full' ? (
+    <>
+      <header class={headerClasses}>
+        <h1 class="text-3xl font-semibold text-slate-900">
+          {title}
+        </h1>
+        {subtitle && <p class="text-base leading-relaxed text-slate-600">{subtitle}</p>}
+        <slot name="subtitle" />
+      </header>
+      <slot />
+    </>
+  ) : (
+    <div class={containerClasses}>
+      <header class={headerClasses}>
+        <h1 class="text-3xl font-semibold text-slate-900">
+          {title}
+        </h1>
+        {subtitle && <p class="text-base leading-relaxed text-slate-600">{subtitle}</p>}
+        <slot name="subtitle" />
+      </header>
+      <slot />
+    </div>
+  )}
+</section>

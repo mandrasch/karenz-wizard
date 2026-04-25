@@ -2,6 +2,7 @@
 // Ported from src/routes/ak-beratung/+page.svelte.
 // akList array moved to frontmatter; {#each} -> .map().
 import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 
 type AkLink = { title: string; url: string };
 type AkEntry = { name: string; links: AkLink[] };
@@ -93,14 +94,7 @@ const akList: AkEntry[] = [
 ---
 
 <Layout>
-  <div class="mx-auto prose mt-6 max-w-3xl">
-    <section class="content">
-      <header class="mt-10 space-y-6">
-        <h1 class="text-3xl font-semibold text-slate-900">
-          Kostenfreie Beratung bei der Arbeiterkammer
-        </h1>
-      </header>
-
+  <ContentPage title="Kostenfreie Beratung bei der Arbeiterkammer">
       <div class="mt-6">
         <p>
           Die Arbeiterkammer deines Bundeslandes berät dich kostenfrei zu Elternkarenz und
@@ -202,6 +196,5 @@ const akList: AkEntry[] = [
           >.
         </p>
       </div>
-    </section>
-  </div>
+  </ContentPage>
 </Layout>

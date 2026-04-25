@@ -8,24 +8,23 @@ import Layout from '~/layouts/Layout.astro';
 import Wizard from '~/lib/components/wizard/Wizard.svelte';
 import wizardData from '~/lib/components/wizard/mutterschutz-karenz.json';
 import type { Wizard as WizardType } from '~/lib/components/wizard/wizard-types';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 
 const wizard = wizardData as WizardType;
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-2 text-center">
-      <h1 class="text-3xl font-semibold text-slate-900">Online-Berater</h1>
-      <p class="text-base text-slate-600">
-        Ein interaktiver Schritt-für-Schritt-Assistent durch Mutterschutz und Karenz.
-      </p>
-      <p class="text-xs font-semibold uppercase tracking-wide text-rose-700">
-        🚧 Beta — nur lokal testbar, noch nicht produktiv freigegeben. 🚧
-      </p>
-    </header>
-
+  <ContentPage
+    title="Online-Berater"
+    subtitle="Ein interaktiver Schritt-für-Schritt-Assistent durch Mutterschutz und Karenz."
+    width="full"
+    align="center"
+  >
+    <p slot="subtitle" class="text-xs font-semibold uppercase tracking-wide text-rose-700">
+      🚧 Beta — nur lokal testbar, noch nicht produktiv freigegeben. 🚧
+    </p>
     <div class="mt-8">
       <Wizard wizard={wizard} client:load />
     </div>
-  </section>
+  </ContentPage>
 </Layout>

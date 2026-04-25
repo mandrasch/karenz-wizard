@@ -2,18 +2,14 @@
 // Ported from src/routes/reaktionen-und-feedback/+page.svelte (pre-migration tag).
 // SEO title/description come from ~/utils/seo.ts via pathname lookup.
 import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-2">
-      <h1 class="text-3xl font-semibold text-slate-900">Reaktionen und Feedback</h1>
-      <p class="text-base text-slate-600">
-        Ein Blick darauf, wie Eltern ihre Erfahrungen mit unterschiedlichen Familienzeitmodellen
-        beschreiben.
-      </p>
-    </header>
-    <div class="prose mt-8 max-w-none">
+  <ContentPage
+    title="Reaktionen und Feedback"
+    subtitle="Ein Blick darauf, wie Eltern ihre Erfahrungen mit unterschiedlichen Familienzeitmodellen beschreiben."
+  >
       <blockquote>
         Ich finde die visuelle Darstellung des eaKBG Planers super. Das hätte mir vor Kurzem einigen
         Stunden an Recherche erspart. (<a href="https://www.instagram.com/reel/DR9RaZTDnXO/"
@@ -48,6 +44,5 @@ import Layout from '~/layouts/Layout.astro';
           </a>
         </footer>
       </blockquote>
-    </div>
-  </section>
+  </ContentPage>
 </Layout>

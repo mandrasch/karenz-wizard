@@ -4,14 +4,11 @@
 import Layout from '~/layouts/Layout.astro';
 import EligibilityCalculatorEaKbg from '~/lib/components/EligibilityCalculatorEaKbg.svelte';
 import NextStep from '~/components/widgets/NextStep.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <div class="mx-auto prose mt-6 max-w-3xl">
-    <section class="content">
-      <header class="mt-10 space-y-6">
-        <h1 class="text-3xl font-semibold text-slate-900">eaKBG – Anspruch prüfen</h1>
-      </header>
+  <ContentPage title="eaKBG – Anspruch prüfen">
       <p>
         Um das einkommensabhängige Kinderbetreuungsgeld (eaKBG) beziehen zu können, müssen einige
         Anspruchsvoraussetzungen (= Bedingungen) erfüllt werden.
@@ -198,7 +195,6 @@ import NextStep from '~/components/widgets/NextStep.astro';
           </li>
         </ul>
       </section>
-    </section>
-    <NextStep number="3" label="eaKBG Planer" href="/eakbg-planer/" />
-  </div>
+  </ContentPage>
+  <NextStep number="3" label="eaKBG Planer" href="/eakbg-planer/" />
 </Layout>

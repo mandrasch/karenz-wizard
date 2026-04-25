@@ -1,14 +1,11 @@
 ---
 // Ported from src/routes/ueber/+page.svelte (pure markup).
 import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 text-center">
-      <h1 class="text-3xl font-semibold text-slate-900">Über</h1>
-    </header>
-    <div class="mx-auto prose mt-6 max-w-3xl prose-slate">
+  <ContentPage title="Über">
       <p class="font-bold">🚧 Inhalt in Arbeit 🚧</p>
       <h3>Dieses Tool sollte die AK oder eine NGO betreiben!</h3>
       <p>
@@ -179,6 +176,5 @@ import Layout from '~/layouts/Layout.astro';
           >Crashkurs: Elternkarenz für Dummies inkl. Halbe Halbe (Österreich)</a
         >
       </p>
-    </div>
-  </section>
+  </ContentPage>
 </Layout>

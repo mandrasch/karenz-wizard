@@ -1,14 +1,10 @@
 ---
 import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-6">
-      <h1 class="text-3xl font-semibold text-slate-900">Feministische Beratung?</h1>
-    </header>
-
-    <div class="mx-auto prose mt-6 max-w-3xl">
+  <ContentPage title="Feministische Beratung?">
       <h3>Feministische Beratung / Einführungskurs?</h3>
       <p>
         Was die AK (leider) bisher nicht leistet soweit ich weiß: Eine feministische Beratung, wie
@@ -16,6 +12,5 @@ import Layout from '~/layouts/Layout.astro';
         dich bei anderen Stellen, Freunden und Bekannten oder im Netz zusätzlich informieren. Denn
         „Ganze Männer machen Halbe-Halbe" (#EqualCare). Siehe auch <a href="/infothek/">Infothek</a>.
       </p>
-    </div>
-  </section>
+  </ContentPage>
 </Layout>

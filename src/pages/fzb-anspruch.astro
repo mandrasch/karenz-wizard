@@ -4,16 +4,11 @@
 import Layout from '~/layouts/Layout.astro';
 import EligibiltyDateCalculator from '~/lib/components/EligibiltyDateCalculator.svelte';
 import NextStep from '~/components/widgets/NextStep.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 text-center">
-      <h1 class="text-3xl font-semibold text-slate-900">
-        Anspruch auf Familienzeitbonus für Papamonat prüfen
-      </h1>
-    </header>
-    <div class="mx-auto prose mt-6 max-w-3xl">
+  <ContentPage title="Papamonat & Geld-Anspruch">
       <p>
         In Österreich haben Väter tollerweise das Recht darauf, den ersten Lebensmonat ihres Kindes
         daheim zu erleben und die Partnerin während des Wochenbetts, den Herausforderungen des
@@ -68,8 +63,8 @@ import NextStep from '~/components/widgets/NextStep.astro';
         Mitversicherung als unverheirates Paar wg. der <a
           href="/blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/"
           class="underline">Haushaltsführungs-Klausel</a
-        > nicht ganz verständlich war damals für mich, hätte aber vermutlich auch funktioniert). Den
-        Papamonat musste ich natürlich von Ersparnissen finanzieren, Gehalt gab es ja nicht.
+        > nicht ganz verständlich war damals für mich, hätte aber vermutlich auch funktioniert). Den Papamonat
+        musste ich natürlich von Ersparnissen finanzieren, Gehalt gab es ja nicht.
       </p>
       <p>
         Ob die 182-Tage-Frist wirklich noch zeitgemäß ist heutzutage - das wage ich sehr stark zu
@@ -114,7 +109,6 @@ import NextStep from '~/components/widgets/NextStep.astro';
         Ansonsten solltest du dir ein paar Urlaubstage aufheben, um deine Partnerin auch im
         Krankenhaus unterstützen zu können nach der Geburt.
       </p>
-    </div>
-    <NextStep number="2" label="eaKBG Anspruch prüfen" href="/eakbg-anspruch/" />
-  </section>
+  </ContentPage>
+  <NextStep number="2" label="eaKBG Anspruch prüfen" href="/eakbg-anspruch/" />
 </Layout>

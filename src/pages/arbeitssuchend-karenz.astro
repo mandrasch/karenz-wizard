@@ -1,17 +1,11 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import NextStep from '~/components/widgets/NextStep.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-6">
-      <h1 class="text-3xl font-semibold text-slate-900">
-        Arbeitssuchend & "Karenz"?
-      </h1>
-    </header>
-
-    <div class="mx-auto prose mt-6 max-w-3xl">
+  <ContentPage title='Arbeitssuchend & "Karenz"?'>
       <p>🚧 Inhalt in Arbeit 🚧</p>
       <p>Du bist gerade arbeitssuchend/arbeitslos?</p>
       <p>
@@ -27,7 +21,6 @@ import NextStep from '~/components/widgets/NextStep.astro';
         Auch eine gute Nachricht bzgl. Arbeitslosengeld: Mit Kind hast du Anspruch auf
         Familienzuschlag.
       </p>
-    </div>
-    <NextStep number="4" label="Planung kostenfrei überprüfen vor Antrag" href="/planung-ueberpruefen/" />
-  </section>
+  </ContentPage>
+  <NextStep number="4" label="Planung kostenfrei überprüfen vor Antrag" href="/planung-ueberpruefen/" />
 </Layout>

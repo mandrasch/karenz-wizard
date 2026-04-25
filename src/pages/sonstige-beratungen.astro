@@ -1,14 +1,10 @@
 ---
 import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-6">
-      <h1 class="text-3xl font-semibold text-slate-900">Sonstige Beratungen</h1>
-    </header>
-
-    <div class="mx-auto prose mt-6 max-w-3xl">
+  <ContentPage title="Sonstige Beratungen">
       <p>
         Neben der <a href="/ak-beratung/">Arbeiterkammer</a> und der
         <a href="/oegk-beratung/">ÖGK</a> gibt es noch weitere Anlaufstellen, die werdende Eltern
@@ -23,6 +19,5 @@ import Layout from '~/layouts/Layout.astro';
           >
         </li>
       </ul>
-    </div>
-  </section>
+  </ContentPage>
 </Layout>

@@ -3,19 +3,14 @@
 // Three-sentence explainer + embedded AK-Video on Elternteilzeit.
 import Layout from '~/layouts/Layout.astro';
 import NextStep from '~/components/widgets/NextStep.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-4 text-center">
-      <h1 class="text-3xl font-semibold text-slate-900">Eltern-Teilzeit: 20h/20h Woche</h1>
-      <p class="text-base text-slate-600">
-        Eine Aufteilungs-Variante, bei der beide Elternteile in Teilzeit arbeiten. Beispielweise
-        nach Ablauf der 14 eaKBG-Monate, wenn beide Eltern wieder in die Arbeit zurückkehren wollen.
-      </p>
-    </header>
-
-    <div class="mx-auto prose mt-8 max-w-3xl prose-slate">
+  <ContentPage
+    title="Eltern-Teilzeit: 20h/20h Woche"
+    subtitle="Eine Aufteilungs-Variante, bei der beide Elternteile in Teilzeit arbeiten. Beispielweise nach Ablauf der 14 eaKBG-Monate, wenn beide Eltern wieder in die Arbeit zurückkehren wollen."
+  >
       <p>🚧 Inhalt in Arbeit 🚧</p>
 
       <p>
@@ -76,7 +71,6 @@ import NextStep from '~/components/widgets/NextStep.astro';
           >
         </li>
       </ul>
-    </div>
-    <NextStep number="3.3" label='Arbeitssuchend & "Karenz"?' href="/arbeitssuchend-karenz/" />
-  </section>
+  </ContentPage>
+  <NextStep number="3.3" label='Arbeitssuchend & "Karenz"?' href="/arbeitssuchend-karenz/" />
 </Layout>

@@ -302,8 +302,8 @@
 
 	const motherLabel = $derived(
 		motherUnpaidMonths > 0.01
-			? 'Karenz Mutter: eaKBG³ 💰 + unbezahlte Karenz⁵ ⚠️'
-			: 'Karenz Mutter: eaKBG³ 💰'
+			? 'Karenz Mutter: eaKBG 💰 + unbezahlte Karenz'
+			: 'Karenz Mutter: eaKBG 💰'
 	);
 
 	const motherConsumesAllEa = $derived(coverageAfterMother <= 0);
@@ -311,9 +311,9 @@
 	const fatherLabel = $derived(
 		fatherUnpaidMonths > 0.01
 			? fatherPaidMonths > 0 && !motherConsumesAllEa
-				? 'Karenz Vater: eaKBG³ 💰 + unbezahlte Karenz⁵ ⚠️'
-				: 'Karenz Vater: unbezahlte Karenz⁷ ⚠️'
-			: 'Karenz Vater: eaKBG³ 💰'
+				? 'Karenz Vater: eaKBG 💰 + unbezahlte Karenz'
+				: 'Karenz Vater: unbezahlte Karenz'
+			: 'Karenz Vater: eaKBG 💰'
 	);
 
 	const fatherDisplay = $derived(
@@ -325,7 +325,7 @@
 	const thirdLabel = $derived(
 		thirdMonths > 0
 			? thirdUnpaidMonths > 0.01
-				? 'Unbezahlte Karenz⁵ (weiterer Teil)'
+				? 'Unbezahlte Karenz (weiterer Teil)'
 				: 'Karenz weiterer Teil'
 			: ''
 	);
@@ -348,7 +348,7 @@
 		(() => {
 			const intervals: Interval[] = [
 				{
-					label: 'Mutterschutz vor Geburt¹',
+					label: 'Mutterschutz vor Geburt',
 					start: -MUTTERSCHUTZ_PRE_WEEKS,
 					end: 0,
 					displayDuration: `${formatMonths(MUTTERSCHUTZ_PRE_WEEKS)} Mon., WoGeld 💰`,
@@ -356,7 +356,7 @@
 					color: 'mutterschutz'
 				},
 				{
-					label: 'Recht auf Karenz-Freistellung²',
+					label: 'Recht auf Karenz-Freistellung',
 					start: 0,
 					end: BASE_TOTAL_WEEKS,
 					isInactive: true,
@@ -382,7 +382,7 @@
 				},
 				{
 					// avoid visual overlap
-					label: 'Mutterschutz nach Geburt⁴',
+					label: 'Mutterschutz nach Geburt',
 					start: 0,
 					end: mutterschutzWeeks,
 					displayDuration: `${formatMonths(mutterschutzWeeks)} Mon., WoGeld 💰`,
@@ -457,7 +457,7 @@
 			}
 
 			intervals.push({
-				label: 'Papamonat⁵',
+				label: 'Papamonat',
 				start: papamonatStart,
 				end: papamonatEnd,
 				displayDuration: 'ggf. FZB 💰',
@@ -561,7 +561,7 @@
 
 			if (hasParentalPartTime) {
 				result.push({
-					label: 'ab jetzt ggf. Anspruch auf Eltern-Teilzeit (beide)⁸',
+					label: 'ab jetzt ggf. Anspruch auf Eltern-Teilzeit (beide)',
 					start: lastKarenzEnd,
 					end: parentalPartTimeEnd,
 					rowGroup: 'c',
@@ -696,7 +696,7 @@
 					if (hasPaid) {
 						pushSummary(
 							`${summaryKey}-${index}-paid`,
-							'Karenz Mutter: eaKBG³ 💰',
+							'Karenz Mutter: eaKBG 💰',
 							startWeeks,
 							paidEnd,
 							summaryKey,
@@ -708,7 +708,7 @@
 					if (hasUnpaid) {
 						pushSummary(
 							`${summaryKey}-${index}-unpaid`,
-							'Karenz Mutter: unbezahlte Karenz⁷',
+							'Karenz Mutter: unbezahlte Karenz',
 							unpaidStart,
 							endWeeks,
 							summaryKey,
@@ -740,7 +740,7 @@
 					if (hasPaid) {
 						pushSummary(
 							`${summaryKey}-${index}-paid`,
-							'Karenz Vater: eaKBG³ 💰',
+							'Karenz Vater: eaKBG 💰',
 							startWeeks,
 							paidEnd,
 							summaryKey,
@@ -752,7 +752,7 @@
 					if (hasUnpaid) {
 						pushSummary(
 							`${summaryKey}-${index}-unpaid`,
-							'Karenz Vater: unbezahlte Karenz⁷',
+							'Karenz Vater: unbezahlte Karenz',
 							unpaidStart,
 							endWeeks,
 							summaryKey,
@@ -797,7 +797,7 @@
 						const unpaidLabel =
 							label.includes('unbezahlt') || label.includes('Unbezahlte')
 								? label
-								: 'Unbezahlte Karenz⁷ (weiterer Teil)';
+								: 'Unbezahlte Karenz (weiterer Teil)';
 						pushSummary(
 							`${summaryKey}-${index}-unpaid`,
 							unpaidLabel,
@@ -1055,7 +1055,7 @@
 					<label class="control-checkbox">
 						<input type="checkbox" bind:checked={jointMonth} />
 						<div class="control-checkbox__text">
-							<span>Gemeinsamer Monat beim ersten Wechsel⁷</span>
+							<span>Gemeinsamer Monat beim ersten Wechsel</span>
 							{#if jointMonth}
 								<small>eaKBG Gesamt-Anspruch wird um 1 Monat kürzer</small>
 							{:else}

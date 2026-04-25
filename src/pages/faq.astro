@@ -3,6 +3,7 @@
 // {#each} -> .map(); {@html paragraph} -> <Fragment set:html={paragraph} />.
 // faqs array moved into Astro frontmatter.
 import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 
 type Faq = {
   id: string;
@@ -109,14 +110,10 @@ Sie wollen das eaKBG nutzen, aber einer der beiden Elternteile erfüllt die Ansp
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-2 text-center">
-      <h1 class="text-3xl font-semibold text-slate-900">FAQ</h1>
-      <p class="text-base text-slate-600">
-        Antworten auf häufige Fragen rund um Papamonat, Karenz und Kinderbetreuung in Österreich.
-      </p>
-    </header>
-    <div class="mx-auto prose mt-8 max-w-4xl">
+  <ContentPage
+    title="FAQ"
+    subtitle="Antworten auf häufige Fragen rund um Papamonat, Karenz und Kinderbetreuung in Österreich."
+  >
       <nav
         aria-label="FAQ Inhaltsverzeichnis"
         class="not-prose rounded-lg border border-slate-200 bg-slate-50 p-4"
@@ -189,6 +186,5 @@ Sie wollen das eaKBG nutzen, aber einer der beiden Elternteile erfüllt die Ansp
           ))
         }
       </div>
-    </div>
-  </section>
+  </ContentPage>
 </Layout>

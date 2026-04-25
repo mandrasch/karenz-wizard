@@ -1,17 +1,11 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import NextStep from '~/components/widgets/NextStep.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-6">
-      <h1 class="text-3xl font-semibold text-slate-900">
-        Eure Planung kostenfrei überprüfen lassen – bevor ihr etwas beantragt
-      </h1>
-    </header>
-
-    <div class="mx-auto prose mt-6 max-w-3xl">
+  <ContentPage title="Eure Planung kostenfrei überprüfen lassen – bevor ihr etwas beantragt">
       <p>
         Ihr habt die grobe Planung gemacht? Oder wollt euch zu Beginn informieren? Die
         Arbeiterkammer wie auch die ÖGK bieten <strong>kostenfreie Beratungen</strong> an. Nutzt
@@ -31,7 +25,6 @@ import NextStep from '~/components/widgets/NextStep.astro';
         <li><a href="/sonstige-beratungen/">Sonstige Beratungen</a></li>
         <li><a href="/feministische-beratung/">Feministische Beratung?</a></li>
       </ul>
-    </div>
-    <NextStep number="5" label="Ab wann in Fremdbetreuung / Kindergarten?" href="/fremdbetreuung/" />
-  </section>
+  </ContentPage>
+  <NextStep number="5" label="Ab wann in Fremdbetreuung / Kindergarten?" href="/fremdbetreuung/" />
 </Layout>

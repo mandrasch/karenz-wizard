@@ -2,15 +2,11 @@
 // Ported from src/routes/unbezahlte-karenz/+page.svelte.
 import Layout from '~/layouts/Layout.astro';
 import NextStep from '~/components/widgets/NextStep.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-4 text-center">
-      <h1 class="text-3xl font-semibold text-slate-900">Unbezahlte Karenz</h1>
-    </header>
-
-    <div class="mx-auto prose mt-6 max-w-4xl space-y-10">
+  <ContentPage title="Unbezahlte Karenz">
       <p>🚧 Inhalt in Arbeit 🚧</p>
 
       <p>
@@ -179,7 +175,6 @@ import NextStep from '~/components/widgets/NextStep.astro';
           </ul>
         </li>
       </ol>
-    </div>
-    <NextStep number="3.2" label="Option: Eltern-Teilzeit mit 20h/20h" href="/elternteilzeit-20-20/" />
-  </section>
+  </ContentPage>
+  <NextStep number="3.2" label="Option: Eltern-Teilzeit mit 20h/20h" href="/elternteilzeit-20-20/" />
 </Layout>

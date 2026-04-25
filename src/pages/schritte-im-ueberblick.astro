@@ -7,6 +7,7 @@
 // SEO title comes from seo.ts via pathname lookup.
 import Layout from '~/layouts/Layout.astro';
 import PrivacyEmbed from '~/components/blog/PrivacyEmbed.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 
 type StepCta = {
   label: string;
@@ -175,19 +176,14 @@ const steps: Step[] = [
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mx-auto mt-10 max-w-3xl space-y-3 text-center">
-      <h1 class="font-heading text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl">
-        Die Schritte im Überblick
-      </h1>
-      <p class="text-base leading-relaxed text-slate-600">
-        Diese Seite ist <strong>„Hilfe zur Selbsthilfe"</strong>. Spielt hier unverbindlich
-        verschiedene Szenarien durch und bekommt ein Gefühl für eure Möglichkeiten, bevor ihr die
-        offiziellen Schritte angeht.
-      </p>
-    </header>
+  <ContentPage title="Die Schritte im Überblick" align="center" prose={false}>
+    <p slot="subtitle" class="text-base leading-relaxed text-slate-600">
+      Diese Seite ist <strong>„Hilfe zur Selbsthilfe"</strong>. Spielt hier unverbindlich
+      verschiedene Szenarien durch und bekommt ein Gefühl für eure Möglichkeiten, bevor ihr die
+      offiziellen Schritte angeht.
+    </p>
 
-    <ol class="mx-auto mt-10 max-w-3xl list-none space-y-6 p-0" aria-label="Planungsschritte">
+    <ol class="mt-10 list-none space-y-6 p-0" aria-label="Planungsschritte">
       {
         steps.map((step) => (
           <li class={step.variant === 'sub' ? 'ml-6 sm:ml-12' : ''}>
@@ -266,5 +262,5 @@ const steps: Step[] = [
         ))
       }
     </ol>
-  </section>
+  </ContentPage>
 </Layout>

@@ -4,18 +4,14 @@
 // (/buecher-broschueren -> /infothek/#literatur, /tools -> /infothek/#tools,
 // /videos -> /infothek/#videos).
 import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-4 text-center">
-      <h1 class="text-3xl font-semibold text-slate-900">Infothek</h1>
-      <p class="text-base text-slate-600">
-        Gesammelte Ressourcen für Planung, Gleichberechtigung und Engagement.
-      </p>
-    </header>
-
-    <div class="mx-auto prose mt-6 max-w-4xl space-y-10">
+  <ContentPage
+    title="Infothek"
+    subtitle="Gesammelte Ressourcen für Planung, Gleichberechtigung und Engagement."
+  >
       <nav
         aria-label="Inhaltsverzeichnis"
         class="rounded-3xl border border-slate-200 bg-white px-6 py-5 shadow-sm"
@@ -272,6 +268,5 @@ import Layout from '~/layouts/Layout.astro';
           </li>
         </ul>
       </section>
-    </div>
-  </section>
+  </ContentPage>
 </Layout>

@@ -1,23 +1,16 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import NextStep from '~/components/widgets/NextStep.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-6">
-      <h1 class="text-3xl font-semibold text-slate-900">
-        Ab wann in Fremdbetreuung / Kindergarten?
-      </h1>
-    </header>
-
-    <div class="mx-auto prose mt-6 max-w-3xl">
+  <ContentPage title="Ab wann in Fremdbetreuung / Kindergarten?">
       <p>🚧 Inhalt in Arbeit 🚧</p>
       <p>
         Diese Seite wird gerade ausgearbeitet. Eine Sammlung an Links zur Frage der Fremdbetreuung
         findet ihr aktuell in der <a href="/faq/#empfohlene-fremdbetreuung">FAQ</a>.
       </p>
-    </div>
-    <NextStep number="6" label="Beim AK Elternkalender registrieren" href="/elternkalender/" />
-  </section>
+  </ContentPage>
+  <NextStep number="6" label="Beim AK Elternkalender registrieren" href="/elternkalender/" />
 </Layout>

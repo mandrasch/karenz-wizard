@@ -1,17 +1,11 @@
 ---
 // Ported from src/routes/pauschales-kbg/+page.svelte (pure markup).
 import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-4 text-center">
-      <h1 class="text-3xl font-semibold text-slate-900">
-        Pauschales Kinderbetreuungsgeld (KBG-Konto)
-      </h1>
-    </header>
-
-    <div class="mx-auto prose mt-6 max-w-3xl">
+  <ContentPage title="Pauschales Kinderbetreuungsgeld (KBG-Konto)">
       <p>🚧 Inhalt in Arbeit 🚧</p>
       <p>
         In Österreich können Eltern zwischen zwei Fördermodellen wählen, bei welchen der Staat
@@ -254,6 +248,5 @@ import Layout from '~/layouts/Layout.astro';
           Maximalbeträge bezahlt, aber das Wochengeld ist sowieso höher.</i
         >
       </p>
-    </div>
-  </section>
+  </ContentPage>
 </Layout>

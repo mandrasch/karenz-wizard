@@ -1,14 +1,10 @@
 ---
 import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
 ---
 
 <Layout>
-  <section class="content">
-    <header class="mt-10 space-y-6">
-      <h1 class="text-3xl font-semibold text-slate-900">Sonderleistung 1</h1>
-    </header>
-
-    <div class="mx-auto prose mt-6 max-w-3xl">
+  <ContentPage title="Sonderleistung 1">
       <p>🚧 Inhalt in Arbeit 🚧</p>
       <p>Diese Seite wird gerade ausgearbeitet.</p>
       <p>
@@ -69,6 +65,5 @@ import Layout from '~/layouts/Layout.astro';
         wahrnehmen, auch wenn der andere/die andere noch Sonderleistung 1 bezieht. Aber bitte vorher
         nochmal bei AK nachfragen.
       </p>
-    </div>
-  </section>
+  </ContentPage>
 </Layout>
