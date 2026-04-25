@@ -919,14 +919,12 @@
 
 <section class="content planner-page min-w-0">
 	<div class="page-header mt-10 min-w-0">
-		<h1 id="planner-title" class="planner-heading text-2xl text-slate-900">
+		<h1 id="planner-title" class="text-3xl font-semibold text-slate-900">
 			eaKBG Planer für Paare
 		</h1>
 		<p class="subline">
 			Eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld (eaKBG) und die
-			Aufteilung der Karenz. Infos für Neu-Eltern finden sich unter dem Planungs-Tool.<!-- <br /> Bitte
-			prüft in Schritt 1, ob ihr überhaupt
-			<a href="/eakbg-anspruch" class="planner-link">eaKBG-Anspruch</a> habt. -->
+			Aufteilung der Karenz.
 		</p>
 		<div class="planner-quick-info" role="note">
 			<p class="planner-note">
