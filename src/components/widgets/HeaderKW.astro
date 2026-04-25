@@ -49,16 +49,35 @@ const navItems: NavItem[] = [
       { label: '2. eaKBG Anspruch prüfen', href: '/eakbg-anspruch/', matchPath: '/eakbg-anspruch' },
       { label: '3. eaKBG Planer', href: '/eakbg-planer/', matchPath: '/eakbg-planer' },
       {
-        label: '3.1 Unbezahlte Karenz',
+        label: '3.1 Option: Unbezahlte Karenz',
         href: '/unbezahlte-karenz/',
         matchPath: '/unbezahlte-karenz',
       },
       {
-        label: '3.2 Eltern-Teilzeit mit 20h/20h',
+        label: '3.2 Option: Eltern-Teilzeit mit 20h/20h',
         href: '/elternteilzeit-20-20/',
         matchPath: '/elternteilzeit-20-20',
       },
-
+      {
+        label: '3.3 Arbeitssuchend & "Karenz"?',
+        href: '/arbeitssuchend-karenz/',
+        matchPath: '/arbeitssuchend-karenz',
+      },
+      {
+        label: '4. Planung kostenfrei überprüfen vor Antrag ⚠️',
+        href: '/planung-ueberpruefen/',
+        matchPath: '/planung-ueberpruefen',
+      },
+      {
+        label: '5. Ab wann in Fremdbetreuung / Kindergarten?',
+        href: '/fremdbetreuung/',
+        matchPath: '/fremdbetreuung',
+      },
+      {
+        label: '6. Beim AK Elternkalender registrieren',
+        href: '/elternkalender/',
+        matchPath: '/elternkalender',
+      },
     ],
   },
   {
@@ -67,6 +86,8 @@ const navItems: NavItem[] = [
     children: [
       { label: 'AK-Beratung', href: '/ak-beratung/', matchPath: '/ak-beratung' },
       { label: 'ÖGK-Beratung', href: '/oegk-beratung/', matchPath: '/oegk-beratung' },
+      { label: 'Sonstige Beratungen', href: '/sonstige-beratungen/', matchPath: '/sonstige-beratungen' },
+      { label: 'Feministische Beratung?', href: '/feministische-beratung/', matchPath: '/feministische-beratung' },
     ],
   },
   {
@@ -233,7 +254,7 @@ const mobileLinkClasses = (item: NavLink) =>
                 <ul
                   id={`dropdown-${item.id}`}
                   hidden
-                  class="absolute left-0 top-full z-50 mt-2 min-w-[16rem] rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
+                  class="absolute left-0 top-full z-50 mt-2 w-max min-w-[16rem] max-w-[24rem] rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
                 >
                   {item.children.map((child) => (
                     <li>

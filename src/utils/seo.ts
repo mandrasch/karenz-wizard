@@ -66,6 +66,22 @@ const seoEntries: SeoEntry[] = [
 		}
 	},
 	{
+		match: '/sonstige-beratungen/',
+		meta: {
+			title: 'Sonstige Beratungen – Karenz Wizard',
+			description:
+				'Weitere Anlaufstellen rund um Karenz, Papamonat und Vaterrolle — z.B. der Online-Workshop für werdende Väter auf papainfo.at.'
+		}
+	},
+	{
+		match: '/feministische-beratung/',
+		meta: {
+			title: 'Feministische Beratung? – Karenz Wizard',
+			description:
+				'Wo bekommt man feministische Beratung zur gleichberechtigten Aufteilung der Karenz? Ein Hinweis und Impulse für #EqualCare.'
+		}
+	},
+	{
 		match: '/oegk-beratung/',
 		meta: {
 			title: 'ÖGK-Beratung – Karenz Wizard',
@@ -167,6 +183,46 @@ const seoEntries: SeoEntry[] = [
 			title: 'Videos & Erklärungen – Karenz Wizard',
 			description:
 				'Verlinkte Videoressourcen zur Elternkarenz, Meldungen, Papamonat und Kinderbetreuungsgeld.'
+		}
+	},
+	{
+		match: '/arbeitssuchend-karenz/',
+		meta: {
+			title: 'Arbeitssuchend & „Karenz" – Karenz Wizard',
+			description:
+				'Arbeitssuchend und in „Karenz"? Was möglich ist, wenn dein/e Partner/in eaKBG bezieht — inkl. Sonderleistung 1.'
+		}
+	},
+	{
+		match: '/sonderleistung-1/',
+		meta: {
+			title: 'Sonderleistung 1 – Karenz Wizard',
+			description:
+				'Sonderleistung 1 als Basissatz beim einkommens&shy;abhängigen Kinder&shy;betreuungsgeld — wann und für wen.'
+		}
+	},
+	{
+		match: '/fremdbetreuung/',
+		meta: {
+			title: 'Ab wann in Fremdbetreuung / Kindergarten? – Karenz Wizard',
+			description:
+				'Überblick zur Frage, ab wann Kinder in Fremdbetreuung oder Kindergarten gehen — ein zentraler Baustein der Karenzplanung.'
+		}
+	},
+	{
+		match: '/planung-ueberpruefen/',
+		meta: {
+			title: 'Planung kostenfrei überprüfen lassen – Karenz Wizard',
+			description:
+				'Lasst eure Karenzplanung vor Antragstellung kostenfrei überprüfen — bei der Arbeiterkammer und der ÖGK.'
+		}
+	},
+	{
+		match: '/elternkalender/',
+		meta: {
+			title: 'AK Elternkalender – Karenz Wizard',
+			description:
+				'Damit ihr keine Fristen verpasst: der Elternkalender der Arbeiterkammer als praktischer Begleiter durch Karenz und Antragsfristen.'
 		}
 	},
 	{
