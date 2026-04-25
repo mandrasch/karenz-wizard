@@ -5,10 +5,12 @@
 // its interactivity.
 import Layout from '~/layouts/Layout.astro';
 import EaKbgPlaner from '~/lib/components/EaKbgPlaner.svelte';
+import NextStep from '~/components/widgets/NextStep.astro';
 ---
 
 <Layout>
   <section class="content">
     <EaKbgPlaner client:load />
+    <NextStep number="3.1" label="Option: Unbezahlte Karenz" href="/unbezahlte-karenz/" />
   </section>
 </Layout>

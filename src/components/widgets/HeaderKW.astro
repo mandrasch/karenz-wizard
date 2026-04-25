@@ -40,7 +40,11 @@ const navItems: NavItem[] = [
     label: 'Ersten Jahre nach Geburt planen',
     id: 'planner',
     children: [
-      { label: 'Die Schritte im Überblick', href: '/schritte-im-ueberblick/', matchPath: '/schritte-im-ueberblick' },
+      {
+        label: 'Die Schritte im Überblick',
+        href: '/schritte-im-ueberblick/',
+        matchPath: '/schritte-im-ueberblick',
+      },
       {
         label: '1. Papamonat & Geld-Anspruch',
         href: '/fzb-anspruch/',
@@ -86,8 +90,16 @@ const navItems: NavItem[] = [
     children: [
       { label: 'AK-Beratung', href: '/ak-beratung/', matchPath: '/ak-beratung' },
       { label: 'ÖGK-Beratung', href: '/oegk-beratung/', matchPath: '/oegk-beratung' },
-      { label: 'Sonstige Beratungen', href: '/sonstige-beratungen/', matchPath: '/sonstige-beratungen' },
-      { label: 'Feministische Beratung?', href: '/feministische-beratung/', matchPath: '/feministische-beratung' },
+      {
+        label: 'Sonstige Beratungen',
+        href: '/sonstige-beratungen/',
+        matchPath: '/sonstige-beratungen',
+      },
+      {
+        label: 'Feministische Beratung?',
+        href: '/feministische-beratung/',
+        matchPath: '/feministische-beratung',
+      },
     ],
   },
   {
@@ -96,6 +108,18 @@ const navItems: NavItem[] = [
     children: [
       { label: 'Infothek', href: '/infothek/', matchPath: '/infothek' },
       { label: 'Pauschales KBG', href: '/pauschales-kbg/', matchPath: '/pauschales-kbg' },
+
+      {
+        label: 'ea KBG: Sonderleistung 1',
+        href: '/sonderleistung-1/',
+        matchPath: '/sonderleistung-1',
+      },
+      { label: 'Über diese Webseite', href: '/ueber/', matchPath: '/ueber' },
+      {
+        label: 'Reaktionen & Feedback',
+        href: '/reaktionen-und-feedback/',
+        matchPath: '/reaktionen-und-feedback',
+      },
     ],
   },
   { label: 'Blog', href: '/blog/' },
@@ -104,8 +128,6 @@ const navItems: NavItem[] = [
 // Items that only appear in the mobile fullscreen menu (not desktop nav).
 const mobileOnlyItems: NavLink[] = [
   { label: 'FAQ', href: '/faq/' },
-  { label: 'Über', href: '/ueber/' },
-  { label: 'Reaktionen & Feedback', href: '/reaktionen-und-feedback/' },
   { label: 'Impressum & Datenschutz', href: '/impressum-datenschutz/' },
 ];
 
@@ -153,50 +175,51 @@ const mobileLinkClasses = (item: NavLink) =>
       <div
         class="prose-body relative rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm"
       >
-      <div
-        class="flex w-full items-start gap-3 px-4 py-3 sm:items-center sm:px-5 sm:py-4"
-      >
-      <svg
-        class="mt-0.5 h-5 w-5 shrink-0 text-red-500 sm:mt-0"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 6zm0 9a1 1 0 100-2 1 1 0 000 2z"
-          clip-rule="evenodd"></path>
-      </svg>
-      <div
-        class="min-w-0 flex-1 space-y-2 text-xs font-medium sm:text-sm"
-        aria-live="polite"
-        id="preview-banner"
-      >
-        <p>
-          Diese Webseite ist ein privates Hobby-Projekt – alle Angaben ohne Gewähr!
-
-          Bitte unbedingt kostenfrei bei der 
-          <a
-            class="font-semibold text-red-600 underline underline-offset-2 hover:text-red-700"
-            href="/ak-beratung/">Arbeiterkammer</a
-          > oder <a href="/oegk-beratung/" class="font-semibold text-red-600 underline underline-offset-2 hover:text-red-700">ÖGK</a>
-          beraten lassen.
-        </p>
-      </div>
-      <button
-        type="button"
-        id="preview-banner-close"
-        class="-mr-1 shrink-0 rounded-md p-1.5 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
-        aria-label="Hinweis ausblenden"
-        aria-controls="preview-banner-wrapper"
-      >
-        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <path
-            d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
-          ></path>
-        </svg>
-      </button>
-      </div>
+        <div class="flex w-full items-start gap-3 px-4 py-3 sm:items-center sm:px-5 sm:py-4">
+          <svg
+            class="mt-0.5 h-5 w-5 shrink-0 text-red-500 sm:mt-0"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 6zm0 9a1 1 0 100-2 1 1 0 000 2z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <div
+            class="min-w-0 flex-1 space-y-2 text-xs font-medium sm:text-sm"
+            aria-live="polite"
+            id="preview-banner"
+          >
+            <p>
+              Diese Webseite ist ein privates Hobby-Projekt – alle Angaben ohne Gewähr! Bitte
+              unbedingt kostenfrei bei der
+              <a
+                class="font-semibold text-red-600 underline underline-offset-2 hover:text-red-700"
+                href="/ak-beratung/">Arbeiterkammer</a
+              > oder <a
+                href="/oegk-beratung/"
+                class="font-semibold text-red-600 underline underline-offset-2 hover:text-red-700"
+                >ÖGK</a
+              >
+              beraten lassen.
+            </p>
+          </div>
+          <button
+            type="button"
+            id="preview-banner-close"
+            class="-mr-1 shrink-0 rounded-md p-1.5 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+            aria-label="Hinweis ausblenden"
+            aria-controls="preview-banner-wrapper"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path
+                d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+              ></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -217,7 +240,9 @@ const mobileLinkClasses = (item: NavLink) =>
       />
       <span class="flex flex-col whitespace-nowrap leading-tight">
         <span class="text-lg font-bold tracking-tight text-slate-950">Karenz Wizard</span>
-        <span class="text-xs font-medium tracking-tight text-slate-500">Für mehr Väterbeteiligung!</span>
+        <span class="text-xs font-medium tracking-tight text-slate-500"
+          >Für mehr Väterbeteiligung!</span
+        >
       </span>
     </a>
 

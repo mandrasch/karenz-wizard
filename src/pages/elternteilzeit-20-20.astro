@@ -2,6 +2,7 @@
 // Eltern-Teilzeit 20h/20h Woche — Phase 11 placeholder page.
 // Three-sentence explainer + embedded AK-Video on Elternteilzeit.
 import Layout from '~/layouts/Layout.astro';
+import NextStep from '~/components/widgets/NextStep.astro';
 ---
 
 <Layout>
@@ -9,8 +10,8 @@ import Layout from '~/layouts/Layout.astro';
     <header class="mt-10 space-y-4 text-center">
       <h1 class="text-3xl font-semibold text-slate-900">Eltern-Teilzeit: 20h/20h Woche</h1>
       <p class="text-base text-slate-600">
-        Eine Aufteilungs-Variante nach Ablauf der 14 eaKBG-Monate, bei der beide Elternteile in
-        Teilzeit arbeiten.
+        Eine Aufteilungs-Variante, bei der beide Elternteile in Teilzeit arbeiten. Beispielweise
+        nach Ablauf der 14 eaKBG-Monate, wenn beide Eltern wieder in die Arbeit zurückkehren wollen.
       </p>
     </header>
 
@@ -20,21 +21,30 @@ import Layout from '~/layouts/Layout.astro';
       <p>
         Nach Ablauf der 14 Monate einkommensabhängigem Kinderbetreuungsgeld stellt sich die Frage,
         wie es weitergehen soll — eine Möglichkeit: beide Elternteile reduzieren ihre Arbeitszeit
-        auf ca. 20 Stunden pro Woche und teilen sich die Betreuung, etwa vormittags vs.
-        nachmittags.
+        auf ca. 20 Stunden pro Woche und teilen sich die Betreuung, etwa vormittags vs. nachmittags.
       </p>
 
       <p>
-        Die <a href="https://www.arbeiterkammer.at/elternteilzeit">Eltern-Teilzeit</a> ist ein
-        gesetzlicher Anspruch unter bestimmten Voraussetzungen (Betriebsgröße, Dauer des
-        Dienstverhältnisses, Kind unter 7 Jahren). Anspruch und Details unbedingt vorab bei der
-        Arbeiterkammer prüfen lassen.
+        Die <a href="https://www.arbeiterkammer.at/elternteilzeit">Eltern-Teilzeit</a> ist ein gesetzlicher
+        Anspruch unter bestimmten Voraussetzungen (Betriebsgröße, Dauer des Dienstverhältnisses, Kind
+        unter 7 Jahren). Anspruch und Details unbedingt vorab bei der Arbeiterkammer prüfen lassen.
       </p>
 
       <p>
         Dieses Modell vermeidet eine unbezahlte Karenz und bleibt krankenversicherungsrechtlich
         unproblematisch. Finanziell lohnt es sich je nach Einkommensverteilung unterschiedlich —
         ggf. auch steuerlich.
+      </p>
+
+      <p>
+        Wichtig für die Planung: Das Recht auf Eltern-Teilzeit kann erst genutzt werden, wenn das
+        andere Elternteil nicht mehr in Karenz ist bei seinem Arbeitgeber.
+      </p>
+
+      <p>
+        Hinweis: Auch ohne Recht auf Eltern-Teilzeit könnt ihr mit eurem Arbeitgeber natürlich
+        Teilzeit (versuchen zu) vereinbaren. Ein Kündigungsschutz wie der "echten" Eltern-Teilzeit
+        habt ihr dann nicht.
       </p>
 
       <h3>AK-Video zur Elternteilzeit in Österreich</h3>
@@ -46,8 +56,7 @@ import Layout from '~/layouts/Layout.astro';
             title="Elternteilzeit in Österreich (AK/YouTube)"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
+            allowfullscreen></iframe>
         </div>
         <p class="mt-2 text-sm text-slate-500">
           Quelle: <a
@@ -59,15 +68,15 @@ import Layout from '~/layouts/Layout.astro';
         </p>
       </div>
 
-      <h3>Mehr Informationen</h3>
+      <h3>Mehr Informationen und kostenfreie Beratung:</h3>
       <ul>
         <li>
-          <a href="https://www.arbeiterkammer.at/elternteilzeit">Elternteilzeit – arbeiterkammer.at</a>
-        </li>
-        <li>
-          <a href="/ak-beratung/">Kostenfreie Beratung bei der Arbeiterkammer</a>
+          <a href="https://www.arbeiterkammer.at/elternteilzeit"
+            >Elternteilzeit – arbeiterkammer.at</a
+          >
         </li>
       </ul>
     </div>
+    <NextStep number="3.3" label='Arbeitssuchend & "Karenz"?' href="/arbeitssuchend-karenz/" />
   </section>
 </Layout>

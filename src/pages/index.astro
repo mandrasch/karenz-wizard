@@ -9,18 +9,6 @@ import PostGrid from '~/components/blog/PostGrid.astro';
 import { getCollection } from 'astro:content';
 import { toTeaser } from '~/utils/teaser';
 
-const stepTeasers: { number: string; title: string; href: string }[] = [
-  { number: '1', title: 'Papamonat & Familienzeitbonus', href: '/fzb-anspruch/' },
-  { number: '2', title: 'eaKBG-Anspruch prüfen', href: '/eakbg-anspruch/' },
-  { number: '3', title: 'eaKBG-Karenz aufteilen', href: '/eakbg-planer/' },
-  { number: '3.1', title: 'Unbezahlte Karenz', href: '/unbezahlte-karenz/' },
-  { number: '3.2', title: 'Eltern-Teilzeit 20h/20h', href: '/elternteilzeit-20-20/' },
-  { number: '3.3', title: 'Arbeitssuchend & Karenz', href: '/arbeitssuchend-karenz/' },
-  { number: '4', title: 'Fremdbetreuung / Kindergarten', href: '/fremdbetreuung/' },
-  { number: '5', title: 'Planung kostenfrei überprüfen', href: '/planung-ueberpruefen/' },
-  { number: '6', title: 'AK Elternkalender', href: '/elternkalender/' },
-];
-
 const latestPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 9)
@@ -84,37 +72,6 @@ const latestPosts = (await getCollection('blog'))
             </a>
           </div>
 
-          <details class="group mt-6">
-            <summary
-              class="flex cursor-pointer list-none items-center justify-center gap-1.5 text-sm font-medium text-slate-600 hover:text-[#C94D54] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54] lg:justify-start"
-            >
-              <span>Vorschau der {stepTeasers.length} Schritte anzeigen</span>
-              <span aria-hidden="true" class="transition-transform group-open:rotate-180">▾</span>
-            </summary>
-            <ul
-              class="mt-4 -mx-2 flex snap-x gap-3 overflow-x-auto px-2 pb-2 sm:flex-wrap sm:overflow-x-visible sm:px-0 sm:mx-0"
-              aria-label="Schritte im Überblick"
-            >
-              {stepTeasers.map((step) => (
-                <li class="snap-start shrink-0 sm:shrink">
-                  <a
-                    href={step.href}
-                    class="flex h-full min-w-[12rem] items-center gap-3 rounded-2xl border border-slate-200/60 bg-white px-4 py-3 text-left shadow-sm transition hover:border-[#C94D54]/40 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54] sm:min-w-0"
-                  >
-                    <span
-                      class="shrink-0 font-heading text-lg font-bold leading-none tabular-nums text-[#C94D54]"
-                      aria-hidden="true"
-                    >
-                      {step.number}
-                    </span>
-                    <span class="text-sm font-semibold leading-snug text-slate-900">
-                      {step.title}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </details>
         </div>
 
       </div>

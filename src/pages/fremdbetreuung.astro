@@ -1,10 +1,11 @@
 ---
 import Layout from '~/layouts/Layout.astro';
+import NextStep from '~/components/widgets/NextStep.astro';
 ---
 
 <Layout>
   <section class="content">
-    <header class="mt-10 space-y-6 text-center">
+    <header class="mt-10 space-y-6">
       <h1 class="text-3xl font-semibold text-slate-900">
         Ab wann in Fremdbetreuung / Kindergarten?
       </h1>
@@ -17,5 +18,6 @@ import Layout from '~/layouts/Layout.astro';
         findet ihr aktuell in der <a href="/faq/#empfohlene-fremdbetreuung">FAQ</a>.
       </p>
     </div>
+    <NextStep number="6" label="Beim AK Elternkalender registrieren" href="/elternkalender/" />
   </section>
 </Layout>

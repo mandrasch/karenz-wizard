@@ -1407,7 +1407,8 @@
 		<NoteGrid />
 		<TimelineSummary {segmentSummaries} bind:birthDateInput {formatSegmentRange} open={false} />
 
-		<details class="group rounded-2xl border border-neutral-200/70 bg-white shadow-sm" open>
+    <!-- TODO: decide later -->
+		<details class="group rounded-2xl border border-neutral-200/70 bg-white shadow-sm" open style="display:none">
 			<summary
 				class="flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl px-4 py-3 text-slate-800/90 outline-none select-none
 				       focus-visible:ring-2 focus-visible:ring-indigo-600/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white md:px-5 md:py-4"
@@ -1600,7 +1601,8 @@
 		</details>
 	</section>
 
-	<section class="mt-10">
+  <!-- TODO: decide later -->
+	<section class="mt-10" style="display:none">
 		<details class="group rounded-2xl border border-neutral-200/70 bg-white shadow-sm" open>
 			<summary
 				class="flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl px-4 py-3 text-slate-800/90 outline-none select-none

@@ -3,6 +3,7 @@
 // Uses EligibiltyDateCalculator.svelte as a hydrated island.
 import Layout from '~/layouts/Layout.astro';
 import EligibiltyDateCalculator from '~/lib/components/EligibiltyDateCalculator.svelte';
+import NextStep from '~/components/widgets/NextStep.astro';
 ---
 
 <Layout>
@@ -114,5 +115,6 @@ import EligibiltyDateCalculator from '~/lib/components/EligibiltyDateCalculator.
         Krankenhaus unterstützen zu können nach der Geburt.
       </p>
     </div>
+    <NextStep number="2" label="eaKBG Anspruch prüfen" href="/eakbg-anspruch/" />
   </section>
 </Layout>

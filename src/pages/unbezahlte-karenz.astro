@@ -1,6 +1,7 @@
 ---
 // Ported from src/routes/unbezahlte-karenz/+page.svelte.
 import Layout from '~/layouts/Layout.astro';
+import NextStep from '~/components/widgets/NextStep.astro';
 ---
 
 <Layout>
@@ -179,5 +180,6 @@ import Layout from '~/layouts/Layout.astro';
         </li>
       </ol>
     </div>
+    <NextStep number="3.2" label="Option: Eltern-Teilzeit mit 20h/20h" href="/elternteilzeit-20-20/" />
   </section>
 </Layout>

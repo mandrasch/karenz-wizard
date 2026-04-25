@@ -3,12 +3,13 @@
 // Uses EligibilityCalculatorEaKbg.svelte as client:load island (twice).
 import Layout from '~/layouts/Layout.astro';
 import EligibilityCalculatorEaKbg from '~/lib/components/EligibilityCalculatorEaKbg.svelte';
+import NextStep from '~/components/widgets/NextStep.astro';
 ---
 
 <Layout>
   <div class="mx-auto prose mt-6 max-w-3xl">
     <section class="content">
-      <header class="mt-10 space-y-6 text-center">
+      <header class="mt-10 space-y-6">
         <h1 class="text-3xl font-semibold text-slate-900">eaKBG – Anspruch prüfen</h1>
       </header>
       <p>
@@ -198,5 +199,6 @@ import EligibilityCalculatorEaKbg from '~/lib/components/EligibilityCalculatorEa
         </ul>
       </section>
     </section>
+    <NextStep number="3" label="eaKBG Planer" href="/eakbg-planer/" />
   </div>
 </Layout>

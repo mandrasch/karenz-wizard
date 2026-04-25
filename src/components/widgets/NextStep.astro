@@ -1,0 +1,38 @@
+---
+// Reusable "go to next step" CTA shown at the end of each step subpage
+// linked from /schritte-im-ueberblick/.
+type Props = {
+  href: string;
+  label: string; // short title of the next step
+  number?: string; // optional step number (e.g. "3.2")
+};
+
+const { href, label, number } = Astro.props;
+---
+
+<aside class="not-prose mx-auto mt-12 mb-8 max-w-3xl">
+  <a
+    href={href}
+    class="flex items-center justify-between gap-4 rounded-2xl border border-slate-200/60 bg-white px-6 py-5 shadow-sm transition hover:border-[#C94D54]/40 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C94D54]"
+  >
+    <div class="flex items-center gap-4">
+      {number && (
+        <span
+          class="shrink-0 font-heading text-2xl font-bold leading-none tabular-nums text-[#C94D54]"
+          aria-hidden="true"
+        >
+          {number}
+        </span>
+      )}
+      <div class="flex flex-col">
+        <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Zum nächsten Schritt
+        </span>
+        <span class="text-base font-semibold leading-snug text-slate-900 sm:text-lg">
+          {label}
+        </span>
+      </div>
+    </div>
+    <span class="shrink-0 text-2xl text-[#C94D54]" aria-hidden="true">→</span>
+  </a>
+</aside>
