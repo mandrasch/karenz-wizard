@@ -202,7 +202,7 @@ const seoEntries: SeoEntry[] = [
 		}
 	},
 	{
-		match: '/fremdbetreuung/',
+		match: '/ab-wann-fremdbetreuung/',
 		meta: {
 			title: 'Ab wann in Fremdbetreuung / Kindergarten? – Karenz Wizard',
 			description:
@@ -218,7 +218,7 @@ const seoEntries: SeoEntry[] = [
 		}
 	},
 	{
-		match: '/elternkalender/',
+		match: '/ak-elternkalender/',
 		meta: {
 			title: 'AK Elternkalender – Karenz Wizard',
 			description:

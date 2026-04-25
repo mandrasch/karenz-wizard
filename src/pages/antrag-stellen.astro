@@ -1,10 +1,12 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import ContentPage from '~/components/widgets/ContentPage.astro';
+import NextStep from '~/components/widgets/NextStep.astro';
 ---
 
 <Layout>
-  <ContentPage title="Antrag stellen">
+  <ContentPage title="Antrag stellen" step={{ number: '6' }}>
     <p>🚧 Inhalt in Arbeit 🚧</p>
   </ContentPage>
+  <NextStep number="7" label="Beim AK Elternkalender registrieren" href="/ak-elternkalender/" />
 </Layout>

@@ -1,10 +1,11 @@
 ---
 import Layout from '~/layouts/Layout.astro';
 import ContentPage from '~/components/widgets/ContentPage.astro';
+import NextStep from '~/components/widgets/NextStep.astro';
 ---
 
 <Layout>
-  <ContentPage title="Registriert euch beim AK Elternkalender" step={{ number: '6' }}>
+  <ContentPage title="Registriert euch beim AK Elternkalender" step={{ number: '7' }}>
       <p>🚧 Inhalt in Arbeit 🚧</p>
       <p>
         In Zukunft wird es einige Fristen geben, die ihr beachten müsst. Damit euch keine
@@ -20,4 +21,5 @@ import ContentPage from '~/components/widgets/ContentPage.astro';
         >
       </p>
   </ContentPage>
+  <NextStep number="8" label="Pensionssplitting" href="/pensionssplitting/" />
 </Layout>
