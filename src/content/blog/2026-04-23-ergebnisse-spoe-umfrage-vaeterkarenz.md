@@ -1,12 +1,12 @@
 ---
-title: Ergebnisse SPÖ-Umfrage zu Väterkarenz/Elternkarenz veröffentlicht
+title: Ergebnisse SPÖ Umfrage zu Väterkarenz / Elternkarenz veröffentlicht
 pubDate: 2026-04-23
 slug: ergebnisse-spoe-umfrage-vaeterkarenz
 ---
 
 Die Umfrage hatte ich hier bereits im Blog, nun sind die Ergebnisse da:
 
-> Österreich ist EU-Schlusslicht bei der Väterkarenz. Das hat verschiedene Gründe. Um Hindernisse aufzuzeigen und Erfahrungen von Eltern sichtbar zu machen, hat SPÖ-Familiensprecher Bernhard Herzog eine Online-Umfrage gemacht. Jetzt präsentieren wir die Ergebnisse. 
+> Österreich ist EU-Schlusslicht bei der Väterkarenz. Das hat verschiedene Gründe. Um Hindernisse aufzuzeigen und Erfahrungen von Eltern sichtbar zu machen, hat SPÖ-Familiensprecher Bernhard Herzog eine Online-Umfrage gemacht. Jetzt präsentieren wir die Ergebnisse.
 
 Die Ergebnisse sind hier zu finden:
 
@@ -27,7 +27,7 @@ Beiträge auf Social Media hierzu:
 - [Väterkarenz in den Medien](https://www.instagram.com/p/DXOIs79CA_h/?img_index=1) - Bernhard Herzog (Instagram)
 - [„Und wirst du dem Kind dann auch den Busen geben?“](https://www.instagram.com/p/DXHM21SCFSN/) - Bernhard Herzog (Instagram)
 - [Warum Väter oft nur als Babysitter gelten](https://www.instagram.com/p/DW_3MdgiOHG/?img_index=1) - Bernhard Herzog (Instagram)
-- 
+-
 
 Mediale Berichterstattung:
 
