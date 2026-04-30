@@ -22,15 +22,11 @@ const posts = (await getCollection('blog'))
   <section class="content">
     <header class="mt-10 space-y-4 text-center">
       <h1 class="text-3xl font-semibold text-slate-900">Blog</h1>
-      <p class="text-base leading-relaxed text-slate-600">
+      <p class="text-base leading-relaxed text-slate-600 hidden lg:block">
         Aktuelle Infos zu dieser Webseite sowie ausgewählte Links rund um Kinderbetreuungsgeld und
         Karenzplanung.
       </p>
     </header>
-
-    <div class="mx-auto max-w-3xl">
-      <Disclaimer />
-    </div>
 
     <div class="mt-10">
       {
