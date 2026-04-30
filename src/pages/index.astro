@@ -43,46 +43,75 @@ const latestPosts = (await getCollection('blog'))
               Euch brummt der Kopf von der Karenzplanung?
             </h1>
 
-            <div class="mt-6 space-y-4 text-base leading-relaxed text-slate-600">
+            <div class="mt-6 text-base leading-relaxed text-slate-600">
               <p>
                 Immer wieder berichten die Medien, wie wenig Väter in Österreich in Karenz gehen.
                 Liegt es an den Vätern - oder auch an den Rahmen&shy;bedingungen? Wie teilt man sich
                 denn die ersten Jahre mit Baby auf, sodass es für beide wirklich fair ist? Welche
                 Optionen und Modelle gibt es?
               </p>
+            </div>
+            <div class="mt-6 text-base leading-relaxed text-slate-600">
               <p>
-                Als werdender Vater stand ich vor genau diesem Berg an Fragen – und habe kaum
-                durchgeblickt. Deshalb habe ich diese Webseite gestartet.
+                Als werdender Vater stand ich vor genau diesem Berg an Fragen - und habe kaum
+                durchgeblickt. Deshalb habe ich diese Webseite gestartet, als "Hilfe zur
+                Selbsthilfe". 💪
               </p>
-              <p>
-                Beispiel für eine Herausforderung: Es gibt zwei Jahre Recht auf
-                Karenz(-Freistellung). Als Paar bekommt man jedoch nur maximal 14 Monate
-                einkommens&shy;abhängiges Kinderbetreuungsgeld gezahlt vom Staat, welches ca. 80%
-                des bisherigen Einkommens ausgleicht. (Falls überhaupt mindestens ein Elternteil
-                Anspruch auf eaKBG hat, siehe <a class="underline" href="/eakbg-anspruch"
-                  >„182-Tage-Regel“</a
-                >).
-              </p>
-              <p>
-                Viele Paare greifen daher spontan zu "12 Monate Mutter in Karenz, 2 Monate
-                Väterkarenz".
-              </p>
-              <p>
-                Doch es gibt weitere Lösungen für mehr Gleichberechtigung, die in Medienberichten
-                oft ungenannt bleiben: Beispielsweise die Verlängerung der Väterkarenz durch <a
-                  class="underline"
-                  href="/unbezahlte-karenz">unbezahlte Karenzmonate</a
-                >. Oder ihr teilt euch Job und Betreuung nach den 14 Monaten fair auf und „übergebt“
-                das Kind mittags mit der <a href="/elternteilzeit-20-20/" class="underline"
-                  >Eltern-Teilzeit im 20h/20h-Modell</a
-                >. Der Extra-Bonus? Ein starker gesetzlicher Kündigungsschutz. Leider hat nicht
-                jede/r Anspruch hierauf.
-              </p>
-              <p>
-                Und dahinter steht - die eigentlich große Frage - ab wann das Kind fremdbetreut
-                werden soll bzw. werden kann (je nach Bundesland). Hier bekommt ihr Schritt für
-                Schritt einen Überblick:
-              </p>
+            </div>
+
+            <div class="mt-8" data-readmore>
+              <div
+                class="relative overflow-hidden max-h-32 transition-[max-height] duration-500 ease-in-out"
+                data-readmore-content
+              >
+                <div class="space-y-4 text-base leading-relaxed text-slate-600">
+                  <p>
+                    Beispiel für eine Herausforderung: Es gibt zwei Jahre Recht auf
+                    Karenz(-Freistellung). Als Paar bekommt man jedoch nur maximal 14 Monate
+                    einkommens&shy;abhängiges Kinderbetreuungsgeld gezahlt vom Staat, welches ca.
+                    80% des bisherigen Einkommens ausgleicht. (Falls überhaupt mindestens ein
+                    Elternteil Anspruch auf eaKBG hat, siehe <a
+                      class="underline"
+                      href="/eakbg-anspruch">„182-Tage-Regel“</a
+                    >).
+                  </p>
+                  <p>
+                    Viele Paare greifen daher spontan zu "12 Monate Mutter in Karenz, 2 Monate
+                    Väterkarenz".
+                  </p>
+                  <p>
+                    Doch es gibt weitere Lösungen für mehr Gleichberechtigung, die in
+                    Medienberichten oft ungenannt bleiben: Beispielsweise die Verlängerung der
+                    Väterkarenz durch <a class="underline" href="/unbezahlte-karenz"
+                      >unbezahlte Karenzmonate</a
+                    >. Oder ihr teilt euch Job und Betreuung nach den 14 Monaten fair auf und
+                    „übergebt“ das Kind mittags mit der <a
+                      href="/elternteilzeit-20-20/"
+                      class="underline">Eltern-Teilzeit im 20h/20h-Modell</a
+                    >. Der Extra-Bonus? Ein starker gesetzlicher Kündigungsschutz. Leider hat nicht
+                    jede/r Anspruch hierauf.
+                  </p>
+                  <p>
+                    Und dahinter steht - die eigentlich große Frage - ab wann das Kind fremdbetreut
+                    werden soll bzw. werden kann (je nach Bundesland).
+                  </p>
+                  <p>Aber eins nach dem anderen, Schritt für Schritt:</p>
+                </div>
+                <div
+                  class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent"
+                  data-readmore-fade
+                >
+                </div>
+              </div>
+              <button
+                type="button"
+                aria-expanded="false"
+                class="mt-3 inline-flex cursor-pointer items-baseline bg-transparent p-0 text-sm text-slate-600 transition-opacity hover:text-slate-900 aria-expanded:pointer-events-none aria-expanded:opacity-0"
+                data-readmore-toggle
+              >
+                <span class="underline underline-offset-4">Mehr lesen</span>
+                <span aria-hidden="true" class="ml-1 inline-block no-underline">▾</span>
+              </button>
             </div>
 
             <div class="mt-8 flex justify-center lg:justify-start">
@@ -94,6 +123,22 @@ const latestPosts = (await getCollection('blog'))
                 <span aria-hidden="true">→</span>
               </a>
             </div>
+
+            <script>
+              const root = document.querySelector('[data-readmore]');
+              if (root) {
+                const content = root.querySelector('[data-readmore-content]') as HTMLElement;
+                const fade = root.querySelector('[data-readmore-fade]') as HTMLElement;
+                const toggle = root.querySelector('[data-readmore-toggle]') as HTMLButtonElement;
+                content.classList.remove('max-h-32');
+                content.style.maxHeight = '4rem';
+                toggle?.addEventListener('click', () => {
+                  toggle.setAttribute('aria-expanded', 'true');
+                  content.style.maxHeight = content.scrollHeight + 'px';
+                  fade.classList.add('hidden');
+                });
+              }
+            </script>
           </div>
         </div>
       </div>
