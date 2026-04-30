@@ -21,9 +21,10 @@ type Props = {
   align?: 'left' | 'center';
   prose?: boolean;
   step?: { number: string; total?: number };
+  showDisclaimer?: boolean;
 };
 
-const { title, subtitle, width = 'default', align = 'left', prose = true, step } = Astro.props;
+const { title, subtitle, width = 'default', align = 'left', prose = true, step, showDisclaimer = true } = Astro.props;
 
 const headerClasses = ['mt-10', 'space-y-4', align === 'center' ? 'text-center' : ''].filter(Boolean).join(' ');
 const containerClasses = [
@@ -45,7 +46,7 @@ const containerClasses = [
         {subtitle && <p class="text-base leading-relaxed text-slate-600">{subtitle}</p>}
         <slot name="subtitle" />
       </header>
-      <Disclaimer />
+      {showDisclaimer && <Disclaimer />}
       <slot />
     </>
   ) : (
@@ -58,7 +59,7 @@ const containerClasses = [
         {subtitle && <p class="text-base leading-relaxed text-slate-600">{subtitle}</p>}
         <slot name="subtitle" />
       </header>
-      <Disclaimer />
+      {showDisclaimer && <Disclaimer />}
       <slot />
     </div>
   )}

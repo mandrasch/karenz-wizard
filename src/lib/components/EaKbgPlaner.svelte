@@ -926,13 +926,38 @@
 			Eine kleine Planungshilfe für das einkommensabhängige Kinderbetreuungsgeld (eaKBG) und die
 			Aufteilung der Karenz.
 		</p>
-		<div class="planner-quick-info" role="note">
-			<p class="planner-note">
-				⚠️ Alle Angaben ohne Gewähr, bitte alle Planungen bei der
-				<a href="/ak-beratung" class="planner-link">Arbeiterkammer kostenfrei überprüfen lassen</a> vor
-				Antragsstellung!
-			</p>
-		</div>
+		<aside
+			class="not-prose rounded-r-md border-l-4 border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-700"
+			role="note"
+		>
+			<div class="flex items-start gap-3">
+				<svg
+					class="mt-0.5 h-5 w-5 shrink-0 text-slate-500"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+					aria-hidden="true"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+						clip-rule="evenodd"
+					></path>
+				</svg>
+				<p class="m-0">
+					Diese Webseite ist ein privates Hobby-Projekt – die Infos hier können Fehler enthalten. Bitte lass dich vor einem Antrag unbedingt kostenfrei bei
+					der
+					<a
+						class="font-medium text-slate-900 underline underline-offset-2 hover:text-slate-700"
+						href="/ak-beratung/">AK</a
+					>
+					oder
+					<a
+						class="font-medium text-slate-900 underline underline-offset-2 hover:text-slate-700"
+						href="/oegk-beratung/">ÖGK</a
+					> beraten.
+				</p>
+			</div>
+		</aside>
 	</div>
 
 	<section>
