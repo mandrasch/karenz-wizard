@@ -2,6 +2,7 @@
 // Blog list page. Ported from src/routes/blog/+page.svelte.
 // Sorted by pubDate descending. Teaser from body via toTeaser().
 import Layout from '~/layouts/Layout.astro';
+import Disclaimer from '~/components/widgets/Disclaimer.astro';
 import PostCard from '~/components/blog/PostCard.astro';
 import PostGrid from '~/components/blog/PostGrid.astro';
 import { getCollection } from 'astro:content';
@@ -26,6 +27,10 @@ const posts = (await getCollection('blog'))
         Karenzplanung.
       </p>
     </header>
+
+    <div class="mx-auto max-w-3xl">
+      <Disclaimer />
+    </div>
 
     <div class="mt-10">
       {

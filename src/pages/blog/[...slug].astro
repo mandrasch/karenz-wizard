@@ -6,6 +6,7 @@
 // CRITICAL: slug comes from post.data.slug (frontmatter), NOT post.id
 // (filename). Preserves URL stability across filename renames.
 import Layout from '~/layouts/Layout.astro';
+import Disclaimer from '~/components/widgets/Disclaimer.astro';
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
@@ -85,6 +86,10 @@ const metadata = {
         }
 
       </header>
+
+      <div class="mx-auto max-w-3xl px-4 sm:px-6">
+        <Disclaimer />
+      </div>
 
       <!-- AstroWind-style prose stack -->
       <div
