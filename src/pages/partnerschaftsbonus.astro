@@ -1,0 +1,25 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import ContentPage from '~/components/widgets/ContentPage.astro';
+import NextStep from '~/components/widgets/NextStep.astro';
+---
+
+<Layout>
+  <ContentPage title="Partnerschaftsbonus" step={{ number: '8' }}>
+    <p>🚧 Inhalt in Arbeit 🚧</p>
+    <blockquote>
+      „Haben die Eltern das Kinderbetreuungsgeld zu annähernd gleichen Teilen (50:50 bis 60:40) und
+      mindestens im Ausmaß von je 124 Tagen rechtmäßig und tatsächlich bezogen, so gebührt jedem
+      Elternteil auf Antrag nach Ablauf der höchstmöglichen Gesamtanspruchsdauer ein
+      Partnerschaftsbonus.“
+    </blockquote>
+    <p>Aktuell beträgt der Bonus 500€ pro Person (einmalig)</p>
+    <p>
+      Alle Infos zur Antragsstellung: <a
+        href="https://www.gesundheitskasse.at/cdscontent/?contentid=10007.879642&portal=oegkportal"
+        >gesundheitskasse.at</a
+      >
+    </p>
+  </ContentPage>
+  <NextStep number="9" label="Pensionssplitting" href="/pensionssplitting/" />
+</Layout>
