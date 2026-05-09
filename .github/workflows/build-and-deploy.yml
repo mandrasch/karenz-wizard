@@ -15,6 +15,9 @@ jobs:
                   npm ci
                   npm run build
 
+            - name: Verify /eakbg-planer/ built
+              run: test -f dist/eakbg-planer/index.html
+
             - name: 📂 Deploy via rsync
               uses: burnett01/rsync-deployments@v8
               with:
