@@ -14,7 +14,9 @@
     "astro": "astro",
     "check": "astro check",
     "format": "prettier --write .",
-    "lint": "prettier --check ."
+    "lint": "prettier --check .",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.2",
@@ -36,6 +38,7 @@
     "@astrojs/tailwind": "^5.1.5",
     "@iconify-json/flat-color-icons": "^1.2.1",
     "@iconify-json/tabler": "^1.2.20",
+    "@playwright/test": "^1.59.1",
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.16",
     "@types/js-yaml": "^4.0.9",

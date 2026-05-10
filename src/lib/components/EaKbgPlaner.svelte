@@ -927,7 +927,7 @@
 	const toX = (weeks: number) => margins.left + weeks * scale;
 </script>
 
-<section>
+<section data-testid="eakbg-planer">
 	<div class="example-presets mb-2 min-w-0">
 			<span>Beispiele:</span> 
 
