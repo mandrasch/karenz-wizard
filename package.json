@@ -14,7 +14,8 @@
     "astro": "astro",
     "check": "astro check",
     "format": "prettier --write .",
-    "lint": "prettier --check ."
+    "lint": "prettier --check .",
+    "pdf:ratgeber": "PATH=\"$PWD/.typst:$PATH\" typst compile --root . --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.2",

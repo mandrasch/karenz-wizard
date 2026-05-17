@@ -12,6 +12,12 @@ node_modules
 # Astro
 .astro
 
+# Typst (generiertes PDF, per `npm run pdf:ratgeber` erzeugt)
+typst/*.pdf
+
+# Lokale, projektgebundene Typst-Binary (vorgebaut, plattformspezifisch)
+.typst/
+
 # Claude Code local settings
 .claude/settings.local.json
 .claude/worktrees
