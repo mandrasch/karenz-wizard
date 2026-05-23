@@ -59,8 +59,7 @@
 #set list(indent: 6pt)
 
 // Stand des Dokuments (auch auf dem Cover verwendet)
-// TODO: Format/Datum beim manuellen Durchgehen bestaetigen
-#let dokument-stand = "Stand: Mai 2026"
+#let dokument-stand = "Letzter Stand: 23.05.2026"
 
 // ---- DEINE CUSTOM INFOBOXEN ----
 
@@ -104,8 +103,8 @@
   #block(
     width: 100%,
     height: 100%,
-    radius: 6pt,
-    stroke: 3pt + rgb("#F99435"),
+    radius: 0pt,
+    stroke: 4pt + rgb("#F99435"),
     inset: 2.4cm,
   )[
     #set align(center)
@@ -113,8 +112,8 @@
       rows: (1fr, auto, 1fr),
       // --- oben: Kicker ---
       align(top + center)[
-        #text(size: 11pt, fill: rgb("#F99435"), weight: "bold")[
-          karenz-wizard.at — Ratgeber
+        #text(size: 12pt)[
+          Mini-Ratgeber für Väter
         ]
       ],
       // --- Mitte: Titel ---
@@ -122,27 +121,54 @@
         #text(size: 26pt, weight: "bold")[
           Wie man als Vater mehr als 2 Monate Karenz nimmt
         ]
-        #v(10pt)
-        // #line(length: 30%, stroke: 2pt + rgb("#F99435"))
-        #v(10pt)
+        // Abstand Titel <-> Untertitel: hier den Wert anpassen
+        #v(2pt)
+        //#line(length: 30%, stroke: 2pt + rgb("#F99435"))
         #text(size: 14pt, fill: luma(80))[
-          … oder anderweitig mehr Verantwortung übernimmt
+         \- oder anderweitig mehr Verantwortung übernimmt
           in den ersten Jahren mit Kind
         ]
         // TODO: optionalen dezenten Untertitel beim Durchgehen pruefen
       ],
-      // --- unten: Logo + Link + Stand (ganz unten) ---
+      // --- unten: Logo + Link (ganz unten) ---
       align(bottom + center)[
         #image("../src/lib/assets/logo.png", width: 4.5cm)
         #v(8pt)
         #link("https://karenz-wizard.at")[
           #text(fill: rgb("#F99435"), weight: "bold")[karenz-wizard.at]
         ]
-        #v(6pt)
-        #text(size: 10pt, fill: luma(110))[#dokument-stand]
       ],
     )
   ]
+]
+
+// ============================================================
+//  IMPRESSUM / STAND (eigene Seite nach dem Cover)
+// ============================================================
+
+#page(footer: none, margin: 2.4cm)[
+  #set align(start + bottom)
+  #set par(leading: 0.7em, justify: false)
+
+  #v(16pt)
+  *+++ ENTWURF +++*
+
+  #v(10pt)
+  Dies ist noch ein Entwurfstext, um Feedback einzuholen. Kritisches Anmerkungen, allgemeines Feedback oder weitere Cases / Möglichkeiten sehr gerne an mich per Mail schicken. Vielen Dank! 
+
+  E-Mail: #link("mailto:matthias-andrasch-kontakt@mailbox.org")[matthias-andrasch-kontakt\@mailbox.org]
+
+  #text(size: 11pt)[#dokument-stand]
+
+  #v(16pt)
+  *Lizenz: CC0 / Public Domain*
+
+  #link("https://creativecommons.org/publicdomain/zero/1.0/")[
+    #image("assets/cc-zero.png", width: 2.6cm)
+  ]
+  #v(10pt)
+  Autor: Matthias Andrasch für karenz-wizard.at \
+  Freigeben als #link("https://creativecommons.org/publicdomain/zero/1.0/")[https://\u{200B}creativecommons.org/\u{200B}publicdomain/\u{200B}zero/\u{200B}1.0]
 ]
 
 #pagebreak()
@@ -154,23 +180,27 @@
 
 = Einleitung
 
-- TODO: Der Alltagsfall — die Mutter möchte die erste Zeit (~12 Monate)
-  beim Baby sein.
-- TODO: Der Zwiespalt — Väter werden medial stark kritisiert, „nur"
-  2 Monate Karenz zu nehmen, obwohl beim eaKBG (max. 14 Monate ab Geburt)
-  in genau diesem Fall nur 2 Monate für den Vater übrig bleiben.
-- TODO: Zielsetzung des Ratgebers — Optionen aufzeigen, wie der Vater
-  trotzdem mehr Zeit / mehr Verantwortung übernehmen kann.
-- TODO: Voraussetzung — mindestens ein Elternteil hat Anspruch auf das
-  einkommensabhängige Kinderbetreuungsgeld (eaKBG).
+- Der Zwiespalt / die Challenge — Viele Väter wollen gleichberechtigt Verantwortung übernehmen. Aktuell werden sie medial stark kritisiert, „nur” zwei Monate Karenz zu nehmen. Und dies obwohl beim eaKBG (max. 14 Monate ab Geburt) bspw. nur 2 Monate für den Vater übrig bleiben, wenn die Mutter das erste Jahr mit dem Baby daheim sein möchte.
+- Zielsetzung des Ratgebers — Optionen aufzeigen, wie man mehr als zwei Monate Karenz nimmt - oder anderweitig mehr Verantwortung mitträgt, bspw. durch Eltern-Teilzeit o.ä.
 
-// --- VORSCHAU-PLATZHALTER: 3 Lorem-Absaetze zur Beurteilung von
-//     Zeilen-/Absatz-Abstand. TODO: vor Finalisierung entfernen. ---
-#lorem(55)
+== Hacks im bestehenden Sozialsystem Österreichs
 
-#lorem(70)
+- TODO: Es geht hier um Möglichkeiten und "Hacks" innerhalb des bestehenden (Förder-)Systems rund um das Kinderbetreuungsgeld in Österreich.
+- TODO: Politische / systemische Veränderungen sind das andere, ebenso wichtige Thema — diese 
+  werden hier nicht behandelt. 
 
-#lorem(45)
+== Eine Frage der (finanziellen) Möglichkeiten
+
+- Natürlich ist das alles eine Frage der finanziellen Möglichkeiten und
+  sehr individuell.
+- Einige Optionen stehen nur privilegierten Personen zur Verfügung.
+-   Nicht zuletzt berichten auch Männer von Diskriminierungen im Job
+
+== Gleichberechtigte Elternschaft ist mehr als strikte 50:50-Aufteilung
+
+- Gleichberechtigte Elternschaft ist so viel mehr als die mathematisch
+  korrekte 50:50-Aufteilung der Elternzeit/Karenz-Monate.
+- Lass dich nicht stressen!
 
 // ============================================================
 //  CRASHKURS KINDERBETREUUNGSGELD
@@ -274,6 +304,8 @@ Rechner: #link("https://karenz-wizard.at/eakbg-anspruch/")[karenz-wizard.at/eakb
   mindestens 2 Monate.
 - TODO: Aufteilung der Monate relativ flexibel; ein gemeinsamer
   eaKBG-Monat ist möglich (Checkbox im Planer).
+- TODO: Case ergänzen — Mutter 3 Monate, Vater 12 Monate (LinkedIn-Beitrag
+  von Ines Eschenbacher).
 
 Interaktiv durchspielen:
 #link("https://karenz-wizard.at/eakbg-planer/")[karenz-wizard.at/eakbg-planer].
