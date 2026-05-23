@@ -86,6 +86,22 @@
   )
 }
 
+// 3. Neutrale Hinweis- / Einordnungs-Box (Grau, dezent)
+#let hinweisbox(titel, inhalt) = {
+  block(
+    width: 100%,
+    fill: luma(245),
+    inset: 12pt,
+    radius: 4pt,
+    stroke: (left: 4pt + luma(160)), // Grauer Balken links
+    [
+      #text(weight: "bold", fill: luma(70))[#titel] \
+      #v(4pt)
+      #inhalt
+    ]
+  )
+}
+
 // ============================================================
 //  COVERSEITE (typografisch, viel Weissraum, sparsam Farbe)
 //  Option A: kein Vollrahmen, duenne Akzentlinie, Maskottchen
@@ -136,10 +152,18 @@
 // ============================================================
 
 #page(footer: none, margin: 2.4cm)[
-  #set align(start + bottom)
   #set par(leading: 0.7em, justify: false)
 
-  #v(16pt)
+  // Motto/Zitat oben auf der Seite (fuellt den oberen Weissraum)
+  #set quote(block: true)
+  #quote(
+    attribution: [Zitat aus der Eltern-Umfrage von Bernhard Herzog, 2026],
+  )[
+    „Vieles von dem, was Väter heute erstmals als Hürde erleben, ist für Frauen am Arbeitsmarkt seit Jahrzehnten Realität.“
+  ]
+
+  #v(1fr)
+
   *+++ ENTWURF +++*
 
   #v(10pt)
@@ -171,33 +195,14 @@
   Freigeben als #link("https://creativecommons.org/publicdomain/zero/1.0/")[https://\u{200B}creativecommons.org/\u{200B}publicdomain/\u{200B}zero/\u{200B}1.0]
 ]
 
-// ============================================================
-//  INHALTSVERZEICHNIS (eigene Seite)
-// ============================================================
-
-#page(footer: none, margin: (x: 2.2cm, top: 2.4cm, bottom: 4.0cm))[
-  #heading(outlined: false, numbering: none)[Inhalt]
-  #v(6pt)
-  #outline(title: none, depth: 2, indent: auto)
-]
-
-#counter(page).update(1)
-
 // TODO: Größtes Problem noch - ist für eaKBG geschrieben, für alle schreiben? Oder vom "Durchschnittsfall" ausgehen?
 
 // ============================================================
-//  EINLEITUNG
+//  PROLOG (Frontmatter, eigene Seite — VOR dem Inhalt)
 // ============================================================
 
-#set quote(block: true)
-#quote(
-  attribution: link("https://typst.app/home")[Zitat aus der Eltern-Umfrage von Bernhard Herzog,  2026]
-)[
-  „Vieles von dem, was Väter heute erstmals als Hürde erleben, ist für Frauen am Arbeitsmarkt seit Jahrzehnten Realität.“
-]
-
-#pagebreak()
-#heading(numbering: none)[Prolog]
+#page(footer: none, margin: 2.4cm)[
+#heading(numbering: none, outlined: false)[Prolog]
 
 
 
@@ -318,16 +323,28 @@ Viel Erfolg beim Finden deines/eures individuellen Weges!
 // - Zielsetzung des Ratgebers — Optionen aufzeigen, wie man mehr als zwei Monate Karenz nimmt - oder anderweitig mehr Verantwortung mitträgt, bspw. durch Eltern-Teilzeit o.ä.
 
 
-#heading(numbering: none, level: 2)[Disclaimer]
+#hinweisbox("Einordnung")[
 
 - Dieser Ratgeber zeigt nur *Möglichkeiten im bestehenden Sozialsystem Österreichs* auf.  Politische und systemische Veränderungen sind das andere, ebenso wichtige Thema, wofür es sich einzusetzen lohnt. 
 - Eine *Frage der (finanziellen) Möglichkeiten*:  Natürlich ist auch die Karenzplanung auch eine Frage der finanziellen Ressourcen, einige Optionen stehen nur privilegierten Personen (mit finanziellem Puffer) zur Verfügung. Insbesondere bei steigenden Miet- und Lebenshaltungskosten verschärft sich diese Ungleichheit potenziell noch mehr. 
 // - Gleichberechtigte Elternschaft bzw. "Halbe Halbe" / "Equal Care" ist so viel mehr als die mathematisch korrekte 50:50-Aufteilung der Elternzeit/Karenz-Monate.
-- Nicht zuletzt berichten auch einige Väter von Diskriminierungen im Job, wenn sie ihre Elternzeit in Anspruch nehmen möchten. Es hängt also von vielen Faktoren ab:
+- Nicht zuletzt berichten auch einige Väter von Diskriminierungen im Job, wenn sie ihre Elternzeit in Anspruch nehmen möchten. Es hängt also von vielen Faktoren ab.
+]
+]
 
+// ============================================================
+//  INHALTSVERZEICHNIS (eigene Seite, NACH dem Prolog)
+// ============================================================
 
-// Prolog + Disclaimer sind unnummeriert (Frontmatter) -> Zaehler
-// zuruecksetzen, damit das erste echte Kapitel mit "1." startet.
+#page(footer: none, margin: (x: 2.2cm, top: 2.4cm, bottom: 4.0cm))[
+  #heading(outlined: false, numbering: none)[Inhalt]
+  #v(6pt)
+  #outline(title: none, depth: 2, indent: auto)
+]
+
+// Inhalt beginnt -> Seitenzaehler auf 1; Prolog/Einordnung sind
+// unnummeriert, daher Ueberschriften-Zaehler zuruecksetzen (Crashkurs = "1.").
+#counter(page).update(1)
 #counter(heading).update(0)
 
 = Crashkurs Kinderbetreuungsgeld
