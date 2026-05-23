@@ -87,50 +87,48 @@
 }
 
 // ============================================================
-//  COVERSEITE (modern, oranger Rahmen #F99435)
+//  COVERSEITE (typografisch, viel Weissraum, sparsam Farbe)
+//  Option A: kein Vollrahmen, duenne Akzentlinie, Maskottchen
+//  klein in der Fusszeile. Augenschonend & toner-sparsam druckbar.
 // ============================================================
 
-#page(footer: none, margin: 1.4cm)[
-  #block(
-    width: 100%,
-    height: 100%,
-    radius: 0pt,
-    stroke: 4pt + rgb("#F99435"),
-    inset: 2.4cm,
-  )[
-    #set align(center)
-    #grid(
-      rows: (1fr, auto, 1fr),
-      // --- oben: Kicker ---
-      align(top + center)[
-        #text(size: 12pt)[
-          Mini-Ratgeber für Väter
-        ]
-      ],
-      // --- Mitte: Titel ---
-      align(horizon + center)[
-        #text(size: 26pt, weight: "bold")[
-          Wie man als Vater mehr als 2 Monate Karenz nimmt
-        ]
-        // Abstand Titel <-> Untertitel: hier den Wert anpassen
-        #v(16pt)
-        //#line(length: 30%, stroke: 2pt + rgb("#F99435"))
-        #text(size: 14pt, fill: luma(80))[
-         \- oder anderweitig mehr Verantwortung übernimmt
-          in den ersten Jahren mit Kind
-        ]
-        // TODO: optionalen dezenten Untertitel beim Durchgehen pruefen
-      ],
-      // --- unten: Logo + Link (ganz unten) ---
-      align(bottom + center)[
-        #image("../src/lib/assets/logo.png", width: 4.5cm)
-        #v(8pt)
-        #link("https://karenz-wizard.at")[
-          #text(fill: rgb("#F99435"), weight: "bold")[karenz-wizard.at]
-        ]
-      ],
-    )
-  ]
+#page(footer: none, margin: (left: 3cm, right: 3cm, top: 3.2cm, bottom: 3cm))[
+  #set par(justify: false, leading: 0.6em)
+  #grid(
+    rows: (1fr, auto, 1fr),
+    // --- oben: Kicker ---
+    align(top + left)[
+      #text(size: 11pt, fill: rgb("#F99435"), weight: "bold", tracking: 1.2pt)[
+        MINI-RATGEBER FÜR VÄTER
+      ]
+    ],
+    // --- Mitte: Titel + Akzentlinie + Untertitel (linksbuendig) ---
+    align(horizon + left)[
+      #text(size: 30pt, weight: "bold")[
+        Wie man als Vater mehr als 2 Monate Karenz nimmt
+      ]
+      // Untertitel direkt unter dem Titel (kleiner + leichter, linksbuendig)
+      #v(10pt)
+      #text(size: 16pt, fill: luma(95), weight: "regular")[
+        … oder anderweitig mehr Verantwortung übernimmt
+        in den ersten Jahren mit Kind
+      ]
+      // Akzentlinie als Abschluss unter Titel + Untertitel
+      #v(20pt)
+      #line(length: 16%, stroke: 3pt + rgb("#F99435"))
+    ],
+    // --- unten: Wortmarke + kleines Maskottchen ---
+    align(bottom + left)[
+      #grid(
+        columns: (1fr, auto),
+        align: (left + horizon, right + horizon),
+        link("https://karenz-wizard.at")[
+          #text(fill: rgb("#F99435"), weight: "bold", size: 13pt)[karenz-wizard.at]
+        ],
+        image("../src/lib/assets/logo.png", width: 2cm),
+      )
+    ],
+  )
 ]
 
 // ============================================================
@@ -191,8 +189,49 @@
 //  EINLEITUNG
 // ============================================================
 
+#set quote(block: true)
+#quote(
+  attribution: link("https://typst.app/home")[Zitat aus der Eltern-Umfrage von Bernhard Herzog,  2026]
+)[
+  „Vieles von dem, was Väter heute erstmals als Hürde erleben, ist für Frauen am Arbeitsmarkt seit Jahrzehnten Realität.“
+]
+
+#pagebreak()
+#heading(numbering: none)[Prolog]
 
 
+
+
+Wie verdammt nochmal nimmt man als Vater mehr als zwei Monate Karenz?  Diese Frage hat mir einige schlaflose Nächte bereitet.
+
+Angefangen hat alles mit einem Wunsch meiner Partnerin: Sie wollte das erste
+Lebensjahr mit unserem Kind zu Hause zu erleben. Mit den Details zu
+Kinderbetreuungsgeld und Karenz hatten wir uns da noch gar nicht
+beschäftigt. 
+
+Zur selben Zeit las ich immer wieder in Medienberichten: „Väter
+nehmen nur zwei Monate Karenz in Österreich — wenn überhaupt.“.
+
+Das saß. Ich wollte ein moderner Vater sein und gleichberechtigte
+Elternschaft wirklich versuchen. Kein Super-Dad - aber eben einer, der seine Partnerin nicht allein mit Betreuung und Mental Load lässt.
+
+ Mein Vorsatz war klar: Bloß nicht so ein Zwei-Monate-Vater werden!
+
+Doch schnell stellte sich raus, dass das einkommensabhängige Kinderbetreuungsgeld nur
+für maximal 14 Monate gut bezahlt (rund 80 % des Einkommens) wird. Nimmt
+meine Partnerin davon zwölf Monate, bleiben mir — genau — die viel
+kritisierten zwei Monate.
+
+Heute weiß ich: Ruhig bleiben, die Karenzaufteilung ist nicht alles! Wer
+es sich leisten kann, hat zwar Optionen wie unbezahlte Karenzmonate. Aber auch nach der Karenz gibt es Optionen wie die Eltern-Teilzeit, bei der man als Vater echte Verantwortung übernehmen kann. Neben vielen weiteren Optionen für mehr Väterbeteiligung.
+
+Diese Möglichkeiten ich nun hier kurz & knackig versucht zu sammeln. Auch, weil ich genau so eine Übersicht damals schmerzlich vermisst
+habe.
+
+Viel Erfolg beim Finden deines/eures individuellen Weges!
+
+// ===== ORIGINAL-VERSION (auskommentiert, Stand vor Prolog-Umbau) =====
+/*
 = Warum dieser Ratgeber?
 
 Wie verdammt nochmal nimmt man als Vater mehr als zwei Monate Karenz? 🤯
@@ -247,6 +286,8 @@ Dazu gibt es weitere Möglichkeiten, die ich in diesem kleinen Ratgeber aufgelis
 
 
 Viel Erfolg beim Finden deines/eures individuellen Weges!
+*/
+// ===== ENDE ORIGINAL-VERSION =====
 
 
 
@@ -277,19 +318,17 @@ Viel Erfolg beim Finden deines/eures individuellen Weges!
 // - Zielsetzung des Ratgebers — Optionen aufzeigen, wie man mehr als zwei Monate Karenz nimmt - oder anderweitig mehr Verantwortung mitträgt, bspw. durch Eltern-Teilzeit o.ä.
 
 
-== Disclaimer
+#heading(numbering: none, level: 2)[Disclaimer]
 
 - Dieser Ratgeber zeigt nur *Möglichkeiten im bestehenden Sozialsystem Österreichs* auf.  Politische und systemische Veränderungen sind das andere, ebenso wichtige Thema, wofür es sich einzusetzen lohnt. 
 - Eine *Frage der (finanziellen) Möglichkeiten*:  Natürlich ist auch die Karenzplanung auch eine Frage der finanziellen Ressourcen, einige Optionen stehen nur privilegierten Personen (mit finanziellem Puffer) zur Verfügung. Insbesondere bei steigenden Miet- und Lebenshaltungskosten verschärft sich diese Ungleichheit potenziell noch mehr. 
 // - Gleichberechtigte Elternschaft bzw. "Halbe Halbe" / "Equal Care" ist so viel mehr als die mathematisch korrekte 50:50-Aufteilung der Elternzeit/Karenz-Monate.
 - Nicht zuletzt berichten auch einige Väter von Diskriminierungen im Job, wenn sie ihre Elternzeit in Anspruch nehmen möchten. Es hängt also von vielen Faktoren ab:
 
-#set quote(block: true)
-#quote(
-  attribution: link("https://typst.app/home")[Zitat aus der Eltern-Umfrage von Bernhard Herzog,  2026]
-)[
-  „Vieles von dem, was Väter heute erstmals als Hürde erleben, ist für Frauen am Arbeitsmarkt seit Jahrzehnten Realität.“
-]
+
+// Prolog + Disclaimer sind unnummeriert (Frontmatter) -> Zaehler
+// zuruecksetzen, damit das erste echte Kapitel mit "1." startet.
+#counter(heading).update(0)
 
 = Crashkurs Kinderbetreuungsgeld
 

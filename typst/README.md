@@ -4,6 +4,28 @@ PDF guide "Wie man als Vater mehr als 2 Monate Karenz nimmt".
 Source: `ratgeber-vaeterkarenz.typ`. Content is fed from
 `src/data/steps.ts` and `src/pages/*.astro`.
 
+## Ziele & Stil (für KI-Assistenten)
+
+Leitlinien für jede Bearbeitung von `ratgeber-vaeterkarenz.typ`. Siehe
+auch `../MANIFESTO.md` (Projektziele) und `../AGENTS.md` (Website-Regeln).
+
+- **Kurz & knackig.** Lieber 1–2 prägnante Sätze als ein Absatz. Jede
+  Option = kurzer Einstieg + ggf. Finanzbox + Link zum interaktiven Tool.
+  Für Details auf karenz-wizard.at bzw. AK/ÖGK verweisen, nicht alles
+  ausschreiben.
+- **Leicht verständlich.** Du-Ansprache, lockerer Ton, Fachbegriffe sofort
+  erklären (wie im "Crashkurs"). Inspiriert von den sipgate-Büchern
+  (klare Hierarchie, viel Weißraum, freundlich).
+- **Umweltfreundlich druckbar.** Keine großen Fotos, sparsam mit
+  Farbflächen (Toner/Tinte schonen). Infoboxen bevorzugt mit linkem
+  Farbbalken auf weißem Grund statt vollflächiger Füllung. Cover
+  typografisch, ohne vollflächige Farbe.
+- **Marke.** Akzentfarbe `#F99435` (orange), Schrift Inter. Maskottchen
+  (`logo.png`) sparsam und klein einsetzen.
+- **Faktische Sorgfalt.** Zahlen/Regeln (Beträge, Fristen, Gesetzeslage)
+  sind heikel — bei Unsicherheit als TODO markieren statt raten; "Stand"
+  und "ohne Gewähr" sind bereits im Dokument vermerkt.
+
 ## Build
 
 ```sh
