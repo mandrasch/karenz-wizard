@@ -10,30 +10,21 @@
 
 #set document(
   title: "Wie man als Vater mehr als 2 Monate Karenz nimmt",
-  author: "karenz-wizard.at",
+  author: "Matthias Andrasch für karenz-wizard.at",
 )
 
 #set page(
   paper: "a4",
-  margin: (x: 2.2cm, top: 2.4cm, bottom: 3.4cm),
+  margin: (x: 2.2cm, top: 2.4cm, bottom: 4.0cm),
   footer: context [
     #line(length: 100%, stroke: 0.5pt + luma(205))
     #v(4pt)
-    #set text(size: 7pt, fill: luma(105))
-    #set par(leading: 0.5em, justify: true)
-    *Keine Rechtsberatung:* Dieser Ratgeber ist ein privates,
-    nichtkommerzielles Hobbyprojekt. Alle Angaben ohne Gewähr,
-    unverbindlich und ggf. unvollständig, fehlerhaft oder veraltet —
-    keine individuelle Rechts-, Steuer- oder Sozialberatung. Für
-    verbindliche Auskünfte und vor jeder Antragstellung wende dich an
-    die zuständigen Stellen (Arbeiterkammer, ÖGK, Gewerkschaft /
-    Betriebsrat, Finanzamt).
-    #v(5pt)
+    #set text(size: 8pt, fill: luma(105))
     #grid(
       columns: (1fr, auto),
       align: (left, right),
       link("https://karenz-wizard.at")[karenz-wizard.at],
-      counter(page).display(),
+      [Seite: #counter(page).display()],
     )
   ],
 )
@@ -51,7 +42,7 @@
 // (par.spacing ist der moderne Absatz-Abstand ab Typst 0.11)
 #set par(leading: 0.8em, spacing: 1.4em, justify: true)
 
-#set heading(numbering: none)
+#set heading(numbering: "1.")
 // Mehr Abstand unter Ueberschriften
 #show heading: set block(above: 1.4em, below: 1em)
 #show heading.where(level: 1): set text(size: 16pt)
@@ -122,7 +113,7 @@
           Wie man als Vater mehr als 2 Monate Karenz nimmt
         ]
         // Abstand Titel <-> Untertitel: hier den Wert anpassen
-        #v(2pt)
+        #v(16pt)
         //#line(length: 30%, stroke: 2pt + rgb("#F99435"))
         #text(size: 14pt, fill: luma(80))[
          \- oder anderweitig mehr Verantwortung übernimmt
@@ -154,11 +145,22 @@
   *+++ ENTWURF +++*
 
   #v(10pt)
-  Dies ist noch ein Entwurfstext, um Feedback einzuholen. Kritisches Anmerkungen, allgemeines Feedback oder weitere Cases / Möglichkeiten sehr gerne an mich per Mail schicken. Vielen Dank! 
+  Dies ist noch ein Entwurfstext. Kritisches Anmerkungen, allgemeines Feedback oder weitere Cases / Möglichkeiten sehr gerne an mich per Mail schicken. Vielen Dank! 
 
   E-Mail: #link("mailto:matthias-andrasch-kontakt@mailbox.org")[matthias-andrasch-kontakt\@mailbox.org]
 
   #text(size: 11pt)[#dokument-stand]
+
+  #v(16pt)
+  *Keine Rechtsberatung*
+  
+  #v(10pt)
+  Dieser Ratgeber ist ein privates,
+    nichtkommerzielles Hobbyprojekt. Alle Angaben ohne Gewähr. Die Informationen sind 
+    unverbindlich und ggf. unvollständig, fehlerhaft oder veraltet. Es handelt sich nicht um eine  individuelle Rechts-, Steuer- oder Sozialberatung. Für
+    verbindliche Auskünfte und vor jeder Antragstellung wende dich bitte unbedingt an
+    die zuständigen Stellen (Arbeiterkammer, ÖGK, Gewerkschaft /
+    Betriebsrat, etc.).
 
   #v(16pt)
   *Lizenz: CC0 / Public Domain*
@@ -171,47 +173,136 @@
   Freigeben als #link("https://creativecommons.org/publicdomain/zero/1.0/")[https://\u{200B}creativecommons.org/\u{200B}publicdomain/\u{200B}zero/\u{200B}1.0]
 ]
 
-#pagebreak()
+// ============================================================
+//  INHALTSVERZEICHNIS (eigene Seite)
+// ============================================================
+
+#page(footer: none, margin: (x: 2.2cm, top: 2.4cm, bottom: 4.0cm))[
+  #heading(outlined: false, numbering: none)[Inhalt]
+  #v(6pt)
+  #outline(title: none, depth: 2, indent: auto)
+]
+
 #counter(page).update(1)
+
+// TODO: Größtes Problem noch - ist für eaKBG geschrieben, für alle schreiben? Oder vom "Durchschnittsfall" ausgehen?
 
 // ============================================================
 //  EINLEITUNG
 // ============================================================
 
-= Einleitung
 
-- Der Zwiespalt / die Challenge — Viele Väter wollen gleichberechtigt Verantwortung übernehmen. Aktuell werden sie medial stark kritisiert, „nur” zwei Monate Karenz zu nehmen. Und dies obwohl beim eaKBG (max. 14 Monate ab Geburt) bspw. nur 2 Monate für den Vater übrig bleiben, wenn die Mutter das erste Jahr mit dem Baby daheim sein möchte.
-- Zielsetzung des Ratgebers — Optionen aufzeigen, wie man mehr als zwei Monate Karenz nimmt - oder anderweitig mehr Verantwortung mitträgt, bspw. durch Eltern-Teilzeit o.ä.
 
-== Hacks im bestehenden Sozialsystem Österreichs
+= Warum dieser Ratgeber?
 
-- TODO: Es geht hier um Möglichkeiten und "Hacks" innerhalb des bestehenden (Förder-)Systems rund um das Kinderbetreuungsgeld in Österreich.
-- TODO: Politische / systemische Veränderungen sind das andere, ebenso wichtige Thema — diese 
-  werden hier nicht behandelt. 
+Wie verdammt nochmal nimmt man als Vater mehr als zwei Monate Karenz? 🤯
 
-== Eine Frage der (finanziellen) Möglichkeiten
+Diese Frage klingt simpel - und dennoch bescherte sie mir viele schlaflöse Nächte. 
 
-- Natürlich ist das alles eine Frage der finanziellen Möglichkeiten und
-  sehr individuell.
-- Einige Optionen stehen nur privilegierten Personen zur Verfügung.
--   Nicht zuletzt berichten auch Männer von Diskriminierungen im Job
+Aus dem Bauch heraus äußerte meine Partnerin den Wunsch, das erste Lebensjahr mit Kind daheim zu verbringen (und zu erleben). 
 
-== Gleichberechtigte Elternschaft ist mehr als strikte 50:50-Aufteilung
+Wir hatten uns zu diesem Zeitpunkt noch nicht im Detail mit Kinderbetreuungsgeld oder Karenzregeln beschäftigt.
 
-- Gleichberechtigte Elternschaft ist so viel mehr als die mathematisch
-  korrekte 50:50-Aufteilung der Elternzeit/Karenz-Monate.
-- Lass dich nicht stressen!
+// TODO: relevant? (schon - zeigt, dass wir auf )
+Auf Arbeit bekamen wir beide desöfteren mit, wie Mütter auch eine Bildungskarenz für das zweite Jahr mit Kind als "Brücke zurück ins Erwebsleben" nutzten nach dem ersten Jahr Karenz. Sie machten eine Online-Weiterbildung während sie das Kind daheim betreuten. Diese Möglichkeit gibt es inzwischen nicht mehr bzw. ist explizit untersagt.
 
-// ============================================================
-//  CRASHKURS KINDERBETREUUNGSGELD
-// ============================================================
+Zeitgleich las ich die ersten Medienberichte zur Väterkarenz:
+
+Väter nehmen nur zwei Monate Karenz, wenn überhaupt. \
+Väter nehmen nur zwei Monate Karenz, wenn überhaupt. \
+Väter nehmen nur zwei Monate Karenz, wenn überhaupt. \
+
+Diese Kritik wurde immer und immer wieder wiederholt.
+
+Natürlich brannte sich das bei mir ein: Ich wollte ein möglichst moderner Vater sein und gleichberechtige Elternschaft ("Halbe Halbe") versuchen. Kein Super-Dad, ein durchschnittlich guter reicht. Ein Vater, der seine Partnerin keineswegs allein mit der Betreuung, dem Mental Load & Co lässt. Diese Ziele hast sicher auch du, wenn du diesen Ratgeber liest.
+
+Die einzig logische Schlussfolgerung war für mich damals: 
+
+Ich darf auf keinen Fall ein weiterer Vater sein, der nur zwei Monate Karenz nimmt!
+
+Beim Beschäftigen mit dem einkommensabhängigen Kinderbetreuungsgeld stellte sich dann  aber schnell heraus, dass maximal 14 Monate gut bezahlt werden vom Staat Österreich (mit 80% des bisherigen Einkommens). Nimmt meine Partnerin also 12 Monate, bleiben mir ... genau, die viel kritisierten zwei Monate. 
+
+// Mir war nämlich damals nicht klar, welche Möglichkeiten es überhaupt gibt. Und so verschwendete ich (leider) auch viel Zeit meines Papamonats mit der Recherche und Beratungsgesprächen.
+
+Heute weiß ich: Ruhig bleiben, die Karenzaufteilung ist nicht alles!
+
+Wer es sich leisten kann, hat zwar Optionen wie unbezahlte Karenzmonate für mehr Väterkarenz. Eine (Eltern-)Teilzeit im Anschluss an die Karenz kann aber ebenso eine Option sein, um echte Verantwortung zu übernehmen. 
+
+Dazu gibt es weitere Möglichkeiten, die ich in diesem kleinen Ratgeber aufgelistet habe.
+
+
+
+// Verfasst habe ich diesen Ratgeber, weil ich eine solche Auflistung der Möglichkeiten damals sehr schmerzlich vermisst habe.
+// Ich hoffe, er erspart dir einige Kopfschmerzen und mühsame Recherche.
+
+//Daher habe ich nun diesen kleinen Ratgeber geschrieben, der die Möglichkeiten aufzeigen soll. Sodass du dir (hoffentlich) mühsame Recherchezeit und Kopfschmerzen ersparst.
+
+// TODO: Sub-Kapitel ergänzen? Oder ist schon in Checkliste auf Webseite --> dorthin verweisen.
+// Und die allerwichtigste Frage taucht oft auch viel zu spät auf: Ab wann wollen wir unser Kind eigentlich fremdbetreuen lassen, beispielsweise im Kindergarten oder bei einer Tagesmutter-Gruppe?
+
+// Long story short: Daher habe ich nun diesen kleinen Ratgeber geschrieben, den ich damals so schmerzlich vermisst habe. Mir waren Optionen nämlich absolut nicht klar, Informationen waren oft verstreut, Beratungsgespräche waren auf Finanzen optimiert - statt auf "Halbe Halbe".
+
+// TODO: remove - put in checklist
+// Ein kleiner Tipp vorab noch: Die Frage "Ab wann möchten wir unser Kind fremdbetreuen lassen?" spielt eine ebenso zentrale Rolle bei der Planung der ersten Jahre mit Kind (& Job).
+
+
+Viel Erfolg beim Finden deines/eures individuellen Weges!
+
+
+
+// TODO: Ab wann in Kinderbetreuung
+
+
+
+// Ich wollte kein Super-Dad werden, durchschnittlich gut würde mir reichen. Ehrlich gesagt hatte (und habe) ich ziemlich Schiss vor der riesigen Verantwortung.
+
+// Ich wollte nur mein Bestmögliches versuchen, gleichberechtigt Verantwortung zu übernehmen. Wie so viele andere Väter heutzutage auch. 
+ 
+ // Wohin das führen kann, konnte ich eindrucksvoll bei Mareike Fallwickl im Buch „Die Wut, die bleibt“ lesen. 
+
+ // TODO: Windelwechsel Zitat - es ist schon viel passiert
+
+
+
+
+
+
+
+
+
+// Diese Frage beschäftigte mich seit dem ersten Gespräch mit meiner Partnerin. Bei diesem äußerte sie den Wunsch, das erste Jahr mit Baby daheim zu erleben.
+
+
+//- Der Zwiespalt / die Challenge — Viele Väter wollen gleichberechtigt Verantwortung übernehmen. Aktuell werden sie medial stark kritisiert, „nur” zwei Monate Karenz zu nehmen. Und dies obwohl beim eaKBG (max. 14 Monate ab Geburt) bspw. nur 2 Monate für den Vater übrig bleiben, wenn die Mutter das erste Jahr mit dem Baby daheim sein möchte.
+// - Zielsetzung des Ratgebers — Optionen aufzeigen, wie man mehr als zwei Monate Karenz nimmt - oder anderweitig mehr Verantwortung mitträgt, bspw. durch Eltern-Teilzeit o.ä.
+
+
+== Disclaimer
+
+- Dieser Ratgeber zeigt nur *Möglichkeiten im bestehenden Sozialsystem Österreichs* auf.  Politische und systemische Veränderungen sind das andere, ebenso wichtige Thema, wofür es sich einzusetzen lohnt. 
+- Eine *Frage der (finanziellen) Möglichkeiten*:  Natürlich ist auch die Karenzplanung auch eine Frage der finanziellen Ressourcen, einige Optionen stehen nur privilegierten Personen (mit finanziellem Puffer) zur Verfügung. Insbesondere bei steigenden Miet- und Lebenshaltungskosten verschärft sich diese Ungleichheit potenziell noch mehr. 
+// - Gleichberechtigte Elternschaft bzw. "Halbe Halbe" / "Equal Care" ist so viel mehr als die mathematisch korrekte 50:50-Aufteilung der Elternzeit/Karenz-Monate.
+- Nicht zuletzt berichten auch einige Väter von Diskriminierungen im Job, wenn sie ihre Elternzeit in Anspruch nehmen möchten. Es hängt also von vielen Faktoren ab:
+
+#set quote(block: true)
+#quote(
+  attribution: link("https://typst.app/home")[Zitat aus der Eltern-Umfrage von Bernhard Herzog,  2026]
+)[
+  „Vieles von dem, was Väter heute erstmals als Hürde erleben, ist für Frauen am Arbeitsmarkt seit Jahrzehnten Realität.“
+]
 
 = Crashkurs Kinderbetreuungsgeld
 
-In Österreich gibt es zwei Fördermodelle: Einkommensabhängiges
-Kinderbetreuungsgeld (eaKBG) für Erwerbstätige und das pauschale
-Kinderbetreuungsgeld-Konto, was allen offen steht. Als Paar muss man
-sich für eins entscheiden. Das Einkommensabhängige ist an die
+Um die Möglichkeiten zu verstehen, benötigt man ein kleines Basis-Wissen zum Kinderbetreuungsgeld in Österreich. Aber keine Sorge, das ist absolut keine Raketenwissenschaft!
+
+In Österreich gibt es zwei Fördermodelle: 
+
+- das einkommensabhängiges Kinderbetreuungsgeld (eaKBG) für Erwerbstätige und 
+- das pauschale Kinderbetreuungsgeld-Konto, was allen offen steht
+
+Als Paar muss man sich gemeinsam für eins entscheiden, Mischen nicht erlaubt.
+
+Das Einkommensabhängige ist jedoch an die
 182-Tage-Regel geknüpft, siehe unten.
 
 *Grobe Faustregel:* Falls ihr Anspruch auf das einkommensabhängige
@@ -274,7 +365,7 @@ Pauschalmodell (bis zu 2 Jahre möglich).
 //  VORAUSSETZUNG: 182-TAGE-REGEL
 // ============================================================
 
-= Voraussetzung prüfen: Die 182-Tage-Regel (eaKBG-Anspruch)
+== Voraussetzung prüfen: Die 182-Tage-Regel für das einkommensabhängige Kinderbetreuungsgeld
 
 - TODO: eaKBG vs. pauschales KBG-Konto — eaKBG ca. 80% des letzten
   Gehalts, max. 14 Monate ab Geburt, deutlich höhere Fördersumme
@@ -291,10 +382,17 @@ Prüft euren Anspruch und den jeweiligen Stichtag mit dem interaktiven
 Rechner: #link("https://karenz-wizard.at/eakbg-anspruch/")[karenz-wizard.at/eakbg-anspruch].
 
 // ============================================================
-//  OPTION 1
+//  DIE OPTIONEN
 // ============================================================
 
-= 1. Mutter nimmt weniger als 12 Monate — „gibt an Vater ab"
+= Die Optionen im Überblick
+
+Im Folgenden die einzelnen Optionen, wie man als Vater mehr Zeit oder
+Verantwortung übernehmen kann.
+
+// ---- Option 1 ----
+
+== Mutter nimmt weniger als 12 Monate — „gibt an Vater ab”
 
 - TODO: Staatliche Förderung ≠ Recht auf Karenz — 2 Jahre Recht auf
   (unbezahlte) Freistellung beim Arbeitgeber, eaKBG aber nur 14 Monate.
@@ -310,11 +408,9 @@ Rechner: #link("https://karenz-wizard.at/eakbg-anspruch/")[karenz-wizard.at/eakb
 Interaktiv durchspielen:
 #link("https://karenz-wizard.at/eakbg-planer/")[karenz-wizard.at/eakbg-planer].
 
-// ============================================================
-//  OPTION 2
-// ============================================================
+// ---- Option 2 ----
 
-= 2. Option: Unbezahlte Karenzmonate anhängen — länger in Karenz als Vater
+== Unbezahlte Karenzmonate anhängen — länger in Karenz als Vater
 
 - TODO: Unbezahlte Karenz-Monate nach den 14 eaKBG-Monaten dranhängen;
   Recht auf (unbezahlte) Freistellung besteht bis zum 2. Lebensjahr.
@@ -333,11 +429,9 @@ Interaktiv durchspielen:
 Mehr Infos:
 #link("https://karenz-wizard.at/unbezahlte-karenz/")[karenz-wizard.at/unbezahlte-karenz].
 
-// ============================================================
-//  OPTION 3
-// ============================================================
+// ---- Option 3 ----
 
-= 3. Option: Eltern-Teilzeit — das 20h/20h-Modell
+== Eltern-Teilzeit — das 20h/20h-Modell
 
 - TODO: *Hinweis* — Möglichkeit, mehr Verantwortung zu übernehmen
   *ohne* (zusätzliche unbezahlte) Karenz: beide steigen nach dem eaKBG
@@ -358,11 +452,9 @@ Mehr Infos:
 Mehr Infos:
 #link("https://karenz-wizard.at/elternteilzeit-20-20/")[karenz-wizard.at/elternteilzeit-20-20].
 
-// ============================================================
-//  OPTION 4
-// ============================================================
+// ---- Option 4 ----
 
-= 4. Option: Bezahlter (oder unbezahlter) Urlaub — Väterkarenz verlängern
+== Bezahlter (oder unbezahlter) Urlaub — Väterkarenz verlängern
 
 - TODO: Urlaubstage vorher ansammeln und nach den 14 eaKBG-Monaten
   verbrauchen → 100 % Gehalt statt Förderung.
@@ -379,11 +471,9 @@ Mehr Infos:
 Mehr Infos:
 #link("https://karenz-wizard.at/urlaub-karenz-verlaengern/")[karenz-wizard.at/urlaub-karenz-verlaengern].
 
-// ============================================================
-//  OPTION 5
-// ============================================================
+// ---- Option 5 ----
 
-= 5. AMS & Karenz — Infos zur „AMS-Karenz"
+== AMS & Karenz — Infos zur „AMS-Karenz"
 
 - TODO: Ist ein Elternteil arbeitssuchend, kann man trotzdem alle
   Entwicklungsschritte miterleben und Verantwortung im Haushalt
@@ -400,9 +490,12 @@ Mehr Infos:
 //  ABSCHLUSS
 // ============================================================
 
+// TODO move up 
+== TODO: Stunden reduzieren im ersten Jahr
+
 = Abschluss
 
 - TODO: Vor der Antragstellung individuell bei AK oder ÖGK beraten
-  lassen — viele Regeln, jede Familiensituation ist anders.
-- TODO: Quelle/Verweis auf #link("https://karenz-wizard.at")[karenz-wizard.at];
-  #dokument-stand.
+  lassen — viele Regeln, jede Familiensituation ist anders!
+- TODO: Schritte im Überblick auf karenz-wizard.at
+- TODO: Fehlt eine Option?
