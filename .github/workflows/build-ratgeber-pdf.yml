@@ -1,0 +1,29 @@
+name: Build Ratgeber PDF
+on:
+    pull_request:
+        paths:
+            - 'typst/**'
+            - '.github/workflows/build-ratgeber-pdf.yml'
+jobs:
+    build-pdf:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout 🛎️
+              uses: actions/checkout@v4
+
+            - name: Setup Typst 📝
+              uses: typst-community/setup-typst@v4
+              with:
+                  typst-version: '0.14.2'
+
+            - name: Compile PDF 🔧
+              run: |
+                  typst compile --root . --font-path typst/fonts \
+                    typst/ratgeber-vaeterkarenz.typ
+
+            - name: Upload PDF artifact 📦
+              uses: actions/upload-artifact@v4
+              with:
+                  name: ratgeber-vaeterkarenz-pdf
+                  path: typst/ratgeber-vaeterkarenz.pdf
+                  if-no-files-found: error

@@ -152,6 +152,16 @@ uses the same fonts.
 
 ## CI
 
-No CI build at the moment. If wanted later: the
-`typst-community/setup-typst` action (pinned version) →
-`npm run pdf:ratgeber`.
+`.github/workflows/build-ratgeber-pdf.yml` builds the PDF on every pull
+request that touches `typst/**`. It uses the pinned
+`typst-community/setup-typst` action (Typst `0.14.2`, same version as
+the local `.typst/` binary) and runs the same `typst compile` command
+as the `pdf:ratgeber` npm script. The resulting
+`ratgeber-vaeterkarenz.pdf` is uploaded as a build artifact
+(`ratgeber-vaeterkarenz-pdf`) and can be downloaded from the workflow
+run, so reviewers can check the rendered PDF without a local Typst
+setup.
+
+The workflow calls `typst compile` directly (Typst from `setup-typst`
+is already on `PATH`) rather than via the npm script, which prepends
+the local, gitignored `.typst/` directory.
