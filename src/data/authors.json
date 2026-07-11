@@ -6,6 +6,12 @@
     "bio": "Matthias Andrasch ist Webentwickler aus Wien, studiert hat er im Bereich Sozialwissenschaften. Er hat den Karenz Wizard ins Leben gerufen, um Eltern bei der Karenzplanung in Österreich zu unterstützen. Insbesondere Väter, sodass diese alle Optionen kennen, um ggf. mehr als zwei Monate Karenz nehmen zu können. Denn vor dieser komplizierten Herausforderung stand er selber als Neu-Vater. Mehr Infos über seine Projekte gibt es auf <a href=\"https://matthias-andrasch.eu\" target=\"_blank\" class=\"underline text-primary\">matthias-andrasch.eu</a>."
   },
   {
+    "id": "lara-amalia",
+    "name": "Lara Aigmüller",
+    "avatar": "/avatar-lara.jpg",
+    "bio": "Lara ist Web Frontend Developer und UX Designer aus Oberösterreich und baut individuelle Softwarelösungen gemeinsam mit ihrem Team bei <a href=\"https://www.scale.at\" target=\"_blank\" class=\"underline text-primary\">scale.at</a>. Als zweifache Mama und Workaholic tauscht sie gerne Erfahrungen zum Thema Vereinbarkeit von Job und Kinderbetreuung aus."
+  },
+  {
     "id": "gastautor-muster",
     "name": "Gastautor Muster",
     "avatar": "/avatar-gast.png",

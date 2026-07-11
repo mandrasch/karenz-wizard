@@ -98,19 +98,13 @@ const metadata = {
               {
                 post.data.guestPost ? (
                   <span>
-                    Gastbeitrag von{" "}
-                    <a
-                      href="#author-info"
-                      class="hover:text-slate-600 transition"
-                    >
+                    Gastbeitrag von{' '}
+                    <a href="#author-info" class="hover:text-slate-600 transition">
                       {author.name}
                     </a>
                   </span>
                 ) : (
-                  <a
-                    href="#author-info"
-                    class="hover:text-slate-600 transition"
-                  >
+                  <a href="#author-info" class="hover:text-slate-600 transition">
                     {author.name}
                   </a>
                 )
@@ -151,12 +145,12 @@ const metadata = {
           <div class="space-y-2">
             <div class="flex flex-wrap items-center gap-2">
               <h3 class="text-lg font-bold text-slate-900">
-                {post.data.guestPost ? `Gastbeitrag von ${author.name}` : `Über den Autor: ${author.name}`}
+                {post.data.guestPost ? `${author.name}` : `${author.name}`}
               </h3>
               {
                 post.data.guestPost && (
                   <span class="inline-flex items-center rounded-full bg-slate-200/80 px-2.5 py-0.5 text-xs font-medium text-slate-800">
-                    Gastbeitrag
+                    Gastautor:in
                   </span>
                 )
               }
