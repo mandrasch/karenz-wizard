@@ -1,9 +1,10 @@
 ---
 title: Kinderbetreuung und Selbstständigkeit gleichmäßig aufteilen – ein Erfahrungsbericht
-pubDate: 2026-06-30
+pubDate: 2026-07-11
 slug: kinderbetreuungsgeld-selbststaendigkeit-erfahrungsbericht
 author: lara-amalia
 guestPost: true
+ogImage: /blog-images/kinderbetreuung_und_selbstaendigkeit.jpg
 ---
 
 Unsere Idee zur Familienplanung: wir teilen uns in den ersten Jahren mit Kind(ern) gemeinsam eine Vollzeit-Arbeitsstelle und auch das Kinderbetreuungsgeld geht aufs gemeinsame Konto. So die Theorie… 😉
@@ -19,6 +20,7 @@ Gleich vorweg möchte ich anmerken, dass wir **beide annähernd gleich viel verd
 Wir sind beide bei der SVS versichert. So habe ich als ersten Schritt per Mail die **Bestätigung der Schwangerschaft** meiner Ärztin eingereicht. „Der Eintritt der Schwangerschaft ist bei der Sozialversicherungsanstalt der Selbstständigen bis spätestens am Beginn des dritten Monats vor der voraussichtlichen Entbindung [...] zu melden.“ – [Quelle: USP](https://www.usp.gv.at/themen/mitarbeiter-und-gesundheit/gesundheit/selbststaendigkeit-und-schwangerschaft.html)
 
 Dann begann die Recherche:
+
 - Wie läuft das mit Mutterschutz und Karenz?
 - Was muss ich machen und wann?
 - Wo finde ich die richtigen Kontaktadressen?
@@ -38,6 +40,7 @@ Das Wochengeld wird grundsätzlich von der Mutter beantragt und ist eine Alterna
 ### Wochengeld beantragen
 
 Mir wurde ursprünglich erklärt, dass das Wochengeld am Tag nach der Geburt beantragt werden kann. Der Antrag kann jedoch schon davor gestellt werden, was ich empfehlen würde, denn nach der Geburt hat man ohnehin alle Hände voll zu tun und den Kopf wo anders. Ausbezahlt wird die erste Tranche des Wochengeldes unmittelbar nach der Geburt; die zweite nach Ablauf des „Mutterschutzes“. Zwei Hinweise:
+
 - Wer in der Zeit beschließt, nicht mehr zu arbeiten und daher keine Einkünfte mehr hat, wartet eine Weile, bis wieder Geld am Konto landet. Bei weiterlaufenden betrieblichen Ausgaben sollte man den Kontostand also im Blick behalten!
 - Die SVS wollte beim zweiten Wochengeld-Antrag einen zusätzlichen „Nachweis meiner selbstständigen Erwerbstätigkeit“ in Form von
   - Anmeldung der selbstständigen Tätigkeit (Formular Verf24),
@@ -48,6 +51,7 @@ Letzteres kam überraschend und war meiner Meinung nach lästiger Zusatzaufwand.
 Nach der Geburt wird die Geburtsurkunde des Kindes automatisch an die SVS weitergeleitet. Einzig der Nachweis über einen Kaiserschnitt oder Mehrlingsgeburt (bekommt man im Krankenhaus) muss selbstständig nachgereicht werden; danach richtet sich dann die restliche Bezugszeit des Wochengeldes!
 
 Weitere Infos zum Wochengeld:
+
 - [Wochengeld & Mutterschaftsbetriebshilfe – SVS](https://www.svs.at/cdscontent/?contentid=10007.816826)
 - [Selbstständigkeit und Schwangerschaft – USP](https://www.usp.gv.at/themen/mitarbeiter-und-gesundheit/gesundheit/selbststaendigkeit-und-schwangerschaft.html)
 
@@ -68,6 +72,7 @@ Wie in der Einleitung beschrieben, war/ist uns auch wichtig, die Kinderbetreuung
 Weiters war zu beachten, dass wir während der Bezugszeiten nicht zu viel dazu verdienen, dazu weiter unten noch ein paar Worte.
 
 Hier einige weiterführende Links zum Kinderbetreuungsgeld mit umfassenden ersten Infos:
+
 - [Kinderbetreuungsgeld (SVS)](https://www.svs.at/cdscontent/?contentid=10007.834951)
 - [Kinderbetreuungsgeld (WKO)](https://www.wko.at/fiw/schwangerschaft/kinderbetreuungsgeld-fuer-selbststaendige)
 - [Zuverdienstgrenzen KBG (WKO)](https://www.wko.at/fiw/schwangerschaft/zuverdienstgrenzen-beim-kinderbetreuungsgeld)
@@ -108,6 +113,7 @@ Unser Plan war einerseits die **gleichmäßige Aufteilung der Kinderbetreuung** 
 Jede Situation ist wieder etwas anders und hat seine eigenen Nuancen; ich habe hier unsere Geschichte beschrieben: zwei Einzelunternehmer:innen mit gutem Einkommen und sehr hoher Flexibilität beim Jonglieren von Arbeitszeiten, Kund:innen und Projekten.
 
 Was aber grundsätzlich für alle gilt:
+
 - Zuerst muss die Schwangerschaft bekannt gegeben werden.
 - Während der Mutterschutzzeit kann Wochengeld beantragt werden (wenn keine Betriebshilfe in Frage kommt). Dieses am besten noch kurz vor der Geburt beantragen. Ausbezahlt wird die erste Tranche erst nach der Geburt.
 - Das Kinderbetreuungsgeld kann gleich nach der Geburt beantragt werden. Es gibt die Pauschalleistung (KBG-Konto) und das einkommensabhängige KBG. Was besser geeignet ist, entscheidet jede(r) für sich. Beide Elternteile müssen sich für das selbe System entscheiden. (Auch das ist eventuell ein Fall für’s ein Tabellenblatt 😅)
