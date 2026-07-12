@@ -108,7 +108,7 @@ Noch zwei Gedanken dazu: Als Selbstständige:r kann man gegen Jahresende entsche
 
 Ihr könnt euch nun vielleicht vorstellen, dass wir viel Zeit rund um die beiden Schwangerschaften in Spreadsheets verbracht haben. 😄 Da wir ganz gut mit Zahlen umgehen können, haben wir das aber großteils gern gemacht und auch einiges dabei gelernt.
 
-Unser Plan war einerseits die **gleichmäßige Aufteilung der Kinderbetreuung** und dabei aber auch das **Optimieren der finanziellen Leistungen** – wir wollten unsere berufliche Flexibilität so gut es geht ausnutzen.
+Unser Plan war einerseits die **gleichmäßige Aufteilung der Kinderbetreuung** und dabei aber auch das **Optimieren der finanziellen Leistungen** – wir wollten unsere berufliche Flexibilität, so gut es geht, ausnutzen.
 
 Jede Situation ist wieder etwas anders und hat seine eigenen Nuancen; ich habe hier unsere Geschichte beschrieben: zwei Einzelunternehmer:innen mit gutem Einkommen und sehr hoher Flexibilität beim Jonglieren von Arbeitszeiten, Kund:innen und Projekten.
 
@@ -116,8 +116,8 @@ Was aber grundsätzlich für alle gilt:
 
 - Zuerst muss die Schwangerschaft bekannt gegeben werden.
 - Während der Mutterschutzzeit kann Wochengeld beantragt werden (wenn keine Betriebshilfe in Frage kommt). Dieses am besten noch kurz vor der Geburt beantragen. Ausbezahlt wird die erste Tranche erst nach der Geburt.
-- Das Kinderbetreuungsgeld kann gleich nach der Geburt beantragt werden. Es gibt die Pauschalleistung (KBG-Konto) und das einkommensabhängige KBG. Was besser geeignet ist, entscheidet jede(r) für sich. Beide Elternteile müssen sich für das selbe System entscheiden. (Auch das ist eventuell ein Fall für’s ein Tabellenblatt 😅)
-- Nach der Geburt muss ggf. eine Bestätigung über Section/Mehrlingsgeburt an die SVS geschickt werden.
+- Das Kinderbetreuungsgeld kann gleich nach der Geburt beantragt werden. Es gibt die Pauschalleistung (KBG-Konto) und das einkommensabhängige KBG. Was besser geeignet ist, entscheidet jede(r) für sich. Beide Elternteile müssen sich für das selbe System entscheiden. (Auch das ist eventuell ein Fall für ein Tabellenblatt 😅)
+- Nach der Geburt muss ggf. eine Bestätigung über Kaiserschnitt/Mehrlingsgeburt an die SVS geschickt werden.
 - Sobald erledigt, schickt den Nachweis über die Mutter-Kind-Pass-Untersuchungen an die SVS.
 - Falls notwendig und sinnvoll, am besten gleich nach dem Bezug des KBG eine Einkommensabgrenzung an die SVS schicken; das heißt eine Aufstellung über Einnahmen und Ausgaben in den vollen KBG-Bezugsmonaten.
 
