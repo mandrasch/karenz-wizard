@@ -90,3 +90,6 @@ Warum diese Regelung eingeführt wurde, müsste ich nun wohl beim BMASGPK [Bunde
 Eine echte Planungssicherheit für unverheiratete Eltern wäre meiner Ansicht nach enorm wichtig - insbesondere wenn Väter bspw. noch ein paar Monate länger nach den 12+2 Monaten des einkommensabhängigen Kinderbetreuungsgeld in unbezahlte Karenz gehen möchten! Auch durch den [Wegfall der Bildungskarenz nach Elternkarenz](/blog/bildungskarenz-bruecke-erwerbsleben-entfaellt/) könnte eine unbezahlte Karenz relevanter werden für einige Eltern.
 
 _Falls schon jemand unverheiratet in unbezahlte Karenz gegangen ist und die ÖGK Mitversicherung bewilligt / nicht bewilligt bekommen hat - sehr gerne [bei mir melden](mailto:matthias-andrasch-kontakt@mailbox.org) mit kurzem Erfahrungsbericht!_
+
+Update 05.10.2026: Zumindest für einen Fall (als Arbeitssuchender) kann ich nun sagen, dass die Mitversicherung kein Problem darstellte - [Mitversicherung unverheiratet - Erfahrungsbericht zur Klausel "haushaltsführende Person"
+](/blog/mitversicherung-unverheiratet-erfahrungsbericht-haushaltsfuehrende-person/).

@@ -9,6 +9,9 @@ Am 15.08.2025 stellte ich diese Anfrage an das ÖGK-Presseteam, ~~bisher leider 
 
 Update 3.12.2025: Die Anfrage wurde [inzwischen beantwortet](/blog/antwort-presseanfrage-oegk-unbezahlte-karenz-mitversicherung/).
 
+Update 05.10.2026: Zumindest für einen Fall (als Arbeitssuchender) kann ich nun sagen, dass die Mitversicherung kein Problem darstellte - [Mitversicherung unverheiratet - Erfahrungsbericht zur Klausel "haushaltsführende Person"
+](/blog/mitversicherung-unverheiratet-erfahrungsbericht-haushaltsfuehrende-person/).
+
 <details>
 <summary>Anfrage: Infos zu "Unbezahlte Karenz und ÖGK Mitversicherung - haushaltsführende Person"</summary>
 
