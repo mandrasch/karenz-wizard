@@ -6,6 +6,10 @@ export interface Props {
     slug: string;
     pubDate: Date;
     teaser: string;
+    // Optional: absolute path to a file in public/ (frontmatter ogImage).
+    // Cards without an image still render the same 16:9 media block
+    // (gray placeholder) so the grid layout stays uniform.
+    image?: string;
   };
 }
 
@@ -24,6 +28,25 @@ const href = `/blog/${post.slug}/`;
 <article
   class="flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-sm transition-shadow duration-200 focus-within:shadow-lg hover:shadow-lg focus:outline-none"
 >
+  <!-- Media block always present: image when ogImage is set, gray
+       placeholder otherwise. Fixed 16:9 ratio keeps card heights uniform.
+       alt="" — the linked h3 below already names the post. -->
+  <div class="aspect-[16/9] w-full overflow-hidden bg-slate-100">
+    {
+      post.image && (
+        <img
+          src={post.image}
+          alt=""
+          width={1200}
+          height={630}
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover"
+        />
+      )
+    }
+  </div>
+
   <div class="flex flex-1 flex-col px-6 py-6">
     <p class="text-xs font-semibold tracking-wide text-slate-500 uppercase">
       {formatted}

@@ -17,6 +17,7 @@ const latestPosts = (await getCollection('blog'))
     slug: post.data.slug,
     pubDate: post.data.pubDate,
     teaser: toTeaser(post.body ?? ''),
+    image: post.data.ogImage,
   }));
 
 const metadata = {
