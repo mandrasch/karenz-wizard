@@ -13,7 +13,7 @@ const posts = (await getCollection('blog'))
     title: post.data.title,
     slug: post.data.slug,
     pubDate: post.data.pubDate,
-    teaser: toTeaser(post.body ?? ''),
+    teaser: toTeaser(post.data.description ?? post.body ?? ''),
   }));
 const metadata = {
   title: 'Blog – Karenz Wizard',

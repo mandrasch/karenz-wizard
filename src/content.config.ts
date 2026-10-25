@@ -23,7 +23,9 @@ const authors = defineCollection({
 });
 
 const blog = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: 'src/content/blog' }),
+  // .md for plain posts, .mdx for posts that embed Astro components
+  // (e.g. <PrivacyEmbed> in the SRF/Einsamkeit post).
+  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/blog' }),
   schema: z.object({
     title: z.string(),
     pubDate: z.coerce.date(),

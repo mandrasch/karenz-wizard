@@ -1,23 +1,37 @@
 ---
 // PrivacyEmbed.astro — 2-click consent overlay for third-party embeds.
-// Ported from another project; kept mostly verbatim.
+// Ported from mandrasch.dev; adapted for Karenz Wizard.
 //
-// Adapted for Karenz Wizard:
-//   - DOMContentLoaded + immediate init fallback added. Original script
-//     only listened to `astro:page-load`, which is fired by Astro's
-//     View Transitions Router. We don't use that router (dropped in
-//     Phase 4 per AGENTS.md "no container swaps on navigation"), so
-//     the embed never initialized on first load. The `data-initialized`
-//     guard makes multiple init calls safe.
+//   - No iframe (and therefore no request to the provider) is created until
+//     the user explicitly clicks. Consent is remembered per provider for the
+//     current browser session.
+//   - `poster` is optional. Without it the component shows the text consent
+//     box used on the step pages. With it, a self-hosted thumbnail + play
+//     button is shown instead (never hotlink thumbnails: that would leak an
+//     IP to the provider before consent).
+//   - Karenz Wizard runs without Astro's View Transitions router, so init
+//     runs on DOMContentLoaded (or immediately if the DOM is already parsed)
+//     in addition to `astro:page-load`. A `data-initialized` guard keeps
+//     multiple init calls safe.
 
 interface Props {
   provider: 'youtube' | 'twitter' | 'mastodon' | 'vimeo' | 'other';
   embedUrl: string;
   title?: string;
   directUrl?: string;
+  /** Optional self-hosted URL of a poster image (e.g. /blog-images/foo.jpg). */
+  poster?: string;
+  posterAlt?: string;
 }
 
-const { provider, embedUrl, title = 'Embedded content', directUrl } = Astro.props;
+const {
+  provider,
+  embedUrl,
+  title = 'Eingebetteter Inhalt',
+  directUrl,
+  poster,
+  posterAlt = '',
+} = Astro.props;
 
 const providerNames: Record<string, string> = {
   youtube: 'YouTube',
@@ -29,106 +43,158 @@ const providerNames: Record<string, string> = {
 
 const providerName = providerNames[provider] || providerNames.other;
 const storageKey = `embed-consent-${provider}`;
+const hasPoster = Boolean(poster);
+const isShorts = provider === 'youtube' && embedUrl.includes('/shorts/');
 ---
 
 <div
-  class="privacy-embed"
+  class:list={[
+    'privacy-embed',
+    'not-prose',
+    {
+      'privacy-embed--poster': hasPoster,
+      'privacy-embed--shorts': isShorts,
+    },
+  ]}
   data-provider={provider}
   data-embed-url={embedUrl}
   data-storage-key={storageKey}
+  data-title={title}
 >
   <div class="privacy-overlay">
-    <div class="privacy-content">
-      <div class="privacy-icon">
-        {
-          provider === 'youtube' && (
-            <svg class="h-16 w-16 text-red-600" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-            </svg>
-          )
-        }
-        {
-          provider !== 'youtube' && (
+    {
+      hasPoster ? (
+        <div class="privacy-poster">
+          <img src={poster} alt={posterAlt} decoding="async" />
+          <button
+            type="button"
+            class="privacy-play"
+            data-action="load-once"
+            aria-label={`Video von ${providerName} laden: ${title}`}
+          >
             <svg
-              class="h-16 w-16 text-accent"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+              class="privacy-play-icon"
+              viewBox="0 0 64 64"
+              fill="currentColor"
+              aria-hidden="true"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-              />
+              <circle cx="32" cy="32" r="32" fill="rgba(15, 23, 42, 0.72)" />
+              <path d="M25 19.5v25l21-12.5-21-12.5z" fill="#fff" />
             </svg>
-          )
-        }
-      </div>
+          </button>
+        </div>
+      ) : (
+        <div class="privacy-content">
+          <div class="privacy-icon">
+            {provider === 'youtube' ? (
+              <svg class="h-16 w-16 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+            ) : (
+              <svg
+                class="h-16 w-16 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
+              </svg>
+            )}
+          </div>
 
-      <h3 class="privacy-title">{title}</h3>
+          <h3 class="privacy-title">{title}</h3>
 
-      <p class="privacy-description">
-        Dieser Inhalt wird von {providerName} bereitgestellt. Beim Laden werden Daten an {
-          providerName
-        } übertragen.
-      </p>
+          <p class="privacy-description">
+            Dieser Inhalt wird von {providerName} bereitgestellt. Beim Laden werden Daten an{' '}
+            {providerName} übertragen.
+          </p>
 
-      <div class="privacy-actions">
-        <button class="privacy-load-btn" data-action="load-once"
-          >Inhalte von {providerName} laden</button
-        >
-      </div>
+          <div class="privacy-actions">
+            <button type="button" class="privacy-load-btn" data-action="load-once">
+              Inhalte von {providerName} laden
+            </button>
+          </div>
 
-      {
-        directUrl && (
-          <a href={directUrl} target="_blank" rel="noopener noreferrer" class="privacy-direct-link">
-            Direkt auf {providerName} öffnen →
-          </a>
-        )
-      }
-    </div>
+          {directUrl && (
+            <a
+              href={directUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="privacy-direct-link"
+            >
+              Direkt auf {providerName} öffnen →
+            </a>
+          )}
+        </div>
+      )
+    }
+
+    {
+      hasPoster && (
+        <p class="privacy-note">
+          Beim Abspielen werden Daten an {providerName} übertragen.{' '}
+          {directUrl && (
+            <a
+              href={directUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="privacy-direct-link"
+            >
+              Direkt auf {providerName} öffnen →
+            </a>
+          )}
+        </p>
+      )
+    }
   </div>
 
-  <div class="privacy-embed-container" style="display: none;" title={title}></div>
+  <div class="privacy-embed-container" hidden></div>
 </div>
 
 <script>
   class PrivacyEmbed {
+    element: HTMLElement;
+    provider: string;
+    embedUrl: string;
+    storageKey: string;
+    title: string;
+    overlay: HTMLElement;
+    container: HTMLElement;
+    trigger: HTMLButtonElement | null;
+    loaded = false;
+
     constructor(element: HTMLElement) {
       this.element = element;
       this.provider = element.dataset.provider!;
       this.embedUrl = element.dataset.embedUrl!;
       this.storageKey = element.dataset.storageKey!;
+      this.title = element.dataset.title || 'Eingebetteter Inhalt';
 
       this.overlay = element.querySelector('.privacy-overlay') as HTMLElement;
       this.container = element.querySelector('.privacy-embed-container') as HTMLElement;
-      this.loadBtn = element.querySelector('.privacy-load-btn') as HTMLButtonElement;
+      this.trigger = element.querySelector('[data-action="load-once"]');
       this.init();
     }
 
-    element: HTMLElement;
-    provider: string;
-    embedUrl: string;
-    storageKey: string;
-    overlay: HTMLElement;
-    container: HTMLElement;
-    loadBtn: HTMLButtonElement;
-    loaded = false;
-
     init() {
-      // Check if user has already consented in this session
-      const consent = sessionStorage.getItem(this.storageKey);
-      if (consent === 'granted') {
-        this.loadEmbed();
-        return;
+      // Consent is session-scoped, so it is gone after closing the tab.
+      try {
+        if (sessionStorage.getItem(this.storageKey) === 'granted') {
+          this.loadEmbed();
+          return;
+        }
+      } catch {
+        // sessionStorage can be unavailable (private mode / blocked cookies).
       }
 
-      // Set up event listeners
-      this.loadBtn.addEventListener('click', () => this.handleLoad());
+      this.trigger?.addEventListener('click', () => this.handleLoad());
 
-      // Listen for sibling instances on the same page granting consent,
-      // so accepting one embed reveals all embeds of the same provider.
+      // Accepting one embed reveals all embeds of the same provider on the page.
       document.addEventListener('privacy-embed-consent', (event) => {
         const detail = (event as CustomEvent<{ provider: string }>).detail;
         if (detail?.provider === this.provider && !this.loaded) {
@@ -138,7 +204,11 @@ const storageKey = `embed-consent-${provider}`;
     }
 
     handleLoad() {
-      sessionStorage.setItem(this.storageKey, 'granted');
+      try {
+        sessionStorage.setItem(this.storageKey, 'granted');
+      } catch {
+        // Ignore storage failures; the embed still loads for this view.
+      }
       document.dispatchEvent(
         new CustomEvent('privacy-embed-consent', { detail: { provider: this.provider } })
       );
@@ -149,33 +219,17 @@ const storageKey = `embed-consent-${provider}`;
       if (this.loaded) return;
       this.loaded = true;
 
-      // Hide overlay
-      this.overlay.style.display = 'none';
+      this.overlay.hidden = true;
+      this.container.hidden = false;
 
-      // Show container
-      this.container.style.display = 'block';
-
-      // Create iframe
       const iframe = document.createElement('iframe');
       iframe.src = this.embedUrl;
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('allowfullscreen', '');
-      iframe.setAttribute(
-        'allow',
-        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-      );
-      iframe.style.width = '100%';
-      iframe.style.height = '100%';
-      iframe.style.minHeight = '400px';
-
-      // YouTube shorts need different aspect ratio
-      if (this.provider === 'youtube' && this.embedUrl.includes('/shorts/')) {
-        iframe.style.aspectRatio = '9/16';
-        iframe.style.maxWidth = '500px';
-        iframe.style.margin = '0 auto';
-      } else {
-        iframe.style.aspectRatio = '16/9';
-      }
+      iframe.title = this.title;
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
 
       this.container.appendChild(iframe);
     }
@@ -210,94 +264,166 @@ const storageKey = `embed-consent-${provider}`;
   }
 
   .privacy-overlay {
-    background: var(--bg-card, #f9fafb);
-    border: 1px solid var(--border, #e5e7eb);
+    background: #f8fafc;
+    border: 1px solid rgb(226 232 240);
     border-radius: 12px;
-    padding: 3rem 2rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem) 1.5rem;
     text-align: center;
   }
 
-  :global(.dark) .privacy-overlay {
-    background: var(--bg-card, #1f2937);
-    border-color: var(--border, #374151);
+  .privacy-overlay[hidden],
+  .privacy-embed-container[hidden] {
+    display: none;
   }
 
   .privacy-content {
-    max-width: 500px;
+    max-width: 34rem;
     margin: 0 auto;
   }
 
   .privacy-icon {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     display: flex;
     justify-content: center;
   }
 
   .privacy-title {
-    font-size: 1.5rem;
+    margin: 0 0 0.75rem;
+    font-size: 1.375rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    line-height: 1.3;
     color: var(--aw-color-text-heading);
   }
 
   .privacy-description {
-    color: var(--aw-color-text-muted);
-    margin-bottom: 2rem;
+    margin: 0 0 1.5rem;
     line-height: 1.6;
+    color: var(--aw-color-text-muted);
   }
 
   .privacy-actions {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .privacy-load-btn {
-    background: var(--accent, #2563eb);
-    color: white;
     padding: 0.75rem 2rem;
-    border-radius: 8px;
     border: none;
+    border-radius: 9999px;
+    background: #c94d54;
+    color: #fff;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
   }
 
   .privacy-load-btn:hover {
-    background: var(--accent-dark, #1d4ed8);
+    background: #b64048;
     transform: translateY(-1px);
   }
 
-  .privacy-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 0.875rem;
-    color: var(--aw-color-text-muted);
-  }
-
-  .privacy-checkbox input {
-    cursor: pointer;
+  .privacy-load-btn:focus-visible,
+  .privacy-play:focus-visible {
+    outline: 2px solid #c94d54;
+    outline-offset: 3px;
   }
 
   .privacy-direct-link {
     display: inline-block;
-    color: var(--accent, #2563eb);
-    text-decoration: none;
+    color: #c94d54;
     font-size: 0.875rem;
-    transition: opacity 0.2s;
+    text-decoration: none;
   }
 
   .privacy-direct-link:hover {
-    opacity: 0.8;
     text-decoration: underline;
   }
 
   .privacy-embed-container {
-    border-radius: 12px;
     overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    background: #000;
+  }
+
+  /* :global() is required because the iframe is created by the client script
+     and therefore has no Astro scope attribute. */
+  .privacy-embed-container :global(iframe) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .privacy-embed--shorts .privacy-embed-container {
+    max-width: 22.5rem;
+    margin-inline: auto;
+    aspect-ratio: 9 / 16;
+  }
+
+  /* Optional poster variant (2-click UI with a self-hosted thumbnail). */
+  .privacy-embed--poster .privacy-overlay {
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .privacy-poster {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    background: #0f172a;
+  }
+
+  .privacy-embed--shorts .privacy-poster {
+    max-width: 22.5rem;
+    margin-inline: auto;
+    aspect-ratio: 9 / 16;
+  }
+
+  .privacy-poster img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+  }
+
+  .privacy-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .privacy-play-icon {
+    width: clamp(3.5rem, 12vw, 5rem);
+    height: clamp(3.5rem, 12vw, 5rem);
+    filter: drop-shadow(0 4px 12px rgb(0 0 0 / 35%));
+    transition: transform 0.2s ease;
+  }
+
+  .privacy-play:hover .privacy-play-icon {
+    transform: scale(1.06);
+  }
+
+  .privacy-note {
+    margin: 0.75rem 0 0;
+    font-size: 0.875rem;
+    color: var(--aw-color-text-muted);
+    text-align: center;
   }
 </style>
