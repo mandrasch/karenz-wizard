@@ -157,7 +157,7 @@ Soweit ich es medial mitbekommen habe, ächzen auch Kindergärten, Schulen und P
 
 ## Feedback, Anmerkungen oder Erwiderungen?
 
-Gerne per E-Mail, Mastodon oder Bluesky!
+Gerne per [E-Mail](mailto:matthias-andrasch-kontakt@mailbox.org), [Mastodon](https://social.tchncs.de/@mandrasch/117501739415691382) oder [Bluesky](https://bsky.app/profile/mandrasch.bsky.social/post/3mypcdtngns22)!
 
 _Mein Beileid an alle Angehörigen von Menschen, die wegen der Hitzebelastung verstorben sind._
 
