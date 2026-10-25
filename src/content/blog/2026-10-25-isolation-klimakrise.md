@@ -24,9 +24,17 @@ Ich spreche hier (leider) aus eigener Erfahrung, teils war es wirklich sehr schw
 
 Auch die Autorin [Stefanie Sargnagel](https://www.instagram.com/sargnagelstefe/) hatte auf Instagram von den Herausforderungen berichtet und bekam zahlreiche Nachrichten von (verzweifelten) Eltern mit Babys.
 
-<img src="sargnagel_instagram_baby_screenshot.jpg" alt="">
-<img src="sargnagel_instagram_baby_screenshot_2.jpg" alt="">
-<img src="sargnagel_instagram_baby_screenshot_3.jpg" alt="">
+<div style="display:flex;flex-direction:row; flex-gap:5px;">
+<a href="/blog-images/sargnagel_instagram_baby_screenshot.jpg">
+<img src="/blog-images/sargnagel_instagram_baby_screenshot.jpg" alt="" style="max-height:300px;">
+</a>
+<a href="/blog-images/sargnagel_instagram_baby_screenshot_2.jpg">
+<img src="/blog-images/sargnagel_instagram_baby_screenshot_2.jpg" alt="" style="max-height:300px;">
+</a>
+<a href="/blog-images/sargnagel_instagram_baby_screenshot_3.jpg">
+<img src="/blog-images/sargnagel_instagram_baby_screenshot_3.jpg" alt="" style="max-height:300px;">
+</a>
+</div>
 
 Dass die Klimakrise zur riesigen Herausforderung wird, war mir bewusst. Aber der Hitzesommer 2026 kam dann doch sehr brutal daher für Neu-Eltern - während viele andere die Mittagszeit halt in klimatisierten Büros überbrückten.
 
@@ -153,7 +161,7 @@ Gerne per E-Mail, Mastodon oder Bluesky!
 
 _Mein Beileid an alle Angehörigen von Menschen, die wegen der Hitzebelastung verstorben sind._
 
-## PS: Mehr zum Thema Gesundheit, Kinder & Klimakrise
+## PS: Mehr zum Thema
 
 - [„Was macht die Klimakrise mit unseren Kindern?“](https://www.linkedin.com/feed/update/urn:li:activity:7519336970809090049/) - PD Dr. med. Dirk Holzinger,
   Vorstandsmitglied bei KLUG e.v. (Allianz für Klimawandel und Gesundheit)
