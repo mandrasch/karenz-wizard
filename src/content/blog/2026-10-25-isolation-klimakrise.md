@@ -24,7 +24,7 @@ Ich spreche hier (leider) aus eigener Erfahrung, teils war es wirklich sehr schw
 
 Auch die Autorin [Stefanie Sargnagel](https://www.instagram.com/sargnagelstefe/) hatte auf Instagram von den Herausforderungen berichtet und bekam zahlreiche Nachrichten von (verzweifelten) Eltern mit Babys.
 
-<div style="display:flex;flex-direction:row; flex-gap:5px;">
+<div style="display:flex;flex-direction:row; gap:5px;">
 <a href="/blog-images/sargnagel_instagram_baby_screenshot.jpg">
 <img src="/blog-images/sargnagel_instagram_baby_screenshot.jpg" alt="" style="max-height:300px;">
 </a>
