@@ -1,12 +1,12 @@
 ---
-title: Babys in der Hitzewelle - was planen Städte und Gemeinden für den  Sommer 2027? Was müssen Eltern vorbereiten?
-pubDate: 2026-10-25
+title: Babys in der Hitzewelle - was planen Städte und Gemeinden für den Sommer 2027? Was müssen Eltern selber vorbereiten?
+pubDate: 2026-10-25T12:00:00
 slug: einsamkeit-isolation-eltern-klimakrise
 author: matthias-andrasch
 ogImage: /blog-images/hitzesommer_schlafzimmer.jpeg
 ---
 
-In einem anderen Beitrag hier im Blog habe ich die [eindrucksvolle SRF-Doku zur Einsamkeit von Müttern und Vätern](/blog/einsamkeit-isolation-als-herausforderung-doku) geteilt.
+In einem anderen Beitrag hier im Blog habe ich die [eindrucksvolle SRF-Doku zur Einsamkeit von Müttern und Vätern](/blog/einsamkeit-isolation-als-kaum-beachtete-herausforderung-doku) geteilt.
 
 Die Klimakrise bringt hier aus meiner Sicht eine neue Komponente mit sich: Nie zuvor mussten Eltern mit Babys und Kleinkindern sich in Österreich oder Mitteleuropa mit wochenlangen Temperaturen um die 40 Grad und [einem steigenden UV-Index](https://www.bfs.de/SharedDocs/Pressemitteilungen/BfS/DE/2026/008.html) auseinandersetzen.
 
@@ -152,3 +152,8 @@ Soweit ich es medial mitbekommen habe, ächzen auch Kindergärten, Schulen und P
 Gerne per E-Mail, Mastodon oder Bluesky!
 
 _Mein Beileid an alle Angehörigen von Menschen, die wegen der Hitzebelastung verstorben sind._
+
+## PS: Mehr zum Thema Gesundheit, Kinder & Klimakrise
+
+- [„Was macht die Klimakrise mit unseren Kindern?“](https://www.linkedin.com/feed/update/urn:li:activity:7519336970809090049/) - PD Dr. med. Dirk Holzinger,
+  Vorstandsmitglied bei KLUG e.v. (Allianz für Klimawandel und Gesundheit)

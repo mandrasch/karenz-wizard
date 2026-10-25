@@ -13,6 +13,7 @@
 //   wizard-shadow.png — wizard with a baked-in soft drop-shadow
 import { OGImageRoute } from 'astro-og-canvas';
 import { getCollection } from 'astro:content';
+import { stripShy } from '~/utils/text';
 
 const posts = await getCollection('blog');
 
@@ -28,8 +29,12 @@ const pages = Object.fromEntries(
 // observed 84-char `mutter-startet-volksbegehren` title fits exactly. Longer
 // titles get ellipsised to avoid clipping at the bottom of the card.
 const MAX_TITLE_CHARS = 85;
-const fitTitle = (t: string) =>
-  t.length <= MAX_TITLE_CHARS ? t : t.slice(0, MAX_TITLE_CHARS - 1).trimEnd() + '…';
+const fitTitle = (input: string) => {
+  // Soft hyphens are line-break hints for the browser; the canvas doesn't
+  // need them and they would count against the character budget.
+  const t = stripShy(input);
+  return t.length <= MAX_TITLE_CHARS ? t : t.slice(0, MAX_TITLE_CHARS - 1).trimEnd() + '…';
+};
 
 // LAYOUT NOTE — astro-og-canvas has only two text slots (title, description),
 // drawn stacked beneath the logo which sits in the upper-left corner

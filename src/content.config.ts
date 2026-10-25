@@ -2,7 +2,7 @@
 // Lives at src/content.config.ts (the Astro 5 canonical location),
 // NOT src/content/config.ts.
 //
-// Blog posts live at src/content/blog/*.md with frontmatter:
+// Blog posts live at src/content/blog/*.{md,mdx} with frontmatter:
 //   { title: string, pubDate: date, slug: string, description?: string,
 //     ogImage?: string }
 // The slug field is the SOURCE OF TRUTH for URLs — preserves stability
@@ -11,6 +11,7 @@
 
 import { defineCollection, reference, z } from 'astro:content';
 import { glob, file } from 'astro/loaders';
+import { decodeShy } from './utils/text';
 
 const authors = defineCollection({
   loader: file('src/data/authors.json'),
@@ -27,7 +28,9 @@ const blog = defineCollection({
   // (e.g. <PrivacyEmbed> in the SRF/Einsamkeit post).
   loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/blog' }),
   schema: z.object({
-    title: z.string(),
+    // Authors may use `&shy;` in frontmatter; decode it to U+00AD so it works
+    // in headings, cards and meta tags alike (frontmatter is not HTML).
+    title: z.string().transform(decodeShy),
     pubDate: z.coerce.date(),
     slug: z.string(),
     description: z.string().optional(),
