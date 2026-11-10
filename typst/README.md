@@ -29,22 +29,30 @@ auch `../MANIFESTO.md` (Projektziele) und `../AGENTS.md` (Website-Regeln).
 ## Build
 
 ```sh
+npm install
 npm run pdf:ratgeber
 ```
 
 Produces `typst/ratgeber-vaeterkarenz.pdf` (gitignored).
 
-The npm script is:
+The npm script runs:
 
 ```sh
-PATH="$PWD/.typst:$PATH" typst compile --font-path typst/fonts \
-  typst/ratgeber-vaeterkarenz.typ
+typst compile --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ
 ```
 
-It prepends the project-local `.typst/` directory to `PATH`, so the
-pinned local Typst binary is used (a globally installed `typst` would
-act as a fallback only). `--font-path typst/fonts` makes the
-vendored fonts available.
+`typst` is provided by the pinned `@flukxr/typst-cli` devDependency
+(npm puts `node_modules/.bin` on `PATH` inside npm scripts).
+`--font-path typst/fonts` makes the vendored fonts available.
+
+For live rebuilding while editing:
+
+```sh
+npm run pdf:ratgeber:watch
+```
+
+Open `typst/ratgeber-vaeterkarenz.pdf` in a PDF viewer; it refreshes
+after each save.
 
 ## Externe Pakete (QR-Codes)
 
@@ -53,7 +61,7 @@ Die QR-Codes (Helfer `videoqr` im `.typ`) nutzen das Typst-Universe-Paket
 (`#import "@preview/tiaoma:0.3.0"`). Beim **ersten** Compile lädt Typst das
 Paket einmalig in seinen lokalen Cache (`~/.cache/typst/packages` bzw.
 `~/Library/Caches/typst/packages`), danach offline nutzbar. Die CI
-(`setup-typst`) hat Netzzugang, also funktioniert es dort automatisch.
+hat Netzzugang, also funktioniert es dort automatisch.
 
 Wer komplett offline/reproduzierbar bauen will (analog zum gepinnten
 Binary), kann das Paket lokal vendern und als `@local/tiaoma:0.3.0`
@@ -61,91 +69,68 @@ importieren — siehe den TinyTapeout-Mirror
 (`github.com/TinyTapeout/typst-tiaoma`). QR rendert als reines
 Schwarz-Weiß (toner-sparsam, passt zum Eco-Druck-Ziel).
 
-## Typst binary (`.typst/`)
+## Typst via npm
 
-The build uses a **prebuilt official Typst binary**, not npm and not
-Homebrew. It lives at `.typst/typst` and is **gitignored** (it is
-platform-specific and must not be committed).
+The build uses the **official Typst CLI**, installed as a pinned npm
+devDependency: [`@flukxr/typst-cli`](https://github.com/flukxr/typst-cli).
+This is an unofficial npm distribution of the official Typst release
+binaries; npm selects the matching prebuilt package for the current
+OS/architecture (macOS, Linux, Windows; x64 and arm64).
 
-### Where it comes from
+- **Pinned version:** Typst **0.15.1** (`0.15.1-npm.0`).
+- **Source binary:** the unchanged official asset from the Typst
+  `v0.15.1` GitHub release.
+- There is no project-local `.typst/` binary and no global install.
 
-It is the official prebuilt release binary from the Typst project:
-
-- **Source:** `github.com/typst/typst`, release tag **`v0.14.2`**.
-- **Asset:** `typst-aarch64-apple-darwin.tar.xz` (Apple Silicon /
-  arm64). For Intel Macs use `typst-x86_64-apple-darwin.tar.xz`.
-- It is compiled by the Typst team's CI, so no local llvm/rust build
-  is needed and it runs on older macOS too.
-
-Install/refresh it like this (Apple Silicon example):
+Update to the latest stable Typst:
 
 ```sh
-curl -sL -o /tmp/typst.tar.xz \
-  "https://github.com/typst/typst/releases/download/v0.14.2/typst-aarch64-apple-darwin.tar.xz"
-tar -xJf /tmp/typst.tar.xz -C /tmp
-mkdir -p .typst
-cp /tmp/typst-aarch64-apple-darwin/typst .typst/typst
-chmod +x .typst/typst
-./.typst/typst --version   # -> typst 0.14.2 (b33de9de)
+npm install --save-dev --save-exact @flukxr/typst-cli@latest
+npm run pdf:ratgeber
 ```
 
 ### Integrity / verification
 
-The v0.14.2 GitHub release does **not** ship `.sha256` checksum files,
-so there is no official published hash to diff against. The binary was
-verified as follows:
-
-- **Provenance (strongest available check):** the binary reports
-  `typst 0.14.2 (b33de9de)`, and the official `v0.14.2` git tag points
-  to commit `b33de9de113c91c184214b299bd7a8eb3070c3ab` — exact match,
-  i.e. it was built from the official tagged source commit.
-- **Transport integrity:** a fresh re-download of the asset produced a
-  byte-identical binary (same SHA-256), ruling out download
-  corruption.
-
-Recorded SHA-256 values (Apple Silicon, v0.14.2):
-
-```
-binary  (.typst/typst)                  6ea59cf02d3cdfcc0e6fecb856fee3242807b6869a691d823d3ca213c6a941da
-tarball (typst-aarch64-apple-darwin)    470aa49a2298d20b65c119a10e4ff8808550453e0cb4d85625b89caf0cedf048
-```
-
-Re-verify any time with:
+The package records the expected binary and archive SHA-256 values in
+its platform package metadata. npm provenance/attestations can be
+checked with:
 
 ```sh
-shasum -a 256 .typst/typst   # expect 6ea59cf0...941da
-./.typst/typst --version     # expect typst 0.14.2 (b33de9de)
+npm audit signatures
 ```
 
-### Why not Homebrew / npm?
+The binary hash can be compared against the official release asset:
 
-- **Homebrew:** on macOS 13 (and other non-tier-1 configs) there is no
-  prebuilt bottle, so `brew install typst` compiles `llvm` (~167 MB)
-  and `rust` **from source** — hours of build time. Not viable here.
-  On a current macOS with a bottle, `brew install typst` is fine and
-  the npm script's PATH fallback would pick it up.
+```sh
+node -p "require('@flukxr/typst-cli-darwin-arm64/package.json').typst.binarySha256"
+shasum -a 256 node_modules/@flukxr/typst-cli-darwin-arm64/vendor/typst
+```
+
+(Adjust the platform package name for your OS/architecture.)
+
+### Why this and not the old npm wrapper?
+
 - **npm `typst`:** an unmaintained community wrapper, frozen at Typst
-  **0.10** (December 2023). The official Typst project does not
-  publish to npm.
+  **0.10** (December 2023).
+- **`typst.ts`:** a compiler toolkit for browser/Node integrations; its
+  stable releases bundle their own Typst version and can lag behind
+  upstream.
+- **`@flukxr/typst-cli`:** redistributes the official CLI binary and
+  tracks stable Typst releases, so `npm install` gives you the same
+  compiler as the official download.
 
 The `.typ` uses **current Typst features** (`context`, `table.header`
 with a repeating header row, `par.spacing`) and therefore requires
-**Typst ≥ 0.11** (tested with 0.14.2). It will **not** build with the
-old 0.10 npm wrapper.
+**Typst ≥ 0.11** (tested with 0.15.1).
 
 ## OS compatibility
 
-Only the **macOS / prebuilt-binary** path is documented and tested.
-The npm script uses POSIX shell syntax (`PATH="..." cmd`), which does
-not work in native Windows `cmd`. For full cross-OS reproducibility
-some adjustments would still be needed, e.g.:
+The npm package supports macOS, Linux, and Windows on x64 and arm64.
+The npm script uses no POSIX-specific shell syntax, so it also works in
+native Windows `cmd`/PowerShell.
 
-- **mise/asdf:** pin the Typst version in `mise.toml` /
-  `.tool-versions` → identical version on all platforms + CI.
-- **Per-OS prebuilt binary:** download the matching official asset
-  into `.typst/` (no global install), as done here for macOS arm64.
-- Linux: `cargo install --locked typst-cli` or a distro package;
-  Windows: `winget install Typst.Typst` / `scoop install typst`.
+Only the macOS path is currently tested locally; CI runs on
+`ubuntu-latest`.
 
 ## Fonts
 
@@ -165,16 +150,14 @@ uses the same fonts.
 
 ## CI
 
-`.github/workflows/build-ratgeber-pdf.yml` builds the PDF on every pull
-request that touches `typst/**` (and can be run manually via
-`workflow_dispatch` from the Actions tab). It uses the pinned
-`typst-community/setup-typst` action (Typst `0.14.2`, same version as
-the local `.typst/` binary) and runs the same `typst compile` command
-as the `pdf:ratgeber` npm script. The resulting
+`.github/workflows/build-pdf-ratgeber-preview.yml` builds the PDF on
+every pull request that touches `typst/**` or the npm manifest/lockfile
+(and can be run manually via `workflow_dispatch`). It runs `npm ci` and
+`npm run pdf:ratgeber`, using the same pinned `@flukxr/typst-cli`
+version as local development. The resulting
 `ratgeber-vaeterkarenz.pdf` is uploaded as a build artifact
 (`ratgeber-vaeterkarenz-pdf`), so reviewers can download and check the
 rendered PDF without a local Typst setup.
 
-The workflow calls `typst compile` directly (Typst from `setup-typst`
-is already on `PATH`) rather than via the npm script, which prepends
-the local, gitignored `.typst/` directory.
+The deploy workflow (`build-and-deploy.yml`) uses the same npm script
+and copies the PDF to `public/pdf-ratgeber/` before the Astro build.

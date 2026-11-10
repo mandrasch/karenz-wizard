@@ -15,7 +15,8 @@
     "check": "astro check",
     "format": "prettier --write .",
     "lint": "prettier --check .",
-    "pdf:ratgeber": "PATH=\"$PWD/.typst:$PATH\" typst compile --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ"
+    "pdf:ratgeber": "typst compile --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ",
+    "pdf:ratgeber:watch": "typst watch --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.2",
@@ -35,6 +36,7 @@
     "@astrojs/mdx": "^4.3.3",
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/tailwind": "^5.1.5",
+    "@flukxr/typst-cli": "0.15.1-npm.0",
     "@iconify-json/flat-color-icons": "^1.2.1",
     "@iconify-json/tabler": "^1.2.20",
     "@tailwindcss/forms": "^0.5.9",

@@ -15,8 +15,8 @@ node_modules
 # Typst (generated pdf, via `npm run pdf:ratgeber`)
 typst/*.pdf
 
-# Local typst binary (prebuilt, platform-specific), see typst/README.md
-.typst/
+# PDF copied into public/ for local preview (CI generates it during deploy)
+public/pdf-ratgeber/*.pdf
 
 # Claude Code local settings
 .claude/settings.local.json

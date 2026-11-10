@@ -11,31 +11,31 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
+      - name: Setup Node.js 🟢
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
       - name: Cache Ratgeber PDF 缓存 📥
         id: cache-pdf
         uses: actions/cache@v4
         with:
           path: public/pdf-ratgeber/ratgeber-vaeterkarenz.pdf
-          key: pdf-${{ hashFiles('typst/ratgeber-vaeterkarenz.typ') }}
+          key: pdf-${{ hashFiles('typst/ratgeber-vaeterkarenz.typ', 'typst/fonts/**', 'package-lock.json') }}
 
-      - name: Setup Typst 📝
-        if: steps.cache-pdf.outputs.cache-hit != 'true'
-        uses: typst-community/setup-typst@v4
-        with:
-          typst-version: "0.14.2"
+      - name: Install dependencies 📦
+        run: npm ci
 
       - name: Compile PDF 🔧
         if: steps.cache-pdf.outputs.cache-hit != 'true'
         run: |
           mkdir -p public/pdf-ratgeber/
-          typst compile --font-path typst/fonts \
-            typst/ratgeber-vaeterkarenz.typ \
-            public/pdf-ratgeber/ratgeber-vaeterkarenz.pdf
+          npm run pdf:ratgeber
+          cp typst/ratgeber-vaeterkarenz.pdf public/pdf-ratgeber/ratgeber-vaeterkarenz.pdf
 
-      - name: Install and Build 🔧
-        run: |
-          npm ci
-          npm run build
+      - name: Build 🔧
+        run: npm run build
 
       - name: 📂 Deploy via rsync
         uses: burnett01/rsync-deployments@v8

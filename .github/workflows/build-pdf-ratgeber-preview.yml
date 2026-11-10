@@ -3,8 +3,10 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
-      - "typst/**"
-      - ".github/workflows/build-ratgeber-pdf.yml"
+      - 'typst/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/build-pdf-ratgeber-preview.yml'
 jobs:
   build-pdf:
     runs-on: ubuntu-latest
@@ -12,15 +14,17 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-      - name: Setup Typst 📝
-        uses: typst-community/setup-typst@v4
+      - name: Setup Node.js 🟢
+        uses: actions/setup-node@v4
         with:
-          typst-version: "0.14.2"
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies 📦
+        run: npm ci
 
       - name: Compile PDF 🔧
-        run: |
-          typst compile --font-path typst/fonts \
-            typst/ratgeber-vaeterkarenz.typ
+        run: npm run pdf:ratgeber
 
       - name: Upload PDF artifact 📦
         uses: actions/upload-artifact@v4
