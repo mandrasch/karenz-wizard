@@ -1,0 +1,49 @@
+name: CI
+on:
+  workflow_dispatch:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js 🟢
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install dependencies 📦
+        run: npm ci
+
+      - name: Astro check ✅
+        run: npm run check
+
+      - name: Compile Ratgeber PDF 🔧
+        run: npm run pdf:ratgeber
+
+      - name: Build 🔧
+        run: |
+          cp typst/ratgeber-vaeterkarenz.pdf public/pdf-ratgeber/
+          npm run build
+
+      - name: Verify build output 🧪
+        run: |
+          test -f dist/index.html
+          test -f dist/eakbg-planer/index.html
+          test -f dist/pdf-ratgeber/index.html
+          test -f dist/pdf-ratgeber/ratgeber-vaeterkarenz.pdf
+
+      - name: Upload PDF artifact 📦
+        uses: actions/upload-artifact@v7
+        with:
+          name: ratgeber-vaeterkarenz-pdf
+          path: typst/ratgeber-vaeterkarenz.pdf
+          if-no-files-found: error

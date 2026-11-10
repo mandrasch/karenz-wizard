@@ -15,7 +15,10 @@ node_modules
 # Typst (generated pdf, via `npm run pdf:ratgeber`)
 typst/*.pdf
 
-# Local typst binary (prebuilt, platform-specific), see typst/README.md
+# PDF copied into public/ for local preview (CI generates it during deploy)
+public/pdf-ratgeber/*.pdf
+
+# Legacy: pre-@flukxr/typst-cli local binary, remove after 2027-01
 .typst/
 
 # Claude Code local settings

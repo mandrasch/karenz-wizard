@@ -21,7 +21,7 @@ https://karenz-wizard.at
 
 ## Developing
 
-Install dependencies, then start the dev server:
+Node.js 26 is pinned in `.nvmrc` (run `nvm use` if you use nvm). Install dependencies, then start the dev server:
 
 ```sh
 npm install
