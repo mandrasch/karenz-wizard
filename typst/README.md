@@ -106,12 +106,38 @@ OS/architecture (macOS, Linux, Windows; x64 and arm64).
   `v0.15.1` GitHub release.
 - There is no project-local `.typst/` binary and no global install.
 
-Update to the latest stable Typst:
+### Versioning & updating
+
+`@flukxr/typst-cli` versions follow
+`<typst-version>-npm.<packaging-revision>`: `0.15.1-npm.0` is the first
+npm packaging of Typst 0.15.1, and `0.15.0-npm.2` is the third packaging
+of Typst 0.15.0. The `-npm.N` suffix is a semver prerelease that changes
+only when the npm packaging is rebuilt, not when Typst changes. See the
+[package versioning docs](https://www.npmjs.com/package/@flukxr/typst-cli#versioning)
+for details.
+
+This repo pins the exact npm version (`0.15.1-npm.0`) in `package.json`
+and `package-lock.json`. That keeps local builds and CI on the same
+official Typst binary and makes the PDF output reproducible.
+
+With an exact pin, `npm update @flukxr/typst-cli` does nothing. Update
+deliberately to the latest stable Typst:
 
 ```sh
 npm install --save-dev --save-exact @flukxr/typst-cli@latest
 npm run pdf:ratgeber
 ```
+
+If you only want packaging-only fixes within the same Typst release, use
+a caret prerelease range and `npm update`:
+
+```sh
+npm install --save-dev "@flukxr/typst-cli@^0.15.1-npm.0"
+npm update @flukxr/typst-cli
+```
+
+Because `0.15.1-npm.0` is a prerelease, `^0.15.1` does **not** match it,
+and `^0.15.1-npm.0` only matches `0.15.1-npm.N`, not `0.15.2-npm.0`.
 
 ### Integrity / verification
 
