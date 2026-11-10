@@ -54,6 +54,30 @@ npm run pdf:ratgeber:watch
 Open `typst/ratgeber-vaeterkarenz.pdf` in a PDF viewer; it refreshes
 after each save.
 
+### Website preview
+
+The Ratgeber page expects the PDF at
+`public/pdf-ratgeber/ratgeber-vaeterkarenz.pdf`:
+
+```sh
+npm run pdf:ratgeber
+mkdir -p public/pdf-ratgeber
+cp typst/ratgeber-vaeterkarenz.pdf public/pdf-ratgeber/ratgeber-vaeterkarenz.pdf
+npm run dev
+```
+
+Open <http://localhost:4321/pdf-ratgeber/>.
+
+For a live rebuild directly into `public/` while the site is running:
+
+```sh
+mkdir -p public/pdf-ratgeber
+npx typst watch --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ \
+  public/pdf-ratgeber/ratgeber-vaeterkarenz.pdf
+```
+
+Run `npm run dev` in a second terminal. The copied PDF is gitignored.
+
 ## Externe Pakete (QR-Codes)
 
 Die QR-Codes (Helfer `videoqr` im `.typ`) nutzen das Typst-Universe-Paket
