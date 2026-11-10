@@ -68,13 +68,21 @@ npm run dev
 
 Open <http://localhost:4321/pdf-ratgeber/>.
 
+(`mkdir -p` / `cp` above are POSIX shell. On native Windows use
+`New-Item -ItemType Directory -Force public/pdf-ratgeber` and
+`Copy-Item`.)
+
 For a live rebuild directly into `public/` while the site is running:
 
 ```sh
-mkdir -p public/pdf-ratgeber
-npx typst watch --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ \
+npx --no-install typst watch --font-path typst/fonts \
+  typst/ratgeber-vaeterkarenz.typ \
   public/pdf-ratgeber/ratgeber-vaeterkarenz.pdf
 ```
+
+`npx --no-install` resolves the pinned binary from `node_modules/.bin`
+and never downloads the unrelated `typst` package from the registry
+(frozen at Typst 0.10).
 
 Run `npm run dev` in a second terminal. The copied PDF is gitignored.
 
@@ -118,7 +126,10 @@ for details.
 
 This repo pins the exact npm version (`0.15.1-npm.0`) in `package.json`
 and `package-lock.json`. That keeps local builds and CI on the same
-official Typst binary and makes the PDF output reproducible.
+official Typst binary. Note that "same compiler" is not the same as
+"byte-identical output": two builds of unchanged input still differ in
+a few bytes (PDF `/ID` and related metadata), so don't diff PDF hashes
+across runs — compare page count and rendering instead.
 
 With an exact pin, `npm update @flukxr/typst-cli` does nothing. Update
 deliberately to the latest stable Typst:
@@ -158,6 +169,17 @@ shasum -a 256 node_modules/@flukxr/typst-cli-darwin-arm64/vendor/typst
 
 (Adjust the platform package name for your OS/architecture.)
 
+Why we accept the third-party packaging: the wrapper is pinned exactly,
+installed from the lockfile with a `sha512` integrity hash, published
+with registry signatures plus SLSA provenance from the maintainer's
+GitHub Actions workflow, and it ships the unmodified official release
+binaries (hash above). It has no `install`/`postinstall` scripts — the
+only thing that executes is `node_modules/.bin/typst` when you build.
+The residual risk is that `@flukxr/typst-cli` is a single-maintainer
+project, not the Typst org; if that becomes unacceptable, the fallback
+is `typst-community/setup-typst` in CI plus a manually downloaded
+binary locally (what this repo did before).
+
 ### Why this and not the old npm wrapper?
 
 - **npm `typst`:** an unmaintained community wrapper, frozen at Typst
@@ -175,9 +197,10 @@ with a repeating header row, `par.spacing`) and therefore requires
 
 ## OS compatibility
 
-The npm package supports macOS, Linux, and Windows on x64 and arm64.
-The npm script uses no POSIX-specific shell syntax, so it also works in
-native Windows `cmd`/PowerShell.
+The npm package supports macOS, Linux, and Windows on x64 and arm64,
+and the `pdf:ratgeber` / `pdf:ratgeber:watch` scripts are portable
+(no POSIX-only syntax). Only the manual preview steps above (`mkdir -p`,
+`cp`) assume a POSIX shell.
 
 Only the macOS path is currently tested locally; CI runs on
 `ubuntu-latest`.
@@ -211,3 +234,17 @@ rendered PDF without a local Typst setup.
 
 The deploy workflow (`build-and-deploy.yml`) uses the same npm script
 and copies the PDF to `public/pdf-ratgeber/` before the Astro build.
+It deliberately does **not** cache the compiled PDF: the compile takes
+well under a second, while a cache key that misses an input (e.g. an
+image in `typst/assets/`) silently ships a stale PDF — and the whole
+reason the old cache existed was to skip `setup-typst`, which `npm ci`
+now subsumes.
+
+`.github/workflows/ci.yml` runs `npm run check` and `npm run build` on
+every pull request, so the site build (and the Node version pinned in
+`.nvmrc`) is verified before a merge instead of for the first time
+during a deploy.
+
+The Typst-Universe package cache (`~/.cache/typst/packages`, see above)
+is not cached in Actions, so a CI run needs network access to fetch
+`@preview/tiaoma:0.3.0` if it is not already in the runner cache.

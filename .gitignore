@@ -18,6 +18,9 @@ typst/*.pdf
 # PDF copied into public/ for local preview (CI generates it during deploy)
 public/pdf-ratgeber/*.pdf
 
+# Legacy: pre-@flukxr/typst-cli local binary, remove after 2027-01
+.typst/
+
 # Claude Code local settings
 .claude/settings.local.json
 .claude/worktrees
