@@ -38,12 +38,18 @@ Produces `typst/ratgeber-vaeterkarenz.pdf` (gitignored).
 The npm script runs:
 
 ```sh
-typst compile --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ
+typst compile --ignore-system-fonts --font-path typst/fonts \
+  typst/ratgeber-vaeterkarenz.typ
 ```
 
 `typst` is provided by the pinned `@flukxr/typst-cli` devDependency
 (npm puts `node_modules/.bin` on `PATH` inside npm scripts).
-`--font-path typst/fonts` makes the vendored fonts available.
+`--font-path typst/fonts` makes the vendored fonts available, and
+`--ignore-system-fonts` keeps _installed_ fonts out of the build: without
+it Typst also uses fonts from the OS, so a machine with Inter installed
+(say, the variable build) silently renders different headings than CI —
+narrower text and no real bold face. Always pass both flags so local and
+CI output match.
 
 For live rebuilding while editing:
 
@@ -75,7 +81,7 @@ Open <http://localhost:4321/pdf-ratgeber/>.
 For a live rebuild directly into `public/` while the site is running:
 
 ```sh
-npx --no-install typst watch --font-path typst/fonts \
+npx --no-install typst watch --ignore-system-fonts --font-path typst/fonts \
   typst/ratgeber-vaeterkarenz.typ \
   public/pdf-ratgeber/ratgeber-vaeterkarenz.pdf
 ```
@@ -208,7 +214,8 @@ Only the macOS path is currently tested locally; CI runs on
 ## Fonts
 
 `typst/fonts/` contains the vendored fonts (loaded via
-`--font-path typst/fonts`):
+`--font-path typst/fonts`, with `--ignore-system-fonts` so installed
+system fonts never take precedence):
 
 - **Inter** (v4.1, OFL) — the website's brand typeface.
 - **Noto Emoji** (static, monochrome, OFL) — provides the 💰 / ⚠️
@@ -223,14 +230,18 @@ uses the same fonts.
 
 ## CI
 
-`.github/workflows/build-pdf-ratgeber-preview.yml` builds the PDF on
-every pull request that touches `typst/**` or the npm manifest/lockfile
-(and can be run manually via `workflow_dispatch`). It runs `npm ci` and
-`npm run pdf:ratgeber`, using the same pinned `@flukxr/typst-cli`
-version as local development. The resulting
-`ratgeber-vaeterkarenz.pdf` is uploaded as a build artifact
-(`ratgeber-vaeterkarenz-pdf`), so reviewers can download and check the
+There is a single PR workflow, `.github/workflows/ci.yml`. It runs
+`npm ci`, `npm run check`, `npm run pdf:ratgeber`, the Astro build (with
+the PDF copied into `public/pdf-ratgeber/`), asserts that the key routes
+and the PDF exist in `dist/`, and uploads `ratgeber-vaeterkarenz.pdf` as
+the `ratgeber-vaeterkarenz-pdf` artifact so reviewers can check the
 rendered PDF without a local Typst setup.
+
+Because the PDF is compiled inside that job, the artifact under review
+is the same file the deploy workflow ships. It replaces the separate,
+path-filtered `build-pdf-ratgeber-preview.yml`: `npm ci` already
+provides the toolchain and the compile takes ~0.3 s, so a second
+workflow only duplicated work.
 
 The deploy workflow (`build-and-deploy.yml`) uses the same npm script
 and copies the PDF to `public/pdf-ratgeber/` before the Astro build.
@@ -240,10 +251,9 @@ image in `typst/assets/`) silently ships a stale PDF — and the whole
 reason the old cache existed was to skip `setup-typst`, which `npm ci`
 now subsumes.
 
-`.github/workflows/ci.yml` runs `npm run check` and `npm run build` on
-every pull request, so the site build (and the Node version pinned in
-`.nvmrc`) is verified before a merge instead of for the first time
-during a deploy.
+CI runs on a runner without Inter installed, so it always uses the
+vendored fonts; `--ignore-system-fonts` in the npm scripts makes local
+builds behave the same way.
 
 The Typst-Universe package cache (`~/.cache/typst/packages`, see above)
 is not cached in Actions, so a CI run needs network access to fetch

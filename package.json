@@ -15,8 +15,8 @@
     "check": "astro check",
     "format": "prettier --write .",
     "lint": "prettier --check .",
-    "pdf:ratgeber": "typst compile --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ",
-    "pdf:ratgeber:watch": "typst watch --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ"
+    "pdf:ratgeber": "typst compile --ignore-system-fonts --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ",
+    "pdf:ratgeber:watch": "typst watch --ignore-system-fonts --font-path typst/fonts typst/ratgeber-vaeterkarenz.typ"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.2",

@@ -26,11 +26,24 @@ jobs:
       - name: Astro check ✅
         run: npm run check
 
-      - name: Build 🔧
-        run: npm run build
+      - name: Compile Ratgeber PDF 🔧
+        run: npm run pdf:ratgeber
 
-      - name: Verify key routes were built 🧪
+      - name: Build 🔧
+        run: |
+          cp typst/ratgeber-vaeterkarenz.pdf public/pdf-ratgeber/
+          npm run build
+
+      - name: Verify build output 🧪
         run: |
           test -f dist/index.html
           test -f dist/eakbg-planer/index.html
           test -f dist/pdf-ratgeber/index.html
+          test -f dist/pdf-ratgeber/ratgeber-vaeterkarenz.pdf
+
+      - name: Upload PDF artifact 📦
+        uses: actions/upload-artifact@v7
+        with:
+          name: ratgeber-vaeterkarenz-pdf
+          path: typst/ratgeber-vaeterkarenz.pdf
+          if-no-files-found: error
